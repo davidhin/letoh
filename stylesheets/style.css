@@ -1,0 +1,241 @@
+ @import url('https://fonts.googleapis.com/css?family=Lobster');
+/* BASICS */
+html, body{
+	font-family: roboto, sans-serif;
+	padding: 0px;
+	margin: 0px;
+	background: #f4f4f4;
+	height: 100%;
+}
+
+header{   
+    z-index: 2;
+	width: 100%;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+	background: rgb(0,188,212);
+	position: fixed;
+	top: 0px;
+	padding: 16px;
+}
+
+header a h1{
+	display: block;
+	float: left;
+	height: 100%;
+	font-size: 35px;
+	margin: 10px 10px 10px 20px;
+	font-family: Lobster, sans-serif;
+	text-decoration: none;
+}
+
+.letohLogo {
+	font-size: 30px !important;
+	font-family: Lobster, sans-serif !important;
+	color: black;
+}
+
+#mainSearch {
+	display: block;
+	float: left;
+	height: 40px;
+	background: white;
+	border: none;
+	border-radius: 5px;
+	margin: 10px 0px 0px 20px;
+	width: 60%;
+	min-width: 240px;
+}
+
+#profile {
+	text-align: right;
+	padding-top: 20px;
+	padding-right: 40px;
+}
+
+footer {
+    bottom: 0;
+    left: 0;
+    float: left;
+	width: 100%;
+	padding: 2px;
+	font-size: 12px;
+	font-family: Open Sans, sans-serif;
+	background: rgb(0,188,212);
+	z-index: -1;
+}
+
+footer p, footer a {
+	margin: 0px;
+	padding-left: 10px;
+	color: #FFFFFF;
+	float: left;
+}
+
+article {
+	padding-top: 64px;
+}
+
+.foo-button {
+	margin-top: 10px;
+	width: 100%;
+}
+
+/* SEARCH PAGE */
+
+#sidebar {
+	max-width: 320px;
+	position: fixed;
+	width: calc(100% - 52px);
+	padding: 20px;
+	background: #f5f5f6;
+    box-shadow: 3px 0px 10px grey;
+	overflow: auto;	
+	display: none;
+}
+
+#sidebar h2 {
+    margin: 0;
+	color: #666;
+	font-size: 35px;
+}
+
+
+#sidebarButton {
+	float: left;
+}
+
+#submit {
+    background-color: rgb(0,188,212);
+	margin: 10px 0px 10px 0px;
+    border: none;
+    color: white;
+	display: block;
+    padding: 10px;
+	width: 100%;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#content {
+	float: left;
+	box-sizing: border-box;
+}
+
+.hotelCard {
+	float: left;
+	width: 25%;
+    box-sizing: border-box;
+	width: 25%;
+	background: #fff;
+	outline: 1px solid black;
+	overflow: hidden;
+	
+}
+
+.hotelCard img {
+	width: 100%;
+}
+
+input.textInput {
+	background: transparent;
+	border: none;
+	color: rgb(0,188,212);
+	width: 50px;
+	font-size: 20px !important;
+}
+
+input.textInput:invalid {
+	border: none;
+	box-shadow: none;
+	color: red;
+}
+
+@media screen and (max-width: 1700px) {
+	.hotelCard {
+		width: 33.33336%;
+	}
+}
+
+@media screen and (max-width: 1400px) {
+	.hotelCard {
+		width: 50%;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.hotelCard {
+		width: 100%;
+	}
+	#mainSearch { display: none; }
+}
+
+@media screen and (min-width: 1024px) {
+	.mdl-layout__drawer {
+		width: 340px !important;
+	}
+	.mdl-layout__content {
+		margin-left: 340px !important;
+	}
+}
+
+@media screen and (max-width: 1023px) {
+	.mdl-layout__drawer {
+	  width: 300px !important;
+	  left: -150px !important;
+	}
+	
+	.mdl-layout__drawer.is-visible {
+	  left: 0 !important;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.mdl-layout__drawer {
+	  width: calc(100% - 62px) !important;
+	  left: calc(-1 * (100% + 62px) / 2)  !important;
+	}
+	
+	.mdl-layout__drawer.is-visible {
+	  left: 0 !important;
+	}
+}
+
+/* MATERIAL DESIGN COMPONENTS */
+#sidebarButton {
+	display: block;
+	z-index: 3;
+}
+
+.mdl-layout-title {
+	padding: 0px 0px 0px 40px !important;
+}
+
+.mdl-textfield__input ~ label {
+	margin-top: -20px;
+}
+
+.mdl-textfield__input:focus ~ label,
+.mdl-textfield__input:valid ~ label, 
+.mdl-textfield__input:invalid ~ label {
+	margin-top: 0px;
+}
+
+.mdl-slider__background-flex, .mdl-slider {
+	margin: 0 !important;
+	width: 100% !important;
+}
+
+.box {
+	padding: 15px 0px 25px 0px;
+}
+
+.width100 {
+	width: 100%;
+}
+
+.mdl-navigation {
+	padding: 0px 25px 25px 25px !important;
+}
+
