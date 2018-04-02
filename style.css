@@ -152,7 +152,7 @@ input.textInput:invalid {
 	color: red;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1500px) {
 	.hotelCard {
 		width: 33.33336%;
 	}
