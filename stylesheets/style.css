@@ -94,21 +94,7 @@ article {
 #content {
 	float: left;
 	box-sizing: border-box;
-}
-
-.hotelCard {
-	float: left;
-	width: 25%;
-    box-sizing: border-box;
-	width: 25%;
-	background: #fff;
-	outline: 1px solid black;
-	overflow: hidden;
-	
-}
-
-.hotelCard img {
-	width: 100%;
+	padding: 15px 0px 0px 15px;
 }
 
 input.textInput {
@@ -125,21 +111,39 @@ input.textInput:invalid {
 	color: red;
 }
 
+/* ====== HOTEL CARD DESIGN ========*/
+
+.demo-card-wide.mdl-card {
+	float: left;
+	margin: 0px 15px 15px 0px;
+	width: calc(25% - 15px);
+}
+.demo-card-wide > .mdl-card__title {
+    color: #fff;
+    height: 240px;
+	max-height: 240px;
+}
+.demo-card-wide > .mdl-card__menu {
+    color: #fff;
+}
+
+/* ================================ */
+
 @media screen and (max-width: 1700px) {
-	.hotelCard {
-		width: 33.33336%;
+	.demo-card-wide.mdl-card {
+		width: calc(33.33336% - 15px);
 	}
 }
 
 @media screen and (max-width: 1400px) {
-	.hotelCard {
-		width: 50%;
+	.demo-card-wide.mdl-card {
+		width: calc(50% - 15px);
 	}
 }
 
 @media screen and (max-width: 600px) {
-	.hotelCard {
-		width: 100%;
+	.demo-card-wide.mdl-card {
+		width: calc(100% - 15px);
 	}
 	#mainSearch { display: none; }
 }
