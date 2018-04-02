@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>My First Webpage</title>
+    <title>Search Page</title>
     <link rel="stylesheet" type="text/css" href="style.css">
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
@@ -13,92 +13,98 @@
   </head>
  
   <body>
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-      <header>
-          <button id="sidebarButton" class="mdl-button mdl-js-button mdl-button--icon">
-            <i class="material-icons">menu</i>
-		  </button>
-      	  </nav>
+
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
+  <div class="mdl-layout__drawer">
+    <nav class="mdl-navigation">
+      <!-- ========= Details ======== --!>	
+      <h2 style="font-weight:700">Details</h2> 
+      <!-- Check in and check out dates !-->
+      <div class="date mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="date" id="check-in" required>
+        <label class="mdl-textfield__label" for="check-in">Check in...</label>
+      </div>
+        
+      <div class="date mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="date" id="check-out" required>
+        <label class="mdl-textfield__label" for="check-out">Check out...</label>
+      </div>
+      
+      <!-- Number of rooms, adults, children !-->
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="room-num">
+        <label class="mdl-textfield__label" for="room-num">Number of rooms:</label>
+        <span class="mdl-textfield__error">Input is not a number!</span>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="adult-num">
+        <label class="mdl-textfield__label" for="adult-num">Number of adults:</label>
+        <span class="mdl-textfield__error">Input is not a number!</span>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="child-num">
+        <label class="mdl-textfield__label" for="child-num">Number of children:</label>
+        <span class="mdl-textfield__error">Input is not a number!</span>
+      </div>
+      
+      <!-- ========= FILTERS ======== --!>	
+      <h2 style="font-weight:700">Filters</h2>
+      <!-- Maximum Price !-->
+      <div class="box">
+  	  <label>Maximum price ($AUD): <input class="textInput" id="maxPrice" type="text" pattern="-?[0-9]*(\.[0-9]+)?"> </label>
+        <input id="price" class="mdl-slider mdl-js-slider" type="range" 
+        min="0" max="100" value="25" tabindex="0"> 
+      </div>
+      
+      <!-- Maximum Distance !-->
+      <div class="box">
+        <label>Maximum distance (km): <input class="textInput" id="maxDist" type="text" pattern="-?[0-9]*(\.[0-9]+)?"> </label>
+        <input id="dist" class="mdl-slider mdl-js-slider" type="range" 
+        min="0" max="100" value="25" tabindex="0"> 
+      </div>
+  
+  	  <!-- Minimum Stars !-->
+      <div class="box">
+  	  <label>Minimum stars: <input class="textInput" id="minStars" type="text" pattern="-?[1-5]?"> </label>
+        <input class="mdl-slider mdl-js-slider" type="range" id="stars" min="1" max="5" value="3" step="1">
+      </div>
+  
+  	  <button class="width100 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Submit</button>
+    </nav>
+  </div>
+
+  <main class="mdl-layout__content">
+    <div class="page-content">
+	  <header>
         <span class="letohLogo mdl-layout-title">letoh</span>
       </header>
-    
-      <main class="mdl-layout__content">
-        <div class="page-content">
+	
+	  <article>
+        <!-- DYNAMIC DATA (HOTEL CARDS) GO HERE --!>
+       	<section id="content">
+        </section>
+        
+      	<footer>
+          <p>Feedback</p>
+          <p><a href="privacy.html" target="_blank">Privacy Policy</a></p>
+          <p><a href="terms.html" target="_blank">Terms of Use</a></p>
+          <p>© 2018 Letoh, Inc. All rights reserved</p>
+        </footer>
+      </article>
+
+
+	</div>
+  </main>
+</div>
+
           
 		  <nav id="sidebar">
-    	    <!-- ========= Details ======== --!>	
-            <h2 style="font-weight:700">Details</h2> 
-      	    <!-- Check in and check out dates !-->
-            <div class="date mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="date" id="check-in" required>
-              <label class="mdl-textfield__label" for="check-in">Check in...</label>
-            </div>
-              
-      	    <div class="date mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="date" id="check-out" required>
-              <label class="mdl-textfield__label" for="check-out">Check out...</label>
-            </div>
-      
-      	    <!-- Number of rooms, adults, children !-->
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="room-num">
-              <label class="mdl-textfield__label" for="room-num">Number of rooms:</label>
-              <span class="mdl-textfield__error">Input is not a number!</span>
-            </div>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="adult-num">
-              <label class="mdl-textfield__label" for="adult-num">Number of adults:</label>
-              <span class="mdl-textfield__error">Input is not a number!</span>
-            </div>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="child-num">
-              <label class="mdl-textfield__label" for="child-num">Number of children:</label>
-              <span class="mdl-textfield__error">Input is not a number!</span>
-            </div>
-          
-    	  	<!-- ========= FILTERS ======== --!>	
-      	    <h2 style="font-weight:700">Filters</h2>
-      	    <!-- Maximum Price !-->
-      	    <div class="box">
-		      <label>Maximum price ($AUD): <input class="textInput" id="maxPrice" type="text" pattern="-?[0-9]*(\.[0-9]+)?"> </label>
-      	      <input id="price" class="mdl-slider mdl-js-slider" type="range" 
-      	      min="0" max="100" value="25" tabindex="0"> 
-      	    </div>
-      	    
-			<!-- Maximum Distance !-->
-            <div class="box">
-              <label>Maximum distance (km): <input class="textInput" id="maxDist" type="text" pattern="-?[0-9]*(\.[0-9]+)?"> </label>
-              <input id="dist" class="mdl-slider mdl-js-slider" type="range" 
-              min="0" max="100" value="25" tabindex="0"> 
-            </div>
-
-			<!-- Minimum Stars !-->
-            <div class="box">
-			  <label>Minimum stars: <input class="textInput" id="minStars" type="text" pattern="-?[1-5]?"> </label>
-              <input class="mdl-slider mdl-js-slider" type="range" id="stars" min="1" max="5" value="3" step="1">
-            </div>
-
-			<button class="width100 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Submit</button>
-		  </nav>
+	  	  </nav>
         
 
-          <article>
-            <!-- DYNAMIC DATA (HOTEL CARDS) GO HERE --!>
-       	    <section id="content">
-            </section>
-           
-      	    <footer>
-              <p>Feedback</p>
-              <p><a href="privacy.html" target="_blank">Privacy Policy</a></p>
-              <p><a href="terms.html" target="_blank">Terms of Use</a></p>
-              <p>© 2018 Letoh, Inc. All rights reserved</p>
-            </footer>
-          </article>
-    	</div>
-      </main>
-    </div>
 
-    <script src="search.js"></script>
+    <script src="javascripts/search.js"></script>
+    <script src="javascripts/main.js"></script>
   </body>
 </html>
 
