@@ -38,7 +38,7 @@ function accountData(){
       //Image Module
       .append($("<div class='divstyle imagemodule'></div>")
         .append($("<img alt='Hotel' title='Your Hotel' class='boximage'>")
-          .attr('src','letoh1.jpg')//CONTENT
+          .attr('src','images/letoh1.jpg')//CONTENT
         )
       )
       //description module
@@ -137,7 +137,7 @@ function accountData(){
       //Image Module
       .append($("<div class='divstyle imagemodule'></div>")
         .append($("<img alt='Hotel' title='Your Hotel' class='boximage'>")
-          .attr('src','letoh1.jpg')//CONTENT
+          .attr('src','images/letoh1.jpg')//CONTENT
         )
       )
       //description module
