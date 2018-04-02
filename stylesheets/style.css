@@ -18,10 +18,6 @@ header{
 	padding: 16px;
 }
 
-h2 {
-	font-weight: 400 !important;
-}
-
 header a h1{
 	display: block;
 	float: left;
@@ -36,6 +32,7 @@ header a h1{
 	font-size: 30px !important;
 	font-family: Lobster, sans-serif !important;
 	color: white;
+	font-weight: bold !important;
 }
 
 #mainSearch {
@@ -77,11 +74,6 @@ footer p, footer a {
 
 article {
 	padding-top: 62px;
-}
-
-.foo-button {
-	margin-top: 10px;
-	width: 100%;
 }
 
 /* SEARCH PAGE */
@@ -223,7 +215,40 @@ input.textInput:invalid {
 	padding: 0px 25px 25px 25px !important;
 }
 
+
 .mdl-layout__drawer-button {
 	color: white !important;
 	padding-top: 4px;
+}
+
+#myHotels {
+	padding: 20px 0px 0px 0px !important;
+}
+	
+	#myHotels h2 {
+		text-align:center;
+	}
+	#myHotels #overview {
+		text-align: left !important;
+		padding-left: 40px !important;
+		height: 70px !important;
+	}
+
+/* ========= ACCORDIAN ======== */
+ /* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+	text-align: left !important;
+	height: 50px !important;
+	padding-left: 40px !important;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.panel a {
+	padding-left: 70px !important;
 }
