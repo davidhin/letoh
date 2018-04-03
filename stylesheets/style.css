@@ -86,13 +86,20 @@ footer p, footer a {
 	color: grey;
 	padding: 8px;
 	margin-left: 10px;
-	width: calc(100% - 300px);
+	width: calc(100% - 190px);
 }
 
 #profile {
 	text-align: right;
 	padding-top: 20px;
 	padding-right: 40px;
+}
+
+#mainMenu {
+	margin-top: 6px;
+	margin-right: 13px;
+	color: white;
+	float: right;
 }
 
 /* =============== SEARCH PAGE NAVIGATION =============== */
@@ -161,24 +168,11 @@ input.textInput:invalid {
 }
 
 /* =============== MEDIA SCREEN =============== */
-@media screen and (max-width: 1700px) {
-	.hotel-card.mdl-card {
-		width: calc(33.33336% - 15px);
-	}
-}
+@media screen and (max-width: 1700px) { .hotel-card.mdl-card { width: calc(33.33336% - 15px); } }
+@media screen and (max-width: 1400px) {	.hotel-card.mdl-card { width: calc(50% - 15px); } }
+@media screen and (max-width: 600px) { .hotel-card.mdl-card { width: calc(100% - 15px); } }
 
-@media screen and (max-width: 1400px) {
-	.hotel-card.mdl-card {
-		width: calc(50% - 15px);
-	}
-}
-
-@media screen and (max-width: 600px) {
-	.hotel-card.mdl-card {
-		width: calc(100% - 15px);
-	}
-}
-
+/* ================== DESKTOP ===================== */
 @media screen and (min-width: 1024px) {
 	.mdl-layout__drawer {
 		width: 340px !important;
@@ -194,6 +188,7 @@ input.textInput:invalid {
 	#mainSearch { padding: 10px; margin-top: 5px; }
 }
 
+/* ================== TABLET ===================== */
 @media screen and (max-width: 1023px) {
 	.mdl-layout__drawer {
 	  width: 300px !important;
@@ -208,14 +203,17 @@ input.textInput:invalid {
 	#mainSearch {
 	    width: calc(100% - 185px);
 	}
+	#mainMenu {
+		margin: 0;
+	}
 }
 
+/* ================== MOBILE ===================== */
 @media screen and (max-width: 480px) {
 	.mdl-layout__drawer {
 	  width: calc(100% - 48px) !important;
 	  left: calc(-1 * (100% + 48px) / 2)  !important;
 	}
-	
 	.mdl-layout__drawer.is-visible {
 	  left: 0 !important;
 	}

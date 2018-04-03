@@ -18,8 +18,18 @@
       <header>        
 	    <div class="letohLogo"><a href="index.html">Letoh</a></div>
 		<input type="text" id="mainSearch">
-		<a href="hotelManage.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" style="margin-right:30px;float:right;display:block;">Manager</a> 
-      </header>
+    
+		<button id="mainMenu"
+        class="mdl-button mdl-js-button mdl-button--icon">
+  		  <i class="material-icons">more_vert</i>
+		</button>
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+	    for="mainMenu">
+		  <li class="mdl-menu__item"><a href="hotelManage.html">Manager Settings</a></li>
+		  <li class="mdl-menu__item mdl-menu__item--full-bleed-divider"><a href="accountPage.html">User Settings</a></li>
+	      <li class="mdl-menu__item">Yet Another Action</li>
+	    </ul>
+	  </header>
     	
       <div class="mdl-layout__drawer">
         <nav class="mdl-navigation">
