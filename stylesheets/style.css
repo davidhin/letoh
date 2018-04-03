@@ -16,7 +16,9 @@ header{
 	background: rgb(0,188,212);
 	position: fixed;
 	top: 0px;
-	padding: 16px;
+	padding: 8px;
+	box-sizing: border-box;
+	height: 48px;
 }
 
 header a h1{
@@ -30,7 +32,7 @@ header a h1{
 }
 
 article {
-	padding-top: 62px;
+	padding-top: 48px;
 }
 
 #content {
@@ -60,27 +62,31 @@ footer p, footer a {
 }
 
 /* =============== TOP BAR =============== */
-
 .letohLogo {
-	font-size: 30px !important;
+	padding: 4px 4px 4px 10px;
+	width: 70px;
+	float: left;
+}
+
+.letohLogo a {
+	font-size: 31px !important;
 	font-family: Lobster, sans-serif !important;
 	color: white;
 	font-weight: bold !important;
-	float: left;
-	display: block;
-	width: auto;
+	text-decoration: none;
+
 }
 
 #mainSearch {
 	display: block;
 	float: left;
-	height: 40px;
 	background: white;
 	border: none;
-	border-radius: 5px;
-	margin: 10px 0px 0px 20px;
-	width: 60%;
-	min-width: 240px;
+	border-radius:2px;
+	color: grey;
+	padding: 8px;
+	margin-left: 10px;
+	width: calc(100% - 300px);
 }
 
 #profile {
@@ -142,8 +148,17 @@ input.textInput:invalid {
 /* =============== HOTEL MANAGER PAGE CARDS =============== */
 .managerContent {
 	padding: 0 !important;
+	text-align: center;
 }
 
+.managerContent .mdl-card {
+	text-align: left;
+	padding: 20px;
+}
+
+.addButton {
+	margin-top: 10px !important;
+}
 
 /* =============== MEDIA SCREEN =============== */
 @media screen and (max-width: 1700px) {
@@ -162,21 +177,21 @@ input.textInput:invalid {
 	.hotel-card.mdl-card {
 		width: calc(100% - 15px);
 	}
-	#mainSearch { display: none; }
 }
 
 @media screen and (min-width: 1024px) {
 	.mdl-layout__drawer {
 		width: 340px !important;
-        padding-top: 62px !important;
+        padding-top: 64px !important;
 		z-index: 3 !important;
 	}
 	.mdl-layout__content {
 		margin-left: 340px !important;
 	}
-	.mdl-layout-title {
-    	padding: 0 !important;
-	}
+	header { height: 64px; }
+	article { padding-top: 64px; }
+	.letohLogo { padding: 12px 10px 5px 20px; }
+	#mainSearch { padding: 10px; margin-top: 5px; }
 }
 
 @media screen and (max-width: 1023px) {
@@ -184,22 +199,28 @@ input.textInput:invalid {
 	  width: 300px !important;
 	  left: -150px !important;
 	}
-	.mdl-layout-title {
-		padding: 0px 0px 0px 40px !important;
+	.letohLogo {
+		padding-left: 40px;
 	}
 	.mdl-layout__drawer.is-visible {
-	  left: 0 !important;
+		left: 0 !important;
+	}
+	#mainSearch {
+	    width: calc(100% - 185px);
 	}
 }
 
 @media screen and (max-width: 480px) {
 	.mdl-layout__drawer {
-	  width: calc(100% - 62px) !important;
-	  left: calc(-1 * (100% + 62px) / 2)  !important;
+	  width: calc(100% - 48px) !important;
+	  left: calc(-1 * (100% + 48px) / 2)  !important;
 	}
 	
 	.mdl-layout__drawer.is-visible {
 	  left: 0 !important;
+	}
+	#mainSearch {
+	    display: none;
 	}
 }
 
@@ -233,8 +254,8 @@ input.textInput:invalid {
 
 
 .mdl-layout__drawer-button {
+	margin: 0 !important;
 	color: white !important;
-	padding-top: 4px;
 }
 
 #myHotels {

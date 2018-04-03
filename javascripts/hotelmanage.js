@@ -1,8 +1,8 @@
 // =========== MAIN FUNCTIONS ============== //
 
 $( document ).ready(function() {
+	mgr_overview();
 	loadHotelSidebar();
-
 });
 
 // =========== LOAD CONTENT ============== //
@@ -32,9 +32,8 @@ function mgr_room(hotelInput) {
 	// Current selected hotel
 	var hotel_id = $(hotelInput).attr('id');
 	var roomTypes = 2;
-	
 
-	// Get the types of rooms for this hotel
+	// Get the types of rooms for this hotel and information
 	$("#roomTypes").empty();	
 	for (i = 0; i < roomTypes; i++) {
 		var room_row = $('<div/>').addClass("mdl-grid").appendTo("#roomTypes");		
@@ -46,20 +45,25 @@ function mgr_room(hotelInput) {
 			.addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--8-col mdl-cell--5-col-tablet mdl-cell--1-phone")
 			.html("This is the description for room type " + i + " of " + hotel_id)
 			.appendTo(room_row);
-
 	}
-
-	// Display the room types
-	
-
-	// Get the information for the hotel corresponding to hotel_0
-	// And display it in the hotel manager cards
-	$('#mgr_desc').html("This is the description for " + hotel_id);	
+		
+	// "Add a room" button
+	var addButton = $('<button/>')
+		    	    .addClass("addButton mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored")
+					.appendTo("#roomTypes");
+	  var plusSign = $('<i/>').addClass("material-icons").html("add").appendTo(addButton);
 
 	// Show current card
 	hideContent();
 	$("#roomTypes").show();	
 	sizes();
+}
+
+function mgr_overview() {
+	hideContent();
+	
+	// Get hotel information and display it
+	
 }
 
 // =========== LOAD SIDEBAR ============== //
@@ -75,8 +79,8 @@ function loadHotelSidebar() {
 		$('<div/>').attr("id", currId).addClass("panel").appendTo("#myHotels");
 		$('<a/>').click(function() { mgr_info(this.closest('div')); }).html("General Info").addClass("mdl-navigation__link").appendTo("#" + currId);
 		$('<a/>').click(function() { mgr_room(this.closest('div')); }).html("Room Types").addClass("mdl-navigation__link").appendTo("#" + currId);
-		$('<a/>').click(function() { alert('foo2'); }).html("Reviews").addClass("mdl-navigation__link").appendTo("#" + currId);
-		$('<a/>').click(function() { alert('bar2'); }).html("Special Offer").addClass("mdl-navigation__link").appendTo("#" + currId);
+	//	$('<a/>').click(function() { alert('foo2'); }).html("Reviews").addClass("mdl-navigation__link").appendTo("#" + currId);
+	//	$('<a/>').click(function() { alert('bar2'); }).html("Special Offer").addClass("mdl-navigation__link").appendTo("#" + currId);
 	}
 
 	// ------------- ACCORDIAN ------------ //
