@@ -1,4 +1,4 @@
-// =========== MAIN FUNCTIONS ============== //
+// ====================== MAIN FUNCTIONS ===================== //
 
 $( document ).ready(function() {
 	$( "#price" ).change(function() {
@@ -12,11 +12,14 @@ $( document ).ready(function() {
 	});
 
 	hotelCards();
+	sizes();
 });
 
+// ============ DYNAMIC DATA GENERATION: HOTEL CARDS ========= //
+
 function hotelCards() {
-	for (var i = 0; i < 5; i++) {
-		var div_main = $('<div/>').addClass("demo-card-wide mdl-card mdl-shadow--2dp").appendTo("#content");
+	for (var i = 0; i < 10; i++) {
+		var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#content");
 		  // Change the background picture here
 		  var insertBg = "url('http://lorempixel.com/400/400/city/" + i + "') center / cover";
 		  var div_title = $('<div/>').addClass("mdl-card__title").appendTo(div_main).css("background", insertBg);
@@ -33,17 +36,13 @@ function hotelCards() {
 	}
 }
 
-// ============ OTHER =============== //
+// ====================== MISC FUNCTIONS  =================== //
 
 onload = function() {	
     document.getElementById('check-in').value = new Date().today(false);
 	document.getElementById('check-out').value = new Date().today(true);
-	sizes();
 };
 
-window.onresize = function(event) {
-    sizes();
-};
 
 // Get Date
 Date.prototype.today = (function(tomorrow) { 

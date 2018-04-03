@@ -1,5 +1,6 @@
  @import url('https://fonts.googleapis.com/css?family=Lobster');
-/* BASICS */
+
+ /* =============== BASICS =============== */
 html, body{
 	font-family: roboto, sans-serif;
 	padding: 0px;
@@ -28,29 +29,15 @@ header a h1{
 	text-decoration: none;
 }
 
-.letohLogo {
-	font-size: 30px !important;
-	font-family: Lobster, sans-serif !important;
-	color: white;
-	font-weight: bold !important;
+article {
+	padding-top: 62px;
 }
 
-#mainSearch {
-	display: block;
+#content {
 	float: left;
-	height: 40px;
-	background: white;
-	border: none;
-	border-radius: 5px;
-	margin: 10px 0px 0px 20px;
-	width: 60%;
-	min-width: 240px;
-}
-
-#profile {
-	text-align: right;
-	padding-top: 20px;
-	padding-right: 40px;
+	box-sizing: border-box;
+	padding: 15px 0px 0px 15px;
+	width: 100%;
 }
 
 footer {
@@ -72,11 +59,37 @@ footer p, footer a {
 	float: left;
 }
 
-article {
-	padding-top: 62px;
+/* =============== TOP BAR =============== */
+
+.letohLogo {
+	font-size: 30px !important;
+	font-family: Lobster, sans-serif !important;
+	color: white;
+	font-weight: bold !important;
+	float: left;
+	display: block;
+	width: auto;
 }
 
-/* SEARCH PAGE */
+#mainSearch {
+	display: block;
+	float: left;
+	height: 40px;
+	background: white;
+	border: none;
+	border-radius: 5px;
+	margin: 10px 0px 0px 20px;
+	width: 60%;
+	min-width: 240px;
+}
+
+#profile {
+	text-align: right;
+	padding-top: 20px;
+	padding-right: 40px;
+}
+
+/* =============== SEARCH PAGE NAVIGATION =============== */
 #submit {
     background-color: rgb(0,188,212);
 	margin: 10px 0px 10px 0px;
@@ -91,10 +104,9 @@ article {
     cursor: pointer;
 }
 
-#content {
-	float: left;
-	box-sizing: border-box;
-	padding: 15px 0px 0px 15px;
+#sidebarButton {
+	display: block;
+	z-index: 3;
 }
 
 input.textInput {
@@ -111,39 +123,43 @@ input.textInput:invalid {
 	color: red;
 }
 
-/* ====== HOTEL CARD DESIGN ========*/
-
-.demo-card-wide.mdl-card {
+/* =============== SEARCH PAGE HOTEL CARDS =============== */
+.hotel-card.mdl-card {
 	float: left;
 	margin: 0px 15px 15px 0px;
 	width: calc(25% - 15px);
 }
-.demo-card-wide > .mdl-card__title {
+.hotel-card > .mdl-card__title {
     color: #fff;
     height: 240px;
 	max-height: 240px;
 	text-shadow: 2px 2px 2px black;
 }
-.demo-card-wide > .mdl-card__menu {
+.hotel-card > .mdl-card__menu {
     color: #fff;
 }
 
-/* ================================ */
+/* =============== HOTEL MANAGER PAGE CARDS =============== */
+.managerContent {
+	padding: 0 !important;
+}
 
+
+/* =============== MEDIA SCREEN =============== */
 @media screen and (max-width: 1700px) {
-	.demo-card-wide.mdl-card {
+	.hotel-card.mdl-card {
 		width: calc(33.33336% - 15px);
 	}
 }
 
 @media screen and (max-width: 1400px) {
-	.demo-card-wide.mdl-card {
+	.hotel-card.mdl-card {
 		width: calc(50% - 15px);
 	}
 }
 
 @media screen and (max-width: 600px) {
-	.demo-card-wide.mdl-card {
+	.hotel-card.mdl-card {
 		width: calc(100% - 15px);
 	}
 	#mainSearch { display: none; }
@@ -187,12 +203,7 @@ input.textInput:invalid {
 	}
 }
 
-/* MATERIAL DESIGN COMPONENTS */
-#sidebarButton {
-	display: block;
-	z-index: 3;
-}
-
+/* =============== MISC MDL MODIFICATIONS =============== */
 .mdl-textfield__input ~ label {
 	margin-top: -20px;
 }

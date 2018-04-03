@@ -16,7 +16,7 @@
     
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
       <header>
-        <span class="letohLogo mdl-layout-title">Letoh</span>
+        <a href="index.html"><span class="letohLogo mdl-layout-title">Letoh <span style="font-size:20px;font-family:roboto;font-weight:300;">manager</i></span></a>
       </header>
     	
       <div class="mdl-layout__drawer">
@@ -29,8 +29,27 @@
       <main class="mdl-layout__content">
         <div class="page-content">
           <article>
-            <!-- DYNAMIC DATA (HOTEL CARDS) GO HERE --!>
-           	<section id="content">
+            <!-- DYNAMIC DATA (hotel information) GOES HERE --!>
+           	<section id="content" class="managerContent">
+
+		  	  <div id="generalInfo">
+                <div class="mdl-grid">
+                  <div id="mgr_mainImage" class="mdl-cell mdl-card mdl-shadow--2dp mdl-cell--3-col-desktop mdl-cell--3-col-tablet mdl-cell--4-phone">Main Image</div>
+                  <div id="mgr_desc" class="mdl-cell mdl-card mdl-shadow--2dp mdl-cell--9-col-desktop mdl-cell--5-col-tablet mdl-cell--4-phone">Description</div>
+                </div>
+                <div class="mdl-grid">
+                  <div id="mgr_images" class="mdl-cell mdl-card mdl-shadow--2dp mdl-cell--8-col mdl-cell--5-col-tablet mdl-cell--1-phone">Images</div>
+                  <div id="mgr_tags" class="mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--1-phone">Tags</div>
+                </div>
+			  </div>
+
+		  	  <div id="roomTypes">
+                <div class="mdl-grid">
+                  <div id="room1_desc" class="mdl-cell mdl-card mdl-shadow--2dp mdl-cell--8-col mdl-cell--5-col-tablet mdl-cell--1-phone"></div>
+                  <div id="room1_info" class="mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--1-phone"></div>
+                </div>
+			  </div>
+
             </section>
             
           	<footer>

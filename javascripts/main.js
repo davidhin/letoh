@@ -1,7 +1,7 @@
 // =========== MAIN FUNCTIONS ============== //
 
 $( document ).ready(function() {
-
+	sizes();
 });
 
 // ============ OTHER =============== //
@@ -15,3 +15,11 @@ function sizes() {
     if (content.offsetHeight < parseInt(window.innerHeight,10) - 90) { footer.style.position = "absolute"; } 
 	else { footer.style.position = "relative"; }
 }
+
+onload = function() {	
+	sizes();
+};
+
+window.onresize = function(event) {
+    sizes();
+};
