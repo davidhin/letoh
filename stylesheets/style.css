@@ -122,6 +122,7 @@ input.textInput:invalid {
     color: #fff;
     height: 240px;
 	max-height: 240px;
+	text-shadow: 2px 2px 2px black;
 }
 .demo-card-wide > .mdl-card__menu {
     color: #fff;

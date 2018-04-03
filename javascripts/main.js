@@ -1,6 +1,7 @@
 // =========== MAIN FUNCTIONS ============== //
 
 $( document ).ready(function() {
+
 });
 
 // ============ OTHER =============== //
