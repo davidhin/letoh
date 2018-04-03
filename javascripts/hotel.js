@@ -127,7 +127,7 @@ function accountData(){
       )
   );}
 
-  for(var i=0;i<1;i++){
+  for(var current=0;current<1;current++){
   //Making Current Bookings modules
   $("#currentBookings")
     .append($("<div></div>")
@@ -235,19 +235,19 @@ function accountData(){
 }
 
 function checkIfBookings(){
-  if($("#currentBookings").children().length==0){
+  if($("#currentBookings").children().length===0){
     $("#currentBookings").append($("<p></p>")
       .attr('class','')
       .text("You have no current bookings")
     );
-  };
+  }
 
-  if($("#pastBookings").children().length==0){
+  if($("#pastBookings").children().length===0){
     $("#pastBookings").append($("<p></p>")
       .attr('class','')
       .text("You have no past bookings")
     );
-  };
+  }
 
 }
 
@@ -260,16 +260,16 @@ function compulsory(index){
 }
 
 function submitted(){
-    var allCompuls = document.getElementsByClassName('inputbox')
+    var allCompuls = document.getElementsByClassName('inputbox');
     for(var i=0;i<allCompuls.length;i++){
       console.log(allCompuls[i].name);
       console.log(allCompuls[i].value);
     }
 
-    var allSelect = document.getElementsByTagName('SELECT')
-    for(var i=0;i<allSelect.length;i++){
-      console.log(allSelect[i].name);
-      console.log(allSelect[i].options[allSelect[i].selectedIndex].text);
+    var allSelect = document.getElementsByTagName('SELECT');
+    for(var as=0;as<allSelect.length;as++){
+      console.log(allSelect[as].name);
+      console.log(allSelect[as].options[allSelect[as].selectedIndex].text);
     }
 }
 
@@ -294,14 +294,14 @@ function editBookingedit(index){
   var form = document.createElement("FORM");
   date.setAttribute("class","dateInput");
   date.setAttribute("type","date");
-  date.style.display="inline"
+  date.style.display="inline";
   form.appendChild(date);
 
   var dates = document.createElement("INPUT");
   var forms = document.createElement("FORM");
   dates.setAttribute("class","dateInput");
   dates.setAttribute("type","date");
-  dates.style.display="inline"
+  dates.style.display="inline";
   forms.appendChild(dates);
   var span = index.parentElement.getElementsByClassName("tableFill");
 
@@ -377,15 +377,15 @@ function accountConfirm(index){
       }
     }
   }else{
-    for(var i=0;i<displaySettings.length;i++){
-      if(setting[i].value){
-        displaySettings[i].innerText=setting[i].value;
+    for(var ds=0;ds<displaySettings.length;ds++){
+      if(setting[ds].value){
+        displaySettings[ds].innerText=setting[ds].value;
       }
     }
   }
 
-  for(var i=0;i<setting.length;i++){
-    setting[i].style.display="none";
+  for(var s=0;s<setting.length;s++){
+    setting[s].style.display="none";
   }
   buttons[0].style.display="block";
   buttons[1].style.display="none";
@@ -429,7 +429,7 @@ function postButton(index){
   para.className="boxparagraph";
   para.style.height="400px";
   para.style.paddingBottom = "0px";
-  para.style.marginBottom = "30px;"
+  para.style.marginBottom = "30px;";
   para.style.overflow = "auto";
   para.innerText = textbox[0].value;
 
@@ -452,8 +452,8 @@ function cancelButton(index){
 }
 
 function remove(index){
-  var response = confirm("Are you sure you want to cancel this booking?")
-    if(response == true){
+  var response = confirm("Are you sure you want to cancel this booking?");
+    if(response === true){
       $(index).parent().remove();
     }
 
@@ -463,7 +463,7 @@ function remove(index){
 //EDIT THIS STUFF LATER
 onload = function() {
     sizes();
-}
+};
 
 window.onresize = function(event) {
     sizes();
