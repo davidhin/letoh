@@ -19,3 +19,11 @@ function sizes() {
 window.onresize = function(event) {
     sizes();
 };
+
+// =========== UPDATE MDL FOR DYNAMICALLY CREATED OBJECTS =========== //
+// Dynamically created material objects must be manually 'upgraded'
+function mdl_upgrade() {
+	if(!(typeof(componentHandler) == 'undefined')){
+	  componentHandler.upgradeAllRegistered();
+	}
+}
