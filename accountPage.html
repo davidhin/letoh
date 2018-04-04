@@ -10,7 +10,7 @@
 		<title>Letoh Account</title>
 	</head>
 
-	<body id="headerbox" onload="accountData()">
+	<body onload="accountData()">
 
 		<!-- Header -->
 		<header>
@@ -30,8 +30,8 @@
 				<p class="boxparagraph" onclick="hotels()">Booking History</p>
 				<p class="boxparagraph" onclick="account()">Account Settings</p>
 			</div>
+			<!-- Hotel History -->
 			<div id="hotelhistory">
-
 				<div class="rightaccount">
 					<div class="centerdiv">
 
@@ -53,6 +53,7 @@
 				</div>
 			</div>
 
+			<!-- Account Settings -->
 			<div id="accountsettings">
 				<div class="rightaccount">
 					<div class="centerdiv">
@@ -62,13 +63,13 @@
 								<h3 class="boxheadings">Your Details</h3>
 							</div>
 							<div class="divstyle settingDescription">
-								<h4 class="boxheadings h4style">Account Name</h4>
+								<h4 class="boxheadings">Account Name</h4>
 								<p class="boxparagraph">Account Name</p>
 								<input type="text" name="AccountName" class="inputbox accountInput">
-								<h4 class="boxheadings h4style">Address</h4>
+								<h4 class="boxheadings">Address</h4>
 								<p class="boxparagraph">Address</p>
 								<input type="text" name="Address" class="inputbox accountInput">
-								<h4 class="boxheadings h4style">Phone Number</h4>
+								<h4 class="boxheadings">Phone Number</h4>
 								<p class="boxparagraph">Phone Number</p>
 								<input type="text" name="PhoneNumber" class="inputbox accountInput">
 								<button onclick="accountChange(this)">Change</button>
@@ -82,7 +83,7 @@
 								<h3 class="boxheadings">Email Address</h3>
 							</div>
 							<div class="divstyle settingDescription">
-								<h4 class="boxheadings h4style">Email Address</h4>
+								<h4 class="boxheadings">Email Address</h4>
 								<p class="boxparagraph">Email Address</p>
 								<input type="text" name="EmailAddress" class="inputbox accountInput">
 								<button onclick="accountChange(this)">Change</button>
@@ -96,7 +97,7 @@
 								<h3 class="boxheadings">Password</h3>
 							</div>
 							<div class="divstyle settingDescription">
-								<h4 class="boxheadings h4style">Password</h4>
+								<h4 class="boxheadings">Password</h4>
 								<p class="boxparagraph">Password</p>
 								<input type="password" name="Password" class="inputbox accountInput">
 								<button onclick="accountChange(this)">Change</button>
