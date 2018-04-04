@@ -13,6 +13,7 @@ $( document ).ready(function() {
 
 	hotelCards();
 	sizes();
+	date_initial();
 });
 
 // ============ DYNAMIC DATA GENERATION: HOTEL CARDS ========= //
@@ -38,13 +39,6 @@ function hotelCards() {
 }
 
 // ====================== MISC FUNCTIONS  =================== //
-
-onload = function() {	
-    document.getElementById('check-in').value = new Date().today(false);
-	document.getElementById('check-out').value = new Date().today(true);
-};
-
-
 // Get Date
 Date.prototype.today = (function(tomorrow) { 
 	var local = new Date(this);
@@ -52,3 +46,8 @@ Date.prototype.today = (function(tomorrow) {
     local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
     return local.toJSON().slice(0,10);
 });
+
+function date_initial() {	
+    document.getElementById('check-in').value = new Date().today(false);
+	document.getElementById('check-out').value = new Date().today(true);
+}
