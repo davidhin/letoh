@@ -3,6 +3,7 @@
 $( document ).ready(function() {
 	mgr_overview();
 	loadHotelSidebar();
+
 });
 
 // =========== LOAD CONTENT ============== //
@@ -19,8 +20,15 @@ function mgr_info(hotelInput) {
 
 	// Get the information for the hotel corresponding to hotel_0
 	// And display it in the hotel manager cards
-	$('#mgr_desc').html("This is the description for " + hotel_id);	
-
+	$('#mgr_desc').empty();
+	/* --- DYNAMIC --- */
+	var mgr_desc_header  = $('<h4/>').html(hotel_id + " Description").appendTo("#mgr_desc");	
+	/* --- DYNAMIC --- */
+	var mgr_desc_content = $('<p/>').html("This is the description for " + hotel_id).appendTo("#mgr_desc");	
+	var mgr_desc_editBtn = $('<button/>')
+		.addClass("editButton mdl-button mdl-js-button mdl-button--primary")
+		.html("edit").appendTo("#mgr_desc")
+		.click(function() { btn_editText("#mgr_desc", this, mgr_desc_content); });
 
 	// Show current card
 	hideContent();
@@ -37,21 +45,26 @@ function mgr_room(hotelInput) {
 	$("#roomTypes").empty();	
 	for (i = 0; i < roomTypes; i++) {
 		var room_row = $('<div/>').addClass("mdl-grid").appendTo("#roomTypes");		
-		  var room_desc = $('<div/>')
-			.addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--1-phone")
-			.html("This is the description for room type " + i + " of " + hotel_id)
-			.appendTo(room_row);
 		  var room_info = $('<div/>')
-			.addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--8-col mdl-cell--5-col-tablet mdl-cell--1-phone")
-			.html("This is the description for room type " + i + " of " + hotel_id)
+			.addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--1-phone")
 			.appendTo(room_row);
+		  var room_desc = $('<div/>')
+			.addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--8-col mdl-cell--5-col-tablet mdl-cell--1-phone")
+			.appendTo(room_row);
+		    /* --- DYNAMIC --- */
+		    var room_desc_header = $('<h4/>').html("Room" + i + " Description").appendTo(room_desc);
+			var room_desc_content = $('<p/>').html("This is the description for room type " + i + " of " + hotel_id).appendTo(room_desc);
+			var room_desc_editBtn = $('<button/>')
+				.addClass("editButton mdl-button mdl-js-button mdl-button--primary")
+				.html("edit").appendTo(room_desc)
+				.click(function() { btn_editText($(this).closest('.mdl-cell'), this, $(this).siblings('p')); });
 	}
 		
 	// "Add a room" button
 	var addButton = $('<button/>')
 		    	    .addClass("addButton mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored")
 					.appendTo("#roomTypes");
-	  var plusSign = $('<i/>').addClass("material-icons").html("add").appendTo(addButton);
+	var plusSign = $('<i/>').addClass("material-icons").html("add").appendTo(addButton);
 
 	// Show current card
 	hideContent();
@@ -61,9 +74,65 @@ function mgr_room(hotelInput) {
 
 function mgr_overview() {
 	hideContent();
+	sizes();
 	
 	// Get hotel information and display it
 	
+}
+
+// =================== GENERALISED IMPORTANT STUFF ========================= //
+
+// EDIT A TEXT FIELD AND SUBMIT IT
+// Edit button is the button that must be pressed to edit
+// Content in is the content that is to be changed
+function btn_editText(container, editBtn, contentIn) {
+	$(editBtn).hide();
+	$(contentIn).hide();
+	var div_textarea = $('<div/>')
+		.css("width", "100%")
+		.addClass("mdl-textfield mdl-js-textfield")
+		.appendTo(container);
+	var input_textarea = $('<textarea/>')
+	  	.addClass("mdl-textfield__input")
+	  	.attr({"type": "text", "id": "text_desc", "rows":4})
+	  	.css("resize", "none")
+		/* --- DYNAMIC --- */
+		.val($(contentIn).html())
+	  	.appendTo(div_textarea);
+	var label_line = $('<label/>')
+		.addClass("mdl-textfield__label")
+		.appendTo(div_textarea);
+	
+	var button_area = $('<div/>')
+		.css("padding", "15px 0 0 0")
+		.css("text-align", "right")
+		.addClass("mdl-card__actions")
+		.appendTo(container);
+	var submitButton = $('<a/>')
+		.html("submit")
+		.addClass("lowButton mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent")
+		.appendTo(button_area)
+		.click(function() {
+			/* --- DYNAMIC --- */
+			$(contentIn).html(input_textarea.val());
+			$(contentIn).show();
+			$(editBtn).show();
+			input_textarea.remove();
+			div_textarea.remove();
+			button_area.remove();
+		});
+	var cancelButton = $('<a/>')
+		.html("cancel")
+		.addClass("lowButton mdl-button mdl-js-button")
+		.appendTo(button_area)
+		.click(function() {
+			$(contentIn).show();
+			$(editBtn).show();
+			input_textarea.remove();
+			div_textarea.remove();
+			button_area.remove();
+		});
+	mdl_upgrade();
 }
 
 // =========== LOAD SIDEBAR ============== //
@@ -77,8 +146,8 @@ function loadHotelSidebar() {
 			.appendTo("#myHotels");
 		var currId = "myHotel_" + i;
 		$('<div/>').attr("id", currId).addClass("panel").appendTo("#myHotels");
-		$('<a/>').click(function() { mgr_info(this.closest('div')); }).html("General Info").addClass("mdl-navigation__link").appendTo("#" + currId);
-		$('<a/>').click(function() { mgr_room(this.closest('div')); }).html("Room Types").addClass("mdl-navigation__link").appendTo("#" + currId);
+		$('<a/>').click(function() { mgr_info(this.closest('div')); mdl_upgrade(); }).html("General Info").addClass("mdl-navigation__link").appendTo("#" + currId);
+		$('<a/>').click(function() { mgr_room(this.closest('div')); mdl_upgrade(); }).html("Room Types").addClass("mdl-navigation__link").appendTo("#" + currId);
 	//	$('<a/>').click(function() { alert('foo2'); }).html("Reviews").addClass("mdl-navigation__link").appendTo("#" + currId);
 	//	$('<a/>').click(function() { alert('bar2'); }).html("Special Offer").addClass("mdl-navigation__link").appendTo("#" + currId);
 	}
@@ -98,4 +167,12 @@ function loadHotelSidebar() {
         }
       });
     }
+}
+
+// =========== UPDATE MDL FOR DYNAMICALLY CREATED OBJECTS =========== //
+// Dynamically created material objects must be manually 'upgraded'
+function mdl_upgrade() {
+	if(!(typeof(componentHandler) == 'undefined')){
+	  componentHandler.upgradeAllRegistered();
+	}
 }

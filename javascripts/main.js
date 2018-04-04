@@ -11,14 +11,10 @@ function sizes() {
     var footer = document.getElementsByTagName("footer")[0];
 	var content = document.getElementById("content");
 
-    // FOOTER POSITIONING 
-    if (content.offsetHeight < parseInt(window.innerHeight,10) - 90) { footer.style.position = "absolute"; } 
+    // FOOTER POSITIONING
+    if (content.offsetHeight < parseInt(window.innerHeight,10) - headerHeight) { footer.style.position = "absolute"; } 
 	else { footer.style.position = "relative"; }
 }
-
-onload = function() {	
-	sizes();
-};
 
 window.onresize = function(event) {
     sizes();

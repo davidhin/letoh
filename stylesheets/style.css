@@ -158,6 +158,10 @@ input.textInput:invalid {
 	text-align: center;
 }
 
+.managerContent h4 {
+	margin-top: 0;
+}
+
 .managerContent .mdl-card {
 	text-align: left;
 	padding: 20px;
@@ -165,6 +169,16 @@ input.textInput:invalid {
 
 .addButton {
 	margin-top: 10px !important;
+}
+
+.editButton {
+	width: 70px;
+	position: absolute !important;
+	right: 20px;
+}
+
+.lowButton {
+	width: 70px;
 }
 
 /* =============== MEDIA SCREEN =============== */
