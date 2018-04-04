@@ -1,6 +1,7 @@
 /* ================== Basics ===================== */
 html{
 	position: relative;
+	background: white;
 }
 
 body{
@@ -32,7 +33,7 @@ h4{
 	font-family:Bree Serif, sans-serif;
 }
 
-.boxheadings, 
+.boxheadings,
 .hotelboxheadings{
 	word-break:keep-all;
 	margin-bottom:5px;
@@ -62,7 +63,7 @@ h4{
 }
 
 @media screen and (max-width:800px) {
-	.rightdiv, 
+	.rightdiv,
 	.leftdiv{
   		width:100%;
 		padding-right:30px;
@@ -74,13 +75,13 @@ h4{
   		padding-top:0px;
 	}
 
-	.accountModule, 
-	.rightaccount, 
-	.settingName, 
-	.settingDescription, 
-	.modulecontainer, 
-	.imagemodule, 
-	.descriptmodule, 
+	.accountModule,
+	.rightaccount,
+	.settingName,
+	.settingDescription,
+	.modulecontainer,
+	.imagemodule,
+	.descriptmodule,
 	.reviewmodule{
 		width:100%;
 	}
@@ -265,7 +266,7 @@ footer p, footer a {
 	flex-direction: row;
 }
 
-.settingName, 
+.settingName,
 .settingDescription{
 	border-radius:0px;
 	float:left;
@@ -311,8 +312,8 @@ footer p, footer a {
 	display:flex;
 }
 
-.imagemodule, 
-.descriptmodule, 
+.imagemodule,
+.descriptmodule,
 .reviewmodule{
 	display:table-cell;
 	vertical-align: top;
