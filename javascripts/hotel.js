@@ -1,3 +1,21 @@
+/* ================== Functions for Both Pages ===================== */
+function checkIfBookings(){
+  if($("#currentBookings").children().length===0){
+    $("#currentBookings").append($("<p></p>")
+      .attr('class','')
+      .text("You have no current bookings")
+    );
+  }
+
+  if($("#pastBookings").children().length===0){
+    $("#pastBookings").append($("<p></p>")
+      .attr('class','')
+      .text("You have no past bookings")
+    );
+  }
+}
+
+/* ================== Booking Page ===================== */
 //Booking Page Information Getting
 function bookingData(){
   //Top right box
@@ -21,6 +39,46 @@ function bookingData(){
   }
 }
 
+function compulsory(index){
+  if(index.value){
+    index.style.borderColor = "white";
+  }else{
+    index.style.borderColor = "red";
+  }
+}
+
+function submitted(){
+    var allCompuls = document.getElementsByClassName('inputbox');
+    for(var i=0;i<allCompuls.length;i++){
+      console.log(allCompuls[i].name);
+      console.log(allCompuls[i].value);
+    }
+
+    var allSelect = document.getElementsByTagName('SELECT');
+    for(var as=0;as<allSelect.length;as++){
+      console.log(allSelect[as].name);
+      console.log(allSelect[as].options[allSelect[as].selectedIndex].text);
+    }
+}
+
+/* ================== Changing between Ac/Hi Page ===================== */
+function hotels(){
+  var hotel = document.getElementById("hotelhistory");
+  var accs = document.getElementById("accountsettings");
+  hotel.style.display="inline";
+  accs.style.display="none";
+  window.scrollTo(0, 0);
+}
+
+function account(){
+  var hotel = document.getElementById("hotelhistory");
+  var accs = document.getElementById("accountsettings");
+  hotel.style.display="none";
+  accs.style.display="inline";
+  window.scrollTo(0, 0);
+}
+
+/* ================== History Page ===================== */
 //Account page Information Getting
 function accountData(){
   //Account data
@@ -59,7 +117,7 @@ function accountData(){
         )
 
         .append("<br>")
-        .append($('<h4 class="boxheadings h4style">Your Booking Includes:</h4>'))
+        .append($('<h4 class="boxheadings">Your Booking Includes:</h4>'))
         .append($('<ul class="boxparagraph"></ul>')
           .append($('<li></li>')
             .text("1 Bathroom")//CONTENT
@@ -158,7 +216,7 @@ function accountData(){
         )
 
         .append("<br>")
-        .append($('<h4 class="boxheadings h4style">Your Booking Includes:</h4>'))
+        .append($('<h4 class="boxheadings">Your Booking Includes:</h4>'))
         .append($('<ul class="boxparagraph"></ul>')
           .append($('<li></li>')
             .text("1 Bathroom")//CONTENT
@@ -231,62 +289,6 @@ function accountData(){
 
   //Checking if you have bookings
   checkIfBookings();
-
-}
-
-function checkIfBookings(){
-  if($("#currentBookings").children().length===0){
-    $("#currentBookings").append($("<p></p>")
-      .attr('class','')
-      .text("You have no current bookings")
-    );
-  }
-
-  if($("#pastBookings").children().length===0){
-    $("#pastBookings").append($("<p></p>")
-      .attr('class','')
-      .text("You have no past bookings")
-    );
-  }
-
-}
-
-function compulsory(index){
-  if(index.value){
-    index.style.borderColor = "white";
-  }else{
-    index.style.borderColor = "red";
-  }
-}
-
-function submitted(){
-    var allCompuls = document.getElementsByClassName('inputbox');
-    for(var i=0;i<allCompuls.length;i++){
-      console.log(allCompuls[i].name);
-      console.log(allCompuls[i].value);
-    }
-
-    var allSelect = document.getElementsByTagName('SELECT');
-    for(var as=0;as<allSelect.length;as++){
-      console.log(allSelect[as].name);
-      console.log(allSelect[as].options[allSelect[as].selectedIndex].text);
-    }
-}
-
-function hotels(){
-  var hotel = document.getElementById("hotelhistory");
-  var accs = document.getElementById("accountsettings");
-  hotel.style.display="inline";
-  accs.style.display="none";
-  window.scrollTo(0, 0);
-}
-
-function account(){
-  var hotel = document.getElementById("hotelhistory");
-  var accs = document.getElementById("accountsettings");
-  hotel.style.display="none";
-  accs.style.display="inline";
-  window.scrollTo(0, 0);
 }
 
 function editBookingedit(index){
@@ -352,57 +354,6 @@ function cancelBookingedit(index){
   date[0].parentElement.removeChild(date[0]);
 }
 
-function accountChange(index){
-  var setting = index.parentElement.getElementsByTagName("input");
-  var buttons = index.parentElement.getElementsByTagName("button");
-  for(var i=0;i<setting.length;i++){
-    setting[i].style.display="block";
-  }
-  buttons[1].style.display="block";
-  buttons[2].style.display="inline";
-  index.style.display="none";
-
-}
-
-function accountConfirm(index){
-  var displaySettings = index.parentElement.getElementsByTagName("p");
-  var setting = index.parentElement.getElementsByTagName("input");
-  var buttons = index.parentElement.getElementsByTagName("button");
-
-  if(index.parentElement.getElementsByTagName("h4")[0].innerText=="Password"){
-    if(setting[0].value){
-      displaySettings[0].innerText="";
-      for(var i=0;i<setting[0].value.length;i++){
-        displaySettings[0].innerText+='*';
-      }
-    }
-  }else{
-    for(var ds=0;ds<displaySettings.length;ds++){
-      if(setting[ds].value){
-        displaySettings[ds].innerText=setting[ds].value;
-      }
-    }
-  }
-
-  for(var s=0;s<setting.length;s++){
-    setting[s].style.display="none";
-  }
-  buttons[0].style.display="block";
-  buttons[1].style.display="none";
-  buttons[2].style.display="none";
-}
-
-function accountCancel(index){
-  var setting = index.parentElement.getElementsByTagName("input");
-  var buttons = index.parentElement.getElementsByTagName("button");
-  for(var i=0;i<setting.length;i++){
-    setting[i].style.display="none";
-  }
-  buttons[0].style.display="block";
-  buttons[1].style.display="none";
-  buttons[2].style.display="none";
-}
-
 function reviewButton(index){
   index.style.display="none";
   var review = index.parentElement;
@@ -459,6 +410,61 @@ function remove(index){
 
     checkIfBookings();
 }
+
+/* ================== Account Page ===================== */
+function accountChange(index){
+  var setting = index.parentElement.getElementsByTagName("input");
+  var buttons = index.parentElement.getElementsByTagName("button");
+  for(var i=0;i<setting.length;i++){
+    setting[i].style.display="block";
+  }
+  buttons[1].style.display="block";
+  buttons[2].style.display="inline";
+  index.style.display="none";
+}
+
+function accountConfirm(index){
+  var displaySettings = index.parentElement.getElementsByTagName("p");
+  var setting = index.parentElement.getElementsByTagName("input");
+  var buttons = index.parentElement.getElementsByTagName("button");
+
+  if(index.parentElement.getElementsByTagName("h4")[0].innerText=="Password"){
+    if(setting[0].value){
+      displaySettings[0].innerText="";
+      for(var i=0;i<setting[0].value.length;i++){
+        displaySettings[0].innerText+='*';
+      }
+    }
+  }else{
+    for(var ds=0;ds<displaySettings.length;ds++){
+      if(setting[ds].value){
+        displaySettings[ds].innerText=setting[ds].value;
+      }
+    }
+  }
+
+  for(var s=0;s<setting.length;s++){
+    setting[s].style.display="none";
+  }
+  buttons[0].style.display="block";
+  buttons[1].style.display="none";
+  buttons[2].style.display="none";
+}
+
+function accountCancel(index){
+  var setting = index.parentElement.getElementsByTagName("input");
+  var buttons = index.parentElement.getElementsByTagName("button");
+  for(var i=0;i<setting.length;i++){
+    setting[i].style.display="none";
+  }
+  buttons[0].style.display="block";
+  buttons[1].style.display="none";
+  buttons[2].style.display="none";
+}
+
+
+
+
 
 //EDIT THIS STUFF LATER
 onload = function() {
