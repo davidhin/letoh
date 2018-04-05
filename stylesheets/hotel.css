@@ -49,53 +49,6 @@ h4{
 .boximage{
 	width:100%;
 }
-/* ================== Screen Resizing ===================== */
-@media screen and (max-width:1000px){
-	#hotelhistory,	#accountsettings, .rightaccount{
-		width:100%;
-	}
-
-	#sidebar{
-		display:none;
-	}
-}
-
-@media screen and (max-width:800px) {
-	.rightdiv,
-	.leftdiv{
-  		width:100%;
-		padding-right:30px;
-		padding-left:30px;
-		padding-top:30px;
-		margin-bottom:0px;
- 	}
-	.leftdiv{
-  		padding-top:0px;
-	}
-
-	.accountModule,
-	.rightaccount,
-	.settingName,
-	.settingDescription,
-	.modulecontainer,
-	.imagemodule,
-	.descriptmodule,
-	.reviewmodule{
-		width:100%;
-	}
-
-	.modulecontainer{
-		display:block;
-	}
-
-	.reviewmodule{
-		height:280px;
-	}
-
-	.imagemodule{
-		height:auto;
-	}
-}
 /* ================== Header ===================== */
 /*
 header{
@@ -393,4 +346,51 @@ footer p, footer a {
 
 .tabletotal{
 	text-align:left;
+}
+/* ================== Screen Resizing ===================== */
+@media screen and (max-width:1000px){
+	#hotelhistory,	#accountsettings, .rightaccount{
+		width:100%;
+	}
+
+	#sidebar{
+		display:none;
+	}
+}
+
+@media screen and (max-width:800px) {
+	.rightdiv,
+	.leftdiv{
+  		width:100%;
+		padding-right:30px;
+		padding-left:30px;
+		padding-top:30px;
+		margin-bottom:0px;
+ 	}
+	.leftdiv{
+  		padding-top:0px;
+	}
+
+	.accountModule,
+	.rightaccount,
+	.settingName,
+	.settingDescription,
+	.modulecontainer,
+	.imagemodule,
+	.descriptmodule,
+	.reviewmodule{
+		width:100%;
+	}
+
+	.modulecontainer{
+		display:block;
+	}
+
+	.reviewmodule{
+		height:280px;
+	}
+
+	.imagemodule{
+		height:auto;
+	}
 }
