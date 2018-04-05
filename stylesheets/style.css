@@ -261,7 +261,7 @@ input.textInput:invalid {
 	width: 100%;
 }
 
-.mdl-navigation {
+#searchNav {
 	padding: 0px 25px 25px 25px !important;
 }
 

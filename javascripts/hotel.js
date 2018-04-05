@@ -89,206 +89,136 @@ function accountData(){
   $($(".accountModule p")[4]).text("PasswordMcPasswordFace");
 
   for(var i=0;i<1;i++){
-  //Making Past Bookings modules
-  $("#pastBookings")
-    .append($("<div></div>")
-      .attr('class','modulecontainer')
-      //Image Module
-      .append($("<div class='divstyle imagemodule'></div>")
-        .append($("<img alt='Hotel' title='Your Hotel' class='boximage'>")
-          .attr('src','images/letoh1.jpg')//CONTENT
-        )
-      )
-      //description module
-      .append($("<div></div>")
-        .attr('class','divstyle descriptmodule')
-        .append($("<h3 class='hotelboxheadings'></h3>")
-          .text('Paradise Interchange Hotel')
-        )
-        .append('<h3 class="boxheadings">Location:</h3>')
-        .append($('<p class="boxparagraph"></p>')
-          .text("12 Jimmy Street")//Content
-        )
-        .append($('<p class="boxparagraph"></p>')
-          .text("Adelaide, South Australia")//Content
-        )
-        .append($('<p class="boxparagraph"></p>')
-          .text("Room 1: 2 Adults, 1 King bed")//Content
-        )
+    get_bookings(false);
+  }
 
-        .append("<br>")
-        .append($('<h4 class="boxheadings">Your Booking Includes:</h4>'))
-        .append($('<ul class="boxparagraph"></ul>')
-          .append($('<li></li>')
-            .text("1 Bathroom")//CONTENT
-          )
-          .append($('<li></li>')
-            .text("Free Continental Breakfast")//CONTENT
-          )
-          .append($('<li></li>')
-            .text("Free Wifi")//CONTENT
-          )
-          .append($('<li></li>')
-            .text("Free Parking")//CONTENT
-          )
-        )
-        .append("<br>")
-        //Table
-        .append($('<table class="boxtable"></table>')
-          .append($('<tr></tr>')
-            .append('<td>Check-in:</td>')
-            .append($('<td class="tablerightcol"></td>')
-              .text("2018-05-15")//CONTENT
-            )
-          )
-          .append($('<tr></tr>')
-            .append('<td>Check-out:</td>')
-            .append($('<td class="tablerightcol"></td>')
-              .text("2018-05-19")//CONTENT
-            )
-          )
-          .append($('<tr></tr>')
-            .append('<td>Length of stay:</td>')
-            .append($('<td class="tablerightcol"></td>')
-              .text("4 days")//CONTENT
-            )
-          )
-          .append($('<tr></tr>')
-            .append($('<td></td>')
-              .text("4 days")//CONTENT
-            )
-            .append($('<td class="tablerightcol"></td>')
-              .text("AU $5000")//CONTENT
-            )
-          )
-          .append($('<tr></tr>')
-            .append('<td>Taxes</td>')
-            .append($('<td class="tablerightcol"></td>')
-              .text("AU $54000")//CONTENT
-            )
-          )
-          .append($('<tr></tr>')
-            .append('<th class="tabletotal">Total</th>')
-            .append($('<th class="tablerightcol"></th>')
-              .text("AU $59000")//CONTENT
-            )
-          )
-        )//table end
-      )
-      //Review Module
-      .append($("<div></div>")
-        .attr('class','divstyle reviewmodule')
-        .append($('<h3 class="hotelboxheadings">Your review</h3>'))
-        .append($('<button class="reviewButton" onclick="reviewButton(this)">+</button>'))
-        .append($('<button class="postButton" onclick="postButton(this)">Post</button>'))
-        .append($('<button class="cancelButton" onclick="cancelButton(this)">Cancel</button>'))
-      )
-  );}
-
-  for(var current=0;current<1;current++){
-  //Making Current Bookings modules
-  $("#currentBookings")
-    .append($("<div></div>")
-      .attr('class','modulecontainer')
-      //Cancel Booking Button
-      .append('<button class="removeBookingButton" onclick="remove(this)">X</button>')
-      //Image Module
-      .append($("<div class='divstyle imagemodule'></div>")
-        .append($("<img alt='Hotel' title='Your Hotel' class='boximage'>")
-          .attr('src','images/letoh1.jpg')//CONTENT
-        )
-      )
-      //description module
-      .append($("<div></div>")
-        .attr('class','divstyle descriptmodule')
-        .append($("<h3 class='hotelboxheadings'></h3>")
-          .text('Paradise Interchange Hotel')
-        )
-        .append('<h3 class="boxheadings">Location:</h3>')
-        .append($('<p class="boxparagraph"></p>')
-          .text("12 Jimmy Street")//Content
-        )
-        .append($('<p class="boxparagraph"></p>')
-          .text("Adelaide, South Australia")//Content
-        )
-        .append($('<p class="boxparagraph"></p>')
-          .text("Room 1: 2 Adults, 1 King bed")//Content
-        )
-
-        .append("<br>")
-        .append($('<h4 class="boxheadings">Your Booking Includes:</h4>'))
-        .append($('<ul class="boxparagraph"></ul>')
-          .append($('<li></li>')
-            .text("1 Bathroom")//CONTENT
-          )
-          .append($('<li></li>')
-            .text("Free Continental Breakfast")//CONTENT
-          )
-          .append($('<li></li>')
-            .text("Free Wifi")//CONTENT
-          )
-          .append($('<li></li>')
-            .text("Free Parking")//CONTENT
-          )
-        )
-        .append("<br>")
-        //Table
-        .append($('<table class="boxtable"></table>')
-          .append($('<tr></tr>')
-            .append('<td>Check-in:</td>')
-            .append($('<td class="tablerightcol tableFill"></td>')
-              .text("2018-05-15")//CONTENT
-            )
-          )
-          .append($('<tr></tr>')
-            .append('<td>Check-out:</td>')
-            .append($('<td class="tablerightcol tableFill"></td>')
-              .text("2018-05-19")//CONTENT
-            )
-          )
-          .append($('<tr></tr>')
-            .append('<td>Length of stay:</td>')
-            .append($('<td class="tablerightcol"></td>')
-              .text("4 days")//CONTENT
-            )
-          )
-          .append($('<tr></tr>')
-            .append($('<td></td>')
-              .text("4 days")//CONTENT
-            )
-            .append($('<td class="tablerightcol"></td>')
-              .text("AU $5000")//CONTENT
-            )
-          )
-          .append($('<tr></tr>')
-            .append('<td>Taxes</td>')
-            .append($('<td class="tablerightcol"></td>')
-              .text("AU $54000")//CONTENT
-            )
-          )
-          .append($('<tr></tr>')
-            .append('<th class="tabletotal">Total</th>')
-            .append($('<th class="tablerightcol"></th>')
-              .text("AU $59000")//CONTENT
-            )
-          )
-          .append('<button class="editBookingedit" onclick="editBookingedit(this)">Change</button>')
-          .append('<button class="confirmBookingedit" onclick="confirmBookingedit(this)">Confirm</button>')
-          .append('<button class="cancelBookingedit" onclick="cancelBookingedit(this)">Cancel</button>')
-        )//table end
-      )
-      //Review Module
-      .append($("<div></div>")
-        .attr('class','divstyle reviewmodule')
-        .append($('<h3 class="hotelboxheadings">Your review</h3>'))
-        .append($('<button class="reviewButton" onclick="reviewButton(this)">+</button>'))
-        .append($('<button class="postButton" onclick="postButton(this)">Post</button>'))
-        .append($('<button class="cancelButton" onclick="cancelButton(this)">Cancel</button>'))
-      )
-  );}
+  for(var current=0;current<2;current++){
+    get_bookings(true);
+  }
 
   //Checking if you have bookings
   checkIfBookings();
+}
+
+// Show the bookings (description + review)
+// can_change: whether the booking details can be changed
+function get_bookings(can_change) {
+  var booking_section;
+  if (can_change) {
+	booking_section = "#currentBookings";
+  } else {
+	booking_section = "#pastBookings";
+  }
+
+  // Making Current Bookings modules
+  var book_container = $('<div/>')       
+    .attr('class','modulecontainer mdl-grid')
+    //Cancel Booking Button
+    //.append('<button class="removeBookingButton" onclick="remove(this)">X</button>')
+    .appendTo(booking_section);
+
+  // Image Module
+  var book_image = $("<div/>")
+	.addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone")
+    .append($("<img alt='Hotel' title='Your Hotel' class='boximage'>")
+      .attr('src','images/letoh1.jpg')//CONTENT
+    )
+    .appendTo(book_container);
+
+  // Description Module
+  var book_description = $('<div/>')
+    .attr('class','descriptmodule')
+	.addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--5-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone")
+    .append($("<h3 class='hotelboxheadings'></h3>")
+      .text('Paradise Interchange Hotel')
+    )
+    .append('<h3 class="boxheadings">Location:</h3>')
+    .append($('<p class="boxparagraph"></p>')
+      .text("12 Jimmy Street")//Content
+    )
+    .append($('<p class="boxparagraph"></p>')
+      .text("Adelaide, South Australia")//Content
+    )
+    .append($('<p class="boxparagraph"></p>')
+      .text("Room 1: 2 Adults, 1 King bed")//Content
+    )
+
+    .append("<br>")
+    .append($('<h4 class="boxheadings">Your Booking Includes:</h4>'))
+    .append($('<ul class="boxparagraph"></ul>')
+      .append($('<li></li>')
+        .text("1 Bathroom")//CONTENT
+      )
+      .append($('<li></li>')
+        .text("Free Continental Breakfast")//CONTENT
+      )
+      .append($('<li></li>')
+        .text("Free Wifi")//CONTENT
+      )
+      .append($('<li></li>')
+        .text("Free Parking")//CONTENT
+      )
+    )
+    .append("<br>")
+	.appendTo(book_container);
+   
+    //Table
+	var book_table = $('<table class="boxtable"></table>')
+      .append($('<tr></tr>')
+        .append('<td>Check-in:</td>')
+        .append($('<td class="tablerightcol tableFill"></td>')
+          .text("2018-05-15")//CONTENT
+        )
+      )
+      .append($('<tr></tr>')
+        .append('<td>Check-out:</td>')
+        .append($('<td class="tablerightcol tableFill"></td>')
+          .text("2018-05-19")//CONTENT
+        )
+      )
+      .append($('<tr></tr>')
+        .append('<td>Length of stay:</td>')
+        .append($('<td class="tablerightcol"></td>')
+          .text("4 days")//CONTENT
+        )
+      )
+      .append($('<tr></tr>')
+        .append($('<td></td>')
+          .text("4 days")//CONTENT
+        )
+        .append($('<td class="tablerightcol"></td>')
+          .text("AU $5000")//CONTENT
+        )
+      )
+      .append($('<tr></tr>')
+        .append('<td>Taxes</td>')
+        .append($('<td class="tablerightcol"></td>')
+          .text("AU $54000")//CONTENT
+        )
+      )
+      .append($('<tr></tr>')
+        .append('<th class="tabletotal">Total</th>')
+        .append($('<th class="tablerightcol"></th>')
+          .text("AU $59000")//CONTENT
+        )
+      )
+ 	  .appendTo(book_description);
+
+      if (can_change) {
+        $('<button class="editBookingedit" onclick="editBookingedit(this)">Change</button>').appendTo(book_table);
+        $('<button class="confirmBookingedit" onclick="confirmBookingedit(this)">Confirm</button>').appendTo(book_table);
+        $('<button class="cancelBookingedit" onclick="cancelBookingedit(this)">Cancel</button>').appendTo(book_table);
+	  }
+
+  // Review Module
+  var book_review = $('<div/>')
+	  .attr('class','reviewmodule')
+	  .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone")
+	  .append($('<h3 class="hotelboxheadings">Your review</h3>'))
+	  .append($('<button class="reviewButton" onclick="reviewButton(this)">+</button>'))
+	  .append($('<button class="postButton" onclick="postButton(this)">Post</button>'))
+	  .append($('<button class="cancelButton" onclick="cancelButton(this)">Cancel</button>'))
+	  .appendTo(book_container);
 }
 
 function editBookingedit(index){
@@ -378,7 +308,7 @@ function postButton(index){
   var cancelbutton=review.getElementsByClassName("cancelButton");
   var para = document.createElement("P");
   para.className="boxparagraph";
-  para.style.height="400px";
+  para.style.height="100%";
   para.style.paddingBottom = "0px";
   para.style.marginBottom = "30px;";
   para.style.overflow = "auto";
@@ -462,10 +392,6 @@ function accountCancel(index){
   buttons[2].style.display="none";
 }
 
-
-
-
-
 //EDIT THIS STUFF LATER
 onload = function() {
     sizes();
@@ -486,3 +412,109 @@ function sizes() {
       footer.style.position = "relative";
   }
 }
+		  
+//Making Current Bookings modules
+//  $("#currentBookings")
+//    .append($("<div></div>")
+//      .attr('class','modulecontainer')
+//      //Cancel Booking Button
+//      .append('<button class="removeBookingButton" onclick="remove(this)">X</button>')
+
+//      //Image Module
+//      .append($("<div class='divstyle imagemodule'></div>")
+//        .append($("<img alt='Hotel' title='Your Hotel' class='boximage'>")
+//          .attr('src','images/letoh1.jpg')//CONTENT
+//        )
+//      )
+//      //description module
+//      .append($("<div></div>")
+//        .attr('class','divstyle descriptmodule')
+//        .append($("<h3 class='hotelboxheadings'></h3>")
+//          .text('Paradise Interchange Hotel')
+//        )
+//        .append('<h3 class="boxheadings">Location:</h3>')
+//        .append($('<p class="boxparagraph"></p>')
+//          .text("12 Jimmy Street")//Content
+//        )
+//        .append($('<p class="boxparagraph"></p>')
+//          .text("Adelaide, South Australia")//Content
+//        )
+//        .append($('<p class="boxparagraph"></p>')
+//          .text("Room 1: 2 Adults, 1 King bed")//Content
+//        )
+//
+//        .append("<br>")
+//        .append($('<h4 class="boxheadings">Your Booking Includes:</h4>'))
+//        .append($('<ul class="boxparagraph"></ul>')
+//          .append($('<li></li>')
+//            .text("1 Bathroom")//CONTENT
+//          )
+//          .append($('<li></li>')
+//            .text("Free Continental Breakfast")//CONTENT
+//          )
+//          .append($('<li></li>')
+//            .text("Free Wifi")//CONTENT
+//          )
+//          .append($('<li></li>')
+//            .text("Free Parking")//CONTENT
+//          )
+//        )
+//        .append("<br>")
+//        //Table
+//        .append($('<table class="boxtable"></table>')
+//          .append($('<tr></tr>')
+//            .append('<td>Check-in:</td>')
+//            .append($('<td class="tablerightcol tableFill"></td>')
+//              .text("2018-05-15")//CONTENT
+//            )
+//          )
+//          .append($('<tr></tr>')
+//            .append('<td>Check-out:</td>')
+//            .append($('<td class="tablerightcol tableFill"></td>')
+//              .text("2018-05-19")//CONTENT
+//            )
+//          )
+//          .append($('<tr></tr>')
+//            .append('<td>Length of stay:</td>')
+//            .append($('<td class="tablerightcol"></td>')
+//              .text("4 days")//CONTENT
+//            )
+//          )
+//          .append($('<tr></tr>')
+//            .append($('<td></td>')
+//              .text("4 days")//CONTENT
+//            )
+//            .append($('<td class="tablerightcol"></td>')
+//              .text("AU $5000")//CONTENT
+//            )
+//          )
+//          .append($('<tr></tr>')
+//            .append('<td>Taxes</td>')
+//            .append($('<td class="tablerightcol"></td>')
+//              .text("AU $54000")//CONTENT
+//            )
+//          )
+//          .append($('<tr></tr>')
+//            .append('<th class="tabletotal">Total</th>')
+//            .append($('<th class="tablerightcol"></th>')
+//              .text("AU $59000")//CONTENT
+//            )
+//          )
+//          .append('<button class="editBookingedit" onclick="editBookingedit(this)">Change</button>')
+//          .append('<button class="confirmBookingedit" onclick="confirmBookingedit(this)">Confirm</button>')
+//          .append('<button class="cancelBookingedit" onclick="cancelBookingedit(this)">Cancel</button>')
+//        )//table end
+//      )
+//  );
+  
+
+	//	//Review Module
+//	.append($("<div></div>")
+//	  .attr('class','divstyle reviewmodule')
+//	  .append($('<h3 class="hotelboxheadings">Your review</h3>'))
+//	  .append($('<button class="reviewButton" onclick="reviewButton(this)">+</button>'))
+//	  .append($('<button class="postButton" onclick="postButton(this)">Post</button>'))
+//	  .append($('<button class="cancelButton" onclick="cancelButton(this)">Cancel</button>'))
+//	)
+
+

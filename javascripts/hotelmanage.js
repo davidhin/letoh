@@ -46,10 +46,10 @@ function mgr_room(hotelInput) {
 	for (i = 0; i < roomTypes; i++) {
 		var room_row = $('<div/>').addClass("mdl-grid").appendTo("#roomTypes");		
 		  var room_info = $('<div/>')
-			.addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--1-phone")
+			.addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--1-col-phone")
 			.appendTo(room_row);
 		  var room_desc = $('<div/>')
-			.addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--8-col mdl-cell--5-col-tablet mdl-cell--1-phone")
+			.addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--8-col mdl-cell--5-col-tablet mdl-cell--1-col-phone")
 			.appendTo(room_row);
 		    /* --- DYNAMIC --- */
 		    var room_desc_header = $('<h4/>').html("Room" + i + " Description").appendTo(room_desc);
