@@ -7,7 +7,7 @@ body{
 	font-family:Open Sans, sans-serif;
 }
 
-header{
+/*header{
   z-index: 999;
 	width: 100%;
 	background: #00acc1;
@@ -25,19 +25,7 @@ header a h1{
 	text-decoration: none;
 	color: white;
 }
-
-#mainSearch {
-	display: block;
-	float: left;
-	height: 40px;
-	background: white;
-	border: none;
-	border-radius: 5px;
-	margin: 10px 0px 0px 20px;
-	width: 60%;
-	min-width: 240px;
-}
-
+*/
 #profile {
 	text-align: right;
 	padding-top: 20px;
