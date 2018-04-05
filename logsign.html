@@ -60,13 +60,19 @@
                 <div class="input-box-right">
                   <p>
                     <form class="InputForms">
-                      <div class="nameinputsection">
-                        First Name:<br>
-                        <input type="text" name="firstname" class="nameinput"><br><br>
+                      <div class="nameloginput">
+                        <div class="nameinputsection">
+                          First Name:<br>
+                          <input type="text" name="firstname" class="nameinput"><br><br>
+                        </div>
+                        <div class="nameinputsection">
+                         Last Name:<br>
+                         <input type="text" name="lastname" class="nameinput"><br><br>
+                        </div>
                       </div>
-                      <div class="nameinputsection">
-                        Last Name:<br>
-                        <input type="text" name="lastname" class="nameinput"><br><br>
+                      <div class="hotellogname">
+                        HotelName:<br>
+                        <input type="text" name="email" class="inputfield"><br>
                       </div>
                       <br>
                       Email:<br>
@@ -74,7 +80,7 @@
                       Password:<br>
                       <input type="password" name="password" class="inputfield"><br>
                     </form>
-                      <div class="nameinputsection">
+                      <div class="nameinputsection gendersel">
                         Are you?:
                         <select>
                           <option value="male">Male</option>
@@ -92,7 +98,7 @@
               </div>
               <div class="middleborder">
                 <p>
-                  Are you a hotel owner? If so click <a href>Here</a>
+                  Are you a hotel owner? If so click <button onclick="test()" class="clickhotel">Here</button>
                 </p>
               </div>
             </div>
@@ -105,6 +111,32 @@
           </article>
     	</div>
     </div>
+    <script>
+      var ishotellogin = false;
+      if(ishotellogin == false){
+        $('.hotellogname').hide();
+        $('.nameloginput').show();
+      } else {
+        $('.hotellogname').show();
+        $('.nameloginput').hide();
+      }
+      function test() {
+        if(ishotellogin == true){
+          ishotellogin = false;
+        } else {
+          ishotellogin = true;  
+        }
+        if(ishotellogin == false){
+          $('.hotellogname').hide();
+          $('.nameloginput').show();
+          $('.gendersel').show();
+        } else {
+          $('.hotellogname').show();
+          $('.nameloginput').hide();
+          $('.gendersel').hide();
+        }
+      }
+    </script>
     <script src="javascripts/main.js"></script>
     <script src="javascripts/search.js"></script>
   </body>
