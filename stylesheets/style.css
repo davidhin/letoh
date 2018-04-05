@@ -22,27 +22,12 @@ header{
 	height: 48px;
 }
 
-header a h1{
-	display: block;
-	float: left;
-	height: 100%;
-	font-size: 35px;
-	margin: 10px 10px 10px 20px;
-	font-family: Lobster, sans-serif;
-	text-decoration: none;
-}
-
-article {
-	padding-top: 48px;
-}
-
 #content {
 	float: left;
 	box-sizing: border-box;
-	padding: 15px 0px 0px 15px;
+	padding: 63px 0px 0px 15px;
 	width: 100%;
 }
-
 
 footer {
     bottom: 0;
