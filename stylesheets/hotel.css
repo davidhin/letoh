@@ -1,4 +1,18 @@
 /* ================== Basics ===================== */
+<<<<<<< HEAD
+=======
+body{
+	font-family:Open Sans, sans-serif;
+	padding:0px;
+	margin:0px;
+	background:#f4f4f4;
+}
+
+h4{
+	margin:0px;
+}
+
+>>>>>>> 73184a7c3e2cf8d1b61242527dc3abcb955715fe
 #bodydiv{
 	padding:0px;
 }
@@ -32,6 +46,7 @@
 .boximage{
 	width:100%;
 }
+<<<<<<< HEAD
 /* ================== Screen Resizing ===================== */
 @media screen and (max-width:1000px){
 	#hotelhistory,	#accountsettings, .rightaccount{
@@ -78,6 +93,68 @@
 		height:auto;
 	}
 }
+=======
+/* ================== Header ===================== */
+/*
+header{
+	z-index: 999;
+	width: 100%;
+	background: #00acc1;
+	position: fixed;
+	top: 0px;
+}
+
+header a h1{
+	display: block;
+	float: left;
+	height: 100%;
+	font-size: 35px;
+	margin: 10px 10px 10px 20px;
+	font-family: Lobster, sans-serif;
+	text-decoration: none;
+	color: white;
+}
+
+#mainSearch {
+	display: block;
+	float: left;
+	height: 40px;
+	background: white;
+	border: none;
+	border-radius: 5px;
+	margin: 10px 0px 0px 20px;
+	width: 60%;
+	min-width: 240px;
+}
+
+#profile {
+	text-align: right;
+	padding-top: 20px;
+	padding-right: 40px;
+}*/
+/* ================== Footer ===================== */
+/*
+footer {
+	bottom: 0;
+	left: 0;
+	float: left;
+	position:absolute;
+	box-sizing:border-box;
+	width: 100%;
+	padding: 2px;
+	font-size: 12px;
+	font-family: Open Sans, sans-serif;
+	background: #00acc1;
+	z-index:1000;
+}
+
+footer p, footer a {
+	margin: 0px;
+	padding-left: 10px;
+	color: #FFFFFF;
+	float: left;
+}*/
+>>>>>>> 73184a7c3e2cf8d1b61242527dc3abcb955715fe
 /* ================== Booking Page ===================== */
 /* ============= Modules ================ */
 .rightdiv,
@@ -297,4 +374,51 @@
 
 .tabletotal{
 	text-align:left;
+}
+/* ================== Screen Resizing ===================== */
+@media screen and (max-width:1000px){
+	#hotelhistory,	#accountsettings, .rightaccount{
+		width:100%;
+	}
+
+	#sidebar{
+		display:none;
+	}
+}
+
+@media screen and (max-width:800px) {
+	.rightdiv,
+	.leftdiv{
+  		width:100%;
+		padding-right:30px;
+		padding-left:30px;
+		padding-top:30px;
+		margin-bottom:0px;
+ 	}
+	.leftdiv{
+  		padding-top:0px;
+	}
+
+	.accountModule,
+	.rightaccount,
+	.settingName,
+	.settingDescription,
+	.modulecontainer,
+	.imagemodule,
+	.descriptmodule,
+	.reviewmodule{
+		width:100%;
+	}
+
+	.modulecontainer{
+		display:block;
+	}
+
+	.reviewmodule{
+		height:280px;
+	}
+
+	.imagemodule{
+		height:auto;
+	}
 }
