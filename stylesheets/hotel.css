@@ -16,7 +16,6 @@ h4{
 
 #bodydiv{
 	padding:0px;
-	padding-top: 64px;
 }
 
 .divstyle{
@@ -98,6 +97,7 @@ h4{
 	}
 }
 /* ================== Header ===================== */
+/*
 header{
 	z-index: 999;
 	width: 100%;
@@ -133,8 +133,9 @@ header a h1{
 	text-align: right;
 	padding-top: 20px;
 	padding-right: 40px;
-}
+}*/
 /* ================== Footer ===================== */
+/*
 footer {
 	bottom: 0;
 	left: 0;
@@ -154,7 +155,7 @@ footer p, footer a {
 	padding-left: 10px;
 	color: #FFFFFF;
 	float: left;
-}
+}*/
 /* ================== Booking Page ===================== */
 /* ============= Modules ================ */
 .rightdiv,
