@@ -1,6 +1,4 @@
 /* ================== Basics ===================== */
-<<<<<<< HEAD
-=======
 body{
 	font-family:Open Sans, sans-serif;
 	padding:0px;
@@ -12,7 +10,6 @@ h4{
 	margin:0px;
 }
 
->>>>>>> 73184a7c3e2cf8d1b61242527dc3abcb955715fe
 #bodydiv{
 	padding:0px;
 }
@@ -46,7 +43,6 @@ h4{
 .boximage{
 	width:100%;
 }
-<<<<<<< HEAD
 /* ================== Screen Resizing ===================== */
 @media screen and (max-width:1000px){
 	#hotelhistory,	#accountsettings, .rightaccount{
@@ -154,7 +150,6 @@ footer p, footer a {
 	color: #FFFFFF;
 	float: left;
 }*/
->>>>>>> 73184a7c3e2cf8d1b61242527dc3abcb955715fe
 /* ================== Booking Page ===================== */
 /* ============= Modules ================ */
 .rightdiv,
