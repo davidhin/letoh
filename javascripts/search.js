@@ -30,7 +30,10 @@ function hotelCards() {
 		  // Change the hotel details here
 		  var div_content = $('<div/>').addClass("mdl-card__supporting-text").html("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis pellentesque lacus eleifend lacinia... ").appendTo(div_main);
 		  var div_buttons = $('<div/>').addClass("mdl-card__actions mdl-card--border").appendTo(div_main);
-		  	var a_links = $('<a/>').addClass("mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent").html("More details").appendTo(div_buttons);
+		  	var a_links = $('<a/>')
+			  // CHANGE THIS EVENTUALLY
+			  .attr("href", "hoteldetails.html")
+			  .addClass("mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent").html("More details").appendTo(div_buttons);
 		  // Change the share/favourite button here
 		  var div_menu = $('<div/>').addClass("mdl-card__menu").appendTo(div_main);
 		    var button_share = $('<button/>').addClass("mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect").appendTo(div_menu);
