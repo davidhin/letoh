@@ -37,7 +37,7 @@
       <!-- Right Div -->
       <div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet
         mdl-cell--order-2-desktop mdl-cell--order-2-tablet">
-        
+
         <!-- Check Your Booking -->
         <div class="rightcontent bookingCard mdl-card mdl-shadow--2dp">
           <h2 class="sectionheadings">Check Your Booking</h2>
@@ -92,21 +92,21 @@
       <!-- Left Div -->
       <div class="mdl-cell mdl-cell--8-col-desktop mdl-cell--5-col-tablet
         mdl-cell--order-1-desktop">
-        
+
         <!-- 1. Enter Details -->
         <div class="leftcontent bookingCard mdl-card mdl-shadow--2dp">
           <h2 class="sectionheadings">1. Enter Details</h2>
           <hr>
           <h3 class="boxheadings">First Name: *</h3>
           <p class="boxparagraph">Please give the name of guest staying in the room as it is required for check-in.</p>
-          
+
           <form action="/action_page.php"> <!-- Placeholder action page -->
             <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
               <input type="text" name="FirstName" class="inputbox mdl-textfield__input" onblur="compulsory(this)">
               <label class="mdl-textfield__label">e.g. John</label>
             </div>
           </form>
-          
+
           <h3 class="boxheadings">Last Name: *</h3>
           <form action="/action_page.php">
             <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
@@ -114,20 +114,20 @@
               <label class="mdl-textfield__label">e.g. Doe</label>
             </div>
           </form>
-          
+
           <h3 class="boxheadings">Mobile Number: *</h3>
           <form action="/action_page.php">
             <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
               <input type="text" name="MobileNumber" class="inputbox mdl-textfield__input" onblur="compulsory(this)">
               <label class="mdl-textfield__label">e.g. +61 111 111 111</label>
             </div>
-          
+
             <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="emerText">
               <input type="checkbox" id="emerText" name="EmergencyText" class="mdl-checkbox__input">
               <span class="mdl-checkbox__label">Receive emergency texts with this number</span>
             </label>
           </form>
-          
+
           <h3 class="boxheadings">Email: *</h3>
           <form action="/action_page.php">
             <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
@@ -136,7 +136,7 @@
             </div>
           </form>
           <p class="boxparagraph">Confirmation email will be sent to this address</p>
-          
+
           <h3 class="boxheadings">Smoking Requests:</h3>
           <form action="/action_page.php">
             <select name="SmokingRequests" class="select">
@@ -144,12 +144,15 @@
               <option>Non-Smoking</option>
             </select>
           </form>
-          
+
           <h3 class="boxheadings">Special Requests:</h3>
           <p class="boxparagraph">Please include detail of your accessibility options (e.g. accessible bathroom). After booking the hotel will be notified of your accessibility option to confirm availability. If confirmed by the hotel, you will receive a confirmation email. If you do not receive a confirmation email within 24 hours of the day that you made your booking, please contact the hotel directly to confirm or to help make alternative arrangements. Accessibility options are not guaranteed.</p>
           <br>
           <form action="/action_page.php">
-            <textarea name="SpecialRequest" class="inputbox biginputbox"></textarea>
+            <div class="mdl-textfield mdl-js-textfield biginputbox">
+              <textarea name="SpecialRequest" class="inputbox mdl-textfield__input biginputbox" rows="5"></textarea>
+              <label class="mdl-textfield__label">e.g. Wheelchair accessibility</label>
+            </div>
           </form>
         </div>
 
@@ -159,7 +162,10 @@
           <hr>
           <h3 class="boxheadings">Cardholder Name: *</h3>
           <form action="/action_page.php">
-            <input type="text" name="CardholderName" class="inputbox" onblur="compulsory(this)">
+            <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
+              <input type="text" name="CardholderName" class="inputbox mdl-textfield__input" onblur="compulsory(this)">
+              <label class="mdl-textfield__label">e.g. John Doe</label>
+            </div>
           </form>
           <h3 class="boxheadings">Card Type: *</h3>
           <form action="/action_page.php">
@@ -168,18 +174,36 @@
               <option>MasterCard</option>
             </select>
           </form>
+
           <h3 class="boxheadings">Card Number: *</h3>
           <form action="/action_page.php">
-            <input type="text" name="CardNumber" class="inputbox" onblur="compulsory(this)">
+            <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
+              <input type="text" name="CardNumber" class="inputbox mdl-textfield__input" onblur="compulsory(this)">
+              <label class="mdl-textfield__label">e.g. 1234 4567</label>
+            </div>
           </form>
           <h3 class="boxheadings">Expiration Date: *</h3>
           <form action="/action_page.php">
-            <input type="text" name="ExpirationDate" class="inputbox smallinputbox" onblur="compulsory(this)">
-            <input type="text" name="ExpirationDate" class="inputbox smallinputbox" onblur="compulsory(this)">
+            <div class="mdl-textfield mdl-js-textfield smallinputbox" style="margin-top:-25px;">
+              <input type="text" name="ExpirationDate" class="inputbox smallinputbox mdl-textfield__input" onblur="compulsory(this)">
+              <label class="mdl-textfield__label">15</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield smallinputbox" style="margin-top:-25px;">
+              <input type="text" name="ExpirationDate" class="inputbox smallinputbox mdl-textfield__input" onblur="compulsory(this)">
+              <label class="mdl-textfield__label">2</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield smallinputbox" style="margin-top:-25px;">
+              <input type="text" name="ExpirationDate" class="inputbox smallinputbox mdl-textfield__input" onblur="compulsory(this)">
+              <label class="mdl-textfield__label">19</label>
+            </div>
+
           </form>
           <h3 class="boxheadings">Security Code: *</h3>
           <form action="/action_page.php">
-            <input type="text" name="SecurityCode" class="inputbox" onblur="compulsory(this)">
+            <div class="mdl-textfield mdl-js-textfield smallinputbox" style="margin-top:-25px;">
+              <input type="text" name="SecurityCode" class="inputbox mdl-textfield__input" onblur="compulsory(this)">
+              <label class="mdl-textfield__label">123</label>
+            </div>
           </form>
         </div>
 
@@ -191,12 +215,12 @@
           <p class="boxparagraph">We will not be able to refund any payment for no-shows or early check-out.<br>Terms of booking: By clicking 'Book', you agree you have read and accept our Terms and Conditions and Privacy Policy</p>
           <br>
           <form>
-            <input type="submit" name="CompleteBooking" value="COMPLETE BOOKING" class="submitbutton" onclick="submitted()">
+            <button name="CompleteBooking" class="width100 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="submitted()">Complete Booking</button>
           </form>
         </div>
 
       </div>
-    
+
     </section>
 
     <footer>
@@ -205,7 +229,7 @@
       <p><a href="terms.html" target="_blank">Terms of Use</a></p>
       <p>© 2018 Letoh, Inc. All rights reserved</p>
     </footer>
-  
+
 </main>
 
 </div>

@@ -45,7 +45,7 @@ footer {
   z-index: 6;
 }
 
-footer p, 
+footer p,
 footer a {
   margin: 0px;
   padding-left: 10px;
@@ -376,14 +376,13 @@ input.textInput:invalid {
 }
 
 .smallinputbox{
-  width: 50px;
-  border: 1px solid #474544;
+  width: 50px !important;
 }
 
 .biginputbox{
-  width: 100%;
-  height: 100px;
-  resize: none;
+  width: 100% !important;
+  /*height: 100px;*/
+  resize:none;
 }
 
 .submitbutton{
