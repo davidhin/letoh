@@ -63,21 +63,16 @@ function submitted(){
 
 /* ================== Changing between Ac/Hi Page ===================== */
 function hotels(){
-  var hotel = document.getElementById("hotelhistory");
-  var accs = document.getElementById("accountsettings");
-  hotel.style.display="inline";
-  accs.style.display="none";
+  $("#hotelhistory").css("display","inline");
+  $("#accountsettings").css("display","none");
   window.scrollTo(0, 0);
 }
 
 function account(){
-  var hotel = document.getElementById("hotelhistory");
-  var accs = document.getElementById("accountsettings");
-  hotel.style.display="none";
-  accs.style.display="inline";
+  $("#hotelhistory").css("display","none");
+  $("#accountsettings").css("display","inline");
   window.scrollTo(0, 0);
 }
-
 /* ================== History Page ===================== */
 //Account page Information Getting
 function accountData(){
@@ -111,7 +106,7 @@ function get_bookings(can_change) {
   }
 
   // Making Current Bookings modules
-  var book_container = $('<div/>')       
+  var book_container = $('<div/>')
     .attr('class','modulecontainer mdl-grid')
     //Cancel Booking Button
     //.append('<button class="removeBookingButton" onclick="remove(this)">X</button>')
@@ -161,7 +156,7 @@ function get_bookings(can_change) {
     )
     .append("<br>")
 	.appendTo(book_container);
-   
+
     //Table
 	var book_table = $('<table class="boxtable"></table>')
       .append($('<tr></tr>')
@@ -485,7 +480,7 @@ function accountCancel(index){
 //        )//table end
 //      )
 //  );
-  
+
 
 	//	//Review Module
 //	.append($("<div></div>")
@@ -495,5 +490,3 @@ function accountCancel(index){
 //	  .append($('<button class="postButton" onclick="postButton(this)">Post</button>'))
 //	  .append($('<button class="cancelButton" onclick="cancelButton(this)">Cancel</button>'))
 //	)
-
-
