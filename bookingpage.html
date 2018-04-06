@@ -1,190 +1,213 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking Page</title>
-    <link rel="stylesheet" type="text/css" href="stylesheets/hotel.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans%7CLobster">
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-pink.min.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="javascripts/jquery.js"></script>
-    <script src="javascripts/hotel.js"></script>
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Page</title>
+  <link rel="stylesheet" href="stylesheets/style.css">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-pink.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="javascripts/jquery.js"></script>
+  <script src="javascripts/hotel.js"></script>
+</head>
 
-  <body id="bodydiv" onload="bookingData()">
+<body onload="bookingData()">
+<div class="mdl-layout mdl-js-layout">
 
-    <div class="mdl-layout mdl-js-layout">
-    <header>
-      <div class="letohLogo"><a href="index.html">Letoh</a></div>
-      <input type="text" id="mainSearch">
+  <!-- TOP MENU -->
+  <header>
+    <div class="letohLogo"><a href="index.html">Letoh</a></div>
+    <input type="text" id="mainSearch">
+    <button id="mainMenu" class="mdl-button mdl-js-button mdl-button--icon">
+      <i class="material-icons">more_vert</i>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="mainMenu">
+      <li class="mdl-menu__item"><a href="hotelManage.html">Manager Settings</a></li>
+      <li class="mdl-menu__item mdl-menu__item--full-bleed-divider"><a href="accountPage.html">User Settings</a></li>
+      <li class="mdl-menu__item">Yet Another Action</li>
+    </ul>
+  </header>
 
-      <button id="mainMenu" class="mdl-button mdl-js-button mdl-button--icon">
-        <i class="material-icons">more_vert</i>
-      </button>
-      <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="mainMenu">
-        <li class="mdl-menu__item"><a href="hotelManage.html">Manager Settings</a></li>
-        <li class="mdl-menu__item mdl-menu__item--full-bleed-divider"><a href="accountPage.html">User Settings</a></li>
-        <li class="mdl-menu__item">Yet Another Action</li>
-      </ul>
-    </header>
+  <main>
+    <!-- MAIN CONTENT -->
+    <section id="content" class="mdl-grid bookingContent">
 
-
-    <main>
-      <!-- MAIN CONTENT -->
-      <section id="content">
-
-        <!-- Right Div -->
-        <div class="rightdiv">
-          <!-- Check Your Booking -->
-          <div class="rightcontent divstyle">
-            <h2 class="sectionheadings">Check Your Booking</h2>
-            <img src="images/letoh1.jpg" alt="hotel" title="Your Hotel" class="boximage">
-            <h3 class="boxheadings">Location:</h3>
-            <p class="boxparagraph"></p> <!-- Street -->
-            <p class="boxparagraph"></p> <!-- City, State -->
-            <p class="boxparagraph"></p> <!-- Room 1: 2 Adults, 1 King bed -->
-            <br>
-            <table class="boxtable">
-              <tr>
-                <td>Check-in:</td>
-                <td class="tablerightcol"></td> <!-- Check-in -->
-              </tr>
-              <tr>
-                <td>Check-out:</td>
-                <td class="tablerightcol"></td> <!-- Check-out -->
-              </tr>
-              <tr>
-                <td>Length of stay:</td>
-                <td class="tablerightcol"></td> <!-- Length of Stay -->
-              </tr>
-            </table>
-            <br>
-            <p class="boxparagraph">Cost</p>
-            <hr>
-            <table class="boxtable">
-              <tr>
-                <td></td> <!-- Length of Stay -->
-                <td class="tablerightcol"></td> <!-- Cost -->
-              </tr>
-              <tr>
-                <td>Taxes</td>
-                <td class="tablerightcol"></td> <!-- Taxes -->
-              </tr>
-              <tr>
-                <th class="tabletotal">Total</th>
-                <th class="tablerightcol"></th> <!-- Total -->
-              </tr>
-            </table>
-
-          </div>
-
-          <!-- Your Booking Includes -->
-          <div class="rightcontent divstyle">
-            <h3 class="boxheadings">Your Booking Includes:</h3>
-            <ul class="boxparagraph"> <!-- Booking Includes -->
-            </ul>
-          </div>
-
+      <!-- Right Div -->
+      <div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet
+        mdl-cell--order-2-desktop mdl-cell--order-2-tablet">
+        
+        <!-- Check Your Booking -->
+        <div class="rightcontent bookingCard mdl-card mdl-shadow--2dp">
+          <h2 class="sectionheadings">Check Your Booking</h2>
+          <img src="images/letoh1.jpg" alt="hotel" title="Your Hotel" class="boximage">
+          <h3 class="boxheadings">Location:</h3>
+          <p class="boxparagraph"></p> <!-- Street -->
+          <p class="boxparagraph"></p> <!-- City, State -->
+          <p class="boxparagraph"></p> <!-- Room 1: 2 Adults, 1 King bed -->
+          <br>
+          <table class="boxtable">
+            <tr>
+              <td>Check-in:</td>
+              <td class="tablerightcol"></td> <!-- Check-in -->
+            </tr>
+            <tr>
+              <td>Check-out:</td>
+              <td class="tablerightcol"></td> <!-- Check-out -->
+            </tr>
+            <tr>
+              <td>Length of stay:</td>
+              <td class="tablerightcol"></td> <!-- Length of Stay -->
+            </tr>
+          </table>
+          <br>
+          <p class="boxparagraph">Cost</p>
+          <hr>
+          <table class="boxtable">
+            <tr>
+              <td></td> <!-- Length of Stay -->
+              <td class="tablerightcol"></td> <!-- Cost -->
+            </tr>
+            <tr>
+              <td>Taxes</td>
+              <td class="tablerightcol"></td> <!-- Taxes -->
+            </tr>
+            <tr>
+              <th class="tabletotal">Total</th>
+              <th class="tablerightcol"></th> <!-- Total -->
+            </tr>
+          </table>
         </div>
 
-        <!-- Left Div -->
-        <div class="leftdiv">
-          <!-- 1. Enter Details -->
-          <div class="leftcontent divstyle">
-            <h2 class="sectionheadings">1. Enter Details</h2>
-            <hr>
-            <h3 class="boxheadings">First Name: *</h3>
-            <p class="boxparagraph">Please give the name of guest staying in the room as it is required for check-in.</p>
-            <form action="/action_page.php"> <!-- Placeholder action page -->
-              <input type="text" name="FirstName" class="inputbox" onblur="compulsory(this)">
-            </form>
-            <h3 class="boxheadings">Last Name: *</h3>
-            <form action="/action_page.php">
-              <input type="text" name="LastName" class="inputbox" onblur="compulsory(this)">
-            </form>
-            <h3 class="boxheadings">Mobile Number: *</h3>
-            <form action="/action_page.php">
-              <input type="text" name="MobileNumber" class="inputbox" onblur="compulsory(this)"><br>
-              <input type="checkbox" name="EmergencyText" ><span class="boxparagraph">Receive emergency texts with this number</span>
-            </form>
-            <h3 class="boxheadings">Email: *</h3>
-            <form action="/action_page.php">
-              <input type="text" name="Email" class="inputbox" onblur="compulsory(this)">
-            </form>
-            <p class="boxparagraph">Confirmation email will be sent to this address</p>
-            <h3 class="boxheadings">Smoking Requests:</h3>
-            <form action="/action_page.php">
-              <select name="SmokingRequests" class="select">
-                <option>Smoking</option>
-                <option>Non-Smoking</option>
-              </select>
-            </form>
-            <h3 class="boxheadings">Special Requests:</h3>
-            <p class="boxparagraph">Please include detail of your accessibility options (e.g. accessible bathroom). After booking the hotel will be notified of your accessibility option to confirm availability. If confirmed by the hotel, you will receive a confirmation email. If you do not receive a confirmation email within 24 hours of the day that you made your booking, please contact the hotel directly to confirm or to help make alternative arrangements. Accessibility options are not guaranteed.</p>
-            <br>
-            <form action="/action_page.php">
-              <textarea name="SpecialRequest" class="inputbox biginputbox"></textarea>
-            </form>
-          </div>
-
-          <!-- 2. Payment -->
-          <div class="leftcontent divstyle">
-            <h2 class="sectionheadings">2. Payment</h2>
-            <hr>
-            <h3 class="boxheadings">Cardholder Name: *</h3>
-            <form action="/action_page.php">
-              <input type="text" name="CardholderName" class="inputbox" onblur="compulsory(this)">
-            </form>
-            <h3 class="boxheadings">Card Type: *</h3>
-            <form action="/action_page.php">
-              <select name="CardType" class="select">
-                <option>Visa</option>
-                <option>MasterCard</option>
-              </select>
-            </form>
-            <h3 class="boxheadings">Card Number: *</h3>
-            <form action="/action_page.php">
-              <input type="text" name="CardNumber" class="inputbox" onblur="compulsory(this)">
-            </form>
-            <h3 class="boxheadings">Expiration Date: *</h3>
-            <form action="/action_page.php">
-              <input type="text" name="ExpirationDate" class="inputbox smallinputbox" onblur="compulsory(this)">
-              <input type="text" name="ExpirationDate" class="inputbox smallinputbox" onblur="compulsory(this)">
-            </form>
-            <h3 class="boxheadings">Security Code: *</h3>
-            <form action="/action_page.php">
-              <input type="text" name="SecurityCode" class="inputbox" onblur="compulsory(this)">
-            </form>
-          </div>
-
-          <!-- 3. Confirm -->
-          <div class="leftcontent divstyle">
-            <h2 class="sectionheadings">3. Confirm Booking</h2>
-            <hr>
-            <h3 class="boxheadings">Terms of booking & cancellation policy</h3>
-            <p class="boxparagraph">We will not be able to refund any payment for no-shows or early check-out.<br>Terms of booking: By clicking 'Book', you agree you have read and accept our Terms and Conditions and Privacy Policy</p>
-            <br>
-            <form>
-              <input type="submit" name="CompleteBooking" value="COMPLETE BOOKING" class="submitbutton" onclick="submitted()">
-            </form>
-          </div>
-
+        <!-- Your Booking Includes -->
+        <div class="rightcontent bookingCard mdl-card mdl-shadow--2dp">
+          <h3 class="boxheadings">Your Booking Includes:</h3>
+          <ul class="boxparagraph"> <!-- Booking Includes -->
+          </ul>
         </div>
 
-      </section>
+      </div>
 
-      <footer>
-        <p>Feedback</p>
-        <p><a href="privacy.html" target="_blank">Privacy Policy</a></p>
-        <p><a href="terms.html" target="_blank">Terms of Use</a></p>
-        <p>© 2018 Letoh, Inc. All rights reserved</p>
-      </footer>
-    </main>
+      <!-- Left Div -->
+      <div class="mdl-cell mdl-cell--8-col-desktop mdl-cell--5-col-tablet
+        mdl-cell--order-1-desktop">
+        
+        <!-- 1. Enter Details -->
+        <div class="leftcontent bookingCard mdl-card mdl-shadow--2dp">
+          <h2 class="sectionheadings">1. Enter Details</h2>
+          <hr>
+          <h3 class="boxheadings">First Name: *</h3>
+          <p class="boxparagraph">Please give the name of guest staying in the room as it is required for check-in.</p>
+          
+          <form action="/action_page.php"> <!-- Placeholder action page -->
+            <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
+              <input type="text" name="FirstName" class="inputbox mdl-textfield__input" onblur="compulsory(this)">
+              <label class="mdl-textfield__label">e.g. John</label>
+            </div>
+          </form>
+          
+          <h3 class="boxheadings">Last Name: *</h3>
+          <form action="/action_page.php">
+            <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
+              <input type="text" name="LastName" class="inputbox mdl-textfield__input" onblur="compulsory(this)">
+              <label class="mdl-textfield__label">e.g. Doe</label>
+            </div>
+          </form>
+          
+          <h3 class="boxheadings">Mobile Number: *</h3>
+          <form action="/action_page.php">
+            <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
+              <input type="text" name="MobileNumber" class="inputbox mdl-textfield__input" onblur="compulsory(this)">
+              <label class="mdl-textfield__label">e.g. +61 111 111 111</label>
+            </div>
+          
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="emerText">
+              <input type="checkbox" id="emerText" name="EmergencyText" class="mdl-checkbox__input">
+              <span class="mdl-checkbox__label">Receive emergency texts with this number</span>
+            </label>
+          </form>
+          
+          <h3 class="boxheadings">Email: *</h3>
+          <form action="/action_page.php">
+            <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
+              <input type="text" name="Email" class="inputbox mdl-textfield__input" onblur="compulsory(this)">
+              <label class="mdl-textfield__label">e.g. name@domain.com</label>
+            </div>
+          </form>
+          <p class="boxparagraph">Confirmation email will be sent to this address</p>
+          
+          <h3 class="boxheadings">Smoking Requests:</h3>
+          <form action="/action_page.php">
+            <select name="SmokingRequests" class="select">
+              <option>Smoking</option>
+              <option>Non-Smoking</option>
+            </select>
+          </form>
+          
+          <h3 class="boxheadings">Special Requests:</h3>
+          <p class="boxparagraph">Please include detail of your accessibility options (e.g. accessible bathroom). After booking the hotel will be notified of your accessibility option to confirm availability. If confirmed by the hotel, you will receive a confirmation email. If you do not receive a confirmation email within 24 hours of the day that you made your booking, please contact the hotel directly to confirm or to help make alternative arrangements. Accessibility options are not guaranteed.</p>
+          <br>
+          <form action="/action_page.php">
+            <textarea name="SpecialRequest" class="inputbox biginputbox"></textarea>
+          </form>
+        </div>
 
-  </body>
+        <!-- 2. Payment -->
+        <div class="leftcontent bookingCard mdl-card mdl-shadow--2dp">
+          <h2 class="sectionheadings">2. Payment</h2>
+          <hr>
+          <h3 class="boxheadings">Cardholder Name: *</h3>
+          <form action="/action_page.php">
+            <input type="text" name="CardholderName" class="inputbox" onblur="compulsory(this)">
+          </form>
+          <h3 class="boxheadings">Card Type: *</h3>
+          <form action="/action_page.php">
+            <select name="CardType" class="select">
+              <option>Visa</option>
+              <option>MasterCard</option>
+            </select>
+          </form>
+          <h3 class="boxheadings">Card Number: *</h3>
+          <form action="/action_page.php">
+            <input type="text" name="CardNumber" class="inputbox" onblur="compulsory(this)">
+          </form>
+          <h3 class="boxheadings">Expiration Date: *</h3>
+          <form action="/action_page.php">
+            <input type="text" name="ExpirationDate" class="inputbox smallinputbox" onblur="compulsory(this)">
+            <input type="text" name="ExpirationDate" class="inputbox smallinputbox" onblur="compulsory(this)">
+          </form>
+          <h3 class="boxheadings">Security Code: *</h3>
+          <form action="/action_page.php">
+            <input type="text" name="SecurityCode" class="inputbox" onblur="compulsory(this)">
+          </form>
+        </div>
+
+        <!-- 3. Confirm -->
+        <div class="leftcontent bookingCard mdl-card mdl-shadow--2dp">
+          <h2 class="sectionheadings">3. Confirm Booking</h2>
+          <hr>
+          <h3 class="boxheadings">Terms of booking & cancellation policy</h3>
+          <p class="boxparagraph">We will not be able to refund any payment for no-shows or early check-out.<br>Terms of booking: By clicking 'Book', you agree you have read and accept our Terms and Conditions and Privacy Policy</p>
+          <br>
+          <form>
+            <input type="submit" name="CompleteBooking" value="COMPLETE BOOKING" class="submitbutton" onclick="submitted()">
+          </form>
+        </div>
+
+      </div>
+    
+    </section>
+
+    <footer>
+      <p>Feedback</p>
+      <p><a href="privacy.html" target="_blank">Privacy Policy</a></p>
+      <p><a href="terms.html" target="_blank">Terms of Use</a></p>
+      <p>© 2018 Letoh, Inc. All rights reserved</p>
+    </footer>
+  
+</main>
+
+</div>
+</body>
 </html>

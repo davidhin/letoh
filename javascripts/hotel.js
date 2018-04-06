@@ -392,27 +392,6 @@ function accountCancel(index){
   buttons[2].style.display="none";
 }
 
-//EDIT THIS STUFF LATER
-onload = function() {
-    sizes();
-};
-
-window.onresize = function(event) {
-    sizes();
-};
-
-function sizes() {
-    // This uses the <footer> tag, not id="footer"
-	var footer = document.getElementsByTagName("footer")[0];
-
-  // Replace "content" with your main container div
-  if (document.getElementById("bodydiv").offsetHeight < parseInt(window.innerHeight,10)) {
-      footer.style.position = "absolute";
-  } else {
-      footer.style.position = "relative";
-  }
-}
-		  
 //Making Current Bookings modules
 //  $("#currentBookings")
 //    .append($("<div></div>")

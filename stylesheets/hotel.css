@@ -1,277 +1,147 @@
 /* ================== Basics ===================== */
-body{
-	font-family:Open Sans, sans-serif;
-	padding:0px;
-	margin:0px;
-	background:#f4f4f4;
-}
-
-h4{
-	margin:0px;
-}
-
-#bodydiv{
-	padding:0px;
-}
-
 .divstyle{
-	box-sizing:border-box;
-	padding:30px;
-	border-radius:25px;
-	background:white;
-	border:5px solid #efefef;
+  box-sizing: border-box;
+  padding: 30px;
+  border-radius: 25px;
+  background: white;
+  border: 5px solid #efefef;
 }
 
 .sectionheadings{
-	margin-top:0px;
-	font-family:Bree Serif, sans-serif;
+  margin-top: 0px;
 }
 
 .boxheadings,
 .hotelboxheadings{
-	word-break:keep-all;
-	margin-bottom:5px;
+  word-break: keep-all;
+  margin-bottom: 5px;
 }
 
 .hotelboxheadings{
-	margin-top:0px;
+  margin-top: 0px;
 }
 
 .boxparagraph{
 }
 
 .boximage{
-	width:100%;
+  width: 100%;
 }
 /* ================== Screen Resizing ===================== */
-@media screen and (max-width:1000px){
-	#hotelhistory,	#accountsettings, .rightaccount{
-		width:100%;
-	}
-
-	#sidebar{
-		display:none;
-	}
+@media screen and (max-width: 1000px){
+  #hotelhistory,  #accountsettings, .rightaccount{
+    width: 100%;
+  }
 }
 
-@media screen and (max-width:800px) {
-	.rightdiv,
-	.leftdiv{
-  		width:100%;
-		padding-right:30px;
-		padding-left:30px;
-		padding-top:30px;
-		margin-bottom:0px;
- 	}
-	.leftdiv{
-  		padding-top:0px;
-	}
+@media screen and (max-width: 800px) {
+  .modulecontainer{
+    display: block;
+  }
 
-	.accountModule,
-	.rightaccount,
-	.settingName,
-	.settingDescription,
-	.modulecontainer,
-	.imagemodule,
-	.descriptmodule,
-	.reviewmodule{
-	}
+  .reviewmodule{
+    height: auto;
+  }
 
-	.modulecontainer{
-		display:block;
-	}
-
-	.reviewmodule{
-		height:auto;
-	}
-
-	.imagemodule{
-		height:auto;
-	}
-}
-/* ================== Header ===================== */
-/*
-header{
-	z-index: 999;
-	width: 100%;
-	background: #00acc1;
-	position: fixed;
-	top: 0px;
+  .imagemodule{
+    height: auto;
+  }
 }
 
-header a h1{
-	display: block;
-	float: left;
-	height: 100%;
-	font-size: 35px;
-	margin: 10px 10px 10px 20px;
-	font-family: Lobster, sans-serif;
-	text-decoration: none;
-	color: white;
-}
-
-#mainSearch {
-	display: block;
-	float: left;
-	height: 40px;
-	background: white;
-	border: none;
-	border-radius: 5px;
-	margin: 10px 0px 0px 20px;
-	width: 60%;
-	min-width: 240px;
-}
-
-#profile {
-	text-align: right;
-	padding-top: 20px;
-	padding-right: 40px;
-}*/
-/* ================== Footer ===================== */
-/*
-footer {
-	bottom: 0;
-	left: 0;
-	float: left;
-	position:absolute;
-	box-sizing:border-box;
-	width: 100%;
-	padding: 2px;
-	font-size: 12px;
-	font-family: Open Sans, sans-serif;
-	background: #00acc1;
-	z-index:1000;
-}
-
-footer p, footer a {
-	margin: 0px;
-	padding-left: 10px;
-	color: #FFFFFF;
-	float: left;
-}*/
 /* ================== Booking Page ===================== */
 /* ============= Modules ================ */
-.rightdiv,
-.leftdiv{
-	box-sizing:border-box;
-	padding-right:30px;
-	padding-top:30px;
-}
-
-.rightdiv{
-	padding-bottom:0px;
-	margin-bottom:30px;
-	width:35%;
-	float:right;
-}
-
 .rightcontent,
 .leftcontent{
-	margin-bottom:30px;
-	width:100%;
+  margin-bottom: 20px;
+  width: 100%;
 }
 
-.leftdiv{
-	width:65%;
-	padding-left:30px;
-	float:left;
-}
-
-.leftcontent{
-	left:0px;
-}
 /* ============= Forms ================ */
-.inputbox,
-.smallinputbox,
-.biginputbox,
-.select,
-.submitbutton{
-	font-family:Open Sans, sans-serif;
-}
-
 .inputbox{
-	border:1px solid #474544;
+  border: 1px solid #474544;
+  background: white;
 }
 
 .smallinputbox{
-	width:50px;
-	border:1px solid #474544;
+  width: 50px;
+  border: 1px solid #474544;
 }
 
 .biginputbox{
-	width:100%;
-	height:100px;
-	resize:none;
+  width: 100%;
+  height: 100px;
+  resize: none;
 }
 
 .submitbutton{
-	width:100%;
-	height:50px;
+  width: 100%;
+  height: 50px;
 }
 /* ================== Ac/Hi Page ===================== */
 .rightaccount{
-	width:100%;
-	margin:0px;
+  width: 100%;
+  margin: 0px;
 }
 
 .centerdiv{
-	box-sizing:border-box;
-	width:100%;
-	padding-right:30px;
-	padding-left:30px;
-	padding-top:30px;
-	margin-bottom:50px;
-	float:left;
+  box-sizing: border-box;
+  width: 100%;
+  padding-right: 30px;
+  padding-left: 30px;
+  padding-top: 30px;
+  margin-bottom: 50px;
+  float: left;
 }
 
 #hotelhistory{
+  float:  left;
 }
 
 #accountsettings{
-	display:none;
+  display: none;
 }
 /* ================== Account Page ===================== */
 /* ============= Modules ================ */
 .accountModule{
-	display:block;
-	width:100%;
-	overflow:auto;
-	display:flex;
-	flex-direction: row;
+  display: block;
+  width: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: row;
 }
 
 .settingName,
 .settingDescription{
-	border-radius:0px;
-	float:left;
-	min-height:105px;
-	height:100%;
+  border-radius: 0px;
+  float: left;
+  min-height: 105px;
+  height: 100%;
 }
 
 .settingName{
-	padding-top:12px;
-	width:280px;
-	height:auto;
-	flex:1;
+  padding-top: 12px;
+  width: 280px;
+  height: auto;
+  flex: 1;
 }
 
 .settingDescription{
-	width:400px;
-	flex:2;
+  width: 400px;
+  flex: 2;
 }
 
 .accountInput{
-	display:none;
+  display: none;
 }
 /* ============= Buttons ================ */
 .confirm{
-	display:none;
-	float:left;
+  display: none;
+  float: left;
 }
 
 .cancel{
-	display:none;
-	float:right;
+  display: none;
+  float: right;
 }
 /* ================== History Page ===================== */
 #currentBookings{
@@ -281,22 +151,22 @@ footer p, footer a {
 }
 /* ============= Modules ================ */
 .modulecontainer{
-	overflow:auto;
-	min-height:280px;
-	display:flex;
+  overflow: auto;
+  min-height: 280px;
+  display: flex;
 }
 
 .modulecontainer .mdl-cell {
-	padding: 15px;
+  padding:  15px;
 }
 
 .imagemodule,
 .descriptmodule,
 .reviewmodule{
-	display:table-cell;
-	vertical-align: top;
-	border-radius:0px;
-	float:left;
+  display: table-cell;
+  vertical-align:  top;
+  border-radius: 0px;
+  float: left;
 }
 
 .imagemodule{
@@ -306,113 +176,98 @@ footer p, footer a {
 }
 
 .reviewmodule{
-	white-space: nowrap
+  white-space:  nowrap
 }
 /* ============= Buttons ================ */
 /* ======== Edit Booking ========== */
 .removeBookingButton{
-	background-color:red;
-	border:none;
+  background-color: red;
+  border: none;
 }
 
-.removeBookingButton:hover{
-	background-color:yellow;
+.removeBookingButton: hover{
+  background-color: yellow;
 }
 
 .editBookingedit{
 }
 
 .cancelBookingedit{
-	display:none;
+  display: none;
 }
 
 .confirmBookingedit{
-	display:none
+  display: none
 }
 /* ======== Review ========== */
 .reviewButton{
-	width:50px;
-	height:50px;
+  width: 50px;
+  height: 50px;
 }
 
 .cancelButton{
-	display:none;
-	float:right;
+  display: none;
+  float: right;
 }
 
 .postButton{
-	display:none;
-	float:left;
+  display: none;
+  float: left;
 }
 /* ============= Buttons ================ */
 .dateInput{
-	display:none;
+  display: none;
 }
 
 .tableFill{
 }
 
 .filler{
-	float:right;
-	width:85%;
-	margin:0px;
+  float: right;
+  width: 85%;
+  margin: 0px;
 }
 
 .boxtable{
-	width:100%;
+  width: 100%;
 }
 
 .tablerightcol{
-	text-align:right;
+  text-align: right;
 }
 
 .tabletotal{
-	text-align:left;
+  text-align: left;
 }
 /* ================== Screen Resizing ===================== */
-@media screen and (max-width:1000px){
-	#hotelhistory,	#accountsettings, .rightaccount{
-		width:100%;
-	}
+@media screen and (max-width: 1000px){
+  #hotelhistory,  #accountsettings, .rightaccount{
+    width: 100%;
+  }
 
-	#sidebar{
-		display:none;
-	}
 }
 
-@media screen and (max-width:800px) {
-	.rightdiv,
-	.leftdiv{
-  		width:100%;
-		padding-right:30px;
-		padding-left:30px;
-		padding-top:30px;
-		margin-bottom:0px;
- 	}
-	.leftdiv{
-  		padding-top:0px;
-	}
+@media screen and (max-width: 800px) {
+  .accountModule,
+  .rightaccount,
+  .settingName,
+  .settingDescription,
+  .modulecontainer,
+  .imagemodule,
+  .descriptmodule,
+  .reviewmodule{
+    width: 100%;
+  }
 
-	.accountModule,
-	.rightaccount,
-	.settingName,
-	.settingDescription,
-	.modulecontainer,
-	.imagemodule,
-	.descriptmodule,
-	.reviewmodule{
-		width:100%;
-	}
+  .modulecontainer{
+    display: block;
+  }
 
-	.modulecontainer{
-		display:block;
-	}
+  .reviewmodule{
+    height: 280px;
+  }
 
-	.reviewmodule{
-		height:280px;
-	}
-
-	.imagemodule{
-		height:auto;
-	}
+  .imagemodule{
+    height: auto;
+  }
 }
