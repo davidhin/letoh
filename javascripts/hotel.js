@@ -48,17 +48,15 @@ function compulsory(index){
 }
 
 function submitted(){
-    var allCompuls = document.getElementsByClassName('inputbox');
-    for(var i=0;i<allCompuls.length;i++){
-      console.log(allCompuls[i].name);
-      console.log(allCompuls[i].value);
-    }
+  $('.inputbox').each(function(){
+    console.log($(this).attr('name'));
+    console.log($(this).val());
+  });
 
-    var allSelect = document.getElementsByTagName('SELECT');
-    for(var as=0;as<allSelect.length;as++){
-      console.log(allSelect[as].name);
-      console.log(allSelect[as].options[allSelect[as].selectedIndex].text);
-    }
+  $('select').each(function(){
+    console.log($(this).attr('name'));
+    console.log($(this).val());
+  });
 }
 
 /* ================== Changing between Ac/Hi Page ===================== */
