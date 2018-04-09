@@ -36,7 +36,7 @@ function bookingData(){
   var check_in = moment($('#check-in').val())
   var check_out = moment($('#check-out').val())
 
-  // Finalised dates
+  // Date summary
   $($(".rightcontent td.tablerightcol")[0]).html(check_in.format('Do MMM YYYY'));
   $($(".rightcontent td.tablerightcol")[1]).html(check_out.format('Do MMM YYYY'));
   $($(".rightcontent td.tablerightcol")[2]).html(stay);
