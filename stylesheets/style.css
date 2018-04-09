@@ -28,6 +28,7 @@ header{
   padding: 79px 0px 0px 15px;
   width: 100%;
   height: auto;
+  overflow: auto;
 }
 
 .bookingContent {
@@ -159,6 +160,11 @@ input.textInput:invalid {
   display: none;
   margin: 18px;
 }
+
+#confirmation_overlay {
+  display: none;
+}
+
 #hd_backbutton {
   position: absolute;
   margin: 10px;
@@ -441,7 +447,8 @@ input.textInput:invalid {
 }
 
 #hotelhistory{
-  float:  left;
+  float: left;
+  width: calc(100% - 20px);
 }
 
 #accountsettings{
@@ -596,7 +603,7 @@ input.textInput:invalid {
 /* =============== Screen Resizing ================ */
 @media screen and (max-width: 1000px){
   #hotelhistory,  #accountsettings, .rightaccount{
-    width: 100%;
+    width: calc(100% - 20px);
   }
 
 }

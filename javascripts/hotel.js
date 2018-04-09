@@ -23,9 +23,23 @@ function bookingData(){
   $($(".rightcontent p")[1]).text("City"+", "+"State");
   $($(".rightcontent p")[2]).text("Room 1: "+"2 Adults"+", "+"1 King bed");
 
-  $($(".rightcontent td.tablerightcol")[0]).text("2018"+"-"+"05"+"-"+"15");
-  $($(".rightcontent td.tablerightcol")[1]).text("2018"+"-"+"05"+"-"+"19");
-  $($(".rightcontent td.tablerightcol")[2]).text("4"+" days");
+  // Date validation
+  var check_in = moment($('#check-in').val())
+  var check_out = moment($('#check-out').val())
+  var diffDays = check_out.diff(check_in, 'days');
+  var pastBooking = check_in.diff(moment(), 'days');
+  var stay;
+  if (diffDays == 1) { stay = diffDays + " night" }
+  else if (diffDays > 1) { stay = diffDays + " nights" }
+  if (pastBooking < 0) { alert("Can't book in the past!"); date_initial(); }
+  if (diffDays <= 0) { alert("Invalid date(s)!"); date_initial(); };
+  var check_in = moment($('#check-in').val())
+  var check_out = moment($('#check-out').val())
+
+  // Finalised dates
+  $($(".rightcontent td.tablerightcol")[0]).html(check_in.format('Do MMM YYYY'));
+  $($(".rightcontent td.tablerightcol")[1]).html(check_out.format('Do MMM YYYY'));
+  $($(".rightcontent td.tablerightcol")[2]).html(stay);
 
   $($('.rightcontent td:not([class])')[3]).text("4"+" days");
   $($(".rightcontent td.tablerightcol")[3]).text("AU"+" $"+"5000");

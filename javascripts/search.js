@@ -11,9 +11,11 @@ $( document ).ready(function() {
 		$( "#minStars" ).val($("#stars").val());
 	});
 
+
 	hotelCards();
 	sizes();
 	date_initial();
+  check_inputs();
 });
 
 // ============ DYNAMIC DATA GENERATION: HOTEL CARDS ========= //
@@ -92,7 +94,19 @@ Date.prototype.today = (function(tomorrow) {
     return local.toJSON().slice(0,10);
 });
 
-function date_initial() {	
-    document.getElementById('check-in').value = new Date().today(false);
-	document.getElementById('check-out').value = new Date().today(true);
+function date_initial() {
+  var a = moment();
+  var b = moment().add(1, 'days');
+  $('#check-in').val(a.format('YYYY-MM-DD'));
+  $('#check-out').val(b.format('YYYY-MM-DD'));
+
+  // Update on blur
+  $('#check-in, #check-out, #room-num, #adult-num, #child-num').blur(function() { bookingData(); })
+}
+
+function check_inputs() {
+  var nodeList = document.querySelectorAll('.mdl-textfield');
+  Array.prototype.forEach.call(nodeList, function (elem) {
+      elem.MaterialTextfield.checkDirty();
+  });
 }

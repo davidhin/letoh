@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">  
@@ -13,7 +13,7 @@
   <script src="javascripts/hotel.js"></script>
 </head>
 
-<body onload="accountData()"> 
+<body> 
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
   
   <!-- TOP MENU -->
@@ -24,8 +24,8 @@
       <i class="material-icons">more_vert</i>
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="mainMenu">
-      <li class="mdl-menu__item"><a href="hotelManage.html">Manager Settings</a></li>
-      <li class="mdl-menu__item mdl-menu__item--full-bleed-divider"><a href="accountPage.html">User Settings</a></li>
+      <li class="mdl-menu__item"><a href="hotelManage.html" onclick="sizes()">Manager Settings</a></li>
+      <li class="mdl-menu__item mdl-menu__item--full-bleed-divider"><a href="accountPage.html" onclick="sizes()">User Settings</a></li>
       <li class="mdl-menu__item">Yet Another Action</li>
     </ul>
   </header>
@@ -132,6 +132,7 @@
   </main>
 
 </div>
+<script> accountData(); </script>
 </body>
 </html>
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">  
@@ -12,6 +12,7 @@
   <script src="javascripts/main.js"></script>
   <script src="javascripts/search.js"></script>
   <script src="javascripts/hotel.js"></script>
+  <script src="javascripts/moment.js"></script>
 </head>
 
 <body>
@@ -39,11 +40,12 @@
   </div>
 
   <main class="mdl-layout__content">
-    <section id="content">
+    <div id="content">
       <div id="hoteldetails_overlay" w3-include-html="hoteldetails_ext.html"></div> 
       <div id="bookingpage_overlay" w3-include-html="bookingpage_ext.html"></div> 
+      <div id="confirmation_overlay" w3-include-html="confirmation_ext.html"></div> 
       <div id="hotelcards"><!-- DYNAMIC DATA (HOTEL CARDS) GO HERE --></div>
-    </section>
+    </div>
     
     <footer>
       <p>Feedback</p>
