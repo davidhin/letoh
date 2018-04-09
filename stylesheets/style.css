@@ -36,6 +36,7 @@ header{
   z-index: 6;
   width: calc(100% - 45px);
   background: rgba(255,255,255,0.8);
+  height: auto;
 }
 
 footer {
@@ -159,10 +160,11 @@ input.textInput:invalid {
   width: calc(100% - 378px);
   display: none;
   margin: 18px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
 }
 
 #confirmation_overlay {
-  /*display: none;*/
+  display: none;
   position: absolute;
   z-index: 7;
   padding: 20px;
@@ -338,6 +340,8 @@ input.textInput:invalid {
   #confirmation_overlay,
   #hoteldetails_overlay {
     width: calc(100% - 72px);
+    max-height: calc(100vh - 110px);
+    overflow: auto;
   }
 }
 
@@ -355,6 +359,16 @@ input.textInput:invalid {
   }
   #content {
     padding: 63px 0px 0px 15px;
+  }
+  #hoteldetails_overlay {
+    width: 100%;
+    max-height: 100%;
+    height: calc(100vh - 48px);
+    margin: -15px 0 0 -15px;
+    overflow: auto;
+  }
+  #confirmedBox {
+    max-width: 100%;
   }
 }
 

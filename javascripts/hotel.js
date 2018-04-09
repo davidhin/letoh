@@ -80,14 +80,16 @@ function submitted(){
     console.log($(this).val());
   });
 
+  $('.mdl-layout__content').animate({ scrollTop: 0 });
   $('#bookingpage_overlay').fadeOut(function() {
-    $('footer').css("margin-top", 0);
-    $('#confirmation_overlay').fadeIn(function() { summarise_details(); });
+    $('#confirmation_overlay').fadeIn(function() { 
+    summarise_details(); 
+    });
   });
 }
 
 function summarise_details() {
-  $("#rc_backbutton").click(function() { $('#confirmation_overlay').hide(); });
+  $('#rc_backbutton').click(function() { $('#confirmation_overlay').fadeOut(); });
 }
 
 /* ================== Changing between Ac/Hi Page ===================== */

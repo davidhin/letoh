@@ -21,6 +21,10 @@ $( document ).ready(function() {
   summarise_details();
 });
 
+window.onresize = function(event) {
+  repos_footer();
+};
+
 // ============ DYNAMIC DATA GENERATION: HOTEL CARDS ========= //
 
 function hotelCards() {
@@ -48,6 +52,7 @@ function hotelCards() {
 }
 
 function hoteldetails() {
+  $('#confirmation_overlay').fadeOut(); 
   $('#hoteldetails_overlay').fadeIn();
   // DYNAMIC DATA: Get the image
   var getimage = $(this).parents("div").siblings(".mdl-card__title").css("backgroundImage") + " center / cover";
@@ -65,21 +70,12 @@ function bookingpage() {
   $("#hd_booknow_btn").click(function() {
     // Maybe fix this - it instant-shows on the first booking button click
     // This could potentially(?) lead to other issues
+    $('.mdl-layout__content').animate({ scrollTop: 0 });
     $('#bookingpage_overlay').show();
     $('#hoteldetails_overlay').fadeOut();
-    $('.bookingContent').fadeIn(); 
+    $('.bookingContent').fadeIn(function() { repos_footer(); });
     bookingData();
   
-    // Footer hacks (BAD)
-    var booking_overlay = $('.bookingContent');
-    var hotelcards = $('#hotelcards');
-    var height_diff = booking_overlay.height() - hotelcards.height(); 
-    console.log(height_diff);
-    if (height_diff > 0) 
-    { $('footer').css("margin-top", height_diff + "px"); }
-    else
-    { $('.bookingContent').css("height", hotelcards.height() + "px"); }
-
     $('#bk_backbutton').click(function() { 
       $('footer').css("margin-top", "0px");
       $('#hoteldetails_overlay').fadeIn(); 
