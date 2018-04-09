@@ -27,11 +27,14 @@ header{
   box-sizing: border-box;
   padding: 79px 0px 0px 15px;
   width: 100%;
-  height: calc(100% - 28px);
+  height: auto;
 }
 
 .bookingContent {
-  padding: 74px 10px 0px 10px !important;
+  position: absolute;
+  z-index: 6;
+  width: calc(100% - 45px);
+  background: rgba(255,255,255,0.8);
 }
 
 footer {
@@ -137,18 +140,36 @@ input.textInput:invalid {
 .hotel-card > .mdl-card__menu {
   color: #fff;
 }
-.hoteldetails_overlay {
+
+#hotelcards {
+  overflow: auto;
+}
+
+/* ------------- Search Page Overlays ------------- */
+
+#bookingpage_overlay {
+  display: none;
+}
+
+#hoteldetails_overlay {
   position: fixed;
   z-index: 6;
   background: rgba(255,255,255,0.9);
-  width: calc(100% - 362px);
+  width: calc(100% - 378px);
   display: none;
-  margin: 10px;
+  margin: 18px;
 }
 #hd_backbutton {
   position: absolute;
   margin: 10px;
 }
+
+#bk_backbutton {
+  position: absolute;
+  margin: 20px;
+  z-index: 7;
+}
+
 
 /* ========== HOTEL MANAGER PAGE CARDS ============ */
 .managerContent {
@@ -269,6 +290,7 @@ input.textInput:invalid {
   article { padding-top: 64px; }
   .letohLogo { padding: 12px 10px 5px 20px; }
   #mainSearch { padding: 10px; margin-top: 5px; }
+  #hoteldetails_overlay { max-width: 45%; }
 }
 
 /* =================== TABLET ===================== */
@@ -292,11 +314,8 @@ input.textInput:invalid {
   #content {
     padding: 63px 0px 0px 15px;
   }
-  .bookingContent {
-    padding: 58px 10px 10px 10px !important;
-  }
-  .hoteldetails_overlay {
-    width: calc(100% - 60px);
+  #hoteldetails_overlay {
+    width: calc(100% - 72px);
   }
 }
 
@@ -314,9 +333,6 @@ input.textInput:invalid {
   }
   #content {
     padding: 63px 0px 0px 15px;
-  }
-  .bookingContent {
-    padding: 58px 10px 10px 10px !important;
   }
 }
 
@@ -336,12 +352,14 @@ input.textInput:invalid {
 
 .sectionheadings{
   margin-top: 0px;
+  font-size: 30px
 }
 
 .boxheadings,
 .hotelboxheadings{
   word-break: keep-all;
   margin-bottom: 5px;
+  font-size: 20px;
 }
 
 .hotelboxheadings{
@@ -353,6 +371,7 @@ input.textInput:invalid {
 
 .boximage{
   width: 100%;
+  height: 150px;
 }
 
 /* ============== Screen Resizing ================= */

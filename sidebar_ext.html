@@ -1,0 +1,62 @@
+<div> 
+
+<!-- ========= Details ======== -->  
+<h2>Details</h2> 
+
+<!-- Check in and check out dates -->
+<div class="date mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+  <input class="mdl-textfield__input" type="date" id="check-in" required="required" />
+  <label class="mdl-textfield__label" for="check-in">Check in...</label>
+</div>
+  
+<div class="date mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+  <input class="mdl-textfield__input" type="date" id="check-out" required="required" />
+  <label class="mdl-textfield__label" for="check-out">Check out...</label>
+</div>
+
+<!-- Number of rooms, adults, children -->
+<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+  <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="room-num" />
+  <label class="mdl-textfield__label" for="room-num">Number of rooms:</label>
+  <span class="mdl-textfield__error">Input is not a number!</span>
+</div>
+
+<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+  <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="adult-num" />
+  <label class="mdl-textfield__label" for="adult-num">Number of adults:</label>
+  <span class="mdl-textfield__error">Input is not a number!</span>
+</div>
+
+<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+  <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="child-num" />
+  <label class="mdl-textfield__label" for="child-num">Number of children:</label>
+  <span class="mdl-textfield__error">Input is not a number!</span>
+</div>
+
+<!-- ========= FILTERS ======== -->  
+<h2>Filters</h2>
+
+<!-- Maximum Price -->
+<div class="box">
+<label>Maximum price ($AUD): <input class="textInput" id="maxPrice" type="text" pattern="-?[0-9]*(\.[0-9]+)?" /> </label>
+  <input id="price" class="mdl-slider mdl-js-slider" type="range" 
+  min="0" max="100" value="25" tabindex="0" /> 
+</div>
+
+<!-- Maximum Distance -->
+<div class="box">
+  <label>Maximum distance (km): <input class="textInput" id="maxDist" type="text" pattern="-?[0-9]*(\.[0-9]+)?" /> </label>
+  <input id="dist" class="mdl-slider mdl-js-slider" type="range" 
+  min="0" max="100" value="25" tabindex="0" /> 
+</div>
+
+<!-- Minimum Stars -->
+<div class="box">
+<label>Minimum stars: <input class="textInput" id="minStars" type="text" pattern="-?[1-5]?" /> </label>
+  <input class="mdl-slider mdl-js-slider" type="range" id="stars" min="1" max="5" value="3" step="1" />
+</div>
+
+<!-- Submit -->
+<button class="width100 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Submit</button>
+
+</div>

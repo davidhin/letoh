@@ -33,6 +33,7 @@ function bookingData(){
   $($(".rightcontent th.tablerightcol")[0]).text("AU"+" $"+"59000");
 
   //Bottom right box
+  $(".rightcontent ul.boxparagraph").empty();
   var included=['1 Bathroom','Free Continental Breakfast','Free Wifi','Free Parking'];
   for(var i=0;i<included.length;i++){
     $(".rightcontent ul.boxparagraph").append("<li>"+included[i]+"</li>");

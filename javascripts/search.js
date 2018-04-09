@@ -21,7 +21,7 @@ $( document ).ready(function() {
 function hotelCards() {
 	mdl_upgrade();
 	for (var i = 0; i < 10; i++) {
-		var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#content");
+		var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#hotelcards");
 		  // Change the background picture here
 		  var insertBg = "url('http://lorempixel.com/400/400/city/" + i + "') center / cover";
 		  var div_title = $('<div/>').addClass("mdl-card__title").appendTo(div_main).css("background", insertBg);
@@ -43,12 +43,44 @@ function hotelCards() {
 }
 
 function hoteldetails() {
-  $('.hoteldetails_overlay').show();
+  $('#hoteldetails_overlay').fadeIn();
+  // DYNAMIC DATA: Get the image
   var getimage = $(this).parents("div").siblings(".mdl-card__title").css("backgroundImage") + " center / cover";
-  console.log(getimage);
   $('.imagescroller').css("background", getimage);
-  //$('.mdl-layout__obfuscator').css("opacity", "1");
-  $('#hd_backbutton').click(function() { $('.hoteldetails_overlay').hide() });
+  $('#hd_backbutton').click(function() { $('#hoteldetails_overlay').fadeOut(); sizes(); });
+
+  bookingpage.call(this);
+  mdl_upgrade();
+}
+
+function bookingpage() {
+  var getimage = $(this).parents("div").siblings(".mdl-card__title").css("backgroundImage") + " center / cover";
+  $('.boximage').css("background", getimage);
+  
+  $("#hd_booknow_btn").click(function() {
+    // Maybe fix this - it instant-shows on the first booking button click
+    // This could potentially(?) lead to other issues
+    $('#bookingpage_overlay').show();
+    $('#hoteldetails_overlay').fadeOut();
+    $('.bookingContent').fadeIn(); 
+    bookingData();
+  
+    // Footer hacks (BAD)
+    var booking_overlay = $('.bookingContent');
+    var hotelcards = $('#hotelcards');
+    var height_diff = booking_overlay.height() - hotelcards.height(); 
+    console.log(height_diff);
+    if (height_diff > 0) 
+    { $('footer').css("margin-top", height_diff + "px"); }
+    else
+    { $('.bookingContent').css("height", hotelcards.height() + "px"); }
+
+    $('#bk_backbutton').click(function() { 
+      $('footer').css("margin-top", "0px");
+      $('#hoteldetails_overlay').fadeIn(); 
+      $('.bookingContent').fadeOut(function() {$('#bookingpage_overlay').hide();}); 
+    });
+  });
 }
 
 // ====================== MISC FUNCTIONS  =================== //

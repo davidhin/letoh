@@ -10,15 +10,13 @@ function sizes() {
   var content = document.getElementById("content");
 
   // FOOTER POSITIONING
-  console.log(content.offsetHeight);
-  console.log(window.innerHeight);
-  console.log(" ");
   if (content.offsetHeight < parseInt(window.innerHeight,10) - headerHeight) { footer.style.position = "absolute"; } 
   else { footer.style.position = "relative"; }
 }
 
 window.onresize = function(event) {
   sizes();
+  bookingData();
 };
 
 // =========== UPDATE MDL FOR DYNAMICALLY CREATED OBJECTS =========== //
