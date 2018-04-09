@@ -32,13 +32,23 @@ function hotelCards() {
 		  var div_buttons = $('<div/>').addClass("mdl-card__actions mdl-card--border").appendTo(div_main);
 		  	var a_links = $('<a/>')
 			  // CHANGE THIS EVENTUALLY
-			  .attr("href", "hoteldetails.html")
-			  .addClass("mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent").html("More details").appendTo(div_buttons);
+			  // .attr("href", "hoteldetails.html")
+			  .click(function() { hoteldetails.call(this); })
+        .addClass("mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent").html("More details").appendTo(div_buttons);
 		  // Change the share/favourite button here
 		  var div_menu = $('<div/>').addClass("mdl-card__menu").appendTo(div_main);
 		    var button_share = $('<button/>').addClass("mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect").appendTo(div_menu);
 			  var shareButton = $('<i/>').addClass("material-icons").html("share").appendTo(button_share);
 	}
+}
+
+function hoteldetails() {
+  $('.hoteldetails_overlay').show();
+  var getimage = $(this).parents("div").siblings(".mdl-card__title").css("backgroundImage") + " center / cover";
+  console.log(getimage);
+  $('.imagescroller').css("background", getimage);
+  //$('.mdl-layout__obfuscator').css("opacity", "1");
+  $('#hd_backbutton').click(function() { $('.hoteldetails_overlay').hide() });
 }
 
 // ====================== MISC FUNCTIONS  =================== //
