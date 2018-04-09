@@ -35,16 +35,23 @@ function bookingData(){
   if (diffDays <= 0) { alert("Invalid date(s)!"); date_initial(); };
   var check_in = moment($('#check-in').val())
   var check_out = moment($('#check-out').val())
+  var diffDays = check_out.diff(check_in, 'days');
+
+  // Cost calculation
+  // DYNAMIC DATA
+  var cost_1 = diffDays * 180;
+  var cost_2 = 0.1 * cost_1;
+  var cost_total = cost_1 + cost_2;
 
   // Date summary
   $($(".rightcontent td.tablerightcol")[0]).html(check_in.format('Do MMM YYYY'));
   $($(".rightcontent td.tablerightcol")[1]).html(check_out.format('Do MMM YYYY'));
   $($(".rightcontent td.tablerightcol")[2]).html(stay);
 
-  $($('.rightcontent td:not([class])')[3]).text("4"+" days");
-  $($(".rightcontent td.tablerightcol")[3]).text("AU"+" $"+"5000");
-  $($(".rightcontent td.tablerightcol")[4]).text("AU"+" $"+"54000");
-  $($(".rightcontent th.tablerightcol")[0]).text("AU"+" $"+"59000");
+  $($('.rightcontent td:not([class])')[3]).html(stay);
+  $($(".rightcontent td.tablerightcol")[3]).text("AU"+" $"+cost_1);
+  $($(".rightcontent td.tablerightcol")[4]).text("AU"+" $"+cost_2);
+  $($(".rightcontent th.tablerightcol")[0]).text("AU"+" $"+cost_total);
 
   //Bottom right box
   $(".rightcontent ul.boxparagraph").empty();
@@ -72,6 +79,15 @@ function submitted(){
     console.log($(this).attr('name'));
     console.log($(this).val());
   });
+
+  $('#bookingpage_overlay').fadeOut(function() {
+    $('footer').css("margin-top", 0);
+    $('#confirmation_overlay').fadeIn(function() { summarise_details(); });
+  });
+}
+
+function summarise_details() {
+  $("#rc_backbutton").click(function() { $('#confirmation_overlay').hide(); });
 }
 
 /* ================== Changing between Ac/Hi Page ===================== */
@@ -113,9 +129,9 @@ function accountData(){
 function get_bookings(can_change) {
   var booking_section;
   if (can_change) {
-	booking_section = "#currentBookings";
+  booking_section = "#currentBookings";
   } else {
-	booking_section = "#pastBookings";
+  booking_section = "#pastBookings";
   }
 
   // Making Current Bookings modules
@@ -127,7 +143,7 @@ function get_bookings(can_change) {
 
   // Image Module
   var book_image = $("<div/>")
-	.addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone")
+  .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone")
     .append($("<img alt='Hotel' title='Your Hotel' class='boximage'>")
       .attr('src','images/letoh1.jpg')//CONTENT
     )
@@ -136,7 +152,7 @@ function get_bookings(can_change) {
   // Description Module
   var book_description = $('<div/>')
     .attr('class','descriptmodule')
-	.addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--5-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone")
+  .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--5-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone")
     .append($("<h3 class='hotelboxheadings'></h3>")
       .text('Paradise Interchange Hotel')
     )
@@ -168,10 +184,10 @@ function get_bookings(can_change) {
       )
     )
     .append("<br>")
-	.appendTo(book_container);
+  .appendTo(book_container);
 
     //Table
-	var book_table = $('<table class="boxtable"></table>')
+  var book_table = $('<table class="boxtable"></table>')
       .append($('<tr></tr>')
         .append('<td>Check-in:</td>')
         .append($('<td class="tablerightcol tableFill"></td>')
@@ -210,21 +226,21 @@ function get_bookings(can_change) {
           .text("AU $59000")//CONTENT
         )
       )
- 	  .appendTo(book_description);
+    .appendTo(book_description);
 
       if (can_change) {
         $('<button class="editBookingedit" onclick="editBookingedit(this)">Change</button>').appendTo(book_table);
         $('<button class="confirmBookingedit" onclick="confirmBookingedit(this)">Confirm</button>').appendTo(book_table);
         $('<button class="cancelBookingedit" onclick="cancelBookingedit(this)">Cancel</button>').appendTo(book_table);
-	  }
+    }
 
   // Review Module
   var book_review = $('<div/>')
-	  .attr('class','reviewmodule')
-	  .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone")
-	  .append($('<h3 class="hotelboxheadings">Your review</h3>'))
-	  .append($('<button class="reviewButton" onclick="reviewButton(this)">+</button>'))
-	  .appendTo(book_container);
+    .attr('class','reviewmodule')
+    .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone")
+    .append($('<h3 class="hotelboxheadings">Your review</h3>'))
+    .append($('<button class="reviewButton" onclick="reviewButton(this)">+</button>'))
+    .appendTo(book_container);
 }
 
 function editBookingedit(index){

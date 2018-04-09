@@ -162,7 +162,19 @@ input.textInput:invalid {
 }
 
 #confirmation_overlay {
-  display: none;
+  /*display: none;*/
+  position: absolute;
+  z-index: 7;
+  padding: 20px;
+  width: calc(100% - 30px);  
+}
+
+#confirmedBox {
+  padding: 20px;
+  width: 100%;
+  min-width: 200px;
+  max-width: 60%;
+  margin: 0 auto;
 }
 
 #hd_backbutton {
@@ -176,6 +188,9 @@ input.textInput:invalid {
   z-index: 7;
 }
 
+#rc_backbutton {
+  margin: 0 auto;
+}
 
 /* ========== HOTEL MANAGER PAGE CARDS ============ */
 .managerContent {
@@ -320,6 +335,7 @@ input.textInput:invalid {
   #content {
     padding: 63px 0px 0px 15px;
   }
+  #confirmation_overlay,
   #hoteldetails_overlay {
     width: calc(100% - 72px);
   }

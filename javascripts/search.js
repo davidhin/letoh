@@ -16,6 +16,9 @@ $( document ).ready(function() {
 	sizes();
 	date_initial();
   check_inputs();
+  
+  // TEMPORARY
+  summarise_details();
 });
 
 // ============ DYNAMIC DATA GENERATION: HOTEL CARDS ========= //
