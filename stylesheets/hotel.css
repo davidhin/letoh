@@ -9,6 +9,7 @@
 
 .sectionheadings{
   margin-top: 0px;
+  margin-bottom:0px;
 }
 
 .boxheadings,
@@ -176,7 +177,8 @@
 }
 
 .reviewmodule{
-  white-space:  nowrap
+  white-space:  nowrap;
+  text-align:center;
 }
 /* ============= Buttons ================ */
 /* ======== Edit Booking ========== */

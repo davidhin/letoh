@@ -183,7 +183,7 @@ function get_bookings(can_change) {
     .append($("<h3 class='hotelboxheadings'></h3>")
       .text('Paradise Interchange Hotel')
     )
-    .append('<h3 class="boxheadings">Location:</h3>')
+    .append('<h3 class="boxheadings" style="margin-top:0px">Location:</h3>')
     .append($('<p class="boxparagraph"></p>')
       .text("12 Jimmy Street")//Content
     )
@@ -195,7 +195,7 @@ function get_bookings(can_change) {
     )
 
     .append("<br>")
-    .append($('<h4 class="boxheadings">Your Booking Includes:</h4>'))
+    .append($('<h4 class="boxheadings" style="margin-top:0px">Your Booking Includes:</h4>'))
     .append($('<ul class="boxparagraph"></ul>')
       .append($('<li></li>')
         .text("1 Bathroom")//CONTENT
@@ -266,7 +266,7 @@ function get_bookings(can_change) {
     .attr('class','reviewmodule')
     .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone")
     .append($('<h3 class="hotelboxheadings">Your review</h3>'))
-    .append($('<button class="reviewButton" onclick="reviewButton(this)">+</button>'))
+    .append($('<button class="reviewButton" onclick="reviewButton(this)" style="margin:auto">+</button>'))
     .appendTo(book_container);
 }
 
@@ -327,8 +327,20 @@ function postButton(index){
   var review = index.parentElement;
   var textbox = index.parentElement.getElementsByTagName("TEXTAREA");
 
-  var para = $('<p class="boxparagraph" style="height:100%;paddingBottom:0px;marginBottom:30px;overflow:auto;"></p>').text(textbox[0].value);
-  $(para).appendTo(review);
+  //Will mess up the scroll if changed to jQuery
+  var review = index.parentElement;
+  var textbox = index.parentElement.getElementsByTagName("TEXTAREA");
+  var postbutton=review.getElementsByClassName("postButton");
+  var cancelbutton=review.getElementsByClassName("cancelButton");
+  var para = document.createElement("P");
+  para.className="boxparagraph";
+  para.style.height="400px";
+  para.style.paddingBottom = "0px";
+  para.style.marginBottom = "30px;";
+  para.style.overflow = "auto";
+  para.innerText = textbox[0].value;
+
+  review.insertBefore(para, postbutton[0]);
 
   $(index).closest('.reviewmodule').children("textarea").css('display','none');
   $(index).closest('.reviewmodule').children(".postButton").css('display','none');
