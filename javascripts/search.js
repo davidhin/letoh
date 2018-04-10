@@ -33,7 +33,7 @@ function hotelCards() {
   for (let i = 0; i < 8; i++) {
     var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#hotelcards");
       // Change the background picture here
-      var insertBg = "url('https://lorempixel.com/400/400/city/" + i + "') center / cover";
+      var insertBg = "url('https://www.lorempixel.com/400/400/city/" + i + "') center / cover";
       var div_title = $('<div/>').addClass("mdl-card__title").appendTo(div_main).css("background", insertBg);
       // Change the hotel name here
       $('<h2/>').addClass("mdl-card__title-text").html("Hotel " + i).appendTo(div_title);
