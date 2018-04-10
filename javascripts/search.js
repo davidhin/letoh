@@ -78,7 +78,7 @@ function bookingpage() {
     $('#hotelcards').fadeOut();
     $('.bookingContent').fadeIn(function() { sizes(); });
     bookingData();
-    $('#hotelname_underbox').css("margin-bottom", 0).html($(this).parents("div").siblings(".mdl-card__title").children().html());
+    var title = $('#hotelname_underbox').css("margin-bottom", 0).html($(this).parents("div").siblings(".mdl-card__title").children().html());
 
     $('button[name="CompleteBooking"]').click(function() { 
       submitted.call(title);
