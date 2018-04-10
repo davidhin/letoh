@@ -24,18 +24,18 @@ function bookingData(){
   $($(".rightcontent p")[2]).text("Room 1: "+"2 Adults"+", "+"1 King bed");
 
   // Date validation
-  var check_in = moment($('#check-in').val())
-  var check_out = moment($('#check-out').val())
+  var check_in = moment($('#check-in').val());
+  var check_out = moment($('#check-out').val());
   var diffDays = check_out.diff(check_in, 'days');
   var pastBooking = check_in.diff(moment(), 'days');
   var stay;
-  if (diffDays == 1) { stay = diffDays + " night" }
-  else if (diffDays > 1) { stay = diffDays + " nights" }
+  if (diffDays == 1) { stay = diffDays + " night"; }
+  else if (diffDays > 1) { stay = diffDays + " nights"; }
   if (pastBooking < 0) { alert("Can't book in the past!"); date_initial(); }
-  if (diffDays <= 0) { alert("Invalid date(s)!"); date_initial(); };
-  var check_in = moment($('#check-in').val())
-  var check_out = moment($('#check-out').val())
-  var diffDays = check_out.diff(check_in, 'days');
+  if (diffDays <= 0) { alert("Invalid date(s)!"); date_initial(); }
+  check_in = moment($('#check-in').val());
+  check_out = moment($('#check-out').val());
+  diffDays = check_out.diff(check_in, 'days');
 
   // Cost calculation
   // DYNAMIC DATA
@@ -84,24 +84,24 @@ function submitted(){
 
   $('.mdl-layout__content').animate({ scrollTop: 0 });
   $('#bookingpage_overlay').fadeOut(function() {
-    $('#confirmation_overlay').fadeIn(function() { 
-    summarise_details(); 
+    $('#confirmation_overlay').fadeIn(function() {
+    summarise_details();
     });
   });
 }
 
 function summarise_details() {
-  var check_in = moment($('#check-in').val())
-  var check_out = moment($('#check-out').val())
+  var check_in = moment($('#check-in').val());
+  var check_out = moment($('#check-out').val());
   var diffDays = check_out.diff(check_in, 'days');
   var pastBooking = check_in.diff(moment(), 'days');
   var stay;
-  if (diffDays == 1) { stay = diffDays + " night" }
-  else if (diffDays > 1) { stay = diffDays + " nights" }
+  if (diffDays == 1) { stay = diffDays + " night"; }
+  else if (diffDays > 1) { stay = diffDays + " nights"; }
   var cost_1 = diffDays * 180;
   var cost_2 = 0.1 * cost_1;
   var cost_total = cost_1 + cost_2;
-  
+
   var bookingnumber = "12345678";
   var email = $('input[name="Email"]').val();
 
