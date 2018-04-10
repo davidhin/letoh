@@ -1,5 +1,6 @@
 /* ================== Functions for Both Pages ===================== */
 function checkIfBookings(){
+  "use strict";
   if($("#currentBookings").children().length===0){
     $("#currentBookings").append($("<p></p>")
       .attr('class','')
@@ -18,6 +19,7 @@ function checkIfBookings(){
 /* ================== Booking Page ===================== */
 //Booking Page Information Getting
 function bookingData(){
+  "use strict";
   //Top right box
   $($(".rightcontent p")[0]).text("12"+" Jimmy"+" St");
   $($(".rightcontent p")[1]).text("City"+", "+"State");
@@ -62,6 +64,7 @@ function bookingData(){
 }
 
 function compulsory(index){
+  "use strict";
   if(index.value){
     index.style.borderColor = "white";
   }else{
@@ -72,29 +75,16 @@ function compulsory(index){
 function submitted(){
   $('footer').css("margin-top", "0px");
   $('#hotelcards').fadeIn();
-  $('.inputbox').each(function(){
-    console.log($(this).attr('name'));
-    console.log($(this).val());
-  });
-
-  $('select').each(function(){
-    console.log($(this).attr('name'));
-    console.log($(this).val());
-  });
-
   $('.mdl-layout__content').animate({ scrollTop: 0 });
-  $('#bookingpage_overlay').fadeOut(function() {
-    $('#confirmation_overlay').fadeIn(function() {
-    summarise_details();
-    });
-  });
+  $('#bookingpage_overlay').fadeOut();
+  $('#confirmation_overlay').fadeIn();
+  summarise_details.call(this);
 }
 
-function summarise_details() {
+function summarise_details(hotelname) {
   var check_in = moment($('#check-in').val());
   var check_out = moment($('#check-out').val());
   var diffDays = check_out.diff(check_in, 'days');
-  var pastBooking = check_in.diff(moment(), 'days');
   var stay;
   if (diffDays == 1) { stay = diffDays + " night"; }
   else if (diffDays > 1) { stay = diffDays + " nights"; }
@@ -106,6 +96,7 @@ function summarise_details() {
   var email = $('input[name="Email"]').val();
 
   $('#rc_backbutton').click(function() { $('#confirmation_overlay').fadeOut(); });
+  $('#cd_hotelname').css("font-weight", 700).html($(this).html());
   $('#cd_bookingnumber').html("Booking number: " + bookingnumber);
   $('#cd_email').html("Confirmation email sent to: " + email);
   $('#cd_reservation').html("Your reservation: " + stay + ", " + "1 room");
@@ -118,13 +109,15 @@ function summarise_details() {
 }
 
 /* ================== Changing between Ac/Hi Page ===================== */
-function hotels(){
+function hotels() {
+  "use strict";
   $("#hotelhistory").css("display","inline");
   $("#accountsettings").css("display","none");
   window.scrollTo(0, 0);
 }
 
 function account(){
+  "use strict";
   $("#hotelhistory").css("display","none");
   $("#accountsettings").css("display","inline");
   window.scrollTo(0, 0);
@@ -132,6 +125,7 @@ function account(){
 /* ================== History Page ===================== */
 //Account page Information Getting
 function accountData(){
+  "use strict";
   //Account data
   $($(".accountModule p")[0]).text("John"+" Doe");
   $($(".accountModule p")[1]).text("20"+" Jim"+" St"+" Suburb"+" Adelaide");
@@ -154,6 +148,7 @@ function accountData(){
 // Show the bookings (description + review)
 // can_change: whether the booking details can be changed
 function get_bookings(can_change) {
+  "use strict";
   var booking_section;
   if (can_change) {
   booking_section = "#currentBookings";
@@ -271,6 +266,7 @@ function get_bookings(can_change) {
 }
 
 function editBookingedit(index){
+  "use strict";
   index.style.display = "none";
   var spanZ = index.parentElement.getElementsByClassName("tableFill")[0];
   $("<form><input class='dateInput' type='date' style='display:inline'></input></form>").appendTo(spanZ);
@@ -282,6 +278,7 @@ function editBookingedit(index){
 }
 
 function confirmBookingedit(index){
+  "use strict";
   index.style.display = "none";
   $(index).closest('.boxtable').children(".cancelBookingedit").css('display','none');
   $(index).closest('.boxtable').children(".editBookingedit").css('display','block');
@@ -305,6 +302,7 @@ function confirmBookingedit(index){
 }
 
 function cancelBookingedit(index){
+  "use strict";
   index.style.display = "none";
   $(index).closest('.boxtable').children(".confirmBookingedit").css('display','none');
   $(index).closest('.boxtable').children(".editBookingedit").css('display','block');
@@ -315,6 +313,7 @@ function cancelBookingedit(index){
 }
 
 function reviewButton(index){
+  "use strict";
   index.style.display="none";
   var review = index.parentElement;
 
@@ -324,6 +323,7 @@ function reviewButton(index){
 }
 
 function postButton(index){
+  "use strict";
   var review = index.parentElement;
   var textbox = index.parentElement.getElementsByTagName("TEXTAREA");
 
@@ -336,6 +336,7 @@ function postButton(index){
 }
 
 function cancelButton(index){
+  "use strict";
   $(index).closest('.reviewmodule').children('.reviewButton').css('display','block');
   $(index).closest('.reviewmodule').children('.postButton').remove();
   $(index).closest('.reviewmodule').children('textarea').remove();
@@ -343,6 +344,7 @@ function cancelButton(index){
 }
 
 function remove(index){
+  "use strict";
   var response = confirm("Are you sure you want to cancel this booking?");
     if(response === true){
       $(index).parent().remove();
@@ -353,6 +355,7 @@ function remove(index){
 
 /* ================== Account Page ===================== */
 function accountChange(index){
+  "use strict";
   index.style.display="none";
   $(index).closest('.settingDescription').children('input').css('display','block');
 
@@ -362,6 +365,7 @@ function accountChange(index){
 }
 
 function accountConfirm(index){
+  "use strict";
   var displaySettings = index.parentElement.getElementsByTagName("p");
   var setting = index.parentElement.getElementsByTagName("input");
   var buttons = index.parentElement.getElementsByTagName("button");
@@ -388,6 +392,7 @@ function accountConfirm(index){
 }
 
 function accountCancel(index){
+  "use strict";
   $(index).closest('.settingDescription').children('input').hide();
 
   var buttons = index.parentElement.getElementsByTagName("button");

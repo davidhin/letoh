@@ -1,6 +1,7 @@
 // ====================== MAIN FUNCTIONS ===================== //
 
 $( document ).ready(function() {
+  "use strict";
   $( "#price" ).change(function() {
     $( "#maxPrice" ).val($("#price").val());
   });
@@ -16,39 +17,44 @@ $( document ).ready(function() {
   sizes();
   date_initial();
   check_inputs();
-  
-  // TEMPORARY
-  summarise_details();
 });
 
 // ============ DYNAMIC DATA GENERATION: HOTEL CARDS ========= //
 
+function link_moredetails() {
+  "use strict";
+  return function() {
+    hoteldetails.call(this);
+  };
+}
+
 function hotelCards() {
   mdl_upgrade();
-  for (var i = 0; i < 8; i++) {
+  for (let i = 0; i < 8; i++) {
     var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#hotelcards");
       // Change the background picture here
       var insertBg = "url('http://lorempixel.com/400/400/city/" + i + "') center / cover";
       var div_title = $('<div/>').addClass("mdl-card__title").appendTo(div_main).css("background", insertBg);
       // Change the hotel name here
-      var h2_title = $('<h2/>').addClass("mdl-card__title-text").html("Hotel " + i).appendTo(div_title);
+      $('<h2/>').addClass("mdl-card__title-text").html("Hotel " + i).appendTo(div_title);
       // Change the hotel details here
-      var div_content = $('<div/>').addClass("mdl-card__supporting-text").html("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis pellentesque lacus eleifend lacinia... ").appendTo(div_main);
+      $('<div/>').addClass("mdl-card__supporting-text").html("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis pellentesque lacus eleifend lacinia... ").appendTo(div_main);
       var div_buttons = $('<div/>').addClass("mdl-card__actions mdl-card--border").appendTo(div_main);
-        var a_links = $('<a/>')
+        $('<a/>')
         // CHANGE THIS EVENTUALLY
         // .attr("href", "hoteldetails.html")
-        .click(function() { hoteldetails.call(this); })
+        .click(link_moredetails.call(this))
         .addClass("mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent").html("More details").appendTo(div_buttons);
       // Change the share/favourite button here
       var div_menu = $('<div/>').addClass("mdl-card__menu").appendTo(div_main);
         var button_share = $('<button/>').addClass("mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect").appendTo(div_menu);
-        var shareButton = $('<i/>').addClass("material-icons").html("share").appendTo(button_share);
+        $('<i/>').addClass("material-icons").html("share").appendTo(button_share);
   }
 }
 
 function hoteldetails() {
   $('#confirmation_overlay').fadeOut(); 
+  $('#hd_hotelname').html($(this).parents("div").siblings(".mdl-card__title").children().html());
   $('#hoteldetails_overlay').fadeIn();
   // DYNAMIC DATA: Get the image
   var getimage = $(this).parents("div").siblings(".mdl-card__title").css("backgroundImage") + " center / cover";
@@ -72,7 +78,12 @@ function bookingpage() {
     $('#hotelcards').fadeOut();
     $('.bookingContent').fadeIn(function() { sizes(); });
     bookingData();
-  
+    var title = $('<h2 />').css("margin-bottom", 0).html($(this).parents("div").siblings(".mdl-card__title").children().html()).insertAfter($('.boximage'));
+
+    $('button[name="CompleteBooking"]').click(function() { 
+      submitted.call(title);
+    });
+
     $('#bk_backbutton').click(function() { 
       $('footer').css("margin-top", "0px");
       $('#hotelcards').fadeIn();
@@ -85,6 +96,7 @@ function bookingpage() {
 // ====================== MISC FUNCTIONS  =================== //
 // Get Date
 Date.prototype.today = (function(tomorrow) { 
+  "use strict";
   var local = new Date(this);
   if (tomorrow) { local.setDate(local.getDate() + 1); }
     local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
@@ -92,16 +104,18 @@ Date.prototype.today = (function(tomorrow) {
 });
 
 function date_initial() {
+  "use strict";
   var a = moment();
   var b = moment().add(1, 'days');
   $('#check-in').val(a.format('YYYY-MM-DD'));
   $('#check-out').val(b.format('YYYY-MM-DD'));
 
   // Update on blur
-  $('#check-in, #check-out, #room-num, #adult-num, #child-num').blur(function() { bookingData(); })
+  $('#check-in, #check-out, #room-num, #adult-num, #child-num').blur(function() { bookingData(); });
 }
 
 function check_inputs() {
+  "use strict";
   var nodeList = document.querySelectorAll('.mdl-textfield');
   Array.prototype.forEach.call(nodeList, function (elem) {
       elem.MaterialTextfield.checkDirty();

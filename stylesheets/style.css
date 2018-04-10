@@ -136,11 +136,17 @@ input.textInput:invalid {
   width: calc(25% - 15px);
 }
 .hotel-card > .mdl-card__title {
-  color: #fff;
   height: 240px;
   max-height: 240px;
-  text-shadow: 2px 2px 2px black;
 }
+
+.mdl-card__title-text {
+  color: #fff !important;
+  font-weight: 400 !important;
+  font-size: 35px !important;
+  text-shadow: 1px 1px 2px black !important;
+}
+
 .hotel-card > .mdl-card__menu {
   color: #fff;
 }
