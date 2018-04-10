@@ -70,6 +70,8 @@ function compulsory(index){
 }
 
 function submitted(){
+  $('footer').css("margin-top", "0px");
+  $('#hotelcards').fadeIn();
   $('.inputbox').each(function(){
     console.log($(this).attr('name'));
     console.log($(this).val());
@@ -89,7 +91,30 @@ function submitted(){
 }
 
 function summarise_details() {
+  var check_in = moment($('#check-in').val())
+  var check_out = moment($('#check-out').val())
+  var diffDays = check_out.diff(check_in, 'days');
+  var pastBooking = check_in.diff(moment(), 'days');
+  var stay;
+  if (diffDays == 1) { stay = diffDays + " night" }
+  else if (diffDays > 1) { stay = diffDays + " nights" }
+  var cost_1 = diffDays * 180;
+  var cost_2 = 0.1 * cost_1;
+  var cost_total = cost_1 + cost_2;
+  
+  var bookingnumber = "12345678";
+  var email = $('input[name="Email"]').val();
+
   $('#rc_backbutton').click(function() { $('#confirmation_overlay').fadeOut(); });
+  $('#cd_bookingnumber').html("Booking number: " + bookingnumber);
+  $('#cd_email').html("Confirmation email sent to: " + email);
+  $('#cd_reservation').html("Your reservation: " + stay + ", " + "1 room");
+  $('#cd_checkin').html("Check in: " + check_in.format('Do MMM YYYY'));
+  $('#cd_checkout').html("Check out: " + check_out.format('Do MMM YYYY'));
+  $('#cd_comments').html("Extra comments: " + $('textarea[name="SpecialRequest"]').val());
+  $('#cd_cost1').html("Cost: $" + cost_1);
+  $('#cd_cost2').html("GST: $" + cost_2);
+  $('#cd_totalcost').html("Total cost: $" + cost_total);
 }
 
 /* ================== Changing between Ac/Hi Page ===================== */

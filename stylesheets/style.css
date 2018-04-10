@@ -34,7 +34,8 @@ header{
 .bookingContent {
   position: absolute;
   z-index: 6;
-  width: calc(100% - 45px);
+  width: 100%;
+  margin: -15px 0 0 -15px;
   background: rgba(255,255,255,0.8);
   height: auto;
 }
@@ -337,7 +338,6 @@ input.textInput:invalid {
   #content {
     padding: 63px 0px 0px 15px;
   }
-  #confirmation_overlay,
   #hoteldetails_overlay {
     width: calc(100% - 72px);
     max-height: calc(100vh - 110px);
@@ -355,7 +355,7 @@ input.textInput:invalid {
     left: 0 !important;
   }
   #mainSearch {
-      display: none;
+    display: none;
   }
   #content {
     padding: 63px 0px 0px 15px;
@@ -368,7 +368,15 @@ input.textInput:invalid {
     overflow: auto;
   }
   #confirmedBox {
-    max-width: 100%;
+    max-width: 90%;
+  }
+  #confirmation_overlay {
+    margin-left: -15px;
+  } 
+
+  .bookingContent {
+    width: 100%;
+    margin: -15px 0px 0px -15px;
   }
 }
 

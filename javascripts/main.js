@@ -20,19 +20,20 @@ window.onresize = function(event) {
 };
 
 // ----------- Footer Hacks (bad) ----------- //
-function repos_footer() {
-  var booking_overlay = $('.bookingContent');
-  var hotelcards = $('#hotelcards');
-  var height_diff = booking_overlay.height() - hotelcards.height(); 
-  console.log(height_diff);
-  if (height_diff > 0) { 
-    $('.bookingContent').css("height", "auto"); 
-    $('footer').css("margin-top", height_diff + "px"); 
-  }
-  else { 
-    $('footer').css("margin-top", 0);
-    $('.bookingContent').css("height", hotelcards.height() + "px"); 
-  }
+function repos_footer() {    
+    $('footer').css("margin-top", $('.bookingContent').height() + "px");
+//  var booking_overlay = $('.bookingContent');
+//  var hotelcards = $('#hotelcards');
+//  var height_diff = booking_overlay.height() - hotelcards.height(); 
+//  console.log(height_diff);
+//  if (height_diff > 0) { 
+//    $('.bookingContent').css("height", "auto"); 
+//    $('footer').css("margin-top", height_diff + "px"); 
+//  }
+//  else { 
+//    $('footer').css("margin-top", 0);
+//    $('.bookingContent').css("height", hotelcards.height() + 15 + "px"); 
+//  }
 }
 
 // =========== UPDATE MDL FOR DYNAMICALLY CREATED OBJECTS =========== //

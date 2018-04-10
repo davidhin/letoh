@@ -29,7 +29,7 @@ window.onresize = function(event) {
 
 function hotelCards() {
 	mdl_upgrade();
-	for (var i = 0; i < 10; i++) {
+	for (var i = 0; i < 8; i++) {
 		var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#hotelcards");
 		  // Change the background picture here
 		  var insertBg = "url('http://lorempixel.com/400/400/city/" + i + "') center / cover";
@@ -73,11 +73,13 @@ function bookingpage() {
     $('.mdl-layout__content').animate({ scrollTop: 0 });
     $('#bookingpage_overlay').show();
     $('#hoteldetails_overlay').fadeOut();
+    $('#hotelcards').fadeOut();
     $('.bookingContent').fadeIn(function() { repos_footer(); });
     bookingData();
   
     $('#bk_backbutton').click(function() { 
       $('footer').css("margin-top", "0px");
+      $('#hotelcards').fadeIn();
       $('#hoteldetails_overlay').fadeIn(); 
       $('.bookingContent').fadeOut(function() {$('#bookingpage_overlay').hide();}); 
     });
