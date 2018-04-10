@@ -5,36 +5,21 @@ $( document ).ready(function() {
 
 // ============ OTHER =============== //
 function sizes() {
-  var headerHeight = document.getElementsByTagName("header")[0].offsetHeight;
-  var footer = document.getElementsByTagName("footer")[0];
-  var content = document.getElementById("content");
+  var headerHeight = $("header").height();
+  var footer = $("footer");
+  var content = $("#content");
+
+  console.log(content.height());
 
   // FOOTER POSITIONING
-  if (content.offsetHeight < parseInt(window.innerHeight,10) - headerHeight) { footer.style.position = "absolute"; } 
-  else { footer.style.position = "relative"; }
+  if (content.height() < parseInt(window.innerHeight,10) - headerHeight) { footer.css("position", "absolute"); } 
+  else { footer.css("position", "relative"); }
 }
 
 window.onresize = function(event) {
   sizes();
   bookingData();
 };
-
-// ----------- Footer Hacks (bad) ----------- //
-function repos_footer() {    
-    $('footer').css("margin-top", $('.bookingContent').height() + "px");
-//  var booking_overlay = $('.bookingContent');
-//  var hotelcards = $('#hotelcards');
-//  var height_diff = booking_overlay.height() - hotelcards.height(); 
-//  console.log(height_diff);
-//  if (height_diff > 0) { 
-//    $('.bookingContent').css("height", "auto"); 
-//    $('footer').css("margin-top", height_diff + "px"); 
-//  }
-//  else { 
-//    $('footer').css("margin-top", 0);
-//    $('.bookingContent').css("height", hotelcards.height() + 15 + "px"); 
-//  }
-}
 
 // =========== UPDATE MDL FOR DYNAMICALLY CREATED OBJECTS =========== //
 // Dynamically created material objects must be manually 'upgraded'

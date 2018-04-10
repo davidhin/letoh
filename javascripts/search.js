@@ -1,54 +1,50 @@
 // ====================== MAIN FUNCTIONS ===================== //
 
 $( document ).ready(function() {
-	$( "#price" ).change(function() {
-		$( "#maxPrice" ).val($("#price").val());
-	});
-	$( "#dist" ).change(function() {
-		$( "#maxDist" ).val($("#dist").val());
-	});
-	$( "#stars" ).change(function() {
-		$( "#minStars" ).val($("#stars").val());
-	});
+  $( "#price" ).change(function() {
+    $( "#maxPrice" ).val($("#price").val());
+  });
+  $( "#dist" ).change(function() {
+    $( "#maxDist" ).val($("#dist").val());
+  });
+  $( "#stars" ).change(function() {
+    $( "#minStars" ).val($("#stars").val());
+  });
 
 
-	hotelCards();
-	sizes();
-	date_initial();
+  hotelCards();
+  sizes();
+  date_initial();
   check_inputs();
   
   // TEMPORARY
   summarise_details();
 });
 
-window.onresize = function(event) {
-  repos_footer();
-};
-
 // ============ DYNAMIC DATA GENERATION: HOTEL CARDS ========= //
 
 function hotelCards() {
-	mdl_upgrade();
-	for (var i = 0; i < 8; i++) {
-		var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#hotelcards");
-		  // Change the background picture here
-		  var insertBg = "url('http://lorempixel.com/400/400/city/" + i + "') center / cover";
-		  var div_title = $('<div/>').addClass("mdl-card__title").appendTo(div_main).css("background", insertBg);
-		  // Change the hotel name here
-			var h2_title = $('<h2/>').addClass("mdl-card__title-text").html("Hotel " + i).appendTo(div_title);
-		  // Change the hotel details here
-		  var div_content = $('<div/>').addClass("mdl-card__supporting-text").html("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis pellentesque lacus eleifend lacinia... ").appendTo(div_main);
-		  var div_buttons = $('<div/>').addClass("mdl-card__actions mdl-card--border").appendTo(div_main);
-		  	var a_links = $('<a/>')
-			  // CHANGE THIS EVENTUALLY
-			  // .attr("href", "hoteldetails.html")
-			  .click(function() { hoteldetails.call(this); })
+  mdl_upgrade();
+  for (var i = 0; i < 8; i++) {
+    var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#hotelcards");
+      // Change the background picture here
+      var insertBg = "url('http://lorempixel.com/400/400/city/" + i + "') center / cover";
+      var div_title = $('<div/>').addClass("mdl-card__title").appendTo(div_main).css("background", insertBg);
+      // Change the hotel name here
+      var h2_title = $('<h2/>').addClass("mdl-card__title-text").html("Hotel " + i).appendTo(div_title);
+      // Change the hotel details here
+      var div_content = $('<div/>').addClass("mdl-card__supporting-text").html("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis pellentesque lacus eleifend lacinia... ").appendTo(div_main);
+      var div_buttons = $('<div/>').addClass("mdl-card__actions mdl-card--border").appendTo(div_main);
+        var a_links = $('<a/>')
+        // CHANGE THIS EVENTUALLY
+        // .attr("href", "hoteldetails.html")
+        .click(function() { hoteldetails.call(this); })
         .addClass("mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent").html("More details").appendTo(div_buttons);
-		  // Change the share/favourite button here
-		  var div_menu = $('<div/>').addClass("mdl-card__menu").appendTo(div_main);
-		    var button_share = $('<button/>').addClass("mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect").appendTo(div_menu);
-			  var shareButton = $('<i/>').addClass("material-icons").html("share").appendTo(button_share);
-	}
+      // Change the share/favourite button here
+      var div_menu = $('<div/>').addClass("mdl-card__menu").appendTo(div_main);
+        var button_share = $('<button/>').addClass("mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect").appendTo(div_menu);
+        var shareButton = $('<i/>').addClass("material-icons").html("share").appendTo(button_share);
+  }
 }
 
 function hoteldetails() {
@@ -74,7 +70,7 @@ function bookingpage() {
     $('#bookingpage_overlay').show();
     $('#hoteldetails_overlay').fadeOut();
     $('#hotelcards').fadeOut();
-    $('.bookingContent').fadeIn(function() { repos_footer(); });
+    $('.bookingContent').fadeIn(function() { sizes(); });
     bookingData();
   
     $('#bk_backbutton').click(function() { 
@@ -89,8 +85,8 @@ function bookingpage() {
 // ====================== MISC FUNCTIONS  =================== //
 // Get Date
 Date.prototype.today = (function(tomorrow) { 
-	var local = new Date(this);
-	if (tomorrow) { local.setDate(local.getDate() + 1); }
+  var local = new Date(this);
+  if (tomorrow) { local.setDate(local.getDate() + 1); }
     local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
     return local.toJSON().slice(0,10);
 });
