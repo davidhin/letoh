@@ -12,7 +12,6 @@ $( document ).ready(function() {
     $( "#minStars" ).val($("#stars").val());
   });
 
-
   hotelCards();
   sizes();
   date_initial();
@@ -30,7 +29,7 @@ function link_moredetails() {
 
 function hotelCards() {
   mdl_upgrade();
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 10; i++) {
     var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#hotelcards");
       // Change the background picture here
       var insertBg = "url('https://placeimg.com/640/480/any/" + i + "') center / cover";

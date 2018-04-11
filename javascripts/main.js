@@ -1,10 +1,12 @@
 // =========== MAIN FUNCTIONS ============== //
 $( document ).ready(function() {
+  "use strict";
   sizes();
 });
 
 // ============ OTHER =============== //
 function sizes() {
+  "use strict";
   var headerHeight = $("header").height();
   var footer = $("footer");
   var content = $("#content");
@@ -17,6 +19,7 @@ function sizes() {
 }
 
 window.onresize = function(event) {
+  "use strict";
   sizes();
   bookingData();
 };
@@ -24,12 +27,14 @@ window.onresize = function(event) {
 // =========== UPDATE MDL FOR DYNAMICALLY CREATED OBJECTS =========== //
 // Dynamically created material objects must be manually 'upgraded'
 function mdl_upgrade() {
-  if(!(typeof(componentHandler) == 'undefined')){
+  "use strict";
+  if(typeof(componentHandler) != 'undefined'){
     componentHandler.upgradeAllRegistered();
   }
 }
 
 function includeHTML() {
+  "use strict";
   var z, i, elmnt, file, xhttp;
   /*loop through a collection of all HTML elements:*/
   z = document.getElementsByTagName("*");
@@ -48,7 +53,7 @@ function includeHTML() {
           elmnt.removeAttribute("data-w3-include-html");
           includeHTML();
         }
-      }
+      };
       xhttp.open("GET", file, true);
       xhttp.send();
       /*exit the function:*/

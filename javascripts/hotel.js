@@ -164,7 +164,8 @@ function get_bookings(can_change) {
     .appendTo(booking_section);
 
   // Image Module
-  var book_image = $("<div/>")
+  // book image
+  $("<div/>")
   .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone")
     .append($("<img alt='Hotel' title='Your Hotel' class='boximage'>")
       .attr('src','images/letoh1.jpg')//CONTENT
@@ -257,7 +258,7 @@ function get_bookings(can_change) {
     }
 
   // Review Module
-  var book_review = $('<div/>')
+  $('<div/>')
     .attr('class','reviewmodule')
     .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone")
     .append($('<h3 class="hotelboxheadings">Your review</h3>'))
@@ -328,10 +329,9 @@ function postButton(index){
   var textbox = index.parentElement.getElementsByTagName("TEXTAREA");
 
   //Will mess up the scroll if changed to jQuery
-  var review = index.parentElement;
-  var textbox = index.parentElement.getElementsByTagName("TEXTAREA");
+  review = index.parentElement;
+  textbox = index.parentElement.getElementsByTagName("TEXTAREA");
   var postbutton=review.getElementsByClassName("postButton");
-  var cancelbutton=review.getElementsByClassName("cancelButton");
   var para = document.createElement("P");
   para.className="boxparagraph";
   para.style.height="400px";
