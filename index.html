@@ -25,7 +25,7 @@
     <button id="mainMenu" class="mdl-button mdl-js-button mdl-button--icon">
       <i class="material-icons">more_vert</i>
     </button>
-    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="mainMenu"> <!-- This for attribute doesn't pass validation but is necessary-->
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" data-mdl-for="mainMenu">
       <li class="mdl-menu__item"><a href="hotelManage.html">Manager Settings</a></li>
       <li class="mdl-menu__item mdl-menu__item--full-bleed-divider"><a href="accountPage.html">User Settings</a></li>
       <li class="mdl-menu__item"><a href="logsign.html">Register/Login</a></li>
@@ -35,15 +35,15 @@
   <!-- SIDEBAR -->
   <div class="mdl-layout__drawer">
     <nav id="searchNav" class="mdl-navigation">
-        <div w3-include-html="sidebar_ext.html"></div> <!-- The w3-include-html attributes do not pass validation but are necessary-->
+        <div data-w3-include-html="sidebar_ext.html"></div> <!-- The w3-include-html attributes do not pass validation but are necessary-->
     </nav>
   </div>
 
   <main class="mdl-layout__content">
     <div id="content">
-      <div id="hoteldetails_overlay" w3-include-html="hoteldetails_ext.html"></div>
-      <div id="bookingpage_overlay" class="mdl-shadow--2dp" w3-include-html="bookingpage_ext.html"></div>
-      <div id="confirmation_overlay" w3-include-html="confirmation_ext.html"></div>
+      <div id="hoteldetails_overlay" data-w3-include-html="hoteldetails_ext.html"></div>
+      <div id="bookingpage_overlay" class="mdl-shadow--2dp" data-w3-include-html="bookingpage_ext.html"></div>
+      <div id="confirmation_overlay" data-w3-include-html="confirmation_ext.html"></div>
       <div id="hotelcards"><!-- DYNAMIC DATA (HOTEL CARDS) GO HERE --></div>
     </div>
 
