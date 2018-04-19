@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Page</title>
+  <link rel="stylesheet" href="stylesheets/style.css">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-pink.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="javascripts/main.js"></script>
+  <script src="javascripts/hotel.js"></script>
+  <script src="javascripts/moment.js"></script>
+  <script src="javascripts/search.js"></script>
+</head>
+
+<body>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
+
+  <!-- TOP MENU -->
+  <header>
+    <div class="letohLogo"><a href="index.html">Letoh</a></div>
+    <input type="text" id="mainSearch">
+    <button id="mainMenu" class="mdl-button mdl-js-button mdl-button--icon">
+      <i class="material-icons">more_vert</i>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" data-mdl-for="mainMenu">
+      <li class="mdl-menu__item"><a href="hotelManage.html">Manager Settings</a></li>
+      <li class="mdl-menu__item mdl-menu__item--full-bleed-divider"><a href="accountPage.html">User Settings</a></li>
+      <li class="mdl-menu__item"><a href="logsign.html">Register/Login</a></li>
+    </ul>
+  </header>
+
+  <!-- SIDEBAR -->
+  <div class="mdl-layout__drawer">
+    <nav id="searchNav" class="mdl-navigation">
+        <div data-w3-include-html="sidebar_ext.html"></div> <!-- The w3-include-html attributes do not pass validation but are necessary-->
+    </nav>
+  </div>
+
+  <main class="mdl-layout__content">
+    <div id="content">
+      <div id="hoteldetails_overlay" data-w3-include-html="hoteldetails_ext.html"></div>
+      <div id="bookingpage_overlay" class="mdl-shadow--2dp" data-w3-include-html="bookingpage_ext.html"></div>
+      <div id="confirmation_overlay" data-w3-include-html="confirmation_ext.html"></div>
+      <div id="hotelcards"><!-- DYNAMIC DATA (HOTEL CARDS) GO HERE --></div>
+    </div>
+
+    <footer>
+      <p>Feedback</p>
+      <p><a href="privacy.html" target="_blank">Privacy Policy</a></p>
+      <p><a href="terms.html" target="_blank">Terms of Use</a></p>
+      <p>© 2018 Letoh, Inc. All rights reserved</p>
+    </footer>
+  </main>
+
+</div>
+<script> includeHTML(); </script>
+</body>
+</html>
