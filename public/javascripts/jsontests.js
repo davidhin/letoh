@@ -58,39 +58,45 @@ function addMarkers() {
     });
 
     //Infowindow made here
+    //infowindow = new google.maps.InfoWindow();
+
     infowindow = new google.maps.InfoWindow();
 
-    google.maps.event.addListener(marker, 'mouseover', function() {
+    google.maps.event.addListener(marker, 'click', function() {
           infowindow.setContent(
-
-            '<div style="position:relative">'+
+            '<div style="width:250px;min-height:100px;margin-top:5px">'+
+            '<div style="float:left">'+
             '<img src="'+
             "http://lorempixel.com/400/400/city/" +(i+1)+
-            '" alt="hotel" title="Your Hotel" style="height:250px;margin:auto;display:block">'+
-            '<div style="position:absolute;bottom:8px;left:16px;font-size:24px;font-weight:300;text-shadow:rgb(0,0,0)2px 2px 2px;color:rgb(255,255,255)">'+hotels[i].name+'</div>'+
+            '" alt="hotel" title="Your Hotel" style="height:100px;width:100px;object-fit: cover;margin:auto;display:block"></div>'+
+
+            '<div style="float:left;margin-left:10px;">'+
+            '<div style="display:block;font-size:15px"><b>'+hotels[i].name+'</b></div>'+
+
+            '<div style="display:block;margin-top:10px">'+
+            '<img alt="wifi" title="wifi" src="images/wifi.png" />'+
+            '<img alt="coffee" title="coffee" src="images/coffee.png" />'+
+            '<img alt="car" title="car" src="images/car.png" />'+
+            '<img alt="shower" title="shower" src="images/shower.png" />'+
             '</div>'+
 
-            '<div style="display:block;margin:auto;padding:5px">'+
-            '<img alt="wifi" src="images/wifi.png" />'+
-            '<span style="margin-left:10px;margin-right:10px">Yes</span>'+
-            '<img alt="wifi" src="images/coffee.png" />'+
-            '<span style="margin-left:10px;margin-right:10px">Yes</span>'+
-            '<img alt="wifi" src="images/car.png" />'+
-            '<span style="margin-left:10px;margin-right:10px">Yes</span>'+
-            '<img alt="wifi" src="images/shower.png" />'+
-            '<span style="margin-left:10px;margin-right:10px">Yes</span>'+
+            '<p style="margin:0px;margin-top:10px;padding:0px;">'+
+            'price'+ //PRICE HERE
+            '</p>'+
+
+            '<p style="margin:0px;margin-top:10px;padding:0px;">'+
+            'review'+ //REVIEw HERE
+            '</p>'+
+
+            '</div>'+
             '</div>'+
 
-            '<div width="100px" style="padding:0px;margin:5px;float:left">'+
-            '<p style="padding:0px;margin:0px">'+"DESCRIPTION HERE"+'</p>'+ //description here
+            '<div width="100px" style="display:block;padding:0px;margin-top:10px;float:left">'+
+            '<p style="padding:0px;margin:0px">'+'DESCRIPTION GOES HERE'+'</p>'+ //Description here
             '</div>'
 
           );
           infowindow.open(map, this);
-    });
-
-    google.maps.event.addListener(marker, 'mouseout', function() {
-          infowindow.close();
     });
 
     // Add to markers array
