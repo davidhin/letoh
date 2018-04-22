@@ -123,7 +123,8 @@ function mgr_overview() {
     .addClass("addButton mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored")
     .appendTo("#hotelOverview");
   $('<i/>').addClass("material-icons").html("add").appendTo(addButton);
-  
+  mdl_upgrade();
+
   hideContent();
   $('#hotelOverview').show();
 }

@@ -105,7 +105,7 @@ function addMarkers() {
 }
 
 // Send data to json file
-function sendData() {
+function addHotel() {
   var new_hotel = {name:"hotel4",lat:23,lng:25};
   // Create new AJAX request
   var xhttp = new XMLHttpRequest();
@@ -115,13 +115,33 @@ function sendData() {
     if (this.readyState == 4 && this.status == 200) {
     }
   };
-
   // Initiate connection
-  xhttp.open("POST", "addData", true);
-
+  xhttp.open("POST", "/addHotel", true);
   // Header information
   xhttp.setRequestHeader("Content-type", "application/json");
-
   // Send request
   xhttp.send(JSON.stringify(new_hotel));
 }
+
+// =============================== UNUSED ============================== //
+// Send data to json file
+// function sendData_old() {
+//   var new_hotel = {name:"hotel4",lat:23,lng:25};
+//   // Create new AJAX request
+//   var xhttp = new XMLHttpRequest();
+// 
+//   // Define behaviour for a response
+//   xhttp.onreadystatechange = function() {
+//     if (this.readyState == 4 && this.status == 200) {
+//     }
+//   };
+// 
+//   // Initiate connection
+//   xhttp.open("POST", "addData", true);
+// 
+//   // Header information
+//   xhttp.setRequestHeader("Content-type", "application/json");
+// 
+//   // Send request
+//   xhttp.send(JSON.stringify(new_hotel));
+// }
