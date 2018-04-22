@@ -205,6 +205,7 @@ input.textInput:invalid {
 /* ========== HOTEL MANAGER PAGE CARDS ============ */
 .managerContent {
   text-align: center;
+  padding-left: 0px !important;
 }
 
 .managerContent h4 {
@@ -217,7 +218,7 @@ input.textInput:invalid {
 }
 
 .addButton {
-  margin-top: 10px !important;
+  margin: 15px 0px 20px 0px !important;
 }
 
 .editButton {
@@ -229,6 +230,15 @@ input.textInput:invalid {
 .lowButton {
   width: 70px;
 }
+
+#mgr_desc {
+  max-height: 300px;
+  overflow: auto;
+}
+
+  #mgr_desc h4 {
+    width: calc(100% - 66px);
+  }
 
 /* ============= BOOKING PAGE CARDS =============== */
 .bookingCard {
@@ -343,7 +353,7 @@ input.textInput:invalid {
     margin: 0;
   }
   #content {
-    padding: 63px 0px 0px 15px;
+    padding: 53px 0px 0px 15px;
   }
   #hoteldetails_overlay {
     width: calc(100% - 72px);

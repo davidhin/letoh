@@ -11,8 +11,6 @@ function sizes() {
   var footer = $("footer");
   var content = $("#content");
 
-  console.log(content.height());
-
   // FOOTER POSITIONING
   if (content.height() < parseInt(window.innerHeight,10) - headerHeight) { footer.css("position", "absolute"); } 
   else { footer.css("position", "relative"); }
@@ -21,7 +19,7 @@ function sizes() {
 window.onresize = function(event) {
   "use strict";
   sizes();
-  bookingData();
+  //bookingData();
 };
 
 // =========== UPDATE MDL FOR DYNAMICALLY CREATED OBJECTS =========== //

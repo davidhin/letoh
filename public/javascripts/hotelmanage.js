@@ -1,10 +1,32 @@
+var hotels = [];
+
 // =========== MAIN FUNCTIONS ============== //
 
 $( document ).ready(function() {
   "use strict";
-  mgr_overview();
-  loadHotelSidebar();
+  requestHotels();
 });
+
+function requestHotels() {
+// Get hotel information and display it 
+  // Create new AJAX request
+  var xhttp = new XMLHttpRequest();
+  // Define behaviour for a response
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      hotels = JSON.parse(xhttp.responseText);
+      loadHotelSidebar();
+      mgr_overview();
+      sizes();
+    }
+  };
+  // Initiate connection
+  xhttp.open("GET", "getHotels", true);
+  // Header information
+  xhttp.setRequestHeader("Content-type", "application/json");
+  // Send request
+  xhttp.send();
+}
 
 // =========== LOAD CONTENT ============== //
 function hideContent() {
@@ -18,16 +40,16 @@ function hideContent() {
 function mgr_info(hotelInput) {
   "use strict";
   // Current selected hotel
-  var hotel_id = $(hotelInput).attr('id');
 
   // Get the information for the hotel corresponding to hotel_0
   // And display it in the hotel manager cards
   $('#mgr_desc').empty();
   /* --- DYNAMIC --- */
   // mgr desc header
-  $('<h4/>').html(hotel_id + " Description").appendTo("#mgr_desc"); 
+  $('<h4/>').html(hotelInput.name + " Description").appendTo("#mgr_desc"); 
   /* --- DYNAMIC --- */
-  var mgr_desc_content = $('<p/>').html("This is the description for " + hotel_id).appendTo("#mgr_desc");  
+  var mgr_desc_content = $('<p/>').html(hotelInput.desc).appendTo("#mgr_desc");  
+  $("mgr_desc").maxHeight
   // mgr desc button
   $('<button/>')
     .addClass("editButton mdl-button mdl-js-button mdl-button--primary")
@@ -43,7 +65,6 @@ function mgr_info(hotelInput) {
 function mgr_room(hotelInput) {
   "use strict";
   // Current selected hotel
-  var hotel_id = $(hotelInput).attr('id');
   var roomTypes = 2;
 
   // Get the types of rooms for this hotel and information
@@ -61,7 +82,7 @@ function mgr_room(hotelInput) {
       //room desc header  
       $('<h4/>').html("Room" + i + " Description").appendTo(room_desc);
       // room_desc_content
-      $('<p/>').html("This is the description for room type " + i + " of " + hotel_id).appendTo(room_desc);
+      $('<p/>').html("This is the description for room type " + i + " of " + hotelInput.name).appendTo(room_desc);
       // room_desc_editBtn
       $('<button/>')
         .addClass("editButton mdl-button mdl-js-button mdl-button--primary")
@@ -71,8 +92,8 @@ function mgr_room(hotelInput) {
     
   // "Add a room" button
   var addButton = $('<button/>')
-              .addClass("addButton mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored")
-          .appendTo("#roomTypes");
+    .addClass("addButton mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored")
+    .appendTo("#roomTypes");
   $('<i/>').addClass("material-icons").html("add").appendTo(addButton);
 
   // Show current card
@@ -83,11 +104,28 @@ function mgr_room(hotelInput) {
 
 function mgr_overview() {
   "use strict";
-  hideContent();
-  sizes();
+  $('#hotelOverview').empty();
+
+  for (let i = 0; i < hotels.length; i++) {
+  var mgr_overview_card = $('<div/>')
+    .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--12-col")
+    .appendTo('#hotelOverview');
+
+  $('<h2/>')
+    .html(hotels[i].name)
+    .appendTo(mgr_overview_card);
+  }
+
+  mdl_upgrade();
+  sizes();  
+
+  var addButton = $('<button/>')
+    .addClass("addButton mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored")
+    .appendTo("#hotelOverview");
+  $('<i/>').addClass("material-icons").html("add").appendTo(addButton);
   
-  // Get hotel information and display it
-  // TO BE IMPLEMENTED
+  hideContent();
+  $('#hotelOverview').show();
 }
 
 // =================== GENERALISED IMPORTANT STUFF ========================= //
@@ -95,7 +133,8 @@ function mgr_overview() {
 // EDIT A TEXT FIELD AND SUBMIT IT
 // Edit button is the button that must be pressed to edit
 // Content in is the content that is to be changed
-function btn_editText(container, editBtn, contentIn) {
+// Type is the hotel detail to be changed, e.g. desc
+function btn_editText(container, editBtn, contentIn, type) {
   "use strict";
   $(editBtn).hide();
   $(contentIn).hide();
@@ -105,7 +144,7 @@ function btn_editText(container, editBtn, contentIn) {
     .appendTo(container);
   var input_textarea = $('<textarea/>')
       .addClass("mdl-textfield__input")
-      .attr({"type": "text", "id": "text_desc", "rows":4})
+      .attr({"type": "text", "id": "text_desc", "rows":6})
       .css("resize", "none")
     /* --- DYNAMIC --- */
     .val($(contentIn).html())
@@ -153,16 +192,16 @@ function btn_editText(container, editBtn, contentIn) {
 // e.g. for all of the owners hotels, generate the following links:
 function loadHotelSidebar() {
   "use strict";
-  for (var i = 0; i < 3; i++) {
+  for (let i = 0; i < hotels.length; i++) {
     $('<button/>')
-        .text('Dynamically Added Hotel ' + i)
+      .text(hotels[i].name)
       .addClass("mdl-button mdl-js-button mdl-js-ripple-effect accordion")
       .css("text-transform", "none")
       .appendTo("#myHotels");
     var currId = "myHotel_" + i;
     $('<div/>').attr("id", currId).addClass("panel").appendTo("#myHotels");
-    $('<a/>').click(function() { mgr_info(this.closest('div')); mdl_upgrade(); }).html("General Info").addClass("mdl-navigation__link").appendTo("#" + currId);
-    $('<a/>').click(function() { mgr_room(this.closest('div')); mdl_upgrade(); }).html("Room Types").addClass("mdl-navigation__link").appendTo("#" + currId);
+    $('<a/>').click(function() { mgr_info(hotels[i]); mdl_upgrade(); }).html("General Info").addClass("mdl-navigation__link").appendTo("#" + currId);
+    $('<a/>').click(function() { mgr_room(hotels[i]); mdl_upgrade(); }).html("Room Types").addClass("mdl-navigation__link").appendTo("#" + currId);
   //  $('<a/>').click(function() { alert('foo2'); }).html("Reviews").addClass("mdl-navigation__link").appendTo("#" + currId);
   //  $('<a/>').click(function() { alert('bar2'); }).html("Special Offer").addClass("mdl-navigation__link").appendTo("#" + currId);
   }
