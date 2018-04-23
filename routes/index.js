@@ -10,12 +10,17 @@ fs.readFile('data/hotels.json', 'utf8', function(err, data) {
   hotels = JSON.parse(data);
 });
 
+router.get('/addHotel.json', function(req, res) {
+
+});
+
 // Send information to client
-router.get('/getHotels', function(req, res) {
+router.get('/getHotels.json', function(req, res) {
   res.send(JSON.stringify(hotels));
 });
 
-router.post('/addHotel', function(req, res) {
+// Add hotel
+router.post('/addHotel.json', function(req, res) {
   console.log(hotels);
   console.log(req.body);
   // Do individually so that people can't arbitrarily send data to server

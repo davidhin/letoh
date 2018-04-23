@@ -11,6 +11,7 @@ function requestHotels() {
 // Get hotel information and display it 
   // Create new AJAX request
   var xhttp = new XMLHttpRequest();
+  
   // Define behaviour for a response
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -20,10 +21,13 @@ function requestHotels() {
       sizes();
     }
   };
+  
   // Initiate connection
-  xhttp.open("GET", "getHotels", true);
+  xhttp.open("GET", "getHotels.json", true);
+  
   // Header information
   xhttp.setRequestHeader("Content-type", "application/json");
+  
   // Send request
   xhttp.send();
 }
@@ -44,9 +48,12 @@ function mgr_info(hotelInput) {
   // Get the information for the hotel corresponding to hotel_0
   // And display it in the hotel manager cards
   $('#mgr_desc').empty();
+  
   /* --- DYNAMIC --- */
+  $('.hotelName').html(hotelInput.name);
+
   // mgr desc header
-  $('<h4/>').html(hotelInput.name + " Description").appendTo("#mgr_desc"); 
+  $('<h4/>').html("Description").appendTo("#mgr_desc"); 
   /* --- DYNAMIC --- */
   var mgr_desc_content = $('<p/>').html(hotelInput.desc).appendTo("#mgr_desc");  
   $("mgr_desc").maxHeight
@@ -54,7 +61,7 @@ function mgr_info(hotelInput) {
   $('<button/>')
     .addClass("editButton mdl-button mdl-js-button mdl-button--primary")
     .html("edit").appendTo("#mgr_desc")
-    .click(function() { btn_editText("#mgr_desc", this, mgr_desc_content); });
+    .click(function() { btn_editText("#mgr_desc", this, mgr_desc_content, hotelInput, 'desc'); });
 
   // Show current card
   hideContent();
@@ -69,6 +76,8 @@ function mgr_room(hotelInput) {
 
   // Get the types of rooms for this hotel and information
   $("#roomTypes").empty();  
+  
+  $('.hotelName').html(hotelInput.name);
   for (let i = 0; i < roomTypes; i++) {
     var room_row = $('<div/>').addClass("mdl-grid").appendTo("#roomTypes");   
       // room info
@@ -121,6 +130,7 @@ function mgr_overview() {
 
   var addButton = $('<button/>')
     .addClass("addButton mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored")
+    .click(function() { addRoom(); })
     .appendTo("#hotelOverview");
   $('<i/>').addClass("material-icons").html("add").appendTo(addButton);
   mdl_upgrade();
@@ -129,13 +139,18 @@ function mgr_overview() {
   $('#hotelOverview').show();
 }
 
+function addRoom() {
+  
+}
+
 // =================== GENERALISED IMPORTANT STUFF ========================= //
 
 // EDIT A TEXT FIELD AND SUBMIT IT
 // Edit button is the button that must be pressed to edit
 // Content in is the content that is to be changed
+// Hotel is the actual hotel object in the hotels array
 // Type is the hotel detail to be changed, e.g. desc
-function btn_editText(container, editBtn, contentIn, type) {
+function btn_editText(container, editBtn, contentIn, hotel, type) {
   "use strict";
   $(editBtn).hide();
   $(contentIn).hide();
@@ -144,12 +159,12 @@ function btn_editText(container, editBtn, contentIn, type) {
     .addClass("mdl-textfield mdl-js-textfield")
     .appendTo(container);
   var input_textarea = $('<textarea/>')
-      .addClass("mdl-textfield__input")
-      .attr({"type": "text", "id": "text_desc", "rows":6})
-      .css("resize", "none")
+    .addClass("mdl-textfield__input")
+    .attr({"type": "text", "id": "text_desc", "rows":6})
+    .css("resize", "none")
     /* --- DYNAMIC --- */
     .val($(contentIn).html())
-      .appendTo(div_textarea);
+    .appendTo(div_textarea);
   // label_line
   $('<label/>')
     .addClass("mdl-textfield__label")
@@ -168,6 +183,7 @@ function btn_editText(container, editBtn, contentIn, type) {
     .click(function() {
       /* --- DYNAMIC --- */
       $(contentIn).html(input_textarea.val());
+      hotel[type] = input_textarea.val();
       $(contentIn).show();
       $(editBtn).show();
       input_textarea.remove();
