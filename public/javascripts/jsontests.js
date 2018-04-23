@@ -32,7 +32,9 @@ function showHotels() {
   };
 
   // Initiate connection
-  xhttp.open("GET", "hotel.json", true);
+  xhttp.open("GET", "getHotels", true);
+  // Header information
+  xhttp.setRequestHeader("Content-type", "application/json");
 
   // Send request
   xhttp.send();
@@ -129,19 +131,19 @@ function addHotel() {
 //   var new_hotel = {name:"hotel4",lat:23,lng:25};
 //   // Create new AJAX request
 //   var xhttp = new XMLHttpRequest();
-// 
+//
 //   // Define behaviour for a response
 //   xhttp.onreadystatechange = function() {
 //     if (this.readyState == 4 && this.status == 200) {
 //     }
 //   };
-// 
+//
 //   // Initiate connection
 //   xhttp.open("POST", "addData", true);
-// 
+//
 //   // Header information
 //   xhttp.setRequestHeader("Content-type", "application/json");
-// 
+//
 //   // Send request
 //   xhttp.send(JSON.stringify(new_hotel));
 // }
