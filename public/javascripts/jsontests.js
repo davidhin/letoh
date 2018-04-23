@@ -75,33 +75,42 @@ function addMarkers() {
     });
 
     google.maps.event.addListener(marker, 'click', function() {
-          infowindow.setContent(
-            '<div style="width:250px;min-height:100px;margin-top:5px">'+
-            '<div style="float:left">'+
-            '<img src="'+
-            "http://lorempixel.com/400/400/city/" +(i+1)+
-            '" alt="hotel" title="Your Hotel" style="height:100px;width:100px;object-fit: cover;margin:auto;display:block"></div>'+
+      //Rating System
+      var stars = "";
+      for(var j=0;j<hotels[i].rating;j++){
+        stars += "&#10029;";
+      }
+      for(var k=hotels[i].rating;k<5;k++){
+        stars += "&#10025;";
+      }
 
-            '<div style="float:left;margin-left:10px;max-width:140px">'+
-            '<div style="word-break:keep-all;display:block;font-size:15px"><b>'+hotels[i].name+'</b></div>'+
+      infowindow.setContent(
+        '<div style="width:250px;min-height:100px;margin-top:5px">'+
+        '<div style="float:left">'+
+        '<img src="'+
+        "http://lorempixel.com/400/400/city/" +(i+1)+
+        '" alt="hotel" title="Your Hotel" style="height:100px;width:100px;object-fit: cover;margin:auto;display:block"></div>'+
 
-            '<p style="margin:0px;margin-top:10px;padding:0px;">'+
-            hotels[i].price+
-            '</p>'+
+        '<div style="float:left;margin-left:10px;max-width:140px">'+
+        '<div style="word-break:keep-all;display:block;font-size:15px"><b>'+hotels[i].name+'</b></div>'+
 
-            '<p style="margin:0px;margin-top:10px;padding:0px;">'+
-            'review'+ //REVIEw HERE
-            '</p>'+
+        '<p style="margin:0px;margin-top:10px;padding:0px;">'+
+        hotels[i].price+
+        '</p>'+
 
-            '</div>'+
-            '</div>'+
+        '<p style="margin:0px;margin-top:10px;padding:0px;">'+
+        stars+
+        '</p>'+
 
-            '<div width="100px" style="display:block;padding:0px;margin-top:10px;float:left">'+
-            '<p style="padding:0px;margin:0px">'+hotels[i].desc+'</p>'+
-            '</div>'
+        '</div>'+
+        '</div>'+
 
-          );
-          infowindow.open(map, this);
+        '<div width="100px" style="display:block;padding:0px;margin-top:10px;float:left">'+
+        '<p style="padding:0px;margin:0px">'+hotels[i].desc+'</p>'+
+        '</div>'
+
+      );
+      infowindow.open(map, this);
     });
 
     // Add to markers array
