@@ -8,12 +8,17 @@ var hotels = [];
 var users = [];
 
 // linked to ids
-var rooms = [];
+var all_rooms = [];
 var bookings = [];
 
 // Read hotel details into variable hotels
 fs.readFile('data/hotels.json', 'utf8', function(err, data) {
   hotels = JSON.parse(data);
+});
+
+// Read all rooms
+fs.readFile('data/rooms.json', 'utf8', function(err, data) {
+  all_rooms = JSON.parse(data);
 });
 
 // Send information to client
@@ -25,29 +30,65 @@ router.get('/getHotels.json', function(req, res) {
 router.post('/addHotel.json', function(req, res) {
   // Do individually so that people can't arbitrarily send data to server
 
-  var name = "New Hotel ID = " + hotels.length;
-  var newHotel = {'ID':hotels.length, 'name':name};
+  console.log(hotels.length);
+  var newId = hotels[hotels.length-1].id + 1;
+  var name = "New Hotel ID = " + newId;
+  var newHotel = {'id':newId, 'name':name};
   hotels.push(newHotel);
-  res.send(newHotel);
   
   console.log(hotels);
-  res.send();
+  console.log(hotels[hotels.length-1]);
+  res.send(newHotel);
 });
 
+// Updates hotel detail information
 router.post('/changeHotelDetails.json', function(req, res) {
   var hotel = JSON.parse(req.body.hotel);
-  hotels[hotel.id][req.body.changed_detail] = hotel[req.body.changed_detail];
+
+  var target_hotel = searchHotel(hotel.id);
+  hotels[target_hotel][req.body.changed_detail] = hotel[req.body.changed_detail];
+
+  res.send("");
+});
+
+// Update the hotel address
+// Takes a JSON object of form {hotel address lat lng}
+router.post('/updateHotelAddress.json', function(req, res) {
+  var hotel = JSON.parse(req.body.hotel);
+  var target_hotel = searchHotel(hotel.id);
+  hotels[target_hotel]['address'] = req.body.address;
+  hotels[target_hotel]['lat'] = req.body.lat;
+  hotels[target_hotel]['lng'] = req.body.lng;
+  res.send("");
+});
+
+// Delete a hotel from the database
+router.post('/deleteHotel.json', function(req, res) {
+  var target_hotel = searchHotel(req.body.id);
+  hotels.splice(target_hotel, 1);
   console.log(hotels);
   res.send("");
 });
 
-// Add hotel data to the file
-router.post('/addData', function(req, res) {
-  var added_hotel_str = JSON.stringify(req.body);
-  var added_hotel_obj = JSON.parse(added_hotel_str);
+var rooms;
+// Get the rooms of a hotel by id
+router.get('/getRooms.json', function(req, res) {
+  rooms = [];
+  var hotel_id = req.body.id;
 
-  console.log("hotel.json was saved!");
+  for (int i = 0; i < all_rooms.length; i++)
+    if (all_rooms.id == hotel_id)
+      rooms.push(rooms[i]);
+
+  console.log(rooms);
+  res.send(JSON.stringify(rooms));
 });
+
+function searchHotel(hotel_id) {
+  for (let i = 0; i < hotels.length; i++)
+    if (hotels[i].id == hotel_id)
+      return i;
+}
 
 // =============================== UNUSED ============================== //
 // Add hotel data to the file

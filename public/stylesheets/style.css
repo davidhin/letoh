@@ -227,6 +227,7 @@ input.textInput:invalid {
 }
 
 .editButton {
+  margin: -7px !important;
   width: 70px;
   position: absolute !important;
   right: 20px;
@@ -248,7 +249,13 @@ input.textInput:invalid {
   .mgr_overview_card {
     max-height: 300px;
     overflow: auto !important;
-  } 
+  }
+
+#mgr_address {
+  min-height: 0;
+  padding: 15px;
+  border: 0;
+} 
 
 /* ============= BOOKING PAGE CARDS =============== */
 .bookingCard {
