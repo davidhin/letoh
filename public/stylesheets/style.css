@@ -25,7 +25,7 @@ header{
 
 #content {
   box-sizing: border-box;
-  padding: 79px 0px 0px 15px;
+  padding: 64px 0px 0px 0px;
   width: 100%;
   height: auto;
   overflow: auto;
@@ -60,8 +60,8 @@ footer a {
 
 #map {
  display:hidden;
- height: 500px;
- width: calc(100% - 15px);
+ height: calc(100vh - 64px);
+ width: 100%;
 }
 /* =================== TOP BAR ==================== */
 .letohLogo {
@@ -156,6 +156,7 @@ input.textInput:invalid {
 }
 
 #hotelcards {
+  padding: 15px 0px 0px 15px;
   overflow: auto;
 }
 
@@ -362,12 +363,15 @@ input.textInput:invalid {
     margin: 0;
   }
   #content {
-    padding: 53px 0px 0px 15px;
+    padding: 48px 0px 0px 0px;
   }
   #hoteldetails_overlay {
     width: calc(100% - 72px);
     max-height: calc(100vh - 110px);
     overflow: auto;
+  }
+  #map {
+   height: calc(100vh - 48px);
   }
 }
 
@@ -384,7 +388,7 @@ input.textInput:invalid {
     display: none;
   }
   #content {
-    padding: 63px 0px 0px 15px;
+    padding: 48px 0px 0px 0px;
   }
   #hoteldetails_overlay {
     width: 100%;
@@ -403,6 +407,9 @@ input.textInput:invalid {
   .bookingContent {
     width: 100%;
     margin: -15px 0px 0px -15px;
+  }
+  #map {
+   height: calc(100vh - 48px);
   }
 }
 
