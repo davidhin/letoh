@@ -29,7 +29,7 @@ router.post('/addHotel.json', function(req, res) {
   var newHotel = {'ID':hotels.length, 'name':name};
   hotels.push(newHotel);
   res.send(newHotel);
-  
+
   console.log(hotels);
   res.send();
 });
@@ -47,6 +47,14 @@ router.post('/addData', function(req, res) {
   var added_hotel_obj = JSON.parse(added_hotel_str);
 
   console.log("hotel.json was saved!");
+});
+
+fs.readFile('data/users.json', 'utf8', function(err, data) {
+  users = JSON.parse(data);
+});
+
+router.get('/users.json', function(req, res) {
+  res.send(JSON.stringify(users));
 });
 
 // =============================== UNUSED ============================== //
