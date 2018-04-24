@@ -4,31 +4,23 @@ var hotels = [];
 
 $( document ).ready(function() {
   "use strict";
-  requestHotels();
+  requestHotels(function() {  
+    loadHotelSidebar();
+    mgr_overview();
+    sizes();
+  });
 });
 
-function requestHotels() {
-// Get hotel information and display it 
-  // Create new AJAX request
+function requestHotels(callback) {
   var xhttp = new XMLHttpRequest();
-  
-  // Define behaviour for a response
   xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
+    if (this.readyState == 4 && this.status == 200)
       hotels = JSON.parse(xhttp.responseText);
-      loadHotelSidebar();
-      mgr_overview();
-      sizes();
-    }
+      callback();
   };
   
-  // Initiate connection
   xhttp.open("GET", "getHotels.json", true);
-  
-  // Header information
   xhttp.setRequestHeader("Content-type", "application/json");
-  
-  // Send request
   xhttp.send();
 }
 
@@ -47,21 +39,36 @@ function mgr_info(hotelInput) {
 
   // Get the information for the hotel corresponding to hotel_0
   // And display it in the hotel manager cards
-  $('#mgr_desc').empty();
+  $('#generalInfo').empty();
   
   /* --- DYNAMIC --- */
-  $('.hotelName').html(hotelInput.name);
 
+  var title_container = $('<div/>').css("margin","0 auto").css("width","auto").appendTo("#generalInfo");
+  $('<h1/>')
+    .click(function() { 
+      btn_editText(title_container, this, this, hotelInput, 'name', 1, function() {
+        requestHotels(function() { loadHotelSidebar(); });
+      }); 
+    })
+    .css("font-weight","100").html(hotelInput.name).appendTo(title_container);
+
+  //          <div id="mgr_images" class="mdl-cell mdl-card mdl-shadow--2dp mdl-cell--8-col mdl-cell--5-col-tablet mdl-cell--1-phone">Images</div>
+  //          <div id="mgr_tags" class="mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--1-phone">Tags</div>
+
+  // mdl-grid container
+  var info_container = $('<div/>').addClass("mdl-grid").appendTo('#generalInfo');
+  $('<div/>').attr("id", "mgr_mainImage").addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--3-col-desktop mdl-cell--3-col-tablet mdl-cell--4-phone").html("Main Image").appendTo(info_container);
+  $('<div/>').attr("id", "mgr_desc").addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--9-col-desktop mdl-cell--5-col-tablet mdl-cell--4-phone").appendTo(info_container);
+  
   // mgr desc header
   $('<h4/>').html("Description").appendTo("#mgr_desc"); 
   /* --- DYNAMIC --- */
   var mgr_desc_content = $('<p/>').html(hotelInput.desc).appendTo("#mgr_desc");  
-  $("mgr_desc").maxHeight
   // mgr desc button
   $('<button/>')
     .addClass("editButton mdl-button mdl-js-button mdl-button--primary")
     .html("edit").appendTo("#mgr_desc")
-    .click(function() { btn_editText("#mgr_desc", this, mgr_desc_content, hotelInput, 'desc'); });
+    .click(function() { btn_editText("#mgr_desc", this, mgr_desc_content, hotelInput, 'desc', 6, function(){}); });
 
   // Show current card
   hideContent();
@@ -76,8 +83,17 @@ function mgr_room(hotelInput) {
 
   // Get the types of rooms for this hotel and information
   $("#roomTypes").empty();  
-  
-  $('.hotelName').html(hotelInput.name);
+
+  // Hotel name title
+  var title_container = $('<div/>').css("margin","0 auto").css("width","800px").appendTo("#roomTypes");
+  $('<h1/>')
+    .click(function() { 
+      btn_editText(title_container, this, this, hotelInput, 'name', 1, function() {
+        requestHotels(function() { loadHotelSidebar(); });
+      }); 
+    })
+    .css("font-weight","100").html(hotelInput.name).appendTo(title_container);
+
   for (let i = 0; i < roomTypes; i++) {
     var room_row = $('<div/>').addClass("mdl-grid").appendTo("#roomTypes");   
       // room info
@@ -115,22 +131,28 @@ function mgr_overview() {
   "use strict";
   $('#hotelOverview').empty();
 
+  var overview_grid = $('<div/>').addClass("mdl-grid").appendTo("#hotelOverview");
   for (let i = 0; i < hotels.length; i++) {
-  var mgr_overview_card = $('<div/>')
-    .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--12-col")
-    .appendTo('#hotelOverview');
-
-  $('<h2/>')
-    .html(hotels[i].name)
-    .appendTo(mgr_overview_card);
+    
+    var mgr_overview_card = $('<div/>')
+      .addClass("mgr_overview_card mdl-cell mdl-card mdl-shadow--2dp mdl-cell--6-col")
+      .appendTo(overview_grid);
+    $('<h2/>')
+      .css("margin",0)
+      .html(hotels[i].name)
+      .appendTo(mgr_overview_card);
+    $('<p/>')
+      .css("margin",0)
+      .html(hotels[i].desc)
+      .appendTo(mgr_overview_card);
   }
 
   mdl_upgrade();
   sizes();  
 
   var addButton = $('<button/>')
-    .addClass("addButton mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored")
-    .click(function() { addRoom(); })
+    .addClass("newHotelButton addButton mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored")
+    .click(function() { addHotelButton(); })
     .appendTo("#hotelOverview");
   $('<i/>').addClass("material-icons").html("add").appendTo(addButton);
   mdl_upgrade();
@@ -139,8 +161,21 @@ function mgr_overview() {
   $('#hotelOverview').show();
 }
 
-function addRoom() {
-  
+function addHotelButton() {
+  var xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      requestHotels(function() {
+        mgr_overview();
+        loadHotelSidebar();
+      });
+    }
+  };
+
+  xhttp.open("POST", "addHotel.json", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send();
 }
 
 // =================== GENERALISED IMPORTANT STUFF ========================= //
@@ -150,7 +185,7 @@ function addRoom() {
 // Content in is the content that is to be changed
 // Hotel is the actual hotel object in the hotels array
 // Type is the hotel detail to be changed, e.g. desc
-function btn_editText(container, editBtn, contentIn, hotel, type) {
+function btn_editText(container, editBtn, contentIn, hotel, type, rows, callback) {
   "use strict";
   $(editBtn).hide();
   $(contentIn).hide();
@@ -160,7 +195,7 @@ function btn_editText(container, editBtn, contentIn, hotel, type) {
     .appendTo(container);
   var input_textarea = $('<textarea/>')
     .addClass("mdl-textfield__input")
-    .attr({"type": "text", "id": "text_desc", "rows":6})
+    .attr({"type": "text", "id": "text_desc", "rows":rows})
     .css("resize", "none")
     /* --- DYNAMIC --- */
     .val($(contentIn).html())
@@ -184,6 +219,14 @@ function btn_editText(container, editBtn, contentIn, hotel, type) {
       /* --- DYNAMIC --- */
       $(contentIn).html(input_textarea.val());
       hotel[type] = input_textarea.val();
+
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() { if (this.readyState == 4 && this.status == 200)
+        callback(); };
+      xhttp.open("POST", "changeHotelDetails.json", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({'hotel':JSON.stringify(hotel), 'changed_detail':type}));
+
       $(contentIn).show();
       $(editBtn).show();
       input_textarea.remove();
@@ -208,7 +251,17 @@ function btn_editText(container, editBtn, contentIn, hotel, type) {
 // =========== LOAD SIDEBAR ============== //
 // e.g. for all of the owners hotels, generate the following links:
 function loadHotelSidebar() {
-  "use strict";
+  "use strict"; 
+  $('#myHotels').empty();
+
+  // Overview Button
+  $('<button/>')
+    .attr("id","overview")
+    .click(function() { mgr_overview(); sizes(); })
+    .addClass("mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary")
+    .html("Dashboard")
+    .appendTo("#myHotels");
+
   for (let i = 0; i < hotels.length; i++) {
     $('<button/>')
       .text(hotels[i].name)

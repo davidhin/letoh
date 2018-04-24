@@ -240,6 +240,11 @@ input.textInput:invalid {
     width: calc(100% - 66px);
   }
 
+  .mgr_overview_card {
+    max-height: 300px;
+    overflow: auto !important;
+  } 
+
 /* ============= BOOKING PAGE CARDS =============== */
 .bookingCard {
   width: 100% !important;
