@@ -5,7 +5,7 @@
    "lat":-34.9284989,
    "lng":138.6007456,
    "price":"$100",
-   "rating":1,
+   "rating":5,
    "desc":"Overlooking Victoria Square, Hilton Adelaide is set in the heart of the city’s entertainment, shopping and dining precincts. The Central Market, Chinatown and Gouger Street - Adelaide’s most vibrant dining destinations – are also minutes away. Host a business or social event in our flexible meeting spaces. After a busy day unwind in the recreational area featuring a gym and a heated outdoor pool. Retreat to a stylish room with all you need for a relaxing stay."
   },
 
@@ -27,5 +27,15 @@
    "price":"$900",
    "rating":3,
    "desc":"Vibrant. Affordable. Hi-Tech. A fresh, new destination among CBD hotels, ibis Adelaide is the best value in the heart of the city. Boasting 311 modern guest room accommodation outfitted with the latest technology, fast, free Wi-Fi (when booking direct) and views of Adelaide Hills, we’re the perfect hotel for the budget minded business or leisure traveller."
+  },
+
+  {"id":4,
+   "owner":"JohnDoe@gfail.com",
+   "name":"Paradise Interchange Hotel",
+   "lat":-34.8685046,
+   "lng":138.6597032,
+   "price":"$9000",
+   "rating":1,
+   "desc":"This is a hotel"
   }
 ]
