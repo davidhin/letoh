@@ -1,4 +1,27 @@
+var users = [];
 /* ================== Functions for Both Pages ===================== */
+$( document ).ready(function() {
+  "use strict";
+  userData(function() {
+    accountData();
+  });
+
+});
+
+function userData(callback){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200){
+      users = JSON.parse(xhttp.responseText);
+      callback();
+    }
+  };
+
+  xhttp.open("GET", "users.json", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(200);
+}
+
 function checkIfBookings(){
   "use strict";
   if($("#currentBookings").children().length===0){
@@ -127,11 +150,11 @@ function account(){
 function accountData(){
   "use strict";
   //Account data
-  $($(".accountModule p")[0]).text("John"+" Doe");
-  $($(".accountModule p")[1]).text("20"+" Jim"+" St"+" Suburb"+" Adelaide");
-  $($(".accountModule p")[2]).text("1998 8890");
-  $($(".accountModule p")[3]).text("JohnDoe@gfail.com");
-  $($(".accountModule p")[4]).text("PasswordMcPasswordFace");
+  $($(".accountModule p")[0]).text(users[0].name);
+  $($(".accountModule p")[1]).text(users[0].address);
+  $($(".accountModule p")[2]).text(users[0].phoneNumber);
+  $($(".accountModule p")[3]).text(users[0].email);
+  $($(".accountModule p")[4]).text(users[0].password);
 
   for(var i=0;i<1;i++){
     get_bookings(false);

@@ -15,7 +15,6 @@ var bookings = [];
 fs.readFile('data/hotels.json', 'utf8', function(err, data) {
   hotels = JSON.parse(data);
 });
-
 // Read all rooms
 fs.readFile('data/rooms.json', 'utf8', function(err, data) {
   all_rooms = JSON.parse(data);
@@ -35,7 +34,7 @@ router.post('/addHotel.json', function(req, res) {
   var name = "New Hotel ID = " + newId;
   var newHotel = {'id':newId, 'name':name};
   hotels.push(newHotel);
-  
+
   console.log(hotels);
   console.log(hotels[hotels.length-1]);
   res.send(newHotel);
@@ -90,6 +89,13 @@ function searchHotel(hotel_id) {
       return i;
 }
 
+fs.readFile('data/users.json', 'utf8', function(err, data) {
+  users = JSON.parse(data);
+});
+
+router.get('/users.json', function(req, res) {
+  res.send(JSON.stringify(users));
+});
 // =============================== UNUSED ============================== //
 // Add hotel data to the file
 // router.post('/addData', function(req, res) {
