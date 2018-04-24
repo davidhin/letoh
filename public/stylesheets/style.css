@@ -58,7 +58,11 @@ footer a {
   float: left;
 }
 
-
+#map {
+ display:hidden;
+ height: 500px;
+ width: calc(100% - 15px);
+}
 /* =================== TOP BAR ==================== */
 .letohLogo {
   padding: 4px 4px 4px 10px;
