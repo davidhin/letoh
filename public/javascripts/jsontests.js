@@ -32,7 +32,7 @@ function showHotels() {
   };
 
   // Initiate connection
-  xhttp.open("GET", "getHotels", true);
+  xhttp.open("GET", "getHotels.json", true);
   // Header information
   xhttp.setRequestHeader("Content-type", "application/json");
 
@@ -53,52 +53,64 @@ function addMarkers() {
   // Loop over hotels array
   for (let i = 0; i < hotels.length; i++) {
     // Create new marker
+
     var marker = new google.maps.Marker({
       position: {lat: hotels[i].lat, lng: hotels[i].lng},
-      label: hotels[i].name,
+      label: {
+        text: hotels[i].price,
+        color: "#000000",
+        fontSize: "16px",
+        fontWeight: "bold"
+
+      },
+
       map: map
     });
 
     //Infowindow made here
     //infowindow = new google.maps.InfoWindow();
 
-    infowindow = new google.maps.InfoWindow();
+    infowindow = new google.maps.InfoWindow({
+      maxWidth: 250
+    });
 
     google.maps.event.addListener(marker, 'click', function() {
-          infowindow.setContent(
-            '<div style="width:250px;min-height:100px;margin-top:5px">'+
-            '<div style="float:left">'+
-            '<img src="'+
-            "http://lorempixel.com/400/400/city/" +(i+1)+
-            '" alt="hotel" title="Your Hotel" style="height:100px;width:100px;object-fit: cover;margin:auto;display:block"></div>'+
+      //Rating System
+      var stars = "";
+      for(var j=0;j<hotels[i].rating;j++){
+        stars += "&#10029;";
+      }
+      for(var k=hotels[i].rating;k<5;k++){
+        stars += "&#10025;";
+      }
 
-            '<div style="float:left;margin-left:10px;">'+
-            '<div style="display:block;font-size:15px"><b>'+hotels[i].name+'</b></div>'+
+      infowindow.setContent(
+        '<div style="width:250px;min-height:100px;margin-top:5px">'+
+        '<div style="float:left">'+
+        '<img src="'+
+        "http://lorempixel.com/400/400/city/" +(i+1)+
+        '" alt="hotel" title="Your Hotel" style="height:100px;width:100px;object-fit: cover;margin:auto;display:block"></div>'+
 
-            '<div style="display:block;margin-top:10px">'+
-            '<img alt="wifi" title="wifi" src="images/wifi.png" />'+
-            '<img alt="coffee" title="coffee" src="images/coffee.png" />'+
-            '<img alt="car" title="car" src="images/car.png" />'+
-            '<img alt="shower" title="shower" src="images/shower.png" />'+
-            '</div>'+
+        '<div style="float:left;margin-left:10px;max-width:140px">'+
+        '<div style="word-break:keep-all;display:block;font-size:15px"><b>'+hotels[i].name+'</b></div>'+
 
-            '<p style="margin:0px;margin-top:10px;padding:0px;">'+
-            'price'+ //PRICE HERE
-            '</p>'+
+        '<p style="margin:0px;margin-top:10px;padding:0px;">'+
+        hotels[i].price+
+        '</p>'+
 
-            '<p style="margin:0px;margin-top:10px;padding:0px;">'+
-            'review'+ //REVIEw HERE
-            '</p>'+
+        '<p style="margin:0px;margin-top:10px;padding:0px;">'+
+        stars+
+        '</p>'+
 
-            '</div>'+
-            '</div>'+
+        '</div>'+
+        '</div>'+
 
-            '<div width="100px" style="display:block;padding:0px;margin-top:10px;float:left">'+
-            '<p style="padding:0px;margin:0px">'+'DESCRIPTION GOES HERE'+'</p>'+ //Description here
-            '</div>'
+        '<div width="100px" style="display:block;padding:0px;margin-top:10px;float:left">'+
+        '<p style="padding:0px;margin:0px">'+hotels[i].desc+'</p>'+
+        '</div>'
 
-          );
-          infowindow.open(map, this);
+      );
+      infowindow.open(map, this);
     });
 
     // Add to markers array

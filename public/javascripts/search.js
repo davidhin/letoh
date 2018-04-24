@@ -16,6 +16,8 @@ $( document ).ready(function() {
   sizes();
   date_initial();
   check_inputs();
+  initMap();
+  $("#map").hide();
 });
 
 // ============ DYNAMIC DATA GENERATION: HOTEL CARDS ========= //
@@ -52,7 +54,7 @@ function hotelCards() {
 }
 
 function hoteldetails() {
-  $('#confirmation_overlay').fadeOut(); 
+  $('#confirmation_overlay').fadeOut();
   $('#hd_hotelname').html($(this).parents("div").siblings(".mdl-card__title").children().html());
   $('#hoteldetails_overlay').fadeIn();
   // DYNAMIC DATA: Get the image
@@ -67,7 +69,7 @@ function hoteldetails() {
 function bookingpage() {
   var getimage = $(this).parents("div").siblings(".mdl-card__title").css("backgroundImage") + " center / cover";
   $('.boximage').css("background", getimage);
-  
+
   $("#hd_booknow_btn").click(function() {
     // Maybe fix this - it instant-shows on the first booking button click
     // This could potentially(?) lead to other issues
@@ -79,22 +81,22 @@ function bookingpage() {
     bookingData();
     var title = $('#hotelname_underbox').css("margin-bottom", 0).html($(this).parents("div").siblings(".mdl-card__title").children().html());
 
-    $('button[name="CompleteBooking"]').click(function() { 
+    $('button[name="CompleteBooking"]').click(function() {
       submitted.call(title);
     });
 
-    $('#bk_backbutton').click(function() { 
+    $('#bk_backbutton').click(function() {
       $('footer').css("margin-top", "0px");
       $('#hotelcards').fadeIn();
-      $('#hoteldetails_overlay').fadeIn(); 
-      $('.bookingContent').fadeOut(function() {$('#bookingpage_overlay').hide();}); 
+      $('#hoteldetails_overlay').fadeIn();
+      $('.bookingContent').fadeOut(function() {$('#bookingpage_overlay').hide();});
     });
   });
 }
 
 // ====================== MISC FUNCTIONS  =================== //
 // Get Date
-Date.prototype.today = (function(tomorrow) { 
+Date.prototype.today = (function(tomorrow) {
   "use strict";
   var local = new Date(this);
   if (tomorrow) { local.setDate(local.getDate() + 1); }
@@ -119,4 +121,11 @@ function check_inputs() {
   Array.prototype.forEach.call(nodeList, function (elem) {
       elem.MaterialTextfield.checkDirty();
   });
+}
+
+// ====================== Map FUNCTIONS  =================== //
+
+function mapGeneral(){
+  $('#hotelcards').toggle();
+  $('#map').toggle();
 }

@@ -4,6 +4,8 @@
    "name":"Hilton Adelaide",
    "lat":-34.9284989,
    "lng":138.6007456,
+   "price":"$100",
+   "rating":5,
    "desc":"Overlooking Victoria Square, Hilton Adelaide is set in the heart of the city’s entertainment, shopping and dining precincts. The Central Market, Chinatown and Gouger Street - Adelaide’s most vibrant dining destinations – are also minutes away. Host a business or social event in our flexible meeting spaces. After a busy day unwind in the recreational area featuring a gym and a heated outdoor pool. Retreat to a stylish room with all you need for a relaxing stay."
   },
 
@@ -11,7 +13,9 @@
    "owner":"someone@gmail.com",
    "name":"Mantra Hindmarsh Square",
    "lat":-34.9265988,
-   "lng":138.0861529,
+   "lng":138.5861529,
+   "price":"$1200",
+   "rating":2,
    "desc":"Whether you're in town for the Adelaide Festival or V8 Supercars, a footy trip, romantic escape or a foodie tour with friends, Mantra Hindmarsh Square is the top pick in Adelaide accommodation. We offer all the creature comforts you need for an affordable, relaxing holiday including Foxtel, high speed internet access, air conditioning and your own kitchen facilities. We're also home to one of Adelaide's favourite restaurants where you can enjoy coffee in the morning sun, a light lunch, cocktail or dinner. Take a short stroll to Rundle Mall; the heart of shopping in Adelaide with more than 600 retail stores, three department stories and 15 arcades. Cross the road and you're in Rundle Street, home to fabulous alfresco cafes, award-winning restaurants, iconic pubs and cutting-edge fashions. Other star attractions within walking distance include Adelaide Festival Centre, Adelaide Oval, Art Gallery of South Australia and Sky City Casino. Hop on the city loop bus and jump off at Adelaide's colorful central market for South Australia's best local produce. If you're traveling with kids, there's plenty to see and do without leaving the CBD. Take a cruise on the River Torrens, visit Adelaide Zoo or enjoy a picnic in the Botanic Gardens."
   },
 
@@ -20,6 +24,18 @@
    "name":"Ibis Adelaide",
    "lat":-34.935043,
    "lng":138.6958371,
+   "price":"$900",
+   "rating":3,
    "desc":"Vibrant. Affordable. Hi-Tech. A fresh, new destination among CBD hotels, ibis Adelaide is the best value in the heart of the city. Boasting 311 modern guest room accommodation outfitted with the latest technology, fast, free Wi-Fi (when booking direct) and views of Adelaide Hills, we’re the perfect hotel for the budget minded business or leisure traveller."
+  },
+
+  {"id":4,
+   "owner":"JohnDoe@gfail.com",
+   "name":"Paradise Interchange Hotel",
+   "lat":-34.8685046,
+   "lng":138.6597032,
+   "price":"$9000",
+   "rating":1,
+   "desc":"This is a hotel"
   }
 ]
