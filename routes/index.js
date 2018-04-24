@@ -20,6 +20,11 @@ fs.readFile('data/rooms.json', 'utf8', function(err, data) {
   all_rooms = JSON.parse(data);
 });
 
+//read all users
+fs.readFile('data/users.json', 'utf8', function(err, data) {
+  users = JSON.parse(data);
+});
+
 // Send information to client
 router.get('/getHotels.json', function(req, res) {
   res.send(JSON.stringify(hotels));
@@ -75,7 +80,7 @@ router.get('/getRooms.json', function(req, res) {
   rooms = [];
   var hotel_id = req.body.id;
 
-  for (int i = 0; i < all_rooms.length; i++)
+  for (var i = 0; i < all_rooms.length; i++)
     if (all_rooms.id == hotel_id)
       rooms.push(rooms[i]);
 
@@ -84,16 +89,12 @@ router.get('/getRooms.json', function(req, res) {
 });
 
 function searchHotel(hotel_id) {
-  for (let i = 0; i < hotels.length; i++)
+  for (var i = 0; i < hotels.length; i++)
     if (hotels[i].id == hotel_id)
       return i;
 }
 
-fs.readFile('data/users.json', 'utf8', function(err, data) {
-  users = JSON.parse(data);
-});
-
-router.get('/users.json', function(req, res) {
+router.get('/getUsers.json', function(req, res) {
   res.send(JSON.stringify(users));
 });
 // =============================== UNUSED ============================== //
