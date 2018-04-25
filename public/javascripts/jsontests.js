@@ -179,8 +179,9 @@ function hoteldetailsMarker(index) {
   $('#hotel_info_p').html(hotels[index].desc);
   $('#hoteldetails_overlay').fadeIn();
   // DYNAMIC DATA: Get the image
-  //var getimage = $(this).parents("div").siblings(".mdl-card__title").css("backgroundImage") + " center / cover";
-  $('.imagescroller').css("background", "https://placeimg.com/640/480/any/"+index );
+  var getimage = "url('https://placeimg.com/640/480/any/" + index + "') center / cover";
+  console.log(getimage);
+  $('.imagescroller').css("background", getimage);
   $('#hd_backbutton').click(function() { $('#hoteldetails_overlay').fadeOut(); sizes(); });
 
   bookingpage.call(this);
