@@ -75,6 +75,7 @@ function hotelCards() {
 function hoteldetails() {
   $('#confirmation_overlay').fadeOut();
   $('#hd_hotelname').html($(this).parents("div").siblings(".mdl-card__title").children().html());
+  $('#hotel_info_p').html($(this).parents("div").siblings(".mdl-card__supporting-text").html());
   $('#hoteldetails_overlay').fadeIn();
   // DYNAMIC DATA: Get the image
   var getimage = $(this).parents("div").siblings(".mdl-card__title").css("backgroundImage") + " center / cover";
