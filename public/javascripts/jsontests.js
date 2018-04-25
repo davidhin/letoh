@@ -142,7 +142,7 @@ function addMarkers() {
         '</div>'+
 
         '<div width="100px" style="display:block;padding:0px;margin-top:10px;float:left">'+
-        '<p style="padding:0px;margin:0px">'+hotels[i].desc+'</p>'+
+        '<button onclick="hoteldetailsMarker('+i+')">Details</button>'+
         '</div>'
 
       );
@@ -171,6 +171,21 @@ function addHotel() {
   xhttp.setRequestHeader("Content-type", "application/json");
   // Send request
   xhttp.send(JSON.stringify(new_hotel));
+}
+
+function hoteldetailsMarker(index) {
+  $('#confirmation_overlay').fadeOut();
+  $('#hd_hotelname').html(hotels[index].name);
+  $('#hotel_info_p').html(hotels[index].desc);
+  $('#hoteldetails_overlay').fadeIn();
+  // DYNAMIC DATA: Get the image
+  var getimage = "url('https://placeimg.com/640/480/any/" + index + "') center / cover";
+  console.log(getimage);
+  $('.imagescroller').css("background", getimage);
+  $('#hd_backbutton').click(function() { $('#hoteldetails_overlay').fadeOut(); sizes(); });
+
+  bookingpage.call(this);
+  mdl_upgrade();
 }
 
 // =============================== UNUSED ============================== //
