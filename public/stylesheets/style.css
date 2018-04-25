@@ -157,6 +157,14 @@ input.textInput:invalid {
   height:40px !important;
 }
 
+p.mdl-card__supporting-text{
+  word-wrap: break-word !important;
+  overflow: hidden !important;
+  height:20px !important;
+  margin-bottom:0px !important;
+  padding-bottom:0px !important;
+}
+
 .hotel-card > .mdl-card__menu {
   color: #fff;
 }
