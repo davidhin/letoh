@@ -9,7 +9,7 @@ var users = [];
 
 // linked to ids
 var all_rooms = [];
-var bookings = [];
+var bookisngs = [];
 
 // Read hotel details into variable hotels
 fs.readFile('data/hotels.json', 'utf8', function(err, data) {
@@ -21,7 +21,7 @@ fs.readFile('data/rooms.json', 'utf8', function(err, data) {
   all_rooms = JSON.parse(data);
 });
 
-//read all users
+// Read all users
 fs.readFile('data/users.json', 'utf8', function(err, data) {
   users = JSON.parse(data);
 });
@@ -75,15 +75,15 @@ router.post('/deleteHotel.json', function(req, res) {
   res.send("");
 });
 
-var rooms;
+var rooms = [];
 // Get the rooms of a hotel by id
-router.get('/getRooms.json', function(req, res) {
+router.post('/getRooms.json', function(req, res) {
   rooms = [];
   var hotel_id = req.body.id;
 
   for (let i = 0; i < all_rooms.length; i++)
-    if (all_rooms.id == hotel_id)
-      rooms.push(rooms[i]);
+    if (all_rooms[i].id == hotel_id)
+      rooms.push(all_rooms[i]);
 
   console.log(rooms);
   res.send(JSON.stringify(rooms));
