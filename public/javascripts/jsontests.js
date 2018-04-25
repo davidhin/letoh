@@ -87,19 +87,28 @@ function clearMarkers() {
 // Populate map with markers from hotels array info
 function addMarkers() {
   // Loop over hotels array
+  var icons;
   for (let i = 0; i < hotels.length; i++) {
+
+    icons = {
+      url: "/images/marker.jpg", // url
+  	  scaledSize: new google.maps.Size(50, 30), // scaled size
+  	  origin: new google.maps.Point(0,0), // origin
+  	  anchor: new google.maps.Point(0, 0) // anchor
+  	};
+
     // Create new marker
 
     var marker = new google.maps.Marker({
       position: {lat: hotels[i].lat, lng: hotels[i].lng},
+      icon: icons,
       label: {
         text: hotels[i].price,
         color: "#000000",
         fontSize: "16px",
         fontWeight: "bold"
-
       },
-
+      zIndex: i,
       map: map
     });
 
