@@ -15,9 +15,20 @@ var bookings = [];
 fs.readFile('data/hotels.json', 'utf8', function(err, data) {
   hotels = JSON.parse(data);
 });
+
 // Read all rooms
 fs.readFile('data/rooms.json', 'utf8', function(err, data) {
   all_rooms = JSON.parse(data);
+});
+
+// Read all users
+fs.readFile('data/users.json', 'utf8', function(err, data) {
+  users = JSON.parse(data);
+});
+
+// Get users
+router.get('/users.json', function(req, res) {
+  res.send(JSON.stringify(users));
 });
 
 // Send information to client
@@ -75,7 +86,7 @@ router.get('/getRooms.json', function(req, res) {
   rooms = [];
   var hotel_id = req.body.id;
 
-  for (int i = 0; i < all_rooms.length; i++)
+  for (let i = 0; i < all_rooms.length; i++)
     if (all_rooms.id == hotel_id)
       rooms.push(rooms[i]);
 
@@ -89,13 +100,6 @@ function searchHotel(hotel_id) {
       return i;
 }
 
-fs.readFile('data/users.json', 'utf8', function(err, data) {
-  users = JSON.parse(data);
-});
-
-router.get('/users.json', function(req, res) {
-  res.send(JSON.stringify(users));
-});
 // =============================== UNUSED ============================== //
 // Add hotel data to the file
 // router.post('/addData', function(req, res) {
