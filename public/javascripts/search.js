@@ -91,6 +91,7 @@ function bookingpage() {
   $('.boximage').css("background", getimage);
 
   $("#hd_booknow_btn").click(function() {
+    $("#map").hide();
     // Maybe fix this - it instant-shows on the first booking button click
     // This could potentially(?) lead to other issues
     $('.mdl-layout__content').animate({ scrollTop: 0 });
@@ -112,6 +113,7 @@ function bookingpage() {
       $('.bookingContent').fadeOut(function() {$('#bookingpage_overlay').hide();});
     });
   });
+
 }
 
 // ====================== MISC FUNCTIONS  =================== //
