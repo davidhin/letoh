@@ -124,7 +124,7 @@ function addMarkers() {
         '<div style="width:250px;min-height:100px;margin-top:5px">'+
         '<div style="float:left">'+
         '<img src="'+
-        "http://lorempixel.com/400/400/city/" +(i+1)+
+        'https://placeimg.com/640/480/any/' + i +
         '" alt="hotel" title="Your Hotel" style="height:100px;width:100px;object-fit: cover;margin:auto;display:block"></div>'+
 
         '<div style="float:left;margin-left:10px;max-width:140px">'+
