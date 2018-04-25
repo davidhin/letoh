@@ -17,7 +17,7 @@ function userData(callback){
     }
   };
 
-  xhttp.open("GET", "users.json", true);
+  xhttp.open("GET", "getUsers.json", true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send(200);
 }

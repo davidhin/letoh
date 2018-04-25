@@ -57,7 +57,6 @@ function showHotels() {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       // convert from string to JSON, populate hotels array
-      console.log(xhttp.responseText);
       hotels = JSON.parse(xhttp.responseText);
 
       // Clear map

@@ -1,3 +1,4 @@
+var hotels = [];
 // ====================== MAIN FUNCTIONS ===================== //
 
 $( document ).ready(function() {
@@ -12,13 +13,31 @@ $( document ).ready(function() {
     $( "#minStars" ).val($("#stars").val());
   });
 
-  hotelCards();
-  sizes();
-  date_initial();
-  check_inputs();
-  initMap();
-  $("#map").hide();
+  requestHotels(function() {
+    hotelCards();
+    sizes();
+    date_initial();
+    check_inputs();
+    initMap();
+    $("#map").hide();
+  });
+
 });
+
+//THERE HAS TO BE A WAY TO REUSE THIS FUNCTION FROM HOTELMANAGE.JS SINCE IT'S LITERALLY THE SAME
+//MAYBE YOU CAN JUST CALL IT THE SAME, I'LL LEAVE IT HERE FOR NOW THOUGH
+function requestHotels(callback) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200)
+      hotels = JSON.parse(xhttp.responseText);
+      callback();
+  };
+
+  xhttp.open("GET", "getHotels.json", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send();
+}
 
 // ============ DYNAMIC DATA GENERATION: HOTEL CARDS ========= //
 
@@ -31,13 +50,13 @@ function link_moredetails() {
 
 function hotelCards() {
   mdl_upgrade();
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < hotels.length; i++) {
     var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#hotelcards");
       // Change the background picture here
       var insertBg = "url('https://placeimg.com/640/480/any/" + i + "') center / cover";
       var div_title = $('<div/>').addClass("mdl-card__title").appendTo(div_main).css("background", insertBg);
       // Change the hotel name here
-      $('<h2/>').addClass("mdl-card__title-text").html("Hotel " + i).appendTo(div_title);
+      $('<h2/>').addClass("mdl-card__title-text").html(hotels[i].name).appendTo(div_title);
       // Change the hotel details here
       $('<div/>').addClass("mdl-card__supporting-text").html("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis pellentesque lacus eleifend lacinia... ").appendTo(div_main);
       var div_buttons = $('<div/>').addClass("mdl-card__actions mdl-card--border").appendTo(div_main);
