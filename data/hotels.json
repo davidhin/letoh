@@ -41,5 +41,17 @@
    "price":"$9000",
    "rating":1,
    "desc":"This is a hotel"
+  },
+
+  {"id":4,
+   "owner":"AlabamaJoe@gfail.com",
+   "name":"Letoh Hotel",
+   "address":"TEMP ADDRESS",
+   "lat":-34.935043,
+   "lng":138.6808371,
+   "price":"$9",
+   "rating":4,
+   "desc":"Alternative description"
   }
+
 ]
