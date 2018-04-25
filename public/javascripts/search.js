@@ -58,7 +58,7 @@ function hotelCards() {
       // Change the hotel name here
       $('<h2/>').addClass("mdl-card__title-text").html(hotels[i].name).appendTo(div_title);
       // Change the hotel details here
-      $('<div/>').addClass("mdl-card__supporting-text").html("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis pellentesque lacus eleifend lacinia... ").appendTo(div_main);
+      $('<div/>').addClass("mdl-card__supporting-text").html(hotels[i].desc).appendTo(div_main);
       var div_buttons = $('<div/>').addClass("mdl-card__actions mdl-card--border").appendTo(div_main);
         $('<a/>')
         // CHANGE THIS EVENTUALLY
