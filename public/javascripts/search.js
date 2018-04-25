@@ -1,4 +1,6 @@
 var hotels = [];
+var filtered = [];
+
 // ====================== MAIN FUNCTIONS ===================== //
 
 $( document ).ready(function() {
@@ -37,6 +39,7 @@ function requestHotels(callback) {
   xhttp.open("GET", "getHotels.json", true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send();
+
 }
 
 // ============ DYNAMIC DATA GENERATION: HOTEL CARDS ========= //
@@ -48,17 +51,31 @@ function link_moredetails() {
   };
 }
 
+
 function hotelCards() {
+
+  $("#hotelcards").empty();
   mdl_upgrade();
-  for (let i = 0; i < hotels.length; i++) {
+  filtered.length = 0;
+  var j = 0;
+  for(let i = 0; i < hotels.length; i++){
+    if(hotels[i].price <= $("#price").val()){
+      if(hotels[i].rating <= $("#stars").val()){
+        filtered[j] = hotels[i];
+        j++;
+      }
+    } 
+  }
+  console.log(filtered);
+  for (let i = 0; i < filtered.length; i++) {
     var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#hotelcards");
       // Change the background picture here
       var insertBg = "url('https://placeimg.com/640/480/any/" + i + "') center / cover";
       var div_title = $('<div/>').addClass("mdl-card__title").appendTo(div_main).css("background", insertBg);
       // Change the hotel name here
-      $('<h2/>').addClass("mdl-card__title-text").html(hotels[i].name).appendTo(div_title);
+      $('<h2/>').addClass("mdl-card__title-text").html(filtered[i].name).appendTo(div_title);
       // Change the hotel details here
-      $('<div/>').addClass("mdl-card__supporting-text").html(hotels[i].desc).appendTo(div_main);
+      $('<div/>').addClass("mdl-card__supporting-text").html(filtered[i].desc).appendTo(div_main);
       var div_buttons = $('<div/>').addClass("mdl-card__actions mdl-card--border").appendTo(div_main);
         $('<a/>')
         // CHANGE THIS EVENTUALLY
