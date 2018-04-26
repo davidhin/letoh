@@ -8,7 +8,16 @@ function initMap() {
   var adl = {lat: -34.9284989, lng: 138.6007456};
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 14,
-    center: adl
+    center: adl,
+    streetViewControl: true,
+    streetViewControlOptions: {
+      position: google.maps.ControlPosition.RIGHT_CENTER
+    },
+    zoomControl: true,
+    zoomControlOptions: {
+      position: google.maps.ControlPosition.RIGHT_CENTER
+    }
+
   });
 
   //---------- Place autocomplete testing ----------//
@@ -152,7 +161,7 @@ function addMarkers() {
         '<div style="word-break:keep-all;display:block;font-size:15px"><b>'+filtered[i].name+'</b></div>'+
 
         '<p style="margin:0px;margin-top:10px;padding:0px;">'+
-        filtered[i].price+
+        '$'+filtered[i].price+
         '</p>'+
 
         '<p style="margin:0px;margin-top:10px;padding:0px;">'+
