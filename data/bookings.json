@@ -1,0 +1,30 @@
+[
+  {
+    "refnum": 12302,
+    "userid": 0,
+    "hotelid": 0,
+    "hotelname": "Hilton Adelaide",
+    "hoteladdress":"233 Victoria Square, Adelaide SA 5000",
+    "roomid": 0,
+    "roomname": "Standard Guest Room",
+    "cost": 528, 
+    "start": "26/08/2028",
+    "end": "29/08/2028", 
+    "comments": "", 
+    "email": "email@address.com"
+  },
+  {
+    "refnum": 12302,
+    "userid": 0,
+    "hotelid": 0,
+    "hotelname": "Hilton Adelaide",
+    "hoteladdress":"233 Victoria Square, Adelaide SA 5000",
+    "roomid": 0,
+    "roomname": "Standard Guest Room",
+    "cost": 176, 
+    "start": "22/04/2018",
+    "end": "23/04/2018", 
+    "comments": "Will check out early", 
+    "email": "email@address.com"
+  }
+]

@@ -107,7 +107,9 @@ function submitted(hotelInput, roomInput) {
       $('footer').css('margin-top', '0px');
       $('#hotelcards').fadeIn();
       $('.mdl-layout__content').animate({scrollTop: 0});
-      $('#bookingpage_overlay').fadeOut();
+      $('#bookingpage_overlay').fadeOut(function() {
+        sizes()
+      });
       $('#confirmation_overlay').fadeIn();
       summarise_details(JSON.parse(xhttp.responseText));
     }
@@ -134,7 +136,11 @@ function submitted(hotelInput, roomInput) {
 }
 
 function summarise_details(details) {
-  $('#rc_backbutton').click(function() { $('#confirmation_overlay').fadeOut(); });
+  $('#rc_backbutton').click(function() {
+    $('#confirmation_overlay').fadeOut(function() {
+      sizes();
+    });
+  });
   $('#cd_hotelname').css("font-weight", 700).html(details.hotelname);
   $('#cd_bookingnumber').html("Booking number: " + details.refnum);
   $('#cd_email').html("Confirmation email sent to: " + details.email);
