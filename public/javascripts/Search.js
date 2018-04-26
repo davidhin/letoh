@@ -1,5 +1,6 @@
 var hotels = [];
 var filtered = [];
+var currentView = 1;
 
 // ====================== MAIN FUNCTIONS ===================== //
 
@@ -110,7 +111,7 @@ function hoteldetails(hotelInput) {
           .html('Book Now')
           .appendTo(roomForBooking)
           .click(function() {
-            bookingpage(hotelInput, rooms[i], 1);
+            bookingpage(hotelInput, rooms[i], currentView);
           });
       }
     }
@@ -214,7 +215,11 @@ function check_inputs() {
 // ====================== Map FUNCTIONS  =================== //
 
 function mapGeneral(){
-  $('#hotelcards').toggle();
-  $('#map').toggle();
+  $('#hotelcards').toggle(function() {
+    currentView = 1;
+  });
+  $('#map').toggle( function() {
+    currentView = 0;
+  });
   sizes();
 }
