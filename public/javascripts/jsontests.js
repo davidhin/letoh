@@ -172,11 +172,17 @@ function addMarkers() {
         '</div>'+
 
         '<div width="100px" style="display:block;padding:0px;margin-top:10px;text-align:center;">'+
-        '<button onclick="hoteldetailsMarker('+i+')" style="margin:auto;">Details</button>'+
+        '<button id="mapview_detailsbutton_'+i+'" style="margin:auto;">Details</button>'+
         '</div>'
-
       );
+
       infowindow.open(map, this);
+
+      let buttonDetails = '#mapview_detailsbutton_' + i;
+      $(buttonDetails).click(function() {
+        hoteldetailsMarker(filtered[i]);
+      });
+
     });
 
     // Add to markers array
@@ -203,7 +209,7 @@ function addHotel() {
   xhttp.send(JSON.stringify(new_hotel));
 }
 
-function hoteldetailsMarker(index) {
+function hoteldetailsMarker(hotel) {
 
   let rooms = [];
   let xhttp = new XMLHttpRequest();
@@ -212,28 +218,32 @@ function hoteldetailsMarker(index) {
       rooms = JSON.parse(xhttp.responseText);
       $('#hotel_info_room').empty();
       for(let i=0;i<rooms.length;i++){
-        $('#hotel_info_room').append("<h1>"+rooms[i].name+"</h1><p>$"+rooms[i].price+"</p><p>"+rooms[i].desc+"</p>");
+        let roomForBooking = $('#hotel_info_room').append('<h3>'+rooms[i].name+'</h3><p class="roomPrice">$'+rooms[i].price+'</p><p>'+rooms[i].desc+'</p>');
+        $('<button/>')
+          .addClass('mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent')
+          .html('Book Now')
+          .appendTo(roomForBooking)
+          .click(function() {
+            bookingpage(hotel, rooms[i], 0);
+          });
       }
 
     }
   };
-
   xhttp.open('POST','getRooms.json', true);
   xhttp.setRequestHeader('Content-type', 'application/json');
-  xhttp.send(JSON.stringify({"id":index}));
+  xhttp.send(JSON.stringify({"id": hotel.id}));
 
   $('#confirmation_overlay').fadeOut();
-  $('#hd_hotelname').html(filtered[index].name);
-  $('#hotel_info_price').html(filtered[index].price);
-  $('#hotel_info_p').html(filtered[index].desc);
+  $('#hd_hotelname').html(hotel.name);
+  $('#hotel_info_price').html(hotel.price);
+  $('#hotel_info_p').html(hotel.desc);
   $('#hoteldetails_overlay').fadeIn();
   // DYNAMIC DATA: Get the image
-  var getimage = "url('https://placeimg.com/640/480/any/" + index + "') center / cover";
-
+  var getimage = "url('https://placeimg.com/640/480/any/" + hotel.id + "') center / cover";
   $('.imagescroller').css("background", getimage);
   $('#hd_backbutton').click(function() { $('#hoteldetails_overlay').fadeOut(); sizes(); });
 
-  bookingpage.call(this,0);
   mdl_upgrade();
 }
 

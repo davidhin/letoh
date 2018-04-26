@@ -1,6 +1,5 @@
 var hotels = [];
 var filtered = [];
-var currentView = 1;
 
 // ====================== MAIN FUNCTIONS ===================== //
 
@@ -111,7 +110,7 @@ function hoteldetails(hotelInput) {
           .html('Book Now')
           .appendTo(roomForBooking)
           .click(function() {
-            bookingpage(hotelInput, rooms[i], currentView);
+            bookingpage(hotelInput, rooms[i], 1);
           });
       }
     }
@@ -168,9 +167,10 @@ function bookingpage(hotelInput, roomInput, variable) {
   // Not sure what is going on here, Justin, during merge
   $('#bk_backbutton').click(function() {
     $('footer').css("margin-top", "0px");
-    if (variable==1) {
+    
+    if (variable == 1) {
       $('#hotelcards').fadeIn();
-    } else{
+    } else {
       $('#map').show();
       $('#hotelcards').css('display','none');
       $('#hotelcards').hide();
@@ -179,7 +179,7 @@ function bookingpage(hotelInput, roomInput, variable) {
 
   // Confirm and book
   $('button[name="CompleteBooking"]').click(function() {
-    submitted(hotelInput, roomInput);
+    submitted(hotelInput, roomInput, variable);
   });
 }
 

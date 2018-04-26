@@ -100,12 +100,19 @@ function compulsory(index){
 /**
  * The function that is called when user presses the complete booking button
  */
-function submitted(hotelInput, roomInput) {
+function submitted(hotelInput, roomInput, variable) {
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       $('footer').css('margin-top', '0px');
-      $('#hotelcards').fadeIn();
+
+      if (variable == 1) {
+        $('#hotelcards').fadeIn();
+      } else {
+        $('#map').show();
+        $('#hotelcards').css('display', 'none');
+        $('#hotelcards').hide();
+      }
       $('.mdl-layout__content').animate({scrollTop: 0});
       $('#bookingpage_overlay').fadeOut(function() {
         sizes()
