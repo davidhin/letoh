@@ -12,7 +12,7 @@ function sizes() {
   var content = $("#content");
 
   // FOOTER POSITIONING
-  if (content.height() < parseInt(window.innerHeight,10) - headerHeight) { footer.css("position", "absolute"); } 
+  if (content.height() < parseInt(window.innerHeight,10) - headerHeight) { footer.css("position", "absolute"); }
   else { footer.css("position", "relative"); }
 }
 

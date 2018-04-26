@@ -90,7 +90,6 @@ function hotelCards() {
 }
 
 function hoteldetails(index) {
-
   // Request rooms from server
   let rooms = [];
   let xhttp = new XMLHttpRequest();
@@ -116,8 +115,7 @@ function hoteldetails(index) {
   // DYNAMIC DATA: Get the image
   var getimage = $(this).parents("div").siblings(".mdl-card__title").css("backgroundImage") + " center / cover";
   $('.imagescroller').css("background", getimage);
-  $('#hd_backbutton').click(function() { $('#hoteldetails_overlay').fadeOut(); sizes(); });
-
+  $('#hd_backbutton').click(function() { $('#hoteldetails_overlay').fadeOut(); sizes();});
   'use strict';
 
   bookingpage.call(this,1);
@@ -196,4 +194,5 @@ function check_inputs() {
 function mapGeneral(){
   $('#hotelcards').toggle();
   $('#map').toggle();
+  sizes();
 }
