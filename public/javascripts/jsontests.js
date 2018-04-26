@@ -63,7 +63,7 @@ function showHotels() {
       var j = 0;
       for(let i = 0; i < hotels.length; i++){
         if(hotels[i].price <= $("#price").val()){
-          if(hotels[i].rating <= $("#stars").val()){
+          if(hotels[i].rating >= $("#stars").val()){
             filtered[j] = hotels[i];
             j++;
           }
@@ -114,7 +114,7 @@ function addMarkers() {
       position: {lat: filtered[i].lat, lng: filtered[i].lng},
       icon: icons,
       label: {
-        text: filtered[i].price,
+        text: filtered[i].price.toString(),
         color: "#000000",
         fontSize: "16px",
         fontWeight: "bold"
