@@ -10,6 +10,7 @@ var users = [];
 // linked to ids
 var allRooms = [];
 var bookings = [];
+var bookedRooms = [];
 
 // Read hotel details into variable hotels
 fs.readFile('data/hotels.json', 'utf8', function(err, data) {
