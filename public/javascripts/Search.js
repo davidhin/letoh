@@ -101,8 +101,6 @@ function hoteldetails(index) {
       for(let i=0;i<rooms.length;i++){
         $('#hotel_info_room').append("<h1>"+rooms[i].name+"</h1><p>$"+rooms[i].price+"</p><p>"+rooms[i].desc+"</p>");
       }
-
-
     }
   };
 
@@ -122,12 +120,12 @@ function hoteldetails(index) {
 
   'use strict';
 
-  bookingpage.call(this);
+  bookingpage.call(this,1);
   mdl_upgrade();
 
 }
 
-function bookingpage() {
+function bookingpage(variable) {
   var getimage = $(this).parents("div").siblings(".mdl-card__title").css("backgroundImage") + " center / cover";
   $('.boximage').css("background", getimage);
 
@@ -149,7 +147,14 @@ function bookingpage() {
 
     $('#bk_backbutton').click(function() {
       $('footer').css("margin-top", "0px");
-      $('#hotelcards').fadeIn();
+      if(variable==1){
+        $('#hotelcards').fadeIn();
+      }else{
+        $('#map').show();
+        $('#hotelcards').css('display','none');
+        $('#hotelcards').hide();
+      }
+
       $('#hoteldetails_overlay').fadeIn();
       $('.bookingContent').fadeOut(function() {$('#bookingpage_overlay').hide();});
     });

@@ -204,17 +204,36 @@ function addHotel() {
 }
 
 function hoteldetailsMarker(index) {
+
+  let rooms = [];
+  let xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      rooms = JSON.parse(xhttp.responseText);
+      $('#hotel_info_room').empty();
+      for(let i=0;i<rooms.length;i++){
+        $('#hotel_info_room').append("<h1>"+rooms[i].name+"</h1><p>$"+rooms[i].price+"</p><p>"+rooms[i].desc+"</p>");
+      }
+
+    }
+  };
+
+  xhttp.open('POST','getRooms.json', true);
+  xhttp.setRequestHeader('Content-type', 'application/json');
+  xhttp.send(JSON.stringify({"id":index}));
+
   $('#confirmation_overlay').fadeOut();
   $('#hd_hotelname').html(filtered[index].name);
+  $('#hotel_info_price').html(filtered[index].price);
   $('#hotel_info_p').html(filtered[index].desc);
   $('#hoteldetails_overlay').fadeIn();
   // DYNAMIC DATA: Get the image
   var getimage = "url('https://placeimg.com/640/480/any/" + index + "') center / cover";
-  console.log(getimage);
+
   $('.imagescroller').css("background", getimage);
   $('#hd_backbutton').click(function() { $('#hoteldetails_overlay').fadeOut(); sizes(); });
 
-  bookingpage.call(this);
+  bookingpage.call(this,0);
   mdl_upgrade();
 }
 
