@@ -128,7 +128,7 @@ function addMarkers() {
     //infowindow = new google.maps.InfoWindow();
 
     infowindow = new google.maps.InfoWindow({
-      maxWidth: 250
+      minWidth: 200
     });
 
     google.maps.event.addListener(marker, 'click', function() {
@@ -142,7 +142,7 @@ function addMarkers() {
       }
 
       infowindow.setContent(
-        '<div style="width:250px;min-height:100px;margin-top:5px">'+
+        '<div style="min-width:200px;min-height:100px;margin-top:5px">'+
         '<div style="float:left">'+
         '<img src="'+
         'https://placeimg.com/640/480/any/' + i +
@@ -162,8 +162,8 @@ function addMarkers() {
         '</div>'+
         '</div>'+
 
-        '<div width="100px" style="display:block;padding:0px;margin-top:10px;float:left">'+
-        '<button onclick="hoteldetailsMarker('+i+')">Details</button>'+
+        '<div width="100px" style="display:block;padding:0px;margin-top:10px;text-align:center;">'+
+        '<button onclick="hoteldetailsMarker('+i+')" style="margin:auto;">Details</button>'+
         '</div>'
 
       );
