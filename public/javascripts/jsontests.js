@@ -8,7 +8,16 @@ function initMap() {
   var adl = {lat: -34.9284989, lng: 138.6007456};
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 14,
-    center: adl
+    center: adl,
+    streetViewControl: true,
+    streetViewControlOptions: {
+      position: google.maps.ControlPosition.RIGHT_CENTER
+    },
+    zoomControl: true,
+    zoomControlOptions: {
+      position: google.maps.ControlPosition.RIGHT_CENTER
+    }
+
   });
 
   //---------- Place autocomplete testing ----------//
@@ -102,10 +111,11 @@ function addMarkers() {
   for (let i = 0; i < filtered.length; i++) {
 
     icons = {
-      url: "/images/marker.jpg", // url
-  	  scaledSize: new google.maps.Size(50, 30), // scaled size
+      url: "/images/marker.png", // url
+  	  scaledSize: new google.maps.Size(54, 30), // scaled size
   	  origin: new google.maps.Point(0,0), // origin
-  	  anchor: new google.maps.Point(0, 0) // anchor
+  	  anchor: new google.maps.Point(0, 0), // anchor
+      labelOrigin: new google.maps.Point(26,13) //label position
   	};
 
     // Create new marker
@@ -117,7 +127,7 @@ function addMarkers() {
         text: "$"+filtered[i].price.toString(),
         color: "#000000",
         fontSize: "16px",
-        fontWeight: "bold"
+        fontWeight: "bold",
       },
       zIndex: i,
       map: map
@@ -151,7 +161,7 @@ function addMarkers() {
         '<div style="word-break:keep-all;display:block;font-size:15px"><b>'+filtered[i].name+'</b></div>'+
 
         '<p style="margin:0px;margin-top:10px;padding:0px;">'+
-        filtered[i].price+
+        '$'+filtered[i].price+
         '</p>'+
 
         '<p style="margin:0px;margin-top:10px;padding:0px;">'+
@@ -194,17 +204,36 @@ function addHotel() {
 }
 
 function hoteldetailsMarker(index) {
+
+  let rooms = [];
+  let xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      rooms = JSON.parse(xhttp.responseText);
+      $('#hotel_info_room').empty();
+      for(let i=0;i<rooms.length;i++){
+        $('#hotel_info_room').append("<h1>"+rooms[i].name+"</h1><p>$"+rooms[i].price+"</p><p>"+rooms[i].desc+"</p>");
+      }
+
+    }
+  };
+
+  xhttp.open('POST','getRooms.json', true);
+  xhttp.setRequestHeader('Content-type', 'application/json');
+  xhttp.send(JSON.stringify({"id":index}));
+
   $('#confirmation_overlay').fadeOut();
   $('#hd_hotelname').html(filtered[index].name);
+  $('#hotel_info_price').html(filtered[index].price);
   $('#hotel_info_p').html(filtered[index].desc);
   $('#hoteldetails_overlay').fadeIn();
   // DYNAMIC DATA: Get the image
   var getimage = "url('https://placeimg.com/640/480/any/" + index + "') center / cover";
-  console.log(getimage);
+
   $('.imagescroller').css("background", getimage);
   $('#hd_backbutton').click(function() { $('#hoteldetails_overlay').fadeOut(); sizes(); });
 
-  bookingpage.call(this);
+  bookingpage.call(this,0);
   mdl_upgrade();
 }
 

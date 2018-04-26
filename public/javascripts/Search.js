@@ -110,7 +110,7 @@ function hoteldetails(hotelInput) {
           .html('Book Now')
           .appendTo(roomForBooking)
           .click(function() {
-            bookingpage(hotelInput, rooms[i]);
+            bookingpage(hotelInput, rooms[i], 1);
           });
       }
     }
@@ -124,13 +124,9 @@ function hoteldetails(hotelInput) {
   $('#hotel_info_p').html(hotelInput.desc);
   $('#hoteldetails_overlay').fadeIn();
   // DYNAMIC DATA: Get the image
-  let getimage = $(this).parents('div').siblings('.mdl-card__title').css('backgroundImage') + ' center / cover';
-  $('.imagescroller').css('background', getimage);
-  $('#hd_backbutton').click(function() {
-    $('#hoteldetails_overlay').fadeOut();
-    sizes();
-  });
-
+  var getimage = $(this).parents("div").siblings(".mdl-card__title").css("backgroundImage") + " center / cover";
+  $('.imagescroller').css("background", getimage);
+  $('#hd_backbutton').click(function() { $('#hoteldetails_overlay').fadeOut(); sizes(); });
   'use strict';
 
   mdl_upgrade();
@@ -142,7 +138,7 @@ function hoteldetails(hotelInput) {
  * @param {roomObject} roomInput The room object corresponding
  *   to the selected room for the selected hotel
  */
-function bookingpage(hotelInput, roomInput) {
+function bookingpage(hotelInput, roomInput, variable) {
   $('#map').hide();
   $('.mdl-layout__content').animate({scrollTop: 0});
   $('#bookingpage_overlay').show();
@@ -166,6 +162,18 @@ function bookingpage(hotelInput, roomInput) {
     $('.bookingContent').fadeOut(function() {
       $('#bookingpage_overlay').hide();
     });
+  });
+
+  // Not sure what is going on here, Justin, during merge
+  $('#bk_backbutton').click(function() {
+    $('footer').css("margin-top", "0px");
+    if (variable==1) {
+      $('#hotelcards').fadeIn();
+    } else{
+      $('#map').show();
+      $('#hotelcards').css('display','none');
+      $('#hotelcards').hide();
+    }
   });
 
   // Confirm and book
@@ -208,4 +216,5 @@ function check_inputs() {
 function mapGeneral(){
   $('#hotelcards').toggle();
   $('#map').toggle();
+  sizes();
 }
