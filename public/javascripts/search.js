@@ -53,7 +53,7 @@ function link_moredetails() {
 
 
 function hotelCards() {
-
+  showHotels();
   $("#hotelcards").empty();
   mdl_upgrade();
   filtered.length = 0;
