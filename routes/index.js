@@ -10,7 +10,6 @@ var users = [];
 // linked to ids
 var allRooms = [];
 var bookings = [];
-var bookedRooms = [];
 
 // Read hotel details into variable hotels
 fs.readFile('data/hotels.json', 'utf8', function(err, data) {
@@ -25,6 +24,16 @@ fs.readFile('data/rooms.json', 'utf8', function(err, data) {
 // Read all users
 fs.readFile('data/users.json', 'utf8', function(err, data) {
   users = JSON.parse(data);
+});
+
+// Read all bookings
+fs.readFile('data/bookings.json', 'utf8', function(err, data) {
+  bookings = JSON.parse(data);
+});
+
+// Send booking information to client
+router.get('/getBookings.json', function(req, res) {
+  res.send(JSON.stringify(bookings));
 });
 
 // Send information to client
@@ -111,6 +120,12 @@ router.post('/changeRoomDetails.json', function(req, res) {
   console.log(roomIndex);
   console.log(req.body.hotelid, req.body.roomid);
   res.send('');
+});
+
+router.post('/newBooking.json', function(req, res) {
+  bookings.push(req.body);
+  console.log(req.body);
+  res.send(req.body);
 });
 
 /**

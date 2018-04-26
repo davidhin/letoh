@@ -24,7 +24,6 @@
     <h2 id="hotelname_underbox">placeholder</h2>
     <h3 class="boxheadings">Location:</h3>
     <p class="boxparagraph"></p> <!-- Street -->
-    <p class="boxparagraph"></p> <!-- City, State -->
     <p class="boxparagraph"></p> <!-- Room 1: 2 Adults, 1 King bed -->
     <br />
     <table class="boxtable">
@@ -111,7 +110,7 @@
     <h3 class="boxheadings">Email: *</h3>
     <form action="/action_page.php">
       <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
-        <input type="text" name="Email" class="inputbox mdl-textfield__input" onblur="compulsory(this)" />
+        <input type="text" id="emailInput" name="Email" class="inputbox mdl-textfield__input" onblur="compulsory(this)" />
         <label class="mdl-textfield__label">e.g. name@domain.com</label>
       </div>
     </form>
@@ -130,7 +129,7 @@
     <br />
     <form action="/action_page.php">
       <div class="mdl-textfield mdl-js-textfield biginputbox">
-        <textarea name="SpecialRequest" class="inputbox mdl-textfield__input biginputbox" rows="5"></textarea>
+        <textarea id="extraComments" class="inputbox mdl-textfield__input biginputbox" rows="5"></textarea>
         <label class="mdl-textfield__label">e.g. Wheelchair accessibility</label>
       </div>
     </form>

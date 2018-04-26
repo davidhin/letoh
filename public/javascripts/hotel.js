@@ -1,4 +1,7 @@
 var users = [];
+var bookings_current = [];
+var bookings_past = [];
+
 /* ================== Functions for Both Pages ===================== */
 $( document ).ready(function() {
   "use strict";
@@ -41,12 +44,11 @@ function checkIfBookings(){
 
 /* ================== Booking Page ===================== */
 //Booking Page Information Getting
-function bookingData(){
-  "use strict";
+function bookingData(hotelInput, roomInput) {
+  'use strict';
   //Top right box
-  $($(".rightcontent p")[0]).text("12"+" Jimmy"+" St");
-  $($(".rightcontent p")[1]).text("City"+", "+"State");
-  $($(".rightcontent p")[2]).text("Room 1: "+"2 Adults"+", "+"1 King bed");
+  $($('.rightcontent p')[0]).text(hotelInput.address);
+  $($('.rightcontent p')[1]).text(roomInput.name);
 
   // Date validation
   var check_in = moment($('#check-in').val());
@@ -54,35 +56,35 @@ function bookingData(){
   var diffDays = check_out.diff(check_in, 'days');
   var pastBooking = check_in.diff(moment(), 'days');
   var stay;
-  if (diffDays == 1) { stay = diffDays + " night"; }
-  else if (diffDays > 1) { stay = diffDays + " nights"; }
-  if (pastBooking < 0) { alert("Can't book in the past!"); date_initial(); }
-  if (diffDays <= 0) { alert("Invalid date(s)!"); date_initial(); }
+  if (diffDays == 1) { stay = diffDays + ' night'; }
+  else if (diffDays > 1) { stay = diffDays + ' nights'; }
+  if (pastBooking < 0) { alert('Cant book in the past!'); date_initial(); }
+  if (diffDays <= 0) { alert('Invalid date(s)!'); date_initial(); }
   check_in = moment($('#check-in').val());
   check_out = moment($('#check-out').val());
   diffDays = check_out.diff(check_in, 'days');
 
   // Cost calculation
   // DYNAMIC DATA
-  var cost_1 = diffDays * 180;
+  var cost_1 = diffDays * roomInput.price;
   var cost_2 = 0.1 * cost_1;
   var cost_total = cost_1 + cost_2;
 
   // Date summary
-  $($(".rightcontent td.tablerightcol")[0]).html(check_in.format('Do MMM YYYY'));
-  $($(".rightcontent td.tablerightcol")[1]).html(check_out.format('Do MMM YYYY'));
-  $($(".rightcontent td.tablerightcol")[2]).html(stay);
+  $($('.rightcontent td.tablerightcol')[0]).html(check_in.format('Do MMM YYYY'));
+  $($('.rightcontent td.tablerightcol')[1]).html(check_out.format('Do MMM YYYY'));
+  $($('.rightcontent td.tablerightcol')[2]).html(stay);
 
   $($('.rightcontent td:not([class])')[3]).html(stay);
-  $($(".rightcontent td.tablerightcol")[3]).text("AU"+" $"+cost_1);
-  $($(".rightcontent td.tablerightcol")[4]).text("AU"+" $"+cost_2);
-  $($(".rightcontent th.tablerightcol")[0]).text("AU"+" $"+cost_total);
+  $($('.rightcontent td.tablerightcol')[3]).text('AU'+' $'+cost_1);
+  $($('.rightcontent td.tablerightcol')[4]).text('AU'+' $'+cost_2);
+  $($('.rightcontent th.tablerightcol')[0]).attr('id', 'totalCost').text('AU'+' $'+cost_total);
 
   //Bottom right box
-  $(".rightcontent ul.boxparagraph").empty();
-  var included=['1 Bathroom','Free Continental Breakfast','Free Wifi','Free Parking'];
-  for(var i=0;i<included.length;i++){
-    $(".rightcontent ul.boxparagraph").append("<li>"+included[i]+"</li>");
+  $('.rightcontent ul.boxparagraph').empty();
+  var included=['1 Bathroom', 'Free Continental Breakfast', 'Free Wifi', 'Free Parking'];
+  for (let i=0; i<included.length; i++) {
+    $('.rightcontent ul.boxparagraph').append('<li>'+included[i]+'</li>');
   }
 }
 
@@ -95,40 +97,52 @@ function compulsory(index){
   }
 }
 
-function submitted(){
-  $('footer').css("margin-top", "0px");
-  $('#hotelcards').fadeIn();
-  $('.mdl-layout__content').animate({ scrollTop: 0 });
-  $('#bookingpage_overlay').fadeOut();
-  $('#confirmation_overlay').fadeIn();
-  summarise_details.call(this);
+/**
+ * The function that is called when user presses the complete booking button
+ */
+function submitted(hotelInput, roomInput) {
+  let xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      $('footer').css('margin-top', '0px');
+      $('#hotelcards').fadeIn();
+      $('.mdl-layout__content').animate({scrollTop: 0});
+      $('#bookingpage_overlay').fadeOut();
+      $('#confirmation_overlay').fadeIn();
+      summarise_details(JSON.parse(xhttp.responseText));
+    }
+  };
+
+  let newBooking = {
+    'refnum': Math.floor(Math.random() * 1000000),
+    'userid': 0,
+    'hotelid': hotelInput.id,
+    'hotelname': hotelInput.name,
+    'hoteladdress': hotelInput.address,
+    'roomid': roomInput.roomid,
+    'roomname': roomInput.name,
+    'cost': $('#totalCost').html().substring(4),
+    'start': moment($('#check-in').val()).format('DD/MM/YYYY'),
+    'end': moment($('#check-out').val()).format('DD/MM/YYYY'),
+    'comments': $('#extraComments').val(),
+    'email': $('#emailInput').val(),
+  };
+
+  xhttp.open('POST', 'newBooking.json', true);
+  xhttp.setRequestHeader('Content-type', 'application/json');
+  xhttp.send(JSON.stringify(newBooking));
 }
 
-function summarise_details(hotelname) {
-  var check_in = moment($('#check-in').val());
-  var check_out = moment($('#check-out').val());
-  var diffDays = check_out.diff(check_in, 'days');
-  var stay;
-  if (diffDays == 1) { stay = diffDays + " night"; }
-  else if (diffDays > 1) { stay = diffDays + " nights"; }
-  var cost_1 = diffDays * 180;
-  var cost_2 = 0.1 * cost_1;
-  var cost_total = cost_1 + cost_2;
-
-  var bookingnumber = "12345678";
-  var email = $('input[name="Email"]').val();
-
+function summarise_details(details) {
   $('#rc_backbutton').click(function() { $('#confirmation_overlay').fadeOut(); });
-  $('#cd_hotelname').css("font-weight", 700).html($(this).html());
-  $('#cd_bookingnumber').html("Booking number: " + bookingnumber);
-  $('#cd_email').html("Confirmation email sent to: " + email);
-  $('#cd_reservation').html("Your reservation: " + stay + ", " + "1 room");
-  $('#cd_checkin').html("Check in: " + check_in.format('Do MMM YYYY'));
-  $('#cd_checkout').html("Check out: " + check_out.format('Do MMM YYYY'));
-  $('#cd_comments').html("Extra comments: " + $('textarea[name="SpecialRequest"]').val());
-  $('#cd_cost1').html("Cost: $" + cost_1);
-  $('#cd_cost2').html("GST: $" + cost_2);
-  $('#cd_totalcost').html("Total cost: $" + cost_total);
+  $('#cd_hotelname').css("font-weight", 700).html(details.hotelname);
+  $('#cd_bookingnumber').html("Booking number: " + details.refnum);
+  $('#cd_email').html("Confirmation email sent to: " + details.email);
+  $('#cd_reservation').html("Your reservation: " + details.roomname);
+  $('#cd_checkin').html("Check in: " + details.start);
+  $('#cd_checkout').html("Check out: " + details.end);
+  $('#cd_comments').html("Extra comments: " + details.comments);
+  $('#cd_totalcost').html("Total cost: $" + details.cost);
 }
 
 /* ================== Changing between Ac/Hi Page ===================== */
@@ -156,21 +170,52 @@ function accountData(){
   $($(".accountModule p")[3]).text(users[0].email);
   $($(".accountModule p")[4]).text(users[0].password);
 
-  for(var i=0;i<1;i++){
-    get_bookings(false);
-  }
+  requestBookings(function() {
+    for (let i=0; i<bookings_current.length; i++) {
+     get_bookings(bookings_current[i], true);
+    }
+    for (let i=0; i<bookings_past.length; i++) {
+      get_bookings(bookings_past[i], false);
+    }
+    sizes();
 
-  for(var current=0;current<2;current++){
-    get_bookings(true);
-  }
-
-  //Checking if you have bookings
-  checkIfBookings();
+    // Checking if you have bookings
+    checkIfBookings();
+  });
 }
 
-// Show the bookings (description + review)
-// can_change: whether the booking details can be changed
-function get_bookings(can_change) {
+/**
+ * Get bookings from server and display them
+ * @param {function} callback Run this function when bookings have been sorted
+ */
+function requestBookings(callback) {
+  let xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      let bookings = JSON.parse(xhttp.responseText);
+      for (let i = 0; i < bookings.length; i++) {
+        let checkout = moment(bookings[i].end, 'DD/MM/YYYY');
+        if ((checkout.diff(moment(), 'days')) < 0) {
+          bookings_past.push(bookings[i]);
+        } else {
+          bookings_current.push(bookings[i]);
+        }
+      }
+      callback();
+    }
+  };
+
+  xhttp.open('GET', 'getBookings.json', true);
+  xhttp.setRequestHeader('Content-type', 'application/json');
+  xhttp.send();
+}
+
+/**
+ * Show the bookings (description and review)
+ * @param {bookingObject} booking The object containing the bookings
+ * @param {bool} can_change (partially deprecated) Whether details can be changed
+ */
+function get_bookings(booking, can_change) {
   "use strict";
   var booking_section;
   if (can_change) {
@@ -198,87 +243,73 @@ function get_bookings(can_change) {
   // Description Module
   var book_description = $('<div/>')
     .attr('class','descriptmodule')
-  .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--5-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone")
+    .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--5-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone")
     .append($("<h3 class='hotelboxheadings'></h3>")
-      .text('Paradise Interchange Hotel')
-    )
+      .text(booking.hotelname)
+    )  
     .append('<h3 class="boxheadings" style="margin-top:0px">Location:</h3>')
     .append($('<p class="boxparagraph"></p>')
-      .text("12 Jimmy Street")//Content
+      .text(booking.hoteladdress)
     )
     .append($('<p class="boxparagraph"></p>')
-      .text("Adelaide, South Australia")//Content
+      .text('Booking reference number: ' + booking.refnum)
     )
     .append($('<p class="boxparagraph"></p>')
-      .text("Room 1: 2 Adults, 1 King bed")//Content
+      .text('Type: ' + booking.roomname)
     )
 
-    .append("<br>")
-    .append($('<h4 class="boxheadings" style="margin-top:0px">Your Booking Includes:</h4>'))
-    .append($('<ul class="boxparagraph"></ul>')
-      .append($('<li></li>')
-        .text("1 Bathroom")//CONTENT
-      )
-      .append($('<li></li>')
-        .text("Free Continental Breakfast")//CONTENT
-      )
-      .append($('<li></li>')
-        .text("Free Wifi")//CONTENT
-      )
-      .append($('<li></li>')
-        .text("Free Parking")//CONTENT
-      )
-    )
-    .append("<br>")
+  //    .append("<br>")
+  //    .append($('<h4 class="boxheadings" style="margin-top:0px">Your Booking Includes:</h4>'))
+  //    .append($('<ul class="boxparagraph"></ul>')
+  //      .append($('<li></li>')
+  //        .text("1 Bathroom")//CONTENT
+  //      )
+  //      .append($('<li></li>')
+  //        .text("Free Continental Breakfast")//CONTENT
+  //      )
+  //      .append($('<li></li>')
+  //        .text("Free Wifi")//CONTENT
+  //      )
+  //      .append($('<li></li>')
+  //        .text("Free Parking")//CONTENT
+  //      )
+  //    )
+  //    .append("<br>")
   .appendTo(book_container);
 
-    //Table
+  // Table
   var book_table = $('<table class="boxtable"></table>')
       .append($('<tr></tr>')
         .append('<td>Check-in:</td>')
         .append($('<td class="tablerightcol tableFill"></td>')
-          .text("2018-05-15")//CONTENT
+          .text(moment(booking.start, "DD/MM/YYYY").format('Do MMM YYYY')) // CONTENT
         )
       )
       .append($('<tr></tr>')
         .append('<td>Check-out:</td>')
         .append($('<td class="tablerightcol tableFill"></td>')
-          .text("2018-05-19")//CONTENT
+          .text(moment(booking.end, "DD/MM/YYYY").format('Do MMM YYYY')) // CONTENT
         )
       )
       .append($('<tr></tr>')
         .append('<td>Length of stay:</td>')
         .append($('<td class="tablerightcol"></td>')
-          .text("4 days")//CONTENT
+          .text(moment(booking.end,"DD/MM/YYYY").diff(moment(booking.start,"DD/MM/YYYY"), 'days') + " " + "night(s)")//CONTENT
         )
       )
       .append($('<tr></tr>')
-        .append($('<td></td>')
-          .text("4 days")//CONTENT
-        )
-        .append($('<td class="tablerightcol"></td>')
-          .text("AU $5000")//CONTENT
-        )
-      )
-      .append($('<tr></tr>')
-        .append('<td>Taxes</td>')
-        .append($('<td class="tablerightcol"></td>')
-          .text("AU $54000")//CONTENT
-        )
-      )
-      .append($('<tr></tr>')
-        .append('<th class="tabletotal">Total</th>')
+        .append('<th class="tabletotal">Total cost</th>')
         .append($('<th class="tablerightcol"></th>')
-          .text("AU $59000")//CONTENT
+          .text("AU $" + booking.cost)//CONTENT
         )
       )
     .appendTo(book_description);
 
-      if (can_change) {
-        $('<button class="editBookingedit" onclick="editBookingedit(this)">Change</button>').appendTo(book_table);
-        $('<button class="confirmBookingedit" onclick="confirmBookingedit(this)">Confirm</button>').appendTo(book_table);
-        $('<button class="cancelBookingedit" onclick="cancelBookingedit(this)">Cancel</button>').appendTo(book_table);
-    }
+  //    if (can_change) {
+  //        $('<button class="editBookingedit" onclick="editBookingedit(this)">Change</button>').appendTo(book_table);
+  //        $('<button class="confirmBookingedit" onclick="confirmBookingedit(this)">Confirm</button>').appendTo(book_table);
+  //        $('<button class="cancelBookingedit" onclick="cancelBookingedit(this)">Cancel</button>').appendTo(book_table);
+  //    }
 
   // Review Module
   $('<div/>')

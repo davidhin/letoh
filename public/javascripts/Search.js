@@ -55,7 +55,7 @@ function link_moredetails(index) {
  */
 function hotelCards() {
   showHotels();
-  $("#hotelcards").empty();
+  $('#hotelcards').empty();
   mdl_upgrade();
 
   filtered = [];
@@ -66,6 +66,7 @@ function hotelCards() {
       }
     }
   }
+
   for (let i = 0; i < filtered.length; i++) {
     var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#hotelcards");
       // Change the background picture here
@@ -80,17 +81,21 @@ function hotelCards() {
         $('<a/>')
         // CHANGE THIS EVENTUALLY
         // .attr("href", "hoteldetails.html")
-        .click(link_moredetails.call(this,filtered[i].id))
-        .addClass("mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent").html("More details").appendTo(div_buttons);
+        .click(link_moredetails.call(this, filtered[i]))
+        .addClass('mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent').html('More details').appendTo(div_buttons);
       // Change the share/favourite button here
-      var div_menu = $('<div/>').addClass("mdl-card__menu").appendTo(div_main);
+      var div_menu = $('<div/>').addClass('mdl-card__menu').appendTo(div_main);
         var button_share = $('<button/>').addClass("mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect").appendTo(div_menu);
         $('<i/>').addClass("material-icons").html("share").appendTo(button_share);
   }
 }
 
-function hoteldetails(index) {
-
+/**
+ * This function controls the hotel details overlay that appears
+ * when the user clicks the 'more details' button for a hotel
+ * @param {num} index The selected hotel's ID
+ */
+function hoteldetails(hotelInput) {
   // Request rooms from server
   let rooms = [];
   let xhttp = new XMLHttpRequest();
@@ -98,63 +103,75 @@ function hoteldetails(index) {
     if (this.readyState == 4 && this.status == 200) {
       rooms = JSON.parse(xhttp.responseText);
       $('#hotel_info_room').empty();
-      for(let i=0;i<rooms.length;i++){
-        $('#hotel_info_room').append("<h1>"+rooms[i].name+"</h1><p>"+rooms[i].price+"</p><p>"+rooms[i].desc+"</p>");
+      for (let i=0; i<rooms.length; i++) {
+        let roomForBooking = $('#hotel_info_room').append('<h3>'+rooms[i].name+'</h3><p class="roomPrice">$'+rooms[i].price+'</p><p>'+rooms[i].desc+'</p>');
+        $('<button/>')
+          .addClass('mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent')
+          .html('Book Now')
+          .appendTo(roomForBooking)
+          .click(function() {
+            bookingpage(hotelInput, rooms[i]);
+          });
       }
-
-
     }
   };
-
-  xhttp.open('POST','getRooms.json', true);
+  xhttp.open('POST', 'getRooms.json', true);
   xhttp.setRequestHeader('Content-type', 'application/json');
-  xhttp.send(JSON.stringify({"id":index}));
+  xhttp.send(JSON.stringify(hotelInput));
 
   $('#confirmation_overlay').fadeOut();
-  $('#hd_hotelname').html($(this).parents("div").siblings(".mdl-card__title").children().html());
-  $('#hotel_info_price').html($(this).parents("div").siblings("p.mdl-card__supporting-text").html());
-  $('#hotel_info_p').html($(this).parents("div").siblings("div.mdl-card__supporting-text").html());
+  $('#hd_hotelname').html(hotelInput.name);
+  $('#hotel_info_p').html(hotelInput.desc);
   $('#hoteldetails_overlay').fadeIn();
   // DYNAMIC DATA: Get the image
-  var getimage = $(this).parents("div").siblings(".mdl-card__title").css("backgroundImage") + " center / cover";
-  $('.imagescroller').css("background", getimage);
-  $('#hd_backbutton').click(function() { $('#hoteldetails_overlay').fadeOut(); sizes(); });
+  let getimage = $(this).parents('div').siblings('.mdl-card__title').css('backgroundImage') + ' center / cover';
+  $('.imagescroller').css('background', getimage);
+  $('#hd_backbutton').click(function() {
+    $('#hoteldetails_overlay').fadeOut();
+    sizes();
+  });
 
   'use strict';
 
-  bookingpage.call(this);
   mdl_upgrade();
-
 }
 
-function bookingpage() {
-  var getimage = $(this).parents("div").siblings(".mdl-card__title").css("backgroundImage") + " center / cover";
-  $('.boximage').css("background", getimage);
+/**
+ * This function executes when the user presses the Book Now button
+ * @param {hotelObject} hotelInput The selected hotel
+ * @param {roomObject} roomInput The room object corresponding
+ *   to the selected room for the selected hotel
+ */
+function bookingpage(hotelInput, roomInput) {
+  $('#map').hide();
+  $('.mdl-layout__content').animate({scrollTop: 0});
+  $('#bookingpage_overlay').show();
+  $('#hoteldetails_overlay').fadeOut();
+  $('#hotelcards').fadeOut();
 
-  $("#hd_booknow_btn").click(function() {
-    $("#map").hide();
-    // Maybe fix this - it instant-shows on the first booking button click
-    // This could potentially(?) lead to other issues
-    $('.mdl-layout__content').animate({ scrollTop: 0 });
-    $('#bookingpage_overlay').show();
-    $('#hoteldetails_overlay').fadeOut();
-    $('#hotelcards').fadeOut();
-    $('.bookingContent').fadeIn(function() { sizes(); });
-    bookingData();
-    var title = $('#hotelname_underbox').css("margin-bottom", 0).html($(this).parents("div").siblings(".mdl-card__title").children().html());
+  $('.bookingContent').fadeIn(function() {
+    sizes();
+  });
+  bookingData(hotelInput, roomInput);
+  $('#hotelname_underbox').css('margin-bottom', 0).html(hotelInput.name);
 
-    $('button[name="CompleteBooking"]').click(function() {
-      submitted.call(title);
-    });
+  // Show main image
+  $('.boximage').html('This is the main image for ' + hotelInput.name);
 
-    $('#bk_backbutton').click(function() {
-      $('footer').css("margin-top", "0px");
-      $('#hotelcards').fadeIn();
-      $('#hoteldetails_overlay').fadeIn();
-      $('.bookingContent').fadeOut(function() {$('#bookingpage_overlay').hide();});
+  // Cancel and go back
+  $('#bk_backbutton').click(function() {
+    $('footer').css('margin-top', '0px');
+    $('#hotelcards').fadeIn();
+    $('#hoteldetails_overlay').fadeIn();
+    $('.bookingContent').fadeOut(function() {
+      $('#bookingpage_overlay').hide();
     });
   });
 
+  // Confirm and book
+  $('button[name="CompleteBooking"]').click(function() {
+    submitted(hotelInput, roomInput);
+  });
 }
 
 // ====================== MISC FUNCTIONS  =================== //
@@ -164,7 +181,7 @@ Date.prototype.today = (function(tomorrow) {
   var local = new Date(this);
   if (tomorrow) { local.setDate(local.getDate() + 1); }
     local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-    return local.toJSON().slice(0,10);
+    return local.toJSON().slice(0, 10);
 });
 
 function date_initial() {
