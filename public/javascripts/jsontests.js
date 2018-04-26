@@ -59,7 +59,6 @@ function showHotels() {
     if (this.readyState == 4 && this.status == 200) {
       // convert from string to JSON, populate hotels array
       hotels = JSON.parse(xhttp.responseText);
-
       filtered.length = 0;
       var j = 0;
       for(let i = 0; i < hotels.length; i++){
