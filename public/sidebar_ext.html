@@ -7,8 +7,8 @@
 </head>
 
 <div>
-
-<button onclick="mapGeneral()">Map</button>
+<br>
+<button class="width100 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="mapGeneral()">Map</button>
 
 <!-- ========= Details ======== -->
 <h2>Details</h2>
@@ -24,33 +24,21 @@
   <label class="mdl-textfield__label" for="check-out">Check out...</label>
 </div>
 
-<!-- Number of rooms, adults, children -->
-<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-  <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="room-num" />
-  <label class="mdl-textfield__label" for="room-num">Number of rooms:</label>
-  <span class="mdl-textfield__error">Input is not a number!</span>
-</div>
-
-<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-  <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="adult-num" />
-  <label class="mdl-textfield__label" for="adult-num">Number of adults:</label>
-  <span class="mdl-textfield__error">Input is not a number!</span>
-</div>
-
-<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-  <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="child-num" />
-  <label class="mdl-textfield__label" for="child-num">Number of children:</label>
-  <span class="mdl-textfield__error">Input is not a number!</span>
-</div>
-
 <!-- ========= FILTERS ======== -->
 <h2>Filters</h2>
 
 <!-- Maximum Price -->
 <div class="box">
 <label>Maximum price ($AUD): <input class="textInput" id="maxPrice" type="text" pattern="-?[0-9]*(\.[0-9]+)?" /> </label>
+<<<<<<< HEAD
   <input id="price" class="mdl-slider mdl-js-slider" type="range"
   min="0" max="500" value="300" tabindex="0" />
+||||||| merged common ancestors
+  <input id="price" class="mdl-slider mdl-js-slider" type="range"
+  min="0" max="100" value="100000" tabindex="0" />
+=======
+  <input id="price" class="mdl-slider mdl-js-slider" type="range" min="0" max="10000" value="10000" tabindex="0" />
+>>>>>>> 14be049431cf9c3ff054fe2ba316cfbc006138b3
 </div>
 
 <!-- Maximum Distance -->
@@ -63,7 +51,13 @@
 <!-- Minimum Stars -->
 <div class="box">
 <label>Minimum stars: <input class="textInput" id="minStars" type="text" pattern="-?[1-5]?" /> </label>
+<<<<<<< HEAD
   <input class="mdl-slider mdl-js-slider" type="range" id="stars" min="1" max="5" value="2" step="1" />
+||||||| merged common ancestors
+  <input class="mdl-slider mdl-js-slider" type="range" id="stars" min="1" max="5" value="5" step="1" />
+=======
+  <input class="mdl-slider mdl-js-slider" type="range" id="stars" min="1" max="5" value="1" step="1" />
+>>>>>>> 14be049431cf9c3ff054fe2ba316cfbc006138b3
 </div>
 
 <!-- Submit -->
