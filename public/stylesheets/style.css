@@ -157,6 +157,14 @@ input.textInput:invalid {
   height:40px !important;
 }
 
+p.mdl-card__supporting-text{
+  word-wrap: break-word !important;
+  overflow: hidden !important;
+  height:20px !important;
+  margin-bottom:0px !important;
+  padding-bottom:0px !important;
+}
+
 .hotel-card > .mdl-card__menu {
   color: #fff;
 }
@@ -354,7 +362,7 @@ input.textInput:invalid {
   article { padding-top: 64px; }
   .letohLogo { padding: 12px 10px 5px 20px; }
   #mainSearch { padding: 10px; margin-top: 5px; }
-  #hoteldetails_overlay { max-width: 45%; }
+  #hoteldetails_overlay { max-width: 100%; max-height: calc(100vh - 110px);overflow: auto;}
 }
 
 /* =================== TABLET ===================== */

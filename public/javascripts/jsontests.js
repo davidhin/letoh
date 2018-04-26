@@ -1,6 +1,7 @@
 var map = null;
 var hotels = [];
 var markers = [];
+var filtered = [];
 
 // Init map
 function initMap() {
@@ -59,6 +60,17 @@ function showHotels() {
       // convert from string to JSON, populate hotels array
       hotels = JSON.parse(xhttp.responseText);
 
+      filtered.length = 0;
+      var j = 0;
+      for(let i = 0; i < hotels.length; i++){
+        if(hotels[i].price <= $("#price").val()){
+          if(hotels[i].rating <= $("#stars").val()){
+            filtered[j] = hotels[i];
+            j++;
+          }
+        }
+      }
+
       // Clear map
       clearMarkers();
 
@@ -87,19 +99,28 @@ function clearMarkers() {
 // Populate map with markers from hotels array info
 function addMarkers() {
   // Loop over hotels array
-  for (let i = 0; i < hotels.length; i++) {
+  var icons;
+  for (let i = 0; i < filtered.length; i++) {
+
+    icons = {
+      url: "/images/marker.jpg", // url
+  	  scaledSize: new google.maps.Size(50, 30), // scaled size
+  	  origin: new google.maps.Point(0,0), // origin
+  	  anchor: new google.maps.Point(0, 0) // anchor
+  	};
+
     // Create new marker
 
     var marker = new google.maps.Marker({
-      position: {lat: hotels[i].lat, lng: hotels[i].lng},
+      position: {lat: filtered[i].lat, lng: filtered[i].lng},
+      icon: icons,
       label: {
-        text: hotels[i].price,
+        text: filtered[i].price,
         color: "#000000",
         fontSize: "16px",
         fontWeight: "bold"
-
       },
-
+      zIndex: i,
       map: map
     });
 
@@ -107,31 +128,31 @@ function addMarkers() {
     //infowindow = new google.maps.InfoWindow();
 
     infowindow = new google.maps.InfoWindow({
-      maxWidth: 250
+      minWidth: 200
     });
 
     google.maps.event.addListener(marker, 'click', function() {
       //Rating System
       var stars = "";
-      for(var j=0;j<hotels[i].rating;j++){
+      for(var j=0;j<filtered[i].rating;j++){
         stars += "&#10029;";
       }
-      for(var k=hotels[i].rating;k<5;k++){
+      for(var k=filtered[i].rating;k<5;k++){
         stars += "&#10025;";
       }
 
       infowindow.setContent(
-        '<div style="width:250px;min-height:100px;margin-top:5px">'+
+        '<div style="min-width:200px;min-height:100px;margin-top:5px">'+
         '<div style="float:left">'+
         '<img src="'+
         'https://placeimg.com/640/480/any/' + i +
         '" alt="hotel" title="Your Hotel" style="height:100px;width:100px;object-fit: cover;margin:auto;display:block"></div>'+
 
         '<div style="float:left;margin-left:10px;max-width:140px">'+
-        '<div style="word-break:keep-all;display:block;font-size:15px"><b>'+hotels[i].name+'</b></div>'+
+        '<div style="word-break:keep-all;display:block;font-size:15px"><b>'+filtered[i].name+'</b></div>'+
 
         '<p style="margin:0px;margin-top:10px;padding:0px;">'+
-        hotels[i].price+
+        filtered[i].price+
         '</p>'+
 
         '<p style="margin:0px;margin-top:10px;padding:0px;">'+
@@ -141,8 +162,8 @@ function addMarkers() {
         '</div>'+
         '</div>'+
 
-        '<div width="100px" style="display:block;padding:0px;margin-top:10px;float:left">'+
-        '<button onclick="hoteldetailsMarker('+i+')">Details</button>'+
+        '<div width="100px" style="display:block;padding:0px;margin-top:10px;text-align:center;">'+
+        '<button onclick="hoteldetailsMarker('+i+')" style="margin:auto;">Details</button>'+
         '</div>'
 
       );
@@ -175,8 +196,8 @@ function addHotel() {
 
 function hoteldetailsMarker(index) {
   $('#confirmation_overlay').fadeOut();
-  $('#hd_hotelname').html(hotels[index].name);
-  $('#hotel_info_p').html(hotels[index].desc);
+  $('#hd_hotelname').html(filtered[index].name);
+  $('#hotel_info_p').html(filtered[index].desc);
   $('#hoteldetails_overlay').fadeIn();
   // DYNAMIC DATA: Get the image
   var getimage = "url('https://placeimg.com/640/480/any/" + index + "') center / cover";
