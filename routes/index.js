@@ -8,8 +8,8 @@ var hotels = [];
 var users = [];
 
 // linked to ids
-var all_rooms = [];
-var bookisngs = [];
+var allRooms = [];
+var bookings = [];
 
 // Read hotel details into variable hotels
 fs.readFile('data/hotels.json', 'utf8', function(err, data) {
@@ -18,7 +18,7 @@ fs.readFile('data/hotels.json', 'utf8', function(err, data) {
 
 // Read all rooms
 fs.readFile('data/rooms.json', 'utf8', function(err, data) {
-  all_rooms = JSON.parse(data);
+  allRooms = JSON.parse(data);
 });
 
 // Read all users
@@ -36,9 +36,9 @@ router.post('/addHotel.json', function(req, res) {
   // Do individually so that people can't arbitrarily send data to server
 
   console.log(hotels.length);
-  var newId = hotels[hotels.length-1].id + 1;
-  var name = "New Hotel ID = " + newId;
-  var newHotel = {'id':newId, 'name':name};
+  let newId = hotels[hotels.length-1].id + 1;
+  let name = 'New Hotel ID = ' + newId;
+  let newHotel = {'id': newId, 'name': name, 'price': 0, 'rating': 1};
   hotels.push(newHotel);
 
   console.log(hotels);
@@ -48,51 +48,95 @@ router.post('/addHotel.json', function(req, res) {
 
 // Updates hotel detail information
 router.post('/changeHotelDetails.json', function(req, res) {
-  var hotel = JSON.parse(req.body.hotel);
+  let hotel = JSON.parse(req.body.hotel);
 
-  var target_hotel = searchHotel(hotel.id);
-  hotels[target_hotel][req.body.changed_detail] = hotel[req.body.changed_detail];
+  let targetHotel = searchHotel(hotel.id);
+  hotels[targetHotel][req.body.changed_detail] = hotel[req.body.changed_detail];
 
-  res.send("");
+  res.send('');
 });
 
 // Update the hotel address
 // Takes a JSON object of form {hotel address lat lng}
 router.post('/updateHotelAddress.json', function(req, res) {
-  var hotel = JSON.parse(req.body.hotel);
-  var target_hotel = searchHotel(hotel.id);
-  hotels[target_hotel]['address'] = req.body.address;
-  hotels[target_hotel]['lat'] = req.body.lat;
-  hotels[target_hotel]['lng'] = req.body.lng;
-  res.send("");
+  let hotel = JSON.parse(req.body.hotel);
+  let targetHotel = searchHotel(hotel.id);
+  hotels[targetHotel]['address'] = req.body.address;
+  hotels[targetHotel]['lat'] = req.body.lat;
+  hotels[targetHotel]['lng'] = req.body.lng;
+  res.send('');
 });
 
 // Delete a hotel from the database
 router.post('/deleteHotel.json', function(req, res) {
-  var target_hotel = searchHotel(req.body.id);
-  hotels.splice(target_hotel, 1);
+  let targetHotel = searchHotel(req.body.id);
+  hotels.splice(targetHotel, 1);
   console.log(hotels);
-  res.send("");
+  res.send('');
 });
 
-var rooms = [];
+let rooms = [];
 // Get the rooms of a hotel by id
 router.post('/getRooms.json', function(req, res) {
   rooms = [];
-  var hotel_id = req.body.id;
+  let hotelID = req.body.id;
 
-  for (let i = 0; i < all_rooms.length; i++)
-    if (all_rooms[i].id == hotel_id)
-      rooms.push(all_rooms[i]);
+  for (let i = 0; i < allRooms.length; i++) {
+    if (allRooms[i].id == hotelID) {
+      rooms.push(allRooms[i]);
+    }
+  }
 
   console.log(rooms);
   res.send(JSON.stringify(rooms));
 });
 
-function searchHotel(hotel_id) {
-  for (let i = 0; i < hotels.length; i++)
-    if (hotels[i].id == hotel_id)
+// Add room
+router.post('/addRoom.json', function(req, res) {
+  let targetHotel = searchHotel(req.body.id);
+
+  let calcroomid = hotels[targetHotel].roomtypes;
+  hotels[targetHotel].roomtypes += 1;
+  allRooms.push( {'id': req.body.id, 'name': calcroomid, 'price': 100, 'roomid': calcroomid} );
+  console.log(allRooms);
+  res.send('');
+});
+
+router.post('/changeRoomDetails.json', function(req, res) {
+  let roomIndex = searchRoom(req.body.hotelid, req.body.roomid);
+  allRooms[roomIndex].name = req.body.title;
+  allRooms[roomIndex].desc = req.body.desc;
+  allRooms[roomIndex].price = req.body.roomprice;
+  console.log(roomIndex);
+  console.log(req.body.hotelid, req.body.roomid);
+  res.send('');
+});
+
+/**
+ * Search for the hotel using a loop
+ * @param {num} hotelID Search for hotel using its ID
+ * @return {num} i Function returns the hotel's index in hotels[]
+ */
+function searchHotel(hotelID) {
+  for (let i = 0; i < hotels.length; i++) {
+    if (hotels[i].id == hotelID) {
       return i;
+    }
+  }
+}
+
+/**
+ * Search for the hotel using a loop
+ * @param {num} hotelID Search for hotel using its ID
+ * @param {num} roomID Search for room using its roomID
+ * @return {num} i Function returns the hotel's index in hotels[]
+ */
+function searchRoom(hotelID, roomID) {
+  for (let i = 0; i < allRooms.length; i++) {
+    if (allRooms[i].id == hotelID && allRooms[i].roomid == roomID) {
+      return i;
+    }
+  }
 }
 
 router.get('/getUsers.json', function(req, res) {

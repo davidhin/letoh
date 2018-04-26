@@ -71,24 +71,24 @@ function mgrInfo(hotelInput) {
   // mdl-grid container
   let infoContainer = $('<div/>').addClass('mdl-grid').appendTo('#generalInfo');
   $('<div/>')
-    .attr('id', 'mgr_address')
+    .attr('id', 'mgrAddress')
     .addClass('mdl-cell mdl-card mdl-shadow--2dp mdl-cell--12-col')
     .appendTo(infoContainer);
   let addressText = $('<p/>')
-    .css('margin', '0').html(hotelInput.address).appendTo('#mgr_address');
+    .css('margin', '0').html(hotelInput.address).appendTo('#mgrAddress');
   $('<div/>')
     .attr('id', 'mgr_mainImage')
     .addClass('mdl-cell mdl-card mdl-shadow--2dp mdl-cell--3-col-desktop mdl-cell--3-col-tablet mdl-cell--4-phone')
     .html('Main Image').appendTo(infoContainer);
   $('<div/>')
-    .attr('id', 'mgr_desc')
+    .attr('id', 'mgrDesc')
     .addClass('mdl-cell mdl-card mdl-shadow--2dp mdl-cell--9-col-desktop mdl-cell--5-col-tablet mdl-cell--4-phone').appendTo(infoContainer);
   let deleteHotel = $('<div/>').attr('id', 'mgr_delete').addClass('mdl-cell mdl-card mdl-shadow--2dp mdl-cell--12-col').appendTo(infoContainer);
   deleteHotel.css({'background': 'rgba(101,101,101)', 'min-height': '0'});
   $('<button/>')
     .addClass('mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--secondary mdl-button--raised')
     .css({'width': '140px', 'margin': '0 auto'})
-    .html('DELETE HOTEL').appendTo('#mgr_address')
+    .html('DELETE HOTEL').appendTo('#mgrAddress')
     .click(function() {
       deleteHotelConfirm(deleteHotel, this, hotelInput);
     })
@@ -97,20 +97,20 @@ function mgrInfo(hotelInput) {
   // Edit address button
   $('<button/>')
     .addClass('editButton mdl-button mdl-js-button mdl-button--primary')
-    .html('edit').appendTo('#mgr_address')
+    .html('edit').appendTo('#mgrAddress')
     .click(function() {
-      editAddress($('#mgr_address'), this, addressText, hotelInput);
+      editAddress($('#mgrAddress'), this, addressText, hotelInput);
     });
 
   // mgr desc header
-  $('<h4/>').html('Description').appendTo('#mgr_desc');
-  let mgrDescContent = $('<p/>').html(hotelInput.desc).appendTo('#mgr_desc');
+  $('<h4/>').html('Description').appendTo('#mgrDesc');
+  let mgrDescContent = $('<p/>').html(hotelInput.desc).appendTo('#mgrDesc');
   // mgr desc button
   $('<button/>')
     .addClass('editButton mdl-button mdl-js-button mdl-button--primary')
-    .html('edit').appendTo('#mgr_desc')
+    .html('edit').appendTo('#mgrDesc')
     .click(function() {
-      btnEditText('#mgr_desc', this, mgrDescContent, hotelInput, 'desc', 6, false, function() { });
+      btnEditText('#mgrDesc', this, mgrDescContent, hotelInput, 'desc', 6, false, function() { });
     });
 
   // Show current card
@@ -212,19 +212,28 @@ function mgrRoom(hotelInput) {
           .appendTo(roomRow);
           /* --- DYNAMIC --- */
           // room desc header
-          $('<h4/>').html(rooms[i].name).appendTo(roomDesc);
+          let roomName = $('<h4/>').html(rooms[i].name).appendTo(roomDesc);
+          let priceDiv = $('<div/>').appendTo(roomDesc);
+            $('<p/>').css('display', 'inline-block').html('$').appendTo(priceDiv);
+            let roomPrice = $('<p/>').css('display', 'inline-block').html(rooms[i].price).appendTo(priceDiv);
           // roomDesc_content
-          $('<p/>').html(rooms[i].desc).appendTo(roomDesc);
+          let roomDescP = $('<p/>').html(rooms[i].desc).appendTo(roomDesc);
           // roomDesc_editBtn
           $('<button/>')
             .addClass('editButton mdl-button mdl-js-button mdl-button--primary')
-            .html('edit').appendTo(roomDesc);
+            .html('edit').appendTo(roomDesc)
+          .click(function() {
+            editRoomDesc(roomDesc, this, roomName, roomPrice, roomDescP, hotelInput, rooms[i]);
+          } );
       }
 
       // "Add a room" button
       let addButton = $('<button/>')
         .addClass('addButton mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored')
-        .appendTo('#roomTypes');
+        .appendTo('#roomTypes')
+        .click(function() {
+          addHotelRoom(hotelInput);
+        });
       $('<i/>').addClass('material-icons').html('add').appendTo(addButton);
       // Show current card
       hideContent();
@@ -233,6 +242,22 @@ function mgrRoom(hotelInput) {
     }
   };
   xhttp.open('POST', 'getRooms.json', true);
+  xhttp.setRequestHeader('Content-type', 'application/json');
+  xhttp.send(JSON.stringify(hotelInput));
+}
+
+/**
+ * Function to add a hotel room
+ * @param {hotelObject} hotelInput The relevant hotel
+ */
+function addHotelRoom(hotelInput) {
+  let xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      mgrRoom(hotelInput);
+    }
+  };
+  xhttp.open('POST', 'addRoom.json', true);
   xhttp.setRequestHeader('Content-type', 'application/json');
   xhttp.send(JSON.stringify(hotelInput));
 }
@@ -382,6 +407,108 @@ function editAddress(container, editBtn, contentIn, hotel) {
 }
 
 
+/**
+ * This function controls the editing of a room
+ * @param {div} container Container of the room card
+ * @param {button} editBtn Button clicked to enable editing
+ * @param {h2} titleIn The <h2> containing the room type name
+ * @param {p} priceIn The <p> containing the room description
+ * @param {p} contentIn The <p> containing the room description
+ * @param {hotelobject} hotel The relevant hotel
+ * @param {array} hotelRooms The relevant rooms for the hotel
+ */
+function editRoomDesc(container, editBtn, titleIn, priceIn, contentIn, hotel, hotelRooms) {
+  'use strict';
+  $(editBtn).addClass('orig').hide();
+  $(titleIn).addClass('orig').hide();
+  $(priceIn).addClass('orig').hide();
+  $(priceIn).siblings().addClass('orig').hide();
+  $(contentIn).addClass('orig').hide();
+
+  // Edit room name
+  let divTitlearea = $('<div/>')
+    .css('width', '100%')
+    .addClass('temp mdl-textfield mdl-js-textfield')
+    .appendTo(container);
+  let inputTitlearea = $('<input/>')
+    .addClass('temp mdl-textfield__input')
+    .attr({'type': 'text', 'id': 'title_desc'})
+    .css({'font-size': '24px'})
+    /* --- DYNAMIC --- */
+    .val($(titleIn).html())
+    .appendTo(divTitlearea);
+  // label_line
+  $('<label/>')
+    .addClass('mdl-textfield__label')
+    .appendTo(divTitlearea);
+
+  // Edit room price
+  let divPricearea = $('<div/>')
+    .css('width', '100%')
+    .addClass('temp mdl-textfield mdl-js-textfield')
+    .appendTo(container);
+  let inputPricearea = $('<input/>')
+    .addClass('temp mdl-textfield__input')
+    .attr({'type': 'number', 'id': 'price_desc'})
+    /* --- DYNAMIC --- */
+    .val($(priceIn).html())
+    .appendTo(divPricearea);
+  // label_line
+  $('<label/>')
+    .addClass('mdl-textfield__label')
+    .appendTo(divPricearea);
+
+  // Edit room description
+  let divTextarea = $('<div/>')
+    .css('width', '100%')
+    .addClass('temp mdl-textfield mdl-js-textfield')
+    .appendTo(container);
+  let inputTextarea = $('<textarea/>')
+    .addClass('temp mdl-textfield__input')
+    .attr({'type': 'text', 'id': 'room_desc', 'rows': 4})
+    .css({'resize': 'none'})
+    /* --- DYNAMIC --- */
+    .val($(contentIn).html())
+    .appendTo(divTextarea);
+  // label_line
+  $('<label/>')
+    .addClass('mdl-textfield__label')
+    .appendTo(divTextarea);
+
+  let buttonArea = $('<div/>')
+    .css('padding', '15px 0 0 0')
+    .css('text-align', 'right')
+    .addClass('temp mdl-card__actions')
+    .appendTo(container);
+  // submitButton
+  $('<a/>').html('submit').addClass('lowButton mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent')
+    .appendTo(buttonArea)
+    .click(function() {
+      if ($.isNumeric(inputPricearea.val())) {
+        /* --- DYNAMIC --- */
+        $(contentIn).html(inputTextarea.val());
+        $(titleIn).html(inputTitlearea.val());
+        $(priceIn).html(inputPricearea.val());
+        $('.orig').show();
+        $('.temp').remove();
+
+        // Send data to server
+        let xhttp = new XMLHttpRequest();
+        xhttp.open('POST', 'changeRoomDetails.json', true);
+        xhttp.setRequestHeader('Content-type', 'application/json');
+        xhttp.send(JSON.stringify({'hotelid': hotel.id, 'roomprice': inputPricearea.val(), 'roomid': hotelRooms.roomid, 'desc': inputTextarea.val(), 'title': inputTitlearea.val()}));
+      }
+    });
+  // cancelButton
+  $('<a/>').html('cancel').addClass('lowButton mdl-button mdl-js-button')
+    .appendTo(buttonArea)
+    .click(function() {
+      $('.orig').show();
+      $('.temp').remove();
+    });
+  mdl_upgrade();
+}
+
 // =================== GENERALISED IMPORTANT STUFF ========================= //
 
 
@@ -402,16 +529,15 @@ function btnEditText(container, editBtn, contentIn, hotel, type, rows, bigText, 
   $(contentIn).hide();
   let divTextarea = $('<div/>')
     .css('width', '100%')
-    .addClass('mdl-textfield mdl-js-textfield')
+    .addClass('temp mdl-textfield mdl-js-textfield')
     .appendTo(container);
   let inputTextarea = $('<textarea/>')
-    .addClass('mdl-textfield__input')
+    .addClass('temp mdl-textfield__input')
     .attr({'type': 'text', 'id': 'text_desc', 'rows': rows})
     .css({'resize': 'none'})
     /* --- DYNAMIC --- */
     .val($(contentIn).html())
     .appendTo(divTextarea);
-
   // label_line
   $('<label/>')
     .addClass('mdl-textfield__label')
@@ -420,7 +546,7 @@ function btnEditText(container, editBtn, contentIn, hotel, type, rows, bigText, 
   let buttonArea = $('<div/>')
     .css('padding', '15px 0 0 0')
     .css('text-align', 'right')
-    .addClass('mdl-card__actions')
+    .addClass('temp mdl-card__actions')
     .appendTo(container);
   // submitButton
   $('<a/>')
@@ -432,9 +558,7 @@ function btnEditText(container, editBtn, contentIn, hotel, type, rows, bigText, 
       if (!inputTextarea.val()) {
         $(contentIn).show();
         $(editBtn).show();
-        inputTextarea.remove();
-        divTextarea.remove();
-        buttonArea.remove();
+        $('.temp').remove();
         return;
       }
 
@@ -456,9 +580,7 @@ function btnEditText(container, editBtn, contentIn, hotel, type, rows, bigText, 
       // Reshow and delete appropriate elements
       $(contentIn).show();
       $(editBtn).show();
-      inputTextarea.remove();
-      divTextarea.remove();
-      buttonArea.remove();
+      $('.temp').remove();
     });
   // cancelButton
   $('<a/>')
@@ -468,9 +590,7 @@ function btnEditText(container, editBtn, contentIn, hotel, type, rows, bigText, 
     .click(function() {
       $(contentIn).show();
       $(editBtn).show();
-      inputTextarea.remove();
-      divTextarea.remove();
-      buttonArea.remove();
+      $('.temp').remove();
     });
 
   if (bigText) {

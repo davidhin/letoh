@@ -1,37 +1,43 @@
 [
   {"id":0,
+   "roomid": 0,
    "name":"Standard Guest Room",
-   "price":"$160",
+   "price":160,
    "desc":"Enjoy your stay in this room with a view. Opening windows, comfortable Hilton Serenity bed, work station with WiFi (fees apply), mini bar, 24-hour room service and on-demand movies. Access to the 24-hour gym, swimming pool and full size tennis court with jogging track is included."
   },
 
   {"id":0,
+   "roomid": 1,
    "name":"Deluxe Room",
-   "price":"$220",
+   "price":220,
    "desc":"This bright and airy room features modern décor with all the 5-star amenities. Work is a pleasure at the work station with an ergonomic chair, WiFi (fees apply) and an opening window with views of city and hills. Enjoy an in-room movie on the lounge chair or unwind in the modern bathroom with separate walk-in shower, before retreating to the comfort of the Hilton Serenity bed."
   },
 
   {"id":0,
+   "roomid": 2,
    "name":"Suite",
-   "price":"$360",
+   "price":360,
    "desc":"Spacious, executive benefits, complimentary breakfast, work station. Treat yourself whether travelling for business or leisure in this comfortable, light, airy and spacious suite. The suite is complete with all the thoughtful amenities plus a spacious bathroom, walk in robe, large work station, WiFi (fee applies), lounge/dining area, 24-hour room service and a king size Hilton Serenity bed to ensure a restful night’s sleep. Enjoy access to the Executive Lounge, including complimentary continental breakfast, all day refreshments and evening drinks and canapes."
   },
 
   {"id":1,
+   "roomid": 0,
    "name":"Standard Guest Room",
-   "price":"$160",
+   "price":160,
    "desc":"Enjoy your stay in this room with a view. Opening windows, comfortable Hilton Serenity bed, work station with WiFi (fees apply), mini bar, 24-hour room service and on-demand movies. Access to the 24-hour gym, swimming pool and full size tennis court with jogging track is included."
   },
 
   {"id":1,
+   "roomid": 1,
    "name":"Deluxe Room",
-   "price":"$220",
+   "price":220,
    "desc":"This bright and airy room features modern décor with all the 5-star amenities. Work is a pleasure at the work station with an ergonomic chair, WiFi (fees apply) and an opening window with views of city and hills. Enjoy an in-room movie on the lounge chair or unwind in the modern bathroom with separate walk-in shower, before retreating to the comfort of the Hilton Serenity bed."
   },
 
   {"id":2,
+   "roomid": 0,
    "name":"Suite",
-   "price":"$360",
+   "price":360,
    "desc":"Spacious, executive benefits, complimentary breakfast, work station. Treat yourself whether travelling for business or leisure in this comfortable, light, airy and spacious suite. The suite is complete with all the thoughtful amenities plus a spacious bathroom, walk in robe, large work station, WiFi (fee applies), lounge/dining area, 24-hour room service and a king size Hilton Serenity bed to ensure a restful night’s sleep. Enjoy access to the Executive Lounge, including complimentary continental breakfast, all day refreshments and evening drinks and canapes."
   }
 

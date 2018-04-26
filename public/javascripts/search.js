@@ -4,15 +4,15 @@ var filtered = [];
 // ====================== MAIN FUNCTIONS ===================== //
 
 $( document ).ready(function() {
-  "use strict";
-  $( "#price" ).change(function() {
-    $( "#maxPrice" ).val($("#price").val());
+  'use strict';
+  $( '#price' ).change(function() {
+    $( '#maxPrice' ).val($('#price').val());
   });
-  $( "#dist" ).change(function() {
-    $( "#maxDist" ).val($("#dist").val());
+  $( '#dist' ).change(function() {
+    $( '#maxDist' ).val($('#dist').val());
   });
-  $( "#stars" ).change(function() {
-    $( "#minStars" ).val($("#stars").val());
+  $( '#stars' ).change(function() {
+    $( '#minStars' ).val($('#stars').val());
   });
 
   requestHotels(function() {
@@ -21,13 +21,12 @@ $( document ).ready(function() {
     date_initial();
     check_inputs();
     initMap();
-    $("#map").hide();
+    $('#map').hide();
   });
-
 });
 
-//THERE HAS TO BE A WAY TO REUSE THIS FUNCTION FROM HOTELMANAGE.JS SINCE IT'S LITERALLY THE SAME
-//MAYBE YOU CAN JUST CALL IT THE SAME, I'LL LEAVE IT HERE FOR NOW THOUGH
+// THERE HAS TO BE A WAY TO REUSE THIS FUNCTION FROM HOTELMANAGE.JS SINCE IT'S LITERALLY THE SAME
+// MAYBE YOU CAN JUST CALL IT THE SAME, I'LL LEAVE IT HERE FOR NOW THOUGH
 function requestHotels(callback) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -51,21 +50,23 @@ function link_moredetails() {
   };
 }
 
-
+/**
+ * Show hotel cards taking into account filters
+ */
 function hotelCards() {
-
-  $("#hotelcards").empty();
+  $('#hotelcards').empty();
   mdl_upgrade();
-  filtered.length = 0;
-  var j = 0;
-  for(let i = 0; i < hotels.length; i++){
-    if(hotels[i].price <= $("#price").val()){
-      if(hotels[i].rating <= $("#stars").val()){
-        filtered[j] = hotels[i];
-        j++;
+
+  console.log(hotels);
+  filtered = [];
+  for (let i = 0; i < hotels.length; i++) {
+    if (hotels[i].price <= $('#price').val()) {
+      if (hotels[i].rating >= $('#stars').val()) {
+        filtered.push(hotels[i]);
       }
-    } 
+    }
   }
+
   console.log(filtered);
   for (let i = 0; i < filtered.length; i++) {
     var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#hotelcards");

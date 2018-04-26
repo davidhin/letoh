@@ -243,21 +243,21 @@ input.textInput:invalid {
   width: 70px;
 }
 
-#mgr_desc {
+#mgrDesc {
   max-height: 300px;
   overflow: auto;
 }
 
-  #mgr_desc h4 {
+  #mgrDesc h4 {
     width: calc(100% - 66px);
   }
 
-  .mgr_overview_card {
+  .mgrOverviewCard {
     max-height: 300px;
     overflow: auto !important;
   }
 
-#mgr_address {
+#mgrAddress {
   min-height: 0;
   padding: 15px;
   border: 0;
