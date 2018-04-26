@@ -44,10 +44,10 @@ function requestHotels(callback) {
 
 // ============ DYNAMIC DATA GENERATION: HOTEL CARDS ========= //
 
-function link_moredetails() {
+function link_moredetails(index) {
   "use strict";
   return function() {
-    hoteldetails.call(this);
+    hoteldetails.call(this,index);
   };
 }
 
@@ -66,7 +66,7 @@ function hotelCards() {
       }
     }
   }
-  console.log(filtered);
+
   for (let i = 0; i < filtered.length; i++) {
     var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#hotelcards");
       // Change the background picture here
@@ -81,7 +81,7 @@ function hotelCards() {
         $('<a/>')
         // CHANGE THIS EVENTUALLY
         // .attr("href", "hoteldetails.html")
-        .click(link_moredetails.call(this))
+        .click(link_moredetails.call(this,filtered[i].id))
         .addClass("mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent").html("More details").appendTo(div_buttons);
       // Change the share/favourite button here
       var div_menu = $('<div/>').addClass("mdl-card__menu").appendTo(div_main);
@@ -90,7 +90,28 @@ function hotelCards() {
   }
 }
 
-function hoteldetails() {
+function hoteldetails(index) {
+
+  // Request rooms from server
+  let rooms = [];
+  let specificRooms = [];
+  let xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      rooms = JSON.parse(xhttp.responseText);
+      console.log(rooms);
+      for(let i=0;i<rooms.length;i++){
+        if(rooms[i].id===index){
+          specificRooms.push(rooms[i]);
+        }
+      }
+      // Current selected hotel
+      //const roomTypes = rooms.length;
+    }
+  };
+
+  console.log(specificRooms);
+
   $('#confirmation_overlay').fadeOut();
   $('#hd_hotelname').html($(this).parents("div").siblings(".mdl-card__title").children().html());
   $('#hotel_info_price').html($(this).parents("div").siblings("p.mdl-card__supporting-text").html());
@@ -101,8 +122,14 @@ function hoteldetails() {
   $('.imagescroller').css("background", getimage);
   $('#hd_backbutton').click(function() { $('#hoteldetails_overlay').fadeOut(); sizes(); });
 
+  'use strict';
+
   bookingpage.call(this);
   mdl_upgrade();
+
+  xhttp.open('POST', 'getRooms.json', true);
+  xhttp.setRequestHeader('Content-type', 'application/json');
+  xhttp.send();
 }
 
 function bookingpage() {
