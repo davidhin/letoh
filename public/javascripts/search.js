@@ -74,7 +74,7 @@ function hotelCards() {
       // Change the hotel name here
       $('<h2/>').addClass("mdl-card__title-text").html(filtered[i].name).appendTo(div_title);
       // Change the hotel details here
-      $('<p/>').addClass("mdl-card__supporting-text").html(filtered[i].price).appendTo(div_main);
+      $('<p/>').addClass("mdl-card__supporting-text").html("$"+filtered[i].price.toString()).appendTo(div_main);
       $('<div/>').addClass("mdl-card__supporting-text").html(filtered[i].desc).appendTo(div_main);
       var div_buttons = $('<div/>').addClass("mdl-card__actions mdl-card--border").appendTo(div_main);
         $('<a/>')

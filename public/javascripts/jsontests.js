@@ -114,7 +114,7 @@ function addMarkers() {
       position: {lat: filtered[i].lat, lng: filtered[i].lng},
       icon: icons,
       label: {
-        text: filtered[i].price.toString(),
+        text: "$"+filtered[i].price.toString(),
         color: "#000000",
         fontSize: "16px",
         fontWeight: "bold"
