@@ -93,23 +93,22 @@ function hoteldetails(index) {
 
   // Request rooms from server
   let rooms = [];
-  let specificRooms = [];
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       rooms = JSON.parse(xhttp.responseText);
-      console.log(rooms);
+      $('#hotel_info_room').empty();
       for(let i=0;i<rooms.length;i++){
-        if(rooms[i].id===index){
-          specificRooms.push(rooms[i]);
-        }
+        $('#hotel_info_room').append("<h1>"+rooms[i].name+"</h1><p>"+rooms[i].price+"</p><p>"+rooms[i].desc+"</p>");
       }
-      // Current selected hotel
-      //const roomTypes = rooms.length;
+
+
     }
   };
 
-  console.log(specificRooms);
+  xhttp.open('POST','getRooms.json', true);
+  xhttp.setRequestHeader('Content-type', 'application/json');
+  xhttp.send(JSON.stringify({"id":index}));
 
   $('#confirmation_overlay').fadeOut();
   $('#hd_hotelname').html($(this).parents("div").siblings(".mdl-card__title").children().html());
@@ -126,9 +125,6 @@ function hoteldetails(index) {
   bookingpage.call(this);
   mdl_upgrade();
 
-  xhttp.open('POST', 'getRooms.json', true);
-  xhttp.setRequestHeader('Content-type', 'application/json');
-  xhttp.send();
 }
 
 function bookingpage() {
