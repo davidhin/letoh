@@ -362,7 +362,7 @@ p.mdl-card__supporting-text{
   article { padding-top: 64px; }
   .letohLogo { padding: 12px 10px 5px 20px; }
   #mainSearch { padding: 10px; margin-top: 5px; }
-  #hoteldetails_overlay { max-width: 45%; }
+  #hoteldetails_overlay { max-width: 45%; max-height: calc(100vh - 110px);overflow: auto;}
 }
 
 /* =================== TABLET ===================== */
