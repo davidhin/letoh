@@ -99,7 +99,7 @@ function hoteldetails(index) {
       rooms = JSON.parse(xhttp.responseText);
       $('#hotel_info_room').empty();
       for(let i=0;i<rooms.length;i++){
-        $('#hotel_info_room').append("<h1>"+rooms[i].name+"</h1><p>"+rooms[i].price+"</p><p>"+rooms[i].desc+"</p>");
+        $('#hotel_info_room').append("<h1>"+rooms[i].name+"</h1><p>$"+rooms[i].price+"</p><p>"+rooms[i].desc+"</p>");
       }
 
 

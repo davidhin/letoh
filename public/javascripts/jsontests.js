@@ -102,10 +102,11 @@ function addMarkers() {
   for (let i = 0; i < filtered.length; i++) {
 
     icons = {
-      url: "/images/marker.jpg", // url
-  	  scaledSize: new google.maps.Size(50, 30), // scaled size
+      url: "/images/marker.png", // url
+  	  scaledSize: new google.maps.Size(54, 30), // scaled size
   	  origin: new google.maps.Point(0,0), // origin
-  	  anchor: new google.maps.Point(0, 0) // anchor
+  	  anchor: new google.maps.Point(0, 0), // anchor
+      labelOrigin: new google.maps.Point(26,13) //label position
   	};
 
     // Create new marker
@@ -117,7 +118,7 @@ function addMarkers() {
         text: "$"+filtered[i].price.toString(),
         color: "#000000",
         fontSize: "16px",
-        fontWeight: "bold"
+        fontWeight: "bold",
       },
       zIndex: i,
       map: map
