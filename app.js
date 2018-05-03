@@ -24,7 +24,21 @@ app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  //next(createError(404));
+  res.status(404);
+
+  if(req.accepts('html')){
+    res.redirect('/404.html');
+    return;
+  }
+
+  if(req.accepts('json')){
+    res.send({error:'Not found'});
+    return;
+  }
+
+  res.type('txt').send('Not found');
+
 });
 
 // error handler
