@@ -160,7 +160,7 @@ router.get('/getUsers.json', function(req, res) {
 });
 
 router.post('/signup',function(req,res,next){
-
+//address and phone number not in sign up page
   let userID = users[users.length-1].id + 1;
   let newUser = {
     'id': userID,
@@ -174,10 +174,21 @@ router.post('/signup',function(req,res,next){
 
   users.push(newUser);
 
-  console.log(users);
-
   res.redirect("/index.html");
 });
+
+router.post('/login',function(req, res, next){
+  for(var i=0;i<users.length;i++){
+    if(req.body.email==users[i].email && req.body.password==users[i].password){
+      //sessions[req.session.id] = [req.body.username,req.body.password];
+      //res.send();
+      res.redirect('/index.html');
+    }else if(i===users.length-1){
+      res.redirect('/logsign.html');
+    }
+  }
+});
+
 // =============================== UNUSED ============================== //
 // Add hotel data to the file
 // router.post('/addData', function(req, res) {
