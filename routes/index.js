@@ -11,6 +11,8 @@ var users = [];
 var allRooms = [];
 var bookings = [];
 
+var sessions = {};
+
 // Read hotel details into variable hotels
 fs.readFile('data/hotels.json', 'utf8', function(err, data) {
   hotels = JSON.parse(data);
@@ -161,6 +163,7 @@ router.get('/getUsers.json', function(req, res) {
 
 router.post('/signup',function(req,res,next){
 //address and phone number not in sign up page
+  sessions[req.session.id] = req.body.id;
   let userID = users[users.length-1].id + 1;
   let newUser = {
     'id': userID,
@@ -178,6 +181,7 @@ router.post('/signup',function(req,res,next){
 router.post('/login',function(req, res, next){
   for(var i=0;i<users.length;i++){
     if(req.body.email==users[i].email && req.body.password==users[i].password){
+      sessions[req.session.id] = users[i].id;
       //sessions[req.session.id] = [req.body.username,req.body.password];
       //res.send();
       res.redirect('/');
@@ -185,6 +189,12 @@ router.post('/login',function(req, res, next){
       res.redirect('/logsign.html');
     }
   }
+});
+//sessions work in progress
+router.get("/session",function(req,res,next){
+  console.log("server");
+  console.log(sessions);
+  res.send(JSON.stringify([{"id":sessions[req.session.id]}]));
 });
 
 // =============================== UNUSED ============================== //
