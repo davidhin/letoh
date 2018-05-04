@@ -158,6 +158,26 @@ function searchRoom(hotelID, roomID) {
 router.get('/getUsers.json', function(req, res) {
   res.send(JSON.stringify(users));
 });
+
+router.post('/signup',function(req,res,next){
+
+  let userID = users[users.length-1].id + 1;
+  let newUser = {
+    'id': userID,
+    'firstName': req.body.firstname,
+    'lastName': req.body.lastname,
+    'email': req.body.email,
+    'password': req.body.password,
+    'phoneNumber':0,
+    'address': "asd"
+  };
+
+  users.push(newUser);
+
+  console.log(users);
+
+  res.redirect("/index.html");
+});
 // =============================== UNUSED ============================== //
 // Add hotel data to the file
 // router.post('/addData', function(req, res) {

@@ -1,13 +1,15 @@
 [
   {"id":0,
-   "name":"Johnny Skin",
+   "firstName":"Johnny",
+   "lastName":"Mac",
    "email":"Johnny@gfail.com",
    "password":"skrill",
    "phoneNumber":1234352,
    "address":"20 Jim St Suburb Adelaide"
   },
   {"id":1,
-   "name":"Jimmy Bill",
+   "firstName":"Jimmy",
+   "lastName":"Bill",
    "email":"Doe@gfail.com",
    "password":"19",
    "phoneNumber":1001,
