@@ -171,10 +171,8 @@ router.post('/signup',function(req,res,next){
     'phoneNumber':0,
     'address': "asd"
   };
-
   users.push(newUser);
-
-  res.redirect("/index.html");
+  res.redirect("/");
 });
 
 router.post('/login',function(req, res, next){
@@ -182,7 +180,7 @@ router.post('/login',function(req, res, next){
     if(req.body.email==users[i].email && req.body.password==users[i].password){
       //sessions[req.session.id] = [req.body.username,req.body.password];
       //res.send();
-      res.redirect('/index.html');
+      res.redirect('/');
     }else if(i===users.length-1){
       res.redirect('/logsign.html');
     }
