@@ -5,13 +5,15 @@ var fs = require('fs');
 
 // have ids
 var hotels = [];
-var users = [];
 
 // linked to ids
 var allRooms = [];
 var bookings = [];
 
+// login functionality
+var users = {};
 var sessions = {};
+users['test'] = {'password': 'password'};
 
 // Read hotel details into variable hotels
 fs.readFile('data/hotels.json', 'utf8', function(err, data) {
@@ -23,10 +25,14 @@ fs.readFile('data/rooms.json', 'utf8', function(err, data) {
   allRooms = JSON.parse(data);
 });
 
-// Read all users
-fs.readFile('data/users.json', 'utf8', function(err, data) {
-  users = JSON.parse(data);
+ /* Read all users
+// fs.readFile('data/users.json', 'utf8', function(err, data) {
+//  users = JSON.parse(data);
+// });
+router.get('/getUsers.json', function(req, res) {
+  res.send(JSON.stringify(users));
 });
+// */
 
 // Read all bookings
 fs.readFile('data/bookings.json', 'utf8', function(err, data) {
@@ -157,12 +163,8 @@ function searchRoom(hotelID, roomID) {
   }
 }
 
-router.get('/getUsers.json', function(req, res) {
-  res.send(JSON.stringify(users));
-});
-
-router.post('/signup',function(req,res,next){
-//address and phone number not in sign up page
+router.post('/signup', function(req, res, next) {
+// address and phone number not in sign up page
   sessions[req.session.id] = req.body.id;
   let userID = users[users.length-1].id + 1;
   let newUser = {
@@ -171,30 +173,48 @@ router.post('/signup',function(req,res,next){
     'lastName': req.body.lastname,
     'email': req.body.email,
     'password': req.body.password,
-    'phoneNumber':0,
-    'address': "asd"
+    'phoneNumber': 0,
+    'address': 'asd',
   };
   users.push(newUser);
-  res.redirect("/");
+  res.redirect('/');
 });
 
-router.post('/login',function(req, res, next){
-  for(var i=0;i<users.length;i++){
-    if(req.body.email==users[i].email && req.body.password==users[i].password){
-      sessions[req.session.id] = users[i].id;
-      //sessions[req.session.id] = [req.body.username,req.body.password];
-      //res.send();
-      res.redirect('/');
-    }else if(i===users.length-1){
-      res.redirect('/logsign.html');
+router.post('/login', function(req, res, next) {
+  // If login details present, attempt login
+  if (req.body.email !== undefined && req.body.password !== undefined) {
+    // If user does not exist, resend login page
+    if (users[req.body.email] === undefined ) {
+      console.log('no input');
+      return res.redirect('./logsign.html');
+    } else if (users[req.body.email].password === req.body.password) {
+        // Record user current session
+        sessions[req.session.id] = req.body.email;
+        console.log(req.session.id);
+        console.log(sessions[req.session.id]);
+        return res.redirect('/');
+    } else {
+      console.log('incorrect input');
+      return res.redirect('./logsign.html');
     }
   }
+  //  for (let i=0; i<users.length; i++) {
+  //    if (req.body.email==users[i].email && req.body.password==users[i].password) {
+  //      sessions[req.session.id] = users[i].id;
+  //      // sessions[req.session.id] = [req.body.username,req.body.password];
+  //      // res.send();
+  //      res.redirect('/');
+  //    } else if (i === users.length - 1) {
+  //      res.redirect('/logsign.html');
+  //    }
+  //  }
 });
-//sessions work in progress
-router.get("/session",function(req,res,next){
-  console.log("server");
+
+// sessions work in progress
+router.get('/session', function(req, res, next) {
+  console.log('server');
   console.log(sessions);
-  res.send(JSON.stringify([{"id":sessions[req.session.id]}]));
+  res.send(JSON.stringify([{'id': sessions[req.session.id]}]));
 });
 
 // =============================== UNUSED ============================== //
