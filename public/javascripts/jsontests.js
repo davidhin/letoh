@@ -236,7 +236,6 @@ function hoteldetailsMarker(hotel) {
 
   $('#confirmation_overlay').fadeOut();
   $('#hd_hotelname').html(hotel.name);
-  $('#hotel_info_price').html(hotel.price);
   $('#hotel_info_p').html(hotel.desc);
   $('#hoteldetails_overlay').fadeIn();
   // DYNAMIC DATA: Get the image

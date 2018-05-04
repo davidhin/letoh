@@ -115,7 +115,7 @@ function submitted(hotelInput, roomInput, variable) {
       }
       $('.mdl-layout__content').animate({scrollTop: 0});
       $('#bookingpage_overlay').fadeOut(function() {
-        sizes()
+        sizes();
       });
       $('#confirmation_overlay').fadeIn();
       summarise_details(JSON.parse(xhttp.responseText));
