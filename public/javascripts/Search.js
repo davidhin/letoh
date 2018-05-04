@@ -167,7 +167,7 @@ function bookingpage(hotelInput, roomInput, variable) {
   // Not sure what is going on here, Justin, during merge
   $('#bk_backbutton').click(function() {
     $('footer').css("margin-top", "0px");
-    
+
     if (variable == 1) {
       $('#hotelcards').fadeIn();
     } else {
