@@ -1,15 +1,48 @@
 var users = [];
 var bookings_current = [];
 var bookings_past = [];
+var sessions = {};
 
 /* ================== Functions for Both Pages ===================== */
+/*
 $( document ).ready(function() {
   "use strict";
+  //userSession();
   userData(function() {
     accountData();
   });
 
+});*/
+
+
+$( document ).ready(function() {
+  "use strict";
+  userData(function() {
+    userSession(function(){
+      accountData();
+    });
+  });
 });
+
+
+//sessions work in progress
+//i'm trying to get it so that you get the session id do that the account page
+//will show the appropriate data in the account page. to do this, the callback function in the
+//user data function will be the userSession function which will call accountData().
+function userSession(callback){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function(){
+    if(this.readyState==4 && this.status == 200){
+      sessions = JSON.parse(xhttp.responseText);
+      console.log("client");
+      console.log(sessions);
+      callback();
+    }
+  }
+  xhttp.open("GET", "/session", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(200);
+}
 
 function userData(callback){
   var xhttp = new XMLHttpRequest();
@@ -177,11 +210,14 @@ function account(){
 function accountData(){
   "use strict";
   //Account data
-  $($(".accountModule p")[0]).text(users[0].name);
-  $($(".accountModule p")[1]).text(users[0].address);
-  $($(".accountModule p")[2]).text(users[0].phoneNumber);
-  $($(".accountModule p")[3]).text(users[0].email);
-  $($(".accountModule p")[4]).text(users[0].password);
+  //console.log("here we are");
+  //console.log(sessions);
+  var index = sessions[0].id;
+  $($(".accountModule p")[0]).text(users[index].firstName+" "+users[index].lastName);
+  $($(".accountModule p")[1]).text(users[index].address);
+  $($(".accountModule p")[2]).text(users[index].phoneNumber);
+  $($(".accountModule p")[3]).text(users[index].email);
+  $($(".accountModule p")[4]).text(users[index].password);
 
   requestBookings(function() {
     for (let i=0; i<bookings_current.length; i++) {
@@ -259,7 +295,7 @@ function get_bookings(booking, can_change) {
     .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--5-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone")
     .append($("<h3 class='hotelboxheadings'></h3>")
       .text(booking.hotelname)
-    )  
+    )
     .append('<h3 class="boxheadings" style="margin-top:0px">Location:</h3>')
     .append($('<p class="boxparagraph"></p>')
       .text(booking.hoteladdress)

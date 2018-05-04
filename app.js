@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var session = require('express-session');
 
 var app = express();
 
@@ -13,6 +14,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use(session({secret: 'a string of your choice', resave: false, saveUninitialized:true }));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -24,7 +26,21 @@ app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  //next(createError(404));
+  res.status(404);
+
+  if(req.accepts('html')){
+    res.redirect('/404.html');
+    return;
+  }
+
+  if(req.accepts('json')){
+    res.send({error:'Not found'});
+    return;
+  }
+
+  res.type('txt').send('Not found');
+
 });
 
 // error handler
