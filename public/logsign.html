@@ -2,14 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login/SignUp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="221470074387-9foelnabco11grc9ihbq7k26blc7n280.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
   <link rel="stylesheet" href="stylesheets/style.css">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-pink.min.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="javascripts/main.js"></script>
+
 </head>
 
 <body>
@@ -44,9 +48,7 @@
 
           Social Media:<br>
           <img alt="social" src="images/fb.png" class="socialimage">
-          <img alt="social" src="images/fb.png" class="socialimage">
-          <img alt="social" src="images/fb.png" class="socialimage">
-          <img alt="social" src="images/fb.png" class="socialimage">
+          <div class="g-signin2" data-onsuccess="onSignIn()" data-theme="dark"></div>
           <br>
           <br>
           Complete Form?
@@ -55,7 +57,7 @@
         </div>
         <!-- Right Input Box -->
         <div class="input-box-right">
-          
+
           <form action="/signup" method="post" class="InputForms">
            <div class="nameloginput">
              <div class="nameinputsection">
@@ -132,6 +134,22 @@
       $('.gendersel').hide();
     }
   }
+
+  function onSignIn(googleUser) {
+    // Useful data for your client-side scripts:
+    var profile = googleUser.getBasicProfile();
+    console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+    console.log('Full Name: ' + profile.getName());
+    console.log('Given Name: ' + profile.getGivenName());
+    console.log('Family Name: ' + profile.getFamilyName());
+    console.log("Image URL: " + profile.getImageUrl());
+    console.log("Email: " + profile.getEmail());
+
+    // The ID token you need to pass to your backend:
+    var id_token = googleUser.getAuthResponse().id_token;
+    console.log("ID Token: " + id_token);
+  };
+
 </script>
 
 </body>

@@ -115,9 +115,6 @@ function hoteldetails(hotelInput) {
           .appendTo(roomForBooking);
         $('<div/>').attr('id', rooms[i].roomid).addClass('reviewPanel').appendTo(roomForBooking);
         reviewFilling(rooms[i].roomid, roomForBooking,hotelInput);
-        //$('<p/>')
-        //.html("reviews go here")
-        //.appendTo('#' + rooms[i].roomid);
         $('<hr>').appendTo(roomForBooking);
       }
 
