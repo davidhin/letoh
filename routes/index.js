@@ -30,7 +30,6 @@ fs.readFile('data/reviews.json', 'utf8', function(err, data) {
   allReviews = JSON.parse(data);
 });
 
-/*
  // Read all users
 fs.readFile('data/users.json', 'utf8', function(err, data) {
   users = JSON.parse(data);
@@ -39,7 +38,6 @@ fs.readFile('data/users.json', 'utf8', function(err, data) {
 router.get('/getUsers.json', function(req, res) {
   res.send(JSON.stringify(users));
 });
-*/
 
 // Read all bookings
 fs.readFile('data/bookings.json', 'utf8', function(err, data) {
@@ -60,14 +58,11 @@ router.get('/getHotels.json', function(req, res) {
 router.post('/addHotel.json', function(req, res) {
   // Do individually so that people can't arbitrarily send data to server
 
-  console.log(hotels.length);
   let newId = hotels[hotels.length-1].id + 1;
   let name = 'New Hotel ID = ' + newId;
   let newHotel = {'id': newId, 'name': name, 'price': 0, 'rating': 1};
   hotels.push(newHotel);
 
-  console.log(hotels);
-  console.log(hotels[hotels.length-1]);
   res.send(newHotel);
 });
 
@@ -96,7 +91,7 @@ router.post('/updateHotelAddress.json', function(req, res) {
 router.post('/deleteHotel.json', function(req, res) {
   let targetHotel = searchHotel(req.body.id);
   hotels.splice(targetHotel, 1);
-  console.log(hotels);
+
   res.send('');
 });
 
@@ -111,7 +106,6 @@ router.post('/getReviews.json', function(req, res) {
     }
   }
 
-  console.log(reviews);
   res.send(JSON.stringify(reviews));
 });
 
@@ -127,7 +121,6 @@ router.post('/getRooms.json', function(req, res) {
     }
   }
 
-  console.log(rooms);
   res.send(JSON.stringify(rooms));
 });
 
@@ -138,7 +131,7 @@ router.post('/addRoom.json', function(req, res) {
   let calcroomid = hotels[targetHotel].roomtypes;
   hotels[targetHotel].roomtypes += 1;
   allRooms.push( {'id': req.body.id, 'name': calcroomid, 'price': 100, 'roomid': calcroomid} );
-  console.log(allRooms);
+
   res.send('');
 });
 
@@ -147,14 +140,13 @@ router.post('/changeRoomDetails.json', function(req, res) {
   allRooms[roomIndex].name = req.body.title;
   allRooms[roomIndex].desc = req.body.desc;
   allRooms[roomIndex].price = req.body.roomprice;
-  console.log(roomIndex);
-  console.log(req.body.hotelid, req.body.roomid);
+
   res.send('');
 });
 
 router.post('/newBooking.json', function(req, res) {
   bookings.push(req.body);
-  console.log(req.body);
+
   res.send(req.body);
 });
 
@@ -209,9 +201,27 @@ router.post('/signup', function(req, res, next) {
 router.post('/login', function(req, res, next) {
   // If login details present, attempt login
   if (req.body.email !== undefined && req.body.password !== undefined) {
+
+    for(let i=0;i<users.length;i++){
+      //If email and password match user
+      console.log("am i run");
+      if(users[i].email===req.body.email && users[i].password===req.body.password){
+        // Record user current session
+        sessions[req.session.id] = req.body.email;
+        console.log(req.session.id);
+        console.log(sessions[req.session.id]);
+        return res.redirect('/');
+      //If loop reaches end and user not found
+      }else if(i===(users.length-1)){
+        console.log('Sign Up');
+        return res.redirect('./logsign.html');
+      }
+    }
+
+/*
     // If user does not exist, resend login page
     if (users[req.body.email] === undefined ) {
-      console.log('no input');
+      console.log('Sign Up');
       return res.redirect('./logsign.html');
 
     // If user exists and password matches
@@ -222,15 +232,13 @@ router.post('/login', function(req, res, next) {
         console.log(sessions[req.session.id]);
         return res.redirect('/');
 
-    // All inputs incorrect
+    // All inputs incorrect, I think you can get rid of this field, cos if the user doesn't exist, that bit will run
     } else {
       console.log('incorrect input');
       return res.redirect('./logsign.html');
-    }
-  }
+    }*/
 
-  // If logged in using Google
-  if (req.body.idtoken !== undefined) {
+  }else if (req.body.idtoken !== undefined) {// If logged in using Google
     console.log("Google token received");
     async function verify(token) {
       const ticket = await client.verifyIdToken({
@@ -239,7 +247,7 @@ router.post('/login', function(req, res, next) {
       });
       const payload = ticket.getPayload();
       const userid = payload['sub'];
-    console.log(payload);
+      console.log(payload);
       // for (let i = 0; i < users.length; i++) {
       //   if (users[i].google === userid) {
       //     sessions[req.session.id] = users[i].username;
@@ -247,6 +255,8 @@ router.post('/login', function(req, res, next) {
       //   }
       // }
     }
+  }else{//If there is no input
+    return res.redirect('./logsign.html');
   }
 });
 
