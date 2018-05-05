@@ -75,7 +75,7 @@ function hotelCards() {
       // Change the hotel name here
       $('<h2/>').addClass("mdl-card__title-text").html(filtered[i].name).appendTo(div_title);
       // Change the hotel details here
-      $('<p/>').addClass("mdl-card__supporting-text").html("$"+filtered[i].price.toString()).appendTo(div_main);
+      $('<p/>').addClass("mdl-card__supporting-text").html("From "+"$"+filtered[i].price.toString()+" per night.").appendTo(div_main);
       $('<div/>').addClass("mdl-card__supporting-text").html(filtered[i].desc).appendTo(div_main);
       var div_buttons = $('<div/>').addClass("mdl-card__actions mdl-card--border").appendTo(div_main);
         $('<a/>')
@@ -83,10 +83,6 @@ function hotelCards() {
         // .attr("href", "hoteldetails.html")
         .click(link_moredetails.call(this, filtered[i]))
         .addClass('mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent').html('More details').appendTo(div_buttons);
-      // Change the share/favourite button here
-      var div_menu = $('<div/>').addClass('mdl-card__menu').appendTo(div_main);
-        var button_share = $('<button/>').addClass("mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect").appendTo(div_menu);
-        $('<i/>').addClass("material-icons").html("share").appendTo(button_share);
   }
 }
 
@@ -104,7 +100,7 @@ function hoteldetails(hotelInput) {
       rooms = JSON.parse(xhttp.responseText);
       $('#hotel_info_room').empty();
       for (let i=0; i<rooms.length; i++) {
-        let roomForBooking = $('#hotel_info_room').append('<h3>'+rooms[i].name+'</h3><p class="roomPrice">$'+rooms[i].price+'</p><p>'+rooms[i].desc+'</p>');
+        let roomForBooking = $('#hotel_info_room').append('<h3>'+rooms[i].name+'</h3><p class="roomPrice">$'+rooms[i].price+' per night</p><p>'+rooms[i].desc+'</p>');
         $('<button/>')
           .addClass('mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent')
           .html('Book Now')
@@ -112,7 +108,30 @@ function hoteldetails(hotelInput) {
           .click(function() {
             bookingpage(hotelInput, rooms[i], 1);
           });
+        $('<button/>')
+          .addClass('mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent reviewAccordion')
+          .html('Reviews')
+          .css('text-transform', 'none')
+          .appendTo(roomForBooking);
+        $('<div/>').attr('id', rooms[i].roomid).addClass('reviewPanel').appendTo(roomForBooking);
+        $('<p/>')
+        .html("reviews go here")
+        .appendTo('#' + rooms[i].roomid);
       }
+
+      let acc = document.getElementsByClassName('reviewAccordion');
+        for (let i = 0; i < acc.length; i++) {
+          acc[i].addEventListener('click', function() {
+            this.classList.toggle('active');
+            let panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+              panel.style.maxHeight = null;
+            } else {
+              panel.style.maxHeight = panel.scrollHeight + 'px';
+            }
+          });
+        }
+
     }
   };
   xhttp.open('POST', 'getRooms.json', true);

@@ -214,7 +214,8 @@ p.mdl-card__supporting-text{
 }
 
 #hd_backbutton {
-  position: absolute;
+  position: fixed;
+  z-index:9999;
   margin: 10px;
 }
 
@@ -350,6 +351,21 @@ p.mdl-card__supporting-text{
   padding-left: 70px !important;
 }
 
+.reviewAccordion {
+  margin-right: 20px;
+}
+
+.reviewPanel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  margin-top: 20px;
+}
+
+.revewPanel p {
+  margin-top: 20px !important;
+}
+
 /* ================= MEDIA SCREEN ================= */
 @media screen and (max-width: 1300px) { .hotel-card.mdl-card { width: calc(33.33336% - 15px); }}
 @media screen and (max-width: 1000px) { .hotel-card.mdl-card { width: calc(50% - 15px);       }}
@@ -369,8 +385,8 @@ p.mdl-card__supporting-text{
   article { padding-top: 64px; }
   .letohLogo { padding: 12px 10px 5px 20px; }
   #mainSearch { padding: 10px; margin-top: 5px; }
-  #hoteldetails_overlay { 
-    max-width: 100%; 
+  #hoteldetails_overlay {
+    max-width: 100%;
     height: calc(100vh - 125px);
     overflow: auto;
   }

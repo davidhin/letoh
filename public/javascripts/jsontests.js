@@ -160,9 +160,9 @@ function addMarkers() {
         '<div style="float:left;margin-left:10px;max-width:140px">'+
         '<div style="word-break:keep-all;display:block;font-size:15px"><b>'+filtered[i].name+'</b></div>'+
 
-        '<p style="margin:0px;margin-top:10px;padding:0px;">'+
-        '$'+filtered[i].price+
-        '</p>'+
+        '<div style="margin:0px;margin-top:10px;padding:0px;">'+
+        'From $'+filtered[i].price+' per night.'+
+        '</div>'+
 
         '<p style="margin:0px;margin-top:10px;padding:0px;">'+
         stars+
