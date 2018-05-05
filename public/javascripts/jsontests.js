@@ -226,7 +226,28 @@ function hoteldetailsMarker(hotel) {
           .click(function() {
             bookingpage(hotel, rooms[i], 0);
           });
+        $('<button/>')
+          .addClass('mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent reviewAccordion')
+          .html('Reviews')
+          .css('text-transform', 'none')
+          .appendTo(roomForBooking);
+        $('<div/>').attr('id', rooms[i].roomid).addClass('reviewPanel').appendTo(roomForBooking);
+        reviewFilling(rooms[i].roomid, roomForBooking,hotel);
+        $('<hr>').appendTo(roomForBooking);
       }
+
+      let acc = document.getElementsByClassName('reviewAccordion');
+        for (let i = 0; i < acc.length; i++) {
+          acc[i].addEventListener('click', function() {
+            this.classList.toggle('active');
+            let panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+              panel.style.maxHeight = null;
+            } else {
+              panel.style.maxHeight = panel.scrollHeight + 'px';
+            }
+          });
+        }
 
     }
   };
