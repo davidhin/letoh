@@ -5,15 +5,15 @@
   <title>Login/SignUp</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-signin-scope" content="profile email">
-  <meta name="google-signin-client_id" content="221470074387-9foelnabco11grc9ihbq7k26blc7n280.apps.googleusercontent.com">
+  <meta name="google-signin-client_id" content="586635191861-jr2ddas44f71pul4dc2su091lutgabsv.apps.googleusercontent.com">
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <link rel="stylesheet" href="stylesheets/style.css">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-pink.min.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://apis.google.com/js/plus.js?onload=appStart"></script>
   <script src="javascripts/main.js"></script>
-
 </head>
 
 <body>
@@ -48,7 +48,7 @@
 
           Social Media:<br>
           <img alt="social" src="images/fb.png" class="socialimage">
-          <div class="g-signin2" data-onsuccess="onSignIn()" data-theme="dark"></div>
+          <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
           <br>
           <br>
           Complete Form?
@@ -74,14 +74,6 @@
            Password:<br>
            <input type="password" name="password" class="inputfield"><br>
 
-          <div class="nameinputsection gendersel">
-            Are you?:
-            <select>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
           <div class="nameinputsection">
             Complete Form?
             <input type="submit">
@@ -127,11 +119,9 @@
     if(ishotellogin == false){
       $('.hotellogname').hide();
       $('.nameloginput').show();
-      $('.gendersel').show();
     } else {
       $('.hotellogname').show();
       $('.nameloginput').hide();
-      $('.gendersel').hide();
     }
   }
 
@@ -148,8 +138,16 @@
     // The ID token you need to pass to your backend:
     var id_token = googleUser.getAuthResponse().id_token;
     console.log("ID Token: " + id_token);
+    getUserInfo({'idtoken': id_token});
   };
 
+  function getUserInfo(params) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/login", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(JSON.stringify(params));
+  }
+ 
 </script>
 
 </body>

@@ -187,19 +187,23 @@ function searchRoom(hotelID, roomID) {
 
 router.post('/signup', function(req, res, next) {
 // address and phone number not in sign up page
-  sessions[req.session.id] = req.body.id;
-  let userID = users[users.length-1].id + 1;
-  let newUser = {
-    'id': userID,
+  if (users[req.body.email] != null) {
+    console.log('Email already registered!');
+    return res.redirect('./logsign.html');
+  }
+
+  users[req.body.email] = {
+    // 'id': userID,
     'firstName': req.body.firstname,
     'lastName': req.body.lastname,
-    'email': req.body.email,
     'password': req.body.password,
     'phoneNumber': 0,
     'address': 'asd',
   };
-  users.push(newUser);
-  res.redirect('/');
+
+  console.log('Success!');
+  console.log(users);
+  return res.redirect('./logsign.html');
 });
 
 router.post('/login', function(req, res, next) {
@@ -209,28 +213,41 @@ router.post('/login', function(req, res, next) {
     if (users[req.body.email] === undefined ) {
       console.log('no input');
       return res.redirect('./logsign.html');
+
+    // If user exists and password matches
     } else if (users[req.body.email].password === req.body.password) {
         // Record user current session
         sessions[req.session.id] = req.body.email;
         console.log(req.session.id);
         console.log(sessions[req.session.id]);
         return res.redirect('/');
+
+    // All inputs incorrect
     } else {
       console.log('incorrect input');
       return res.redirect('./logsign.html');
     }
   }
-/*
-      for (let i=0; i<users.length; i++) {
-        if (req.body.email==users[i].email && req.body.password==users[i].password) {
-          sessions[req.session.id] = users[i].id;
-          res.redirect('/');
-        } else if (i === users.length - 1) {
-          res.redirect('/logsign.html');
-        }
-      }
-      */
+
+  // If logged in using Google
+  if (req.body.idtoken !== undefined) {
+    console.log("Google token received");
+    async function verify(token) {
+      const ticket = await client.verifyIdToken({
+          idToken: token,
+          audience: '586635191861-jr2ddas44f71pul4dc2su091lutgabsv.apps.googleusercontent.com', // Specify the CLIENT_ID of the app that accesses the backend
+      });
+      const payload = ticket.getPayload();
+      const userid = payload['sub'];
+    console.log(payload);
+      // for (let i = 0; i < users.length; i++) {
+      //   if (users[i].google === userid) {
+      //     sessions[req.session.id] = users[i].username;
+      //     user = users[i].username;
+      //   }
+      // }
     }
+  }
 });
 
 // sessions work in progress
