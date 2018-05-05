@@ -352,14 +352,13 @@ p.mdl-card__supporting-text{
 }
 
 .reviewAccordion {
-  margin-right: 20px;
+  margin-left: 20px !important;
 }
 
 .reviewPanel {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.2s ease-out;
-  margin-top: 20px;
 }
 
 .revewPanel p {

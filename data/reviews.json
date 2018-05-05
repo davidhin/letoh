@@ -1,0 +1,51 @@
+[
+  {"id":0,
+   "roomid": 0,
+   "name":"Jimmy",
+   "stars":1,
+   "review":"I found it quite quaint."
+  },
+
+  {"id":0,
+   "roomid": 0,
+   "name":"Jackie",
+   "stars":5,
+   "review":"The only thing I can say is INCREDIBLE! Just incredible. I don't know how they got the pool there but it was amazing. 5/5 stars."
+  },
+
+  {"id":0,
+   "roomid": 1,
+   "name":"Johnny",
+   "stars":1,
+   "review":"Although it seems fine, this room is not fine, I'd get into the details but I don't want to bore you with the details. 1 star."
+  },
+
+  {"id":0,
+   "roomid": 2,
+   "name":"Jelly",
+   "stars":3,
+   "review":"Having never been in a room before, it was alright."
+  },
+
+  {"id":1,
+   "roomid": 0,
+   "name":"Johnny",
+   "stars":4,
+   "review":"If I had known it'd be this good, I never would've used a fake credit card!"
+  },
+
+  {"id":1,
+   "roomid": 1,
+   "name":"Jeffery",
+   "stars":2,
+   "review":"Poor room service. Bad food. Bad rececption. I can't believe it's not better."
+  },
+
+  {"id":2,
+   "roomid": 0,
+   "name":"Jacob",
+   "stars":4,
+   "desc":"I mean I've seen better, but for its price, I'd be lying if I told you it was a bad stay."
+  }
+
+]

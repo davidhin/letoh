@@ -114,9 +114,11 @@ function hoteldetails(hotelInput) {
           .css('text-transform', 'none')
           .appendTo(roomForBooking);
         $('<div/>').attr('id', rooms[i].roomid).addClass('reviewPanel').appendTo(roomForBooking);
-        $('<p/>')
-        .html("reviews go here")
-        .appendTo('#' + rooms[i].roomid);
+        reviewFilling(rooms[i].roomid, roomForBooking,hotelInput);
+        //$('<p/>')
+        //.html("reviews go here")
+        //.appendTo('#' + rooms[i].roomid);
+        $('<hr>').appendTo(roomForBooking);
       }
 
       let acc = document.getElementsByClassName('reviewAccordion');
@@ -149,6 +151,39 @@ function hoteldetails(hotelInput) {
   'use strict';
 
   mdl_upgrade();
+}
+
+function reviewFilling(id, booking,hotel){
+  let reviews = [];
+  let xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      reviews = JSON.parse(xhttp.responseText);
+      for (let i=0; i<reviews.length; i++) {
+        if(reviews[i].roomid ==id){
+
+          var stars = "";
+          for(var j=0;j<reviews[i].stars;j++){
+            stars += "&#10029;";
+          }
+          for(var k=reviews[i].stars;k<5;k++){
+            stars += "&#10025;";
+          }
+
+          $('<h5/>')
+          .html(reviews[i].name)
+          .appendTo('#' + id);
+          $('<p/>')
+          .html(stars+'<br>'+reviews[i].review)
+          .appendTo('#' + id);
+        }
+      }
+    }
+  };
+
+  xhttp.open('POST', 'getReviews.json', true);
+  xhttp.setRequestHeader('Content-type', 'application/json');
+  xhttp.send(JSON.stringify(hotel));
 }
 
 /**
