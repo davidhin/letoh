@@ -30,15 +30,16 @@ fs.readFile('data/reviews.json', 'utf8', function(err, data) {
   allReviews = JSON.parse(data);
 });
 
+/*
+ // Read all users
+fs.readFile('data/users.json', 'utf8', function(err, data) {
+  users = JSON.parse(data);
+});
 
- /* Read all users
-// fs.readFile('data/users.json', 'utf8', function(err, data) {
-//  users = JSON.parse(data);
-// });
 router.get('/getUsers.json', function(req, res) {
   res.send(JSON.stringify(users));
 });
-// */
+*/
 
 // Read all bookings
 fs.readFile('data/bookings.json', 'utf8', function(err, data) {
@@ -219,16 +220,17 @@ router.post('/login', function(req, res, next) {
       return res.redirect('./logsign.html');
     }
   }
-  //  for (let i=0; i<users.length; i++) {
-  //    if (req.body.email==users[i].email && req.body.password==users[i].password) {
-  //      sessions[req.session.id] = users[i].id;
-  //      // sessions[req.session.id] = [req.body.username,req.body.password];
-  //      // res.send();
-  //      res.redirect('/');
-  //    } else if (i === users.length - 1) {
-  //      res.redirect('/logsign.html');
-  //    }
-  //  }
+/*
+      for (let i=0; i<users.length; i++) {
+        if (req.body.email==users[i].email && req.body.password==users[i].password) {
+          sessions[req.session.id] = users[i].id;
+          res.redirect('/');
+        } else if (i === users.length - 1) {
+          res.redirect('/logsign.html');
+        }
+      }
+      */
+    }
 });
 
 // sessions work in progress
