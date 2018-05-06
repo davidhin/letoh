@@ -7,11 +7,11 @@
     "hoteladdress":"233 Victoria Square, Adelaide SA 5000",
     "roomid": 0,
     "roomname": "Standard Guest Room",
-    "cost": 528, 
+    "cost": 528,
     "start": "26/08/2028",
-    "end": "29/08/2028", 
-    "comments": "", 
-    "email": "email@address.com"
+    "end": "29/08/2028",
+    "comments": "",
+    "email": "test"
   },
   {
     "refnum": 12302,
@@ -21,10 +21,10 @@
     "hoteladdress":"233 Victoria Square, Adelaide SA 5000",
     "roomid": 0,
     "roomname": "Standard Guest Room",
-    "cost": 176, 
+    "cost": 176,
     "start": "22/04/2018",
-    "end": "23/04/2018", 
-    "comments": "Will check out early", 
+    "end": "23/04/2018",
+    "comments": "Will check out early",
     "email": "email@address.com"
   }
 ]

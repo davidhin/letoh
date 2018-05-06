@@ -26,16 +26,15 @@ $( document ).ready(function() {
 
 
 //sessions work in progress
-//i'm trying to get it so that you get the session id do that the account page
-//will show the appropriate data in the account page. to do this, the callback function in the
-//user data function will be the userSession function which will call accountData().
 function userSession(callback){
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function(){
     if(this.readyState==4 && this.status == 200){
-      sessions = JSON.parse(xhttp.responseText);
-      console.log("client");
+      sessions =xhttp.responseText;
+      //sessions = JSON.parse(xhttp.responseText);
+      console.log("sessions revieved");
       console.log(sessions);
+
       callback();
     }
   }
@@ -49,6 +48,7 @@ function userData(callback){
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200){
       users = JSON.parse(xhttp.responseText);
+
       callback();
     }
   };
@@ -61,14 +61,14 @@ function userData(callback){
 function checkIfBookings(){
   "use strict";
   if($("#currentBookings").children().length===0){
-    $("#currentBookings").append($("<p></p>")
+    $("#currentBookings").append($("<p style='margin-left:15px'></p>")
       .attr('class','')
       .text("You have no current bookings")
     );
   }
 
   if($("#pastBookings").children().length===0){
-    $("#pastBookings").append($("<p></p>")
+    $("#pastBookings").append($("<p style='margin-bottom:40px;margin-left:15px'></p>")
       .attr('class','')
       .text("You have no past bookings")
     );
@@ -210,14 +210,16 @@ function account(){
 function accountData(){
   "use strict";
   //Account data
-  //console.log("here we are");
-  //console.log(sessions);
-  var index = sessions[0].id;
-  $($(".accountModule p")[0]).text(users[index].firstName+" "+users[index].lastName);
-  $($(".accountModule p")[1]).text(users[index].address);
-  $($(".accountModule p")[2]).text(users[index].phoneNumber);
-  $($(".accountModule p")[3]).text(users[index].email);
-  $($(".accountModule p")[4]).text(users[index].password);
+  var password = "";
+  for(let i=0;i<users[sessions].password.length;i++){
+    password += "*";
+  }
+
+  $($(".accountModule p")[0]).text(users[sessions].firstName+" "+users[sessions].lastName);
+  $($(".accountModule p")[1]).text(users[sessions].address);
+  $($(".accountModule p")[2]).text(users[sessions].phoneNumber);
+  $($(".accountModule p")[3]).text(sessions);
+  $($(".accountModule p")[4]).text(password);
 
   requestBookings(function() {
     for (let i=0; i<bookings_current.length; i++) {
@@ -226,10 +228,9 @@ function accountData(){
     for (let i=0; i<bookings_past.length; i++) {
       get_bookings(bookings_past[i], false);
     }
-    sizes();
-
     // Checking if you have bookings
     checkIfBookings();
+    sizes();
   });
 }
 
@@ -243,12 +244,15 @@ function requestBookings(callback) {
     if (this.readyState == 4 && this.status == 200) {
       let bookings = JSON.parse(xhttp.responseText);
       for (let i = 0; i < bookings.length; i++) {
-        let checkout = moment(bookings[i].end, 'DD/MM/YYYY');
-        if ((checkout.diff(moment(), 'days')) < 0) {
-          bookings_past.push(bookings[i]);
-        } else {
-          bookings_current.push(bookings[i]);
+        if(bookings[i].email===sessions){
+          let checkout = moment(bookings[i].end, 'DD/MM/YYYY');
+          if ((checkout.diff(moment(), 'days')) < 0) {
+            bookings_past.push(bookings[i]);
+          } else {
+            bookings_current.push(bookings[i]);
+          }
         }
+
       }
       callback();
     }
@@ -306,24 +310,6 @@ function get_bookings(booking, can_change) {
     .append($('<p class="boxparagraph"></p>')
       .text('Type: ' + booking.roomname)
     )
-
-  //    .append("<br>")
-  //    .append($('<h4 class="boxheadings" style="margin-top:0px">Your Booking Includes:</h4>'))
-  //    .append($('<ul class="boxparagraph"></ul>')
-  //      .append($('<li></li>')
-  //        .text("1 Bathroom")//CONTENT
-  //      )
-  //      .append($('<li></li>')
-  //        .text("Free Continental Breakfast")//CONTENT
-  //      )
-  //      .append($('<li></li>')
-  //        .text("Free Wifi")//CONTENT
-  //      )
-  //      .append($('<li></li>')
-  //        .text("Free Parking")//CONTENT
-  //      )
-  //    )
-  //    .append("<br>")
   .appendTo(book_container);
 
   // Table
@@ -469,6 +455,7 @@ function remove(index){
 }
 
 /* ================== Account Page ===================== */
+//Edit account setting
 function accountChange(index){
   "use strict";
   index.style.display="none";
@@ -479,6 +466,7 @@ function accountChange(index){
   buttons[2].style.display="inline";
 }
 
+//Confirming an account setting edit
 function accountConfirm(index){
   "use strict";
   var displaySettings = index.parentElement.getElementsByTagName("p");
@@ -506,6 +494,7 @@ function accountConfirm(index){
   buttons[2].style.display="none";
 }
 
+//Cancelling a account setting edit
 function accountCancel(index){
   "use strict";
   $(index).closest('.settingDescription').children('input').hide();

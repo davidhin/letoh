@@ -14,7 +14,7 @@ var allReviews = [];
 // login functionality
 var users = {};
 var sessions = {};
-users['test'] = {'password': 'password'};
+users['test'] = {'firstName': 'Test','lastName': 'tesT','address': '9 st','phoneNumber': '900','password': 'password'};
 
 // Read hotel details into variable hotels
 fs.readFile('data/hotels.json', 'utf8', function(err, data) {
@@ -29,12 +29,12 @@ fs.readFile('data/rooms.json', 'utf8', function(err, data) {
 fs.readFile('data/reviews.json', 'utf8', function(err, data) {
   allReviews = JSON.parse(data);
 });
-
+/*
  // Read all users
 fs.readFile('data/users.json', 'utf8', function(err, data) {
   users = JSON.parse(data);
 });
-
+*/
 router.get('/getUsers.json', function(req, res) {
   res.send(JSON.stringify(users));
 });
@@ -202,6 +202,7 @@ router.post('/login', function(req, res, next) {
   // If login details present, attempt login
   if (req.body.email !== undefined && req.body.password !== undefined) {
 
+/*  //Justin's stupid method
     for(let i=0;i<users.length;i++){
       //If email and password match user
       console.log("am i run");
@@ -216,9 +217,9 @@ router.post('/login', function(req, res, next) {
         console.log('Sign Up');
         return res.redirect('./logsign.html');
       }
-    }
+    }*/
 
-/*
+    //David's smart thing
     // If user does not exist, resend login page
     if (users[req.body.email] === undefined ) {
       console.log('Sign Up');
@@ -236,7 +237,7 @@ router.post('/login', function(req, res, next) {
     } else {
       console.log('incorrect input');
       return res.redirect('./logsign.html');
-    }*/
+    }
 
   }else if (req.body.idtoken !== undefined) {// If logged in using Google
     console.log("Google token received");
@@ -264,7 +265,8 @@ router.post('/login', function(req, res, next) {
 router.get('/session', function(req, res, next) {
   console.log('server');
   console.log(sessions);
-  res.send(JSON.stringify([{'id': sessions[req.session.id]}]));
+  //res.send(JSON.stringify([{'id': sessions[req.session.id]}]));
+  res.send(sessions[req.session.id]);
 });
 
 // =============================== UNUSED ============================== //
