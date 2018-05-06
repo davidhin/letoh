@@ -212,14 +212,14 @@ function accountData(){
   //Account data
   var password = "";
   for(let i=0;i<users[sessions].password.length;i++){
-    password += "*";
+    password += "&#8226;";
   }
 
   $($(".accountModule p")[0]).text(users[sessions].firstName+" "+users[sessions].lastName);
   $($(".accountModule p")[1]).text(users[sessions].address);
   $($(".accountModule p")[2]).text(users[sessions].phoneNumber);
   $($(".accountModule p")[3]).text(sessions);
-  $($(".accountModule p")[4]).text(password);
+  $($(".accountModule p")[4]).html(password);
 
   requestBookings(function() {
     for (let i=0; i<bookings_current.length; i++) {
@@ -406,7 +406,7 @@ function reviewButton(index){
   "use strict";
   index.style.display="none";
   var review = index.parentElement;
-
+  $('<span>Stars: </span><select name="reviewStars" class="select"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select><br>').appendTo(review);
   $('<textarea style="resize:none;width:100%;height:80%;display:block;"></textarea>').appendTo(review);
   $('<button class="postButton" onclick="postButton(this)" style="display:block">Post</button>').appendTo(review);
   $('<button class="cancelButton" onclick="cancelButton(this)" style="display:inline">Cancel</button>').appendTo(review);
@@ -416,29 +416,57 @@ function postButton(index){
   "use strict";
   var review = index.parentElement;
   var textbox = index.parentElement.getElementsByTagName("TEXTAREA");
-
-  //Will mess up the scroll if changed to jQuery
-  review = index.parentElement;
-  textbox = index.parentElement.getElementsByTagName("TEXTAREA");
   var postbutton=review.getElementsByClassName("postButton");
+
+  //Stars
+  var starsVal = $(index).closest('.reviewmodule').children("select").val();
+  var stars = "";
+  for(var j=0;j<starsVal;j++){
+    stars += "&#10029;";
+  }
+  for(var k=starsVal;k<5;k++){
+    stars += "&#10025;";
+  }
+  var starReview = document.createElement("P");
+  starReview.innerHTML = stars;
+
+  review.insertBefore(starReview, postbutton[0]);
+
+  //Review
+  //Will mess up the scroll if changed to jQuery
   var para = document.createElement("P");
   para.className="boxparagraph";
-  para.style.height="400px";
+  para.style.height="240px";
   para.style.paddingBottom = "0px";
   para.style.marginBottom = "30px;";
+  para.style.whiteSpace = "normal";
+  para.style.wordBreak = "keep-all";
   para.style.overflow = "auto";
   para.innerText = textbox[0].value;
 
   review.insertBefore(para, postbutton[0]);
 
   $(index).closest('.reviewmodule').children("textarea").css('display','none');
+  $(index).closest('.reviewmodule').children("select").css('display','none');
   $(index).closest('.reviewmodule').children(".postButton").css('display','none');
   $(index).closest('.reviewmodule').children(".cancelButton").css('display','none');
+
+  userData(function() {
+    userSession(function(){
+      let xhttp = new XMLHttpRequest();
+      xhttp.open('POST', '/addReview', true);
+      xhttp.setRequestHeader('Content-type', 'application/json');
+      xhttp.send(JSON.stringify({"id":0,"roomid": 0,"name":users[sessions].firstName+" "+users[sessions].lastName,"stars":starsVal,"review":textbox[0].value}));
+    });
+  });
+
 }
 
 function cancelButton(index){
   "use strict";
   $(index).closest('.reviewmodule').children('.reviewButton').css('display','block');
+  $(index).closest('.reviewmodule').children("span").remove();
+  $(index).closest('.reviewmodule').children("select").remove();
   $(index).closest('.reviewmodule').children('.postButton').remove();
   $(index).closest('.reviewmodule').children('textarea').remove();
   $(index).remove();
@@ -477,7 +505,7 @@ function accountConfirm(index){
     if(setting[0].value){
       displaySettings[0].innerText="";
       for(var i=0;i<setting[0].value.length;i++){
-        displaySettings[0].innerText+='*';
+        displaySettings[0].innerHTML+='&#8226;';
       }
     }
   }else{

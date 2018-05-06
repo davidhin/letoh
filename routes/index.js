@@ -109,6 +109,20 @@ router.post('/getReviews.json', function(req, res) {
   res.send(JSON.stringify(reviews));
 });
 
+router.post('/addReview',function(req,res){
+  let newReview ={
+    "id":req.body.id,
+    "roomid": req.body.roomid,
+    "name":req.body.name,
+    "stars":req.body.stars,
+    "review":req.body.review
+  };
+
+  allReviews.push(newReview);
+
+  res.send("");
+});
+
 let rooms = [];
 // Get the rooms of a hotel by id
 router.post('/getRooms.json', function(req, res) {
