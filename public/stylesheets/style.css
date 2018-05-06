@@ -757,10 +757,11 @@ p.mdl-card__supporting-text{
 }
 
 .middlecontent{
+  margin-top:15px;
   margin-bottom:30px;
-  width:50%;
+  width:700px;
   margin-left: auto;
-  height: 280px;
+  height: 400px;
   margin-right: auto;
 }
 
@@ -809,11 +810,10 @@ p.mdl-card__supporting-text{
 
 .input-box-left{
   width:37%;
-  height:auto;
+  height:340px;
   float: left;
-  border-radius: 25px;
   background:white;
-  border:5px solid #efefef;
+  margin-right:15px;
   padding-left:5%;
   padding-right: 5%;
   padding-bottom: 5%;
@@ -821,19 +821,17 @@ p.mdl-card__supporting-text{
 
 .input-box-right{
   width:37%;
-  height:auto;
-  float: right;
-  border-radius: 25px;
+  height:340px;
+  float: left;
   background:white;
-  border:5px solid #efefef;
   padding-left: 5%;
   padding-right: 5%;
   padding-bottom: 5%;
 }
 
 .InputForms{
-  margin-left: auto;
-  margin-right: auto;
+/*  margin-left: auto;
+  margin-right: auto;*/
 }
 
 .inputfield{
@@ -852,14 +850,13 @@ p.mdl-card__supporting-text{
 }
 
 .middleborder{
-  width:630px;
-  height:auto;
-  border-radius: 25px;
-  background:white;
-  border:5px solid #efefef;
+  width:50%;
+  box-sizing:border-box;
+  height:50px !important;
   margin-left: auto;
   margin-right: auto;
   padding-left: 15px;
+  line-height: 40px !important;
 }
 
 .socialimage{
@@ -893,13 +890,21 @@ p.mdl-card__supporting-text{
 
 @media screen and (max-width:800px) {
   .middlecontent{
-    width:286px;
-    height:500px;
+    width:400px;
+    height:auto;
   }
   .input-box-left{
+    float:none;
+    margin-right: auto !important;
+    margin-left: auto;
     width:87%;
+    margin-right:0px;
   }
   .input-box-right{
+    float:none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:15px;
     width:87%;
   }
   .middleborder{
