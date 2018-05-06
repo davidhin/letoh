@@ -1,6 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
+var CLIENT_ID = '586635191861-jr2ddas44f71pul4dc2su091lutgabsv.apps.googleusercontent.com';
+var {OAuth2Client} = require('google-auth-library');
+var client = new OAuth2Client(CLIENT_ID);
+var gticket;
+
 var fs = require('fs');
 
 // have ids
@@ -195,7 +200,7 @@ router.post('/signup', function(req, res, next) {
 // address and phone number not in sign up page
   if (users[req.body.email] != null) {
     console.log('Email already registered!');
-    return res.redirect('./logsign.html');
+    return res.send({'code': 0, 'message': 'Email is already registered'});
   }
 
   users[req.body.email] = {
@@ -215,30 +220,11 @@ router.post('/signup', function(req, res, next) {
 router.post('/login', function(req, res, next) {
   // If login details present, attempt login
   if (req.body.email !== undefined && req.body.password !== undefined) {
-
-/*  //Justin's stupid method
-    for(let i=0;i<users.length;i++){
-      //If email and password match user
-      console.log("am i run");
-      if(users[i].email===req.body.email && users[i].password===req.body.password){
-        // Record user current session
-        sessions[req.session.id] = req.body.email;
-        console.log(req.session.id);
-        console.log(sessions[req.session.id]);
-        return res.redirect('/');
-      //If loop reaches end and user not found
-      }else if(i===(users.length-1)){
-        console.log('Sign Up');
-        return res.redirect('./logsign.html');
-      }
-    }*/
-
-    //David's smart thing
+    // David's smart thing
     // If user does not exist, resend login page
     if (users[req.body.email] === undefined ) {
       console.log('Sign Up');
       return res.redirect('./logsign.html');
-
     // If user exists and password matches
     } else if (users[req.body.email].password === req.body.password) {
         // Record user current session
@@ -246,34 +232,48 @@ router.post('/login', function(req, res, next) {
         console.log(req.session.id);
         console.log(sessions[req.session.id]);
         return res.redirect('/');
-
     // All inputs incorrect, I think you can get rid of this field, cos if the user doesn't exist, that bit will run
     } else {
       console.log('incorrect input');
       return res.redirect('./logsign.html');
     }
 
-  }else if (req.body.idtoken !== undefined) {// If logged in using Google
-    console.log("Google token received");
-    async function verify(token) {
-      const ticket = await client.verifyIdToken({
-          idToken: token,
-          audience: '586635191861-jr2ddas44f71pul4dc2su091lutgabsv.apps.googleusercontent.com', // Specify the CLIENT_ID of the app that accesses the backend
-      });
-      const payload = ticket.getPayload();
-      const userid = payload['sub'];
-      console.log(payload);
-      // for (let i = 0; i < users.length; i++) {
-      //   if (users[i].google === userid) {
-      //     sessions[req.session.id] = users[i].username;
-      //     user = users[i].username;
-      //   }
-      // }
-    }
-  }else{//If there is no input
-    return res.redirect('./logsign.html');
+  // If logged in using google
+  } else if (req.body.idtoken !== undefined) {
+      console.log('Google token received'); 
+      verify(req.body.idtoken, req).catch(console.error);
+  } else { // If there is no input
+  return res.redirect('./logsign.html');
   }
 });
+
+/**
+ * Verify google login and set up account if not registered,
+ * or simply login
+ * @param {string} token The userid
+ */
+async function verify(token, req) {
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience: CLIENT_ID, // Specify the CLIENT_ID of the app that accesses the backend
+  });
+  const payload = ticket.getPayload();
+  const userid = payload['sub'];
+  const email = payload['email'];
+  if (users[email] == null) {
+   users[email] = {
+     'firstName': req.body.firstname,
+     'lastName': req.body.lastname,
+     'password': req.body.password,
+     'google': userid,
+     'phoneNumber': 0,
+     'address': 'asd',
+   };
+  }
+  sessions[req.session.id] = email;
+  console.log(req.session.id);
+  console.log(sessions[req.session.id]);
+}
 
 // sessions work in progress
 router.get('/session', function(req, res, next) {

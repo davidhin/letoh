@@ -38,8 +38,8 @@
       <div class="middlecontent">
 
         <!-- Left Input Box -->
-        <div class="input-box-left">
-          <form action="/login" method="post" class="InputForms">
+        <div class="input-box-left" id="select_div">
+          <form id="myForm" action="/login" method="post" class="InputForms">
             Email:<br>
             <input type="text" name="email" class="inputfield"><br><br>
             Password:<br>
@@ -52,7 +52,7 @@
           <br>
           <br>
           Complete Form?
-          <input type="submit">
+            <input type="submit">
           </form>
         </div>
         <!-- Right Input Box -->
@@ -125,6 +125,21 @@
     }
   }
 
+$('form').on('submit',function(e){
+    e.preventDefault();
+    $.ajax({
+        type     : "POST",
+        cache    : false,
+        url      : $(this).attr('action'),
+        data     : $(this).serialize(),
+        success  : function(data) {
+            $(".printArea").empty().append(data).css('visibility','visible');
+        }
+    });
+});
+
+
+
   function onSignIn(googleUser) {
     // Useful data for your client-side scripts:
     var profile = googleUser.getBasicProfile();
@@ -143,6 +158,15 @@
 
   function getUserInfo(params) {
     var xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        response = JSON.parse(xhttp.responseText);
+        if (response.code == 0)
+          console.log("email registered!");
+      }
+    };
+
     xhttp.open("POST", "/login", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send(JSON.stringify(params));
