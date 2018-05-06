@@ -413,6 +413,10 @@ function reviewButton(index){
 }
 
 function postButton(index){
+  //Getting booking refnum
+  var gettingRefNum = $($($(index).parent().parent().children()[1]).children()[3]).text();
+  var split = gettingRefNum.split(" ");
+
   "use strict";
   var review = index.parentElement;
   var textbox = index.parentElement.getElementsByTagName("TEXTAREA");
@@ -436,7 +440,7 @@ function postButton(index){
   //Will mess up the scroll if changed to jQuery
   var para = document.createElement("P");
   para.className="boxparagraph";
-  para.style.height="240px";
+  para.style.height="185px";
   para.style.paddingBottom = "0px";
   para.style.marginBottom = "30px;";
   para.style.whiteSpace = "normal";
@@ -451,14 +455,33 @@ function postButton(index){
   $(index).closest('.reviewmodule').children(".postButton").css('display','none');
   $(index).closest('.reviewmodule').children(".cancelButton").css('display','none');
 
-  userData(function() {
-    userSession(function(){
-      let xhttp = new XMLHttpRequest();
-      xhttp.open('POST', '/addReview', true);
-      xhttp.setRequestHeader('Content-type', 'application/json');
-      xhttp.send(JSON.stringify({"id":0,"roomid": 0,"name":users[sessions].firstName+" "+users[sessions].lastName,"stars":starsVal,"review":textbox[0].value}));
-    });
-  });
+  //Sending review to server
+  let xhttpa = new XMLHttpRequest();
+  xhttpa.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      let bookings = JSON.parse(xhttpa.responseText);
+      for(let i=0;i<bookings.length;i++){
+        if(bookings[i].refnum==split[3]){
+          var hotelid = bookings[i].hotelid;
+          var roomid = bookings[i].roomid;
+        }
+      }
+
+      userData(function() {
+        userSession(function(){
+          let xhttp = new XMLHttpRequest();
+          xhttp.open('POST', '/addReview', true);
+          xhttp.setRequestHeader('Content-type', 'application/json');
+          xhttp.send(JSON.stringify({"id":hotelid,"roomid": roomid,"name":users[sessions].firstName+" "+users[sessions].lastName,"stars":starsVal,"review":textbox[0].value}));
+        });
+      });
+
+    }
+  };
+
+  xhttpa.open('GET', '/getBookings.json', true);
+  xhttpa.setRequestHeader('Content-type', 'application/json');
+  xhttpa.send("");
 
 }
 
