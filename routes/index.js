@@ -49,14 +49,24 @@ fs.readFile('data/bookings.json', 'utf8', function(err, data) {
   bookings = JSON.parse(data);
 });
 
-//Get booking based on ref num
-router.post('/getBookingsRefNum.json', function(req, res) {
-  let refNum = req.body.refum
+router.post('/reviewstuff.json', function(req, res, next) {
+  let theBooking = {"refnum":0};
   for(let i=0;i<bookings.length;i++){
-    if(bookings[i].refum==refNum){
-      res.send(bookings[i]);
+    if(bookings[i].refnum==req.body.refnum){
+      theBooking = bookings[i];
     }
   }
+  let hotelid = theBooking.hotelid;
+  let roomid = theBooking.roomid;
+
+  for(let k=0;k<allReviews.length;k++){
+    if(allReviews[k].id===hotelid && allReviews[k].roomid===roomid && allReviews[k].email==sessions[req.session.id]){
+      res.send(JSON.stringify(allReviews[k]));
+    }else if(k==allReviews.length-1){
+      res.send(JSON.stringify({"id":-1}));
+    }
+  }
+
 });
 
 // Send booking information to client
@@ -128,22 +138,6 @@ router.post('/getReviews.json', function(req, res) {
   }
 
   res.send(JSON.stringify(reviews));
-});
-
-//Getting specific review
-router.post('/getReviewsSpecific.json', function(req, res) {
-  reviews = [];
-  let hotelID = req.body.hotelid;
-  let roomID = req.body.roomid;
-  let email = req.body.email;
-
-  for (let i = 0; i < allReviews.length; i++) {
-    if (allReviews[i].id == hotelID && allReviews[i].roomid == roomID && allReviews[i].email == email) {
-      res.send(JSON.stringify(allReviews[i]));
-    }
-  }
-
-  res.send(JSON.stringify({"id":-1}));
 });
 
 router.post('/addReview',function(req,res){
