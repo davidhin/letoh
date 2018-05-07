@@ -25,6 +25,10 @@ $( document ).ready(function() {
  *   obtain success
  */
 function userSession(callback) {
+  if(window.location.pathname!=='/accountPage.html'){
+    return;
+  }
+  
   let xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {
@@ -538,4 +542,3 @@ function accountCancel(index){
   buttons[1].style.display="none";
   buttons[2].style.display="none";
 }
-

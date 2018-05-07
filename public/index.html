@@ -20,7 +20,7 @@
 
   <!-- TOP MENU -->
   <header>
-  
+
 <div class="letohLogo"><a href="/">Letoh</a></div>
 <input type="text" id="mainSearch">
 <button id="mainMenu" class="mdl-button mdl-js-button mdl-button--icon">
@@ -28,17 +28,18 @@
 </button>
 <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" data-mdl-for="mainMenu">
   <li class="mdl-menu__item"><a href="hotelManage.html">Manager Settings</a></li>
-  <li class="mdl-menu__item mdl-menu__item--full-bleed-divider"><a href="accountPage.html">User Settings</a></li>
+<!--  <li class="mdl-menu__item mdl-menu__item--full-bleed-divider"><a href="accountPage.html">User Settings</a></li>-->
+  <li class="mdl-menu__item mdl-menu__item--full-bleed-divider"><a id="accountPageLink">User Settings</a></li>
   <li class="mdl-menu__item"><a href="logsign.html">Register/Login</a></li>
 </ul>
 
 
-  </header> 
-  
+  </header>
+
   <!-- SIDEBAR -->
   <div class="mdl-layout__drawer">
     <nav id="searchNav" class="mdl-navigation">
-        <div data-w3-include-html="sidebar_ext.html"></div> 
+        <div data-w3-include-html="sidebar_ext.html"></div>
     </nav>
   </div>
 
@@ -65,6 +66,37 @@
 <script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvzIpwWPST-CXenOpSNOFOaVBiPle-zMs&callback=initMap&libraries=places">
 </script>
-<script>includeHTML();</script>
+<script>includeHTML();
+
+  var el = document.getElementById('accountPageLink');
+  el.onclick = checkLogin;
+
+  function checkLogin() {
+    let xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function() {
+      if (this.readyState==4 && this.status == 200) {
+        // If try to access without being logged in
+        if (JSON.parse(xhttp.responseText).login == 0) {
+          window.location.replace("http://localhost:3000/logsign.html");
+          console.log('not logged in');
+          return;
+        }else{
+          window.open('accountPage.html', '_self');
+        }
+
+        user = JSON.parse(xhttp.responseText);
+        console.log(user);
+        mdl_upgrade();
+        callback();
+      }
+    };
+
+    xhttp.open('GET', 'usersession.json', true);
+    xhttp.setRequestHeader('Content-type', 'application/json');
+    xhttp.send();
+  }
+
+</script>
 </body>
 </html>

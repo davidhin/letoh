@@ -246,7 +246,7 @@ router.post('/login', function(req, res, next) {
 
   // If logged in using google
   } else if (req.body.idtoken !== undefined) {
-      console.log('Google token received'); 
+      console.log('Google token received');
       verify(req.body.idtoken, req).catch(console.error);
   } else { // If there is no input
   return res.redirect('./logsign.html');

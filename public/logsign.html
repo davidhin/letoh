@@ -27,16 +27,16 @@
 
       <div class="mdl-grid">
         <!-- Left Input Box -->
-        <div class="mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col-desktop 
+        <div class="mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col-desktop
           mdl-cell--4-col-tablet mdl-cell--12-col-phone mdl-cell--2-offset-desktop input-box-left">
           <h5>Login</h5>
           <form action="/login" method="post" class="InputForms">
-            <!-- Email -->  
+            <!-- Email -->
             <div class="date mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input class="mdl-textfield__input" type="text" name="email" id="email" />
               <label class="mdl-textfield__label" for="check-in">Email</label>
             </div>
-            <!-- Password -->  
+            <!-- Password -->
             <div class="date mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input class="mdl-textfield__input" type="password" name="password" id="password" />
               <label class="mdl-textfield__label" for="password">Password</label>
@@ -50,28 +50,28 @@
           <div class="g-signin2" data-onsuccess="onSignIn" data-theme="light"></div>
         </div>
         <!-- Right Input Box -->
-        <div class="mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col-desktop 
+        <div class="mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col-desktop
           mdl-cell--4-col-tablet mdl-cell--12-col-phone input-box-right">
           <h5>Signup</h5>
           <form action="/signup" method="post" class="InputForms">
            <div class="nameloginput">
-            <!-- First name -->  
+            <!-- First name -->
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input class="mdl-textfield__input" type="text" name="firstname" id="first-name" data-required/>
               <label class="mdl-textfield__label" for="first-name">First name</label>
             </div>
-            <!-- Last name -->  
+            <!-- Last name -->
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input class="mdl-textfield__input" type="text" name="lastname" id="last-name"data-required/>
               <label class="mdl-textfield__label" for="first-name">Last name</label>
-            </div> 
-            <!-- Email -->  
+            </div>
+            <!-- Email -->
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input class="mdl-textfield__input" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" type="text" name="email" id="emailsignup" data-required/>
               <label class="mdl-textfield__label" for="emailsignup">Email</label>
               <span class="mdl-textfield__error">Invalid email format</span>
             </div>
-            <!-- Password -->  
+            <!-- Password -->
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input class="mdl-textfield__input" type="password" pattern="^(?=.*\d).{8,}$" name="password" id="passwordsignup" data-required/>
               <label class="mdl-textfield__label" for="passwordsignup">Password</label>
@@ -82,7 +82,7 @@
               <span class="mdl-switch__label">Are you a hotel owner?</span>
             </label>
             <button style="float: right; margin-top: 15px;" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent">
-              Sign up 
+              Sign up
             </button>
            </div>
           <p style="margin-top:50px" id="emailtaken"></p>
@@ -91,12 +91,12 @@
         </div>
 
           <p class="middleborder">
-              
+
           </p>
 
       </div>
-    
-    
+
+
     </div>
 
     <footer>
@@ -122,11 +122,11 @@
 
           if (data.code == 0) {
             console.log("email registered!");
-            $('#emailtaken').html('Email already registered'); 
+            $('#emailtaken').html('Email already registered');
           }
           if (data.code == 1) {
             console.log("success! registered user.");
-            $('#emailtaken').html('Success! A confirmation email has been sent to your email.'); 
+            $('#emailtaken').html('Success! A confirmation email has been sent to your email.');
           }
         }
     });
