@@ -1,7 +1,6 @@
-var users = [];
 var bookings_current = [];
 var bookings_past = [];
-var sessions = {};
+var user;
 
 /* ================== Functions for Both Pages ===================== */
 /*
@@ -13,49 +12,40 @@ $( document ).ready(function() {
   });
 
 });*/
-
-
 $( document ).ready(function() {
-  "use strict";
-  userData(function() {
-    userSession(function(){
-      accountData();
-    });
+  'use strict';
+  userSession(function() {
+    accountData();
   });
 });
 
+/**
+ * Get the user corresponding to session id
+ * @param {function} callback The callback function on session
+ *   obtain success
+ */
+function userSession(callback) {
+  let xhttp = new XMLHttpRequest();
 
-//sessions work in progress
-function userSession(callback){
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function(){
-    if(this.readyState==4 && this.status == 200){
-      sessions =xhttp.responseText;
-      //sessions = JSON.parse(xhttp.responseText);
-      console.log("sessions revieved");
-      console.log(sessions);
-
-      callback();
-    }
-  }
-  xhttp.open("GET", "/session", true);
-  xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send(200);
-}
-
-function userData(callback){
-  var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200){
-      users = JSON.parse(xhttp.responseText);
+    if (this.readyState==4 && this.status == 200) {
+      // If try to access without being logged in
+      if (JSON.parse(xhttp.responseText).login == 0) {
+        window.location.replace("http://localhost:3000/logsign.html");
+        console.log('not logged in');
+        return;
+      }
 
+      user = JSON.parse(xhttp.responseText);
+      console.log(user);
+      mdl_upgrade();
       callback();
     }
   };
 
-  xhttp.open("GET", "getUsers.json", true);
-  xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send(200);
+  xhttp.open('GET', 'usersession.json', true);
+  xhttp.setRequestHeader('Content-type', 'application/json');
+  xhttp.send();
 }
 
 function checkIfBookings(){
@@ -157,7 +147,7 @@ function submitted(hotelInput, roomInput, variable) {
 
   let newBooking = {
     'refnum': Math.floor(Math.random() * 1000000),
-    'userid': 0,
+    'userid': user.email,
     'hotelid': hotelInput.id,
     'hotelname': hotelInput.name,
     'hoteladdress': hotelInput.address,
@@ -210,16 +200,10 @@ function account(){
 function accountData(){
   "use strict";
   //Account data
-  var password = "";
-  for(let i=0;i<users[sessions].password.length;i++){
-    password += "&#8226;";
-  }
 
-  $($(".accountModule p")[0]).text(users[sessions].firstName+" "+users[sessions].lastName);
-  $($(".accountModule p")[1]).text(users[sessions].address);
-  $($(".accountModule p")[2]).text(users[sessions].phoneNumber);
-  $($(".accountModule p")[3]).text(sessions);
-  $($(".accountModule p")[4]).html(password);
+  $($(".accountModule p")[0]).text(user.firstName+" "+user.lastName);
+  $($(".accountModule p")[1]).text(user.address);
+  $($(".accountModule p")[2]).text(user.phoneNumber);
 
   requestBookings(function() {
     for (let i=0; i<bookings_current.length; i++) {
@@ -243,16 +227,14 @@ function requestBookings(callback) {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       let bookings = JSON.parse(xhttp.responseText);
+      console.log(bookings);
       for (let i = 0; i < bookings.length; i++) {
-        if(bookings[i].email===sessions){
           let checkout = moment(bookings[i].end, 'DD/MM/YYYY');
           if ((checkout.diff(moment(), 'days')) < 0) {
             bookings_past.push(bookings[i]);
           } else {
             bookings_current.push(bookings[i]);
           }
-        }
-
       }
       callback();
     }
@@ -262,6 +244,7 @@ function requestBookings(callback) {
   xhttp.setRequestHeader('Content-type', 'application/json');
   xhttp.send();
 }
+
 
 /**
  * Show the bookings (description and review)
@@ -555,3 +538,4 @@ function accountCancel(index){
   buttons[1].style.display="none";
   buttons[2].style.display="none";
 }
+

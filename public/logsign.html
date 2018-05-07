@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login/SignUp</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login/SignUp</title>
   <meta name="google-signin-scope" content="profile email">
   <meta name="google-signin-client_id" content="586635191861-jr2ddas44f71pul4dc2su091lutgabsv.apps.googleusercontent.com">
   <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -20,79 +20,83 @@
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
 
   <!-- TOP MENU -->
-  <header>
-    <div class="letohLogo"><a href="/">Letoh</a></div>
-    <input type="text" id="mainSearch">
-    <button id="mainMenu" class="mdl-button mdl-js-button mdl-button--icon">
-      <i class="material-icons">more_vert</i>
-    </button>
-    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" data-mdl-for="mainMenu">
-      <li class="mdl-menu__item"><a href="hotelManage.html">Manager Settings</a></li>
-      <li class="mdl-menu__item mdl-menu__item--full-bleed-divider"><a href="accountPage.html">User Settings</a></li>
-    </ul>
-  </header>
+  <header data-w3-include-html="topmenualt_ext.html"></header> 
 
-  <main>
+ <main>
     <div id="content">
 
-      <div class="middlecontent">
-
+      <div class="mdl-grid">
         <!-- Left Input Box -->
-        <div class="input-box-left mdl-card mdl-shadow--2dp">
+        <div class="mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col-desktop 
+          mdl-cell--4-col-tablet mdl-cell--12-col-phone mdl-cell--2-offset-desktop input-box-left">
           <h5>Login</h5>
           <form action="/login" method="post" class="InputForms">
-            Email:<br>
-            <input type="text" name="email" class="inputfield"><br><br>
-            Password:<br>
-            <input type="password" name="password" class="inputfield"><br>
-            <br>
-
-          Social Media:<br>
-          <img alt="social" src="images/fb.png" class="socialimage">
-          <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+            <!-- Email -->  
+            <div class="date mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" name="email" id="email" />
+              <label class="mdl-textfield__label" for="check-in">Email</label>
+            </div>
+            <!-- Password -->  
+            <div class="date mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="password" name="password" id="password" />
+              <label class="mdl-textfield__label" for="password">Password</label>
+            </div>
           <br>
-          <br>
-          Complete Form?
-            <input type="submit">
+          <button style="float: right" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent">
+            Login
+          </button>
           </form>
+          <hr>
+          <div class="g-signin2" data-onsuccess="onSignIn" data-theme="light"></div>
         </div>
         <!-- Right Input Box -->
-        <div class="input-box-right mdl-card mdl-shadow--2dp">
+        <div class="mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col-desktop 
+          mdl-cell--4-col-tablet mdl-cell--12-col-phone input-box-right">
           <h5>Signup</h5>
           <form action="/signup" method="post" class="InputForms">
            <div class="nameloginput">
-             <div class="nameinputsection">
-               First Name:<br>
-               <input type="text" name="firstname" class="nameinput"><br><br>
-             </div>
-             <div class="nameinputsection">
-               Last Name:<br>
-               <input type="text" name="lastname" class="nameinput"><br><br>
-             </div>
+            <!-- First name -->  
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" name="firstname" id="first-name" data-required/>
+              <label class="mdl-textfield__label" for="first-name">First name</label>
+            </div>
+            <!-- Last name -->  
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" name="lastname" id="last-name"data-required/>
+              <label class="mdl-textfield__label" for="first-name">Last name</label>
+            </div> 
+            <!-- Email -->  
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" type="text" name="email" id="emailsignup" data-required/>
+              <label class="mdl-textfield__label" for="emailsignup">Email</label>
+              <span class="mdl-textfield__error">Invalid email format</span>
+            </div>
+            <!-- Password -->  
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="password" pattern="^(?=.*\d).{8,}$" name="password" id="passwordsignup" data-required/>
+              <label class="mdl-textfield__label" for="passwordsignup">Password</label>
+              <span class="mdl-textfield__error">Minimum 8 characters and at least 1 number</span>
+            </div>
+            <label style="margin-top:30px" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+              <input type="checkbox" id="switch-1" name="hotelowner" class="mdl-switch__input">
+              <span class="mdl-switch__label">Are you a hotel owner?</span>
+            </label>
+            <button style="float: right; margin-top: 15px;" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent">
+              Sign up 
+            </button>
            </div>
-           Email:<br>
-           <input type="text" name="email" class="inputfield"><br><br>
-           Password:<br>
-           <input type="password" name="password" class="inputfield"><br>
-
-          <div class="nameinputsection">
-            Complete Form?
-            <input type="submit">
+          <p style="margin-top:50px" id="emailtaken"></p>
           </div>
         </form>
-
         </div>
 
           <p class="middleborder">
-            Are you a hotel owner? If so click <button onclick="test()" class="clickhotel">Here</button>
+              
           </p>
 
-
-
       </div>
-
-
-
+    
+    
     </div>
 
     <footer>
@@ -106,30 +110,8 @@
 </div>
 
 <script>
-  var ishotellogin = false;
-  if(ishotellogin == false){
-    $('.hotellogname').hide();
-    $('.nameloginput').show();
-  } else {
-    $('.hotellogname').show();
-    $('.nameloginput').hide();
-  }
-  function test() {
-    if(ishotellogin == true){
-      ishotellogin = false;
-    } else {
-      ishotellogin = true;
-    }
-    if(ishotellogin == false){
-      $('.hotellogname').hide();
-      $('.nameloginput').show();
-    } else {
-      $('.hotellogname').show();
-      $('.nameloginput').hide();
-    }
-  }
 
-$('form').on('submit',function(e){
+  $('form').on('submit',function(e){
     e.preventDefault();
     $.ajax({
         type     : "POST",
@@ -137,22 +119,28 @@ $('form').on('submit',function(e){
         url      : $(this).attr('action'),
         data     : $(this).serialize(),
         success  : function(data) {
-            $(".printArea").empty().append(data).css('visibility','visible');
+
+          if (data.code == 0) {
+            console.log("email registered!");
+            $('#emailtaken').html('Email already registered'); 
+          }
+          if (data.code == 1) {
+            console.log("success! registered user.");
+            $('#emailtaken').html('Success! A confirmation email has been sent to your email.'); 
+          }
         }
     });
-});
-
-
+  });
 
   function onSignIn(googleUser) {
     // Useful data for your client-side scripts:
     var profile = googleUser.getBasicProfile();
-    console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-    console.log('Full Name: ' + profile.getName());
-    console.log('Given Name: ' + profile.getGivenName());
-    console.log('Family Name: ' + profile.getFamilyName());
-    console.log("Image URL: " + profile.getImageUrl());
-    console.log("Email: " + profile.getEmail());
+//    console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+//    console.log('Full Name: ' + profile.getName());
+//    console.log('Given Name: ' + profile.getGivenName());
+//    console.log('Family Name: ' + profile.getFamilyName());
+//    console.log("Image URL: " + profile.getImageUrl());
+//    console.log("Email: " + profile.getEmail());
 
     // The ID token you need to pass to your backend:
     var id_token = googleUser.getAuthResponse().id_token;
@@ -177,6 +165,6 @@ $('form').on('submit',function(e){
   }
 
 </script>
-
+<script> includeHTML(); </script>
 </body>
 </html>

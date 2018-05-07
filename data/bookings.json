@@ -1,7 +1,7 @@
 [
   {
     "refnum": 12301,
-    "userid": 0,
+    "userid": "test",
     "hotelid": 0,
     "hotelname": "Hilton Adelaide",
     "hoteladdress":"233 Victoria Square, Adelaide SA 5000",

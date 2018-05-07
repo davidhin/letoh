@@ -1,7 +1,13 @@
 // =========== MAIN FUNCTIONS ============== //
 $( document ).ready(function() {
-  "use strict";
+  'use strict';
   sizes();
+
+  document.querySelectorAll('input[data-required]').forEach(function (e) {
+     e.required = true;
+  });
+ 
+
 });
 
 // ============ OTHER =============== //

@@ -19,7 +19,7 @@ var allReviews = [];
 // login functionality
 var users = {};
 var sessions = {};
-users['test'] = {'firstName': 'Test','lastName': 'tesT','address': '9 st','phoneNumber': '900','password': 'password'};
+users['test'] = {'email': 'test', 'firstName': 'Test','lastName': 'tesT','address': '9 st','phoneNumber': '900','password': 'password'};
 
 // Read hotel details into variable hotels
 fs.readFile('data/hotels.json', 'utf8', function(err, data) {
@@ -51,7 +51,13 @@ fs.readFile('data/bookings.json', 'utf8', function(err, data) {
 
 // Send booking information to client
 router.get('/getBookings.json', function(req, res) {
-  res.send(JSON.stringify(bookings));
+  let bookingSubset = [];
+  for (let i = 0; i < bookings.length; i++) {
+    if (bookings[i].userid == sessions[req.session.id]) {
+      bookingSubset.push(bookings[i]);
+    }
+  }
+  res.send(bookingSubset);
 });
 
 // Send information to client
@@ -214,7 +220,7 @@ router.post('/signup', function(req, res, next) {
 
   console.log('Success!');
   console.log(users);
-  return res.redirect('./logsign.html');
+  return res.send({'code': 1, 'message': 'User registered!'});
 });
 
 router.post('/login', function(req, res, next) {
@@ -264,7 +270,7 @@ async function verify(token, req) {
    users[email] = {
      'firstName': req.body.firstname,
      'lastName': req.body.lastname,
-     'password': req.body.password,
+     'email': email,
      'google': userid,
      'phoneNumber': 0,
      'address': 'asd',
@@ -275,36 +281,13 @@ async function verify(token, req) {
   console.log(sessions[req.session.id]);
 }
 
-// sessions work in progress
-router.get('/session', function(req, res, next) {
-  console.log('server');
-  console.log(sessions);
-  //res.send(JSON.stringify([{'id': sessions[req.session.id]}]));
-  res.send(sessions[req.session.id]);
+// Return user id (email) for the current session
+router.get('/usersession.json', function(req, res, next) {
+  if (sessions[req.session.id] == null) {
+    return res.send({'login': 0});
+  } else {
+    res.send(users[sessions[req.session.id]]);
+  }
 });
-
-// =============================== UNUSED ============================== //
-// Add hotel data to the file
-// router.post('/addData', function(req, res) {
-//   var added_hotel_str = JSON.stringify(req.body);
-//   var added_hotel_obj = JSON.parse(added_hotel_str);
-//
-//   // Read hotel details into variable hotels
-//   fs.readFile('data/hotel.json', 'utf8', function(err, data) {
-//     hotels = JSON.parse(data);
-//
-//     // Push hotel
-//     hotels.push(added_hotel_obj);
-//     var main_details = JSON.stringify(hotels);
-//     fs.writeFile('data/hotel.json', main_details, 'utf8', function(err) {
-//       if (err) {
-//         return console.log(err);
-//       }
-//       console.log("hotel.json was saved!");
-//     });
-//   });
-//
-// });
-//
 
 module.exports = router;

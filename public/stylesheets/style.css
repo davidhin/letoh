@@ -69,7 +69,14 @@ footer a {
   float: left;
 }
 
-.letohLogo a {
+ .letohLogoAlt { 
+   padding-left: calc(50% - 30px); 
+   padding-top: 5px;
+   float: left; 
+ }
+ 
+ .letohLogo a,
+ .letohLogoAlt a {
   font-size: 31px !important;
   font-family: Lobster, sans-serif !important;
   color: white;
@@ -291,6 +298,10 @@ p.mdl-card__supporting-text{
   margin-top: -20px;
 }
 
+.mdl-textfield {
+  width: 100% !important;
+}
+
 .mdl-textfield__input:focus ~ label,
 .mdl-textfield__input:valid ~ label,
 .mdl-textfield__input:invalid ~ label {
@@ -383,6 +394,7 @@ p.mdl-card__supporting-text{
   header { height: 64px; }
   article { padding-top: 64px; }
   .letohLogo { padding: 12px 10px 5px 20px; }
+  .letohLogoAlt { padding-top: 12px; }
   #mainSearch { padding: 10px; margin-top: 5px; }
   #hoteldetails_overlay {
     max-width: 100%;
@@ -809,25 +821,25 @@ p.mdl-card__supporting-text{
 }
 
 .input-box-left{
-  width:37%;
-  height:340px;
-  float: left;
   background:white;
   margin-right:15px;
-  padding-left:5%;
-  padding-right: 5%;
-  padding-bottom: 5%;
+  padding: 20px;
 }
 
 .input-box-right{
-  width:37%;
-  height:340px;
-  float: left;
   background:white;
-  padding-left: 5%;
-  padding-right: 5%;
-  padding-bottom: 5%;
+  padding: 20px;
 }
+
+.input-box-right form{
+  font-family: roboto, sans-serif;
+}
+
+  .input-box-left h5, .input-box-right h5 {
+    margin: 10px 0 15px 0;
+    font-weight: 100; 
+    font-size: 30px;
+  }
 
 .InputForms{
 /*  margin-left: auto;
