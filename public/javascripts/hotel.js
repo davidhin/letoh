@@ -25,10 +25,11 @@ $( document ).ready(function() {
  *   obtain success
  */
 function userSession(callback) {
+  //Check if the page loading is the account page or not
   if(window.location.pathname!=='/accountPage.html'){
     return;
   }
-  
+
   let xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {
@@ -334,12 +335,62 @@ function get_bookings(booking, can_change) {
   //    }
 
   // Review Module
-  $('<div/>')
-    .attr('class','reviewmodule')
-    .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone")
-    .append($('<h3 class="hotelboxheadings">Your review</h3>'))
-    .append($('<button class="reviewButton" onclick="reviewButton(this)" style="margin:auto">+</button>'))
-    .appendTo(book_container);
+
+    let xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function() {
+      if (this.readyState==4 && this.status == 200) {
+        var booking = JSON.parse(xhttp.responseText);
+        userSession(function(){
+
+        });
+
+        let xhttpa = new XMLHttpRequest();
+
+        xhttpa.onreadystatechange = function() {
+          if (this.readyState==4 && this.status == 200) {
+            var reviews = JSON.parse(xhttpa.responseText);
+            if(reviews.id==-1){
+              $('<div/>')
+                .attr('class','reviewmodule')
+                .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone")
+                .append($('<h3 class="hotelboxheadings">Your review</h3>'))
+                .append($('<button class="reviewButton" onclick="reviewButton(this)" style="margin:auto">+</button>'))
+                .appendTo(book_container);
+
+            }else{
+              var stars = "";
+              for(var j=0;j<reviews.stars;j++){
+                stars += "&#10029;";
+              }
+              for(var k=reviews.stars;k<5;k++){
+                stars += "&#10025;";
+              }
+
+              $('<div/>')
+                .attr('class','reviewmodule')
+                .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone")
+                .append($('<h3 class="hotelboxheadings">Your review</h3>'))
+                .append($('<span>Stars: </span>'))
+                .append($('<p>'+stars+'</p>'))
+                .append($('<p class="boxparagraph" style="height: 185px; padding-bottom: 0px; white-space: normal; word-break: keep-all; overflow: auto;">'+reviews.review+'</p>'))
+                .appendTo(book_container);
+
+            }
+          }
+        };
+
+        xhttpa.open('POST', '/getReviewsSpecific.json', true);
+        xhttpa.setRequestHeader('Content-type', 'application/json');
+        xhttpa.send(JSON.stringify({"hotelid":booking.hotelid,"roomid":booking.roomid,"email":user.email}));
+
+      }
+    };
+
+    xhttp.open('POST', '/getBookingsRefNum.json', true);
+    xhttp.setRequestHeader('Content-type', 'application/json');
+    xhttp.send(JSON.stringify({'refnum':booking.refnum}));
+
 }
 
 function editBookingedit(index){
@@ -454,13 +505,11 @@ function postButton(index){
         }
       }
 
-      userData(function() {
-        userSession(function(){
-          let xhttp = new XMLHttpRequest();
-          xhttp.open('POST', '/addReview', true);
-          xhttp.setRequestHeader('Content-type', 'application/json');
-          xhttp.send(JSON.stringify({"id":hotelid,"roomid": roomid,"name":users[sessions].firstName+" "+users[sessions].lastName,"stars":starsVal,"review":textbox[0].value}));
-        });
+      userSession(function(){
+        let xhttp = new XMLHttpRequest();
+        xhttp.open('POST', '/addReview', true);
+        xhttp.setRequestHeader('Content-type', 'application/json');
+        xhttp.send(JSON.stringify({"id":hotelid,"roomid": roomid,"name":user.firstName+" "+user.lastName,"email":user.email,"stars":starsVal,"review":textbox[0].value}));
       });
 
     }

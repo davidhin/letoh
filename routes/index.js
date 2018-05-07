@@ -49,6 +49,16 @@ fs.readFile('data/bookings.json', 'utf8', function(err, data) {
   bookings = JSON.parse(data);
 });
 
+//Get booking based on ref num
+router.post('/getBookingsRefNum.json', function(req, res) {
+  let refNum = req.body.refum
+  for(let i=0;i<bookings.length;i++){
+    if(bookings[i].refum==refNum){
+      res.send(bookings[i]);
+    }
+  }
+});
+
 // Send booking information to client
 router.get('/getBookings.json', function(req, res) {
   let bookingSubset = [];
@@ -120,11 +130,28 @@ router.post('/getReviews.json', function(req, res) {
   res.send(JSON.stringify(reviews));
 });
 
+//Getting specific review
+router.post('/getReviewsSpecific.json', function(req, res) {
+  reviews = [];
+  let hotelID = req.body.hotelid;
+  let roomID = req.body.roomid;
+  let email = req.body.email;
+
+  for (let i = 0; i < allReviews.length; i++) {
+    if (allReviews[i].id == hotelID && allReviews[i].roomid == roomID && allReviews[i].email == email) {
+      res.send(JSON.stringify(allReviews[i]));
+    }
+  }
+
+  res.send(JSON.stringify({"id":-1}));
+});
+
 router.post('/addReview',function(req,res){
   let newReview ={
     "id":req.body.id,
     "roomid": req.body.roomid,
     "name":req.body.name,
+    "email":req.body.email,
     "stars":req.body.stars,
     "review":req.body.review
   };
