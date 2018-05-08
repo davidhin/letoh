@@ -4,11 +4,10 @@ var user;
 $( document ).ready(function() {
   'use strict';
   sizes();
-
+  header();
   document.querySelectorAll('input[data-required]').forEach(function (e) {
      e.required = true;
   });
-
   sessionCheck();
 });
 
@@ -69,6 +68,29 @@ window.onresize = function(event) {
   sizes();
   //bookingData();
 };
+
+//Setting the header names and link appearance
+function header(){
+  let xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState==4 && this.status == 200) {
+      let user = JSON.parse(xhttp.responseText);
+      if(user.login == 0){
+        $("#managerSettings").hide();
+        $("#userSettings").hide();
+      }else{
+        $("#managerSettings").show();
+        $("#userSettings").show();
+        $("#userSettings a").text(user.firstName);
+        $("#registerLogin").hide();
+      }
+    }
+  };
+
+  xhttp.open('GET', 'usersession.json', true);
+  xhttp.setRequestHeader('Content-type', 'application/json');
+  xhttp.send();
+}
 
 // =========== UPDATE MDL FOR DYNAMICALLY CREATED OBJECTS =========== //
 // Dynamically created material objects must be manually 'upgraded'

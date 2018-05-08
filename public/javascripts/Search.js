@@ -190,6 +190,19 @@ function reviewFilling(id, booking,hotel){
  *   to the selected room for the selected hotel
  */
 function bookingpage(hotelInput, roomInput, variable) {
+
+  let xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      if (JSON.parse(xhttp.responseText).login !== 0) {
+        $('.userHidden').hide();
+      }
+    }
+  }
+  xhttp.open('GET', '/usersession.json', true);
+  xhttp.setRequestHeader('Content-type', 'application/json');
+  xhttp.send();
+
   $('#map').hide();
   $('.mdl-layout__content').animate({scrollTop: 0});
   $('#bookingpage_overlay').show();
