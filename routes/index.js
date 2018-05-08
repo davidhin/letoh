@@ -254,7 +254,7 @@ router.post('/signup', function(req, res, next) {
     'password': req.body.password,
     'phoneNumber': 0,
     'address': 'asd',
-    'manager-acc': manager,
+    'manageracc': manager,
   };
 
   console.log('Success!');
@@ -279,9 +279,12 @@ router.post('/login', function(req, res, next) {
       console.log('incorrect input');
       return res.send({'login': 0});
     }
+  }
+});
 
-  // If logged in using google
-  } else if (req.body.idtoken !== undefined) {
+// If logged in using google
+router.post('/googlelogin', function(req, res, next) {
+  if (req.body.idtoken !== undefined) {
       console.log('Google token received');
       verify(req.body.idtoken, req).catch(console.error);
       return res.send({'login': 1});
@@ -303,19 +306,33 @@ async function verify(token, req) {
   const payload = ticket.getPayload();
   const userid = payload['sub'];
   const email = payload['email'];
+  const passwordgen = generatePassword(); 
+
   if (users[email] == null) {
    users[email] = {
-     'firstName': req.body.firstname,
-     'lastName': req.body.lastname,
+     'firstName': payload['given_name'],
+     'lastName': payload['family_name'],
      'email': email,
      'google': userid,
+     'manageracc': 0,
      'phoneNumber': 0,
      'address': 'asd',
+     'password': passwordgen,
    };
   }
   sessions[req.session.id] = email;
   console.log(req.session.id);
   console.log(sessions[req.session.id]);
+}
+
+function generatePassword() {
+    var length = 8,
+        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        retVal = "";
+    for (var i = 0, n = charset.length; i < length; ++i) {
+        retVal += charset.charAt(Math.floor(Math.random() * n));
+    }
+    return retVal;
 }
 
 // Return user id (email) for the current session

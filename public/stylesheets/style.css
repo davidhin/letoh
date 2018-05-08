@@ -391,7 +391,7 @@ p.mdl-card__supporting-text{
   .mdl-layout__content {
     margin-left: 300px !important;
   }
-  header { height: 64px; }
+  header { height: 64px; n}
   article { padding-top: 64px; }
   .letohLogo { padding: 12px 10px 5px 20px; }
   .letohLogoAlt { padding-top: 12px; }
@@ -400,6 +400,9 @@ p.mdl-card__supporting-text{
     max-width: 100%;
     height: calc(100vh - 125px);
     overflow: auto;
+  }
+  .mainMenu {
+    margin: 8px 9px 0 0 !important;
   }
 }
 
@@ -418,7 +421,7 @@ p.mdl-card__supporting-text{
   #mainSearch {
       width: calc(100% - 185px);
   }
-  #mainMenu {
+  .mainMenu {
     margin: 0;
   }
   #content {
