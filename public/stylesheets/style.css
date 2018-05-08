@@ -97,7 +97,7 @@ footer a {
   width: calc(100% - 190px);
 }
 
-#mainMenu {
+.mainMenu {
   margin-top: 6px;
   margin-right: 13px;
   color: white;

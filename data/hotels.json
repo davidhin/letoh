@@ -1,6 +1,6 @@
 [
   {"id":0,
-   "owner":"someone@gmail.com",
+   "owner":"admin",
    "name":"Hilton Adelaide",
    "address":"233 Victoria Square, Adelaide SA 5000",
    "lat":-34.9284989,
@@ -12,7 +12,7 @@
   },
 
   {"id":1,
-   "owner":"someone@gmail.com",
+   "owner":"admin",
    "name":"Mantra Hindmarsh Square",
    "address":"55-67 Hindmarsh Square, Adelaide SA 5000",
    "lat":-34.9265988,
@@ -24,7 +24,7 @@
   },
 
   {"id":2,
-   "owner":"someone@gmail.com",
+   "owner":"admin",
    "name":"Ibis Adelaide",
    "address":"122 Grenfell St, Adelaide SA 5000",
    "lat":-34.935043,
@@ -36,7 +36,7 @@
   },
 
   {"id":3,
-   "owner":"JohnDoe@gfail.com",
+   "owner":"manager",
    "name":"Paradise Interchange Hotel",
    "address":"700 Lower North East Rd, Paradise SA 5075",
    "lat":-34.8685046,
@@ -47,7 +47,7 @@
   },
 
   {"id":4,
-   "owner":"AlabamaJoe@gfail.com",
+   "owner":"manager",
    "name":"Letoh Hotel",
    "address":"TEMP ADDRESS",
    "lat":-34.935043,

@@ -41,6 +41,7 @@
               <input class="mdl-textfield__input" type="password" name="password" id="password" />
               <label class="mdl-textfield__label" for="password">Password</label>
             </div>
+            <p id="loginMessage"></p>
           <br>
           <button style="float: right" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent">
             Login
@@ -127,6 +128,17 @@
           if (data.code == 1) {
             console.log("success! registered user.");
             $('#emailtaken').html('Success! A confirmation email has been sent to your email.');
+          }
+
+          if (data.login == 1) {
+            console.log("success! Logging in...");
+            $('#loginMessage').html('Success! Logging in...');
+            window.location.replace("http://localhost:3000/");
+          }
+          
+          if (data.login == 0) {
+            console.log("Incorrect Input");
+            $('#loginMessage').html('Wrong email or password!');
           }
         }
     });

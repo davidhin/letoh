@@ -19,7 +19,9 @@ var allReviews = [];
 // login functionality
 var users = {};
 var sessions = {};
-users['test'] = {'email': 'test', 'firstName': 'Test','lastName': 'tesT','address': '9 st','phoneNumber': '900','password': 'password'};
+users['test'] = {'email': 'test', 'firstName': 'Test','lastName': 'tesT','address': '9 st','phoneNumber': '900','password': 'password', 'manageracc': 0};
+users['admin'] = {'email': 'admin', 'firstName': 'Admin','lastName': 'Manager','address': '9 st','phoneNumber': '900','password': 'admin', 'manageracc': 1};
+users['manager'] = {'email': 'manager', 'firstName': 'Admin','lastName': 'Manager','address': '9 st','phoneNumber': '900','password': 'manager', 'manageracc': 1};
 
 // Read hotel details into variable hotels
 fs.readFile('data/hotels.json', 'utf8', function(err, data) {
@@ -72,6 +74,27 @@ router.get('/getBookings.json', function(req, res) {
 });
 
 // Send information to client
+router.get('/hotelManage.html', function(req, res) {
+  if (sessions[req.session.id] == null) {
+    return res.send({'login': 0});
+  } else if (sessions[req.session.id].manageracc == 0) {
+    return res.send({'login': 0});
+  } else {
+    res.send(users[sessions[req.session.id]]);
+  }
+});
+
+router.get('/getHotelSubset.json', function(req, res) {
+  let hotelSubset = [];
+  for (let i = 0; i < hotels.length; i++) {
+    if (sessions[req.session.id] == hotels[i].owner) {
+      hotelSubset.push(hotels[i]);
+    }
+  }
+  res.send(JSON.stringify(hotelSubset));
+});
+
+// Send information to client
 router.get('/getHotels.json', function(req, res) {
   res.send(JSON.stringify(hotels));
 });
@@ -82,7 +105,7 @@ router.post('/addHotel.json', function(req, res) {
 
   let newId = hotels[hotels.length-1].id + 1;
   let name = 'New Hotel ID = ' + newId;
-  let newHotel = {'id': newId, 'name': name, 'price': 0, 'rating': 1};
+  let newHotel = {'id': newId, 'owner': sessions[req.session.id], 'name': name, 'price': 0, 'rating': 1};
   hotels.push(newHotel);
 
   res.send(newHotel);
@@ -228,6 +251,7 @@ router.post('/signup', function(req, res, next) {
     'password': req.body.password,
     'phoneNumber': 0,
     'address': 'asd',
+    'manager-acc': req.body.hotelowner,
   };
 
   console.log('Success!');
@@ -241,19 +265,16 @@ router.post('/login', function(req, res, next) {
     // David's smart thing
     // If user does not exist, resend login page
     if (users[req.body.email] === undefined ) {
-      console.log('Sign Up');
-      return res.redirect('./logsign.html');
+      return res.send({'login': 0});
     // If user exists and password matches
     } else if (users[req.body.email].password === req.body.password) {
-        // Record user current session
-        sessions[req.session.id] = req.body.email;
-        console.log(req.session.id);
-        console.log(sessions[req.session.id]);
-        return res.redirect('/');
+      // Record user current session
+      sessions[req.session.id] = req.body.email;
+      return res.send({'login': 1});
     // All inputs incorrect, I think you can get rid of this field, cos if the user doesn't exist, that bit will run
     } else {
       console.log('incorrect input');
-      return res.redirect('./logsign.html');
+      return res.send({'login': 0});
     }
 
   // If logged in using google
@@ -300,6 +321,24 @@ router.get('/usersession.json', function(req, res, next) {
   } else {
     res.send(users[sessions[req.session.id]]);
   }
+});
+
+router.get('/managersession.json', function(req, res, next) {
+  if (users[sessions[req.session.id]].manageracc != 1) {
+    return res.send({'login': 0});
+  } else {
+    res.send(users[sessions[req.session.id]]);
+  }
+});
+
+router.get('/logout', function(req, res) {
+  req.session.destroy(function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      return res.redirect('/');
+    }
+  });
 });
 
 module.exports = router;
