@@ -4,10 +4,12 @@ var hotels = [];
 
 $( document ).ready(function() {
   'use strict';
-  requestHotels(function() {
-    loadHotelSidebar();
-    mgrOverview();
-    sizes();
+  checkAuthorised(function() {
+    requestHotels(function() {
+      loadHotelSidebar();
+      mgrOverview();
+      sizes();
+    });
   });
 });
 
@@ -24,9 +26,36 @@ function requestHotels(callback) {
     }
   };
 
-  xhttp.open('GET', 'getHotels.json', true);
+  xhttp.open('GET', 'getHotelSubset.json', true);
   xhttp.setRequestHeader('Content-type', 'application/json');
   xhttp.send();
+}
+
+/**
+ * Check if the user is a hotel manager
+ * @param {function} callback The callback function
+ */
+function checkAuthorised(callback) {
+  let xhttp = new XMLHttpRequest();
+
+   xhttp.onreadystatechange = function() {
+     if (this.readyState==4 && this.status == 200) {
+       // If try to access without being logged in
+       if (JSON.parse(xhttp.responseText).login == 0) {
+         window.location.replace('http://localhost:3000/');
+         return;
+       }
+
+       user = JSON.parse(xhttp.responseText);
+       console.log(user);
+       mdl_upgrade();
+       callback();
+     }
+   };
+
+   xhttp.open('GET', 'managersession.json', true);
+   xhttp.setRequestHeader('Content-type', 'application/json');
+   xhttp.send();
 }
 
 // =========== LOAD CONTENT ============== //

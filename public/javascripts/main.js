@@ -1,3 +1,5 @@
+var user;
+
 // =========== MAIN FUNCTIONS ============== //
 $( document ).ready(function() {
   'use strict';
@@ -6,11 +8,51 @@ $( document ).ready(function() {
   document.querySelectorAll('input[data-required]').forEach(function (e) {
      e.required = true;
   });
- 
 
+  sessionCheck();
 });
 
 // ============ OTHER =============== //
+
+function sessionCheck() {
+  let xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+    if (this.readyState==4 && this.status == 200) {
+      // If not logged in
+      if (JSON.parse(xhttp.responseText).login == 0) {
+        $('#menuItemUser').hide();
+        $('#menuItemManager').hide();
+        $('#menuItemLogout').hide();
+        $('#menuIcon').html('more_vert');
+        mdl_upgrade();
+        return;
+      }
+      
+      // If logged in
+      user = JSON.parse(xhttp.responseText);
+      $('#menuItemLogin').hide();
+      if (user.manageracc == 0) {
+        $('#menuItemManager').hide();
+        mdl_upgrade();
+      }
+      $('#menuIcon').html('account_circle');
+      mdl_upgrade();
+      console.log(user);
+    }
+  };
+  xhttp.open('GET', 'usersession.json', true);
+  xhttp.setRequestHeader('Content-type', 'application/json');
+  xhttp.send();
+}
+
+function logout() {
+  let xhttp = new XMLHttpRequest();
+  xhttp.open('GET', 'logout', true);
+  xhttp.setRequestHeader('Content-type', 'application/json');
+  xhttp.send();
+}
+
 function sizes() {
   "use strict";
   var headerHeight = $("header").height();

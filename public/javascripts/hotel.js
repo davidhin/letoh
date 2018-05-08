@@ -3,15 +3,6 @@ var bookings_past = [];
 var user;
 
 /* ================== Functions for Both Pages ===================== */
-/*
-$( document ).ready(function() {
-  "use strict";
-  //userSession();
-  userData(function() {
-    accountData();
-  });
-
-});*/
 $( document ).ready(function() {
   'use strict';
   userSession(function() {
@@ -22,7 +13,7 @@ $( document ).ready(function() {
 /**
  * Get the user corresponding to session id
  * @param {function} callback The callback function on session
- *   obtain success
+ * obtain success
  */
 function userSession(callback) {
   //Check if the page loading is the account page or not

@@ -12,6 +12,7 @@
   <script src="javascripts/moment.js"></script>
   <script src="javascripts/hotel.js"></script>
   <script src="javascripts/Search.js"></script>
+  <script src="javascripts/jsontests.js"></script>
   <script src="javascripts/main.js"></script>
 </head>
 
@@ -20,20 +21,17 @@
 
   <!-- TOP MENU -->
   <header>
-
-<div class="letohLogo"><a href="/">Letoh</a></div>
-<input type="text" id="mainSearch">
-<button id="mainMenu" class="mdl-button mdl-js-button mdl-button--icon">
-  <i class="material-icons">more_vert</i>
-</button>
-<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" data-mdl-for="mainMenu">
-  <li class="mdl-menu__item"><a href="hotelManage.html">Manager Settings</a></li>
-<!--  <li class="mdl-menu__item mdl-menu__item--full-bleed-divider"><a href="accountPage.html">User Settings</a></li>-->
-  <li class="mdl-menu__item mdl-menu__item--full-bleed-divider"><a id="accountPageLink">User Settings</a></li>
-  <li class="mdl-menu__item"><a href="logsign.html">Register/Login</a></li>
-</ul>
-
-
+    <div class="letohLogo"><a href="/">Letoh</a></div>
+    <input type="text" id="mainSearch">
+    <button id="mainMenuSearch" class="mainMenu mdl-button mdl-js-button mdl-button--icon">
+      <i style="color:white" id="menuIcon" class="material-icons"></i>
+    </button>
+    <ul id="menuItems" class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" data-mdl-for="mainMenuSearch">
+      <li id="menuItemLogin" class="mdl-menu__item" onclick="location.href='http://localhost:3000/logsign.html'">Login/Register</li>
+      <li id="menuItemManager" class="mdl-menu__item" onclick="location.href='http://localhost:3000/hotelManage.html'">Manager Settings</li>
+      <li id="menuItemUser" class="mdl-menu__item" onclick="location.href='http://localhost:3000/accountPage.html'">User Settings</li>
+      <li id="menuItemLogout" class="mdl-menu__item" onclick="logout()">Log Out</li>
+    </ul>
   </header>
 
   <!-- SIDEBAR -->
@@ -62,41 +60,9 @@
   </main>
 
 </div>
-<script src="javascripts/jsontests.js"></script>
 <script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvzIpwWPST-CXenOpSNOFOaVBiPle-zMs&callback=initMap&libraries=places">
 </script>
-<script>includeHTML();
-
-  var el = document.getElementById('accountPageLink');
-  el.onclick = checkLogin;
-
-  function checkLogin() {
-    let xhttp = new XMLHttpRequest();
-
-    xhttp.onreadystatechange = function() {
-      if (this.readyState==4 && this.status == 200) {
-        // If try to access without being logged in
-        if (JSON.parse(xhttp.responseText).login == 0) {
-          window.location.replace("http://localhost:3000/logsign.html");
-          console.log('not logged in');
-          return;
-        }else{
-          window.open('accountPage.html', '_self');
-        }
-
-        user = JSON.parse(xhttp.responseText);
-        console.log(user);
-        mdl_upgrade();
-        callback();
-      }
-    };
-
-    xhttp.open('GET', 'usersession.json', true);
-    xhttp.setRequestHeader('Content-type', 'application/json');
-    xhttp.send();
-  }
-
-</script>
+<script>includeHTML();</script>
 </body>
 </html>
