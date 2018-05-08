@@ -3,15 +3,7 @@ var bookings_past = [];
 var user;
 
 /* ================== Functions for Both Pages ===================== */
-/*
-$( document ).ready(function() {
-  "use strict";
-  //userSession();
-  userData(function() {
-    accountData();
-  });
 
-});*/
 $( document ).ready(function() {
   'use strict';
   userSession(function() {
@@ -150,24 +142,41 @@ function submitted(hotelInput, roomInput, variable) {
     }
   };
 
-  let newBooking = {
-    'refnum': Math.floor(Math.random() * 1000000),
-    'userid': user.email,
-    'hotelid': hotelInput.id,
-    'hotelname': hotelInput.name,
-    'hoteladdress': hotelInput.address,
-    'roomid': roomInput.roomid,
-    'roomname': roomInput.name,
-    'cost': $('#totalCost').html().substring(4),
-    'start': moment($('#check-in').val()).format('DD/MM/YYYY'),
-    'end': moment($('#check-out').val()).format('DD/MM/YYYY'),
-    'comments': $('#extraComments').val(),
-    'email': $('#emailInput').val(),
-  };
+  let email = "";
+  let xhttpa = new XMLHttpRequest();
+  xhttpa.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      let user = JSON.parse(xhttpa.responseText);
+      if (user.login == 0) {
+        email = $($('.mdl-textfield__label')[0]).val();
+      }else{
+        email = user.email;
+      }
 
-  xhttp.open('POST', 'newBooking.json', true);
-  xhttp.setRequestHeader('Content-type', 'application/json');
-  xhttp.send(JSON.stringify(newBooking));
+      let newBooking = {
+        'refnum': Math.floor(Math.random() * 1000000),
+        'userid': email,
+        'hotelid': hotelInput.id,
+        'hotelname': hotelInput.name,
+        'hoteladdress': hotelInput.address,
+        'roomid': roomInput.roomid,
+        'roomname': roomInput.name,
+        'cost': $('#totalCost').html().substring(4),
+        'start': moment($('#check-in').val()).format('DD/MM/YYYY'),
+        'end': moment($('#check-out').val()).format('DD/MM/YYYY'),
+        'comments': $('#extraComments').val(),
+        'email': email
+      };
+
+      xhttp.open('POST', 'newBooking.json', true);
+      xhttp.setRequestHeader('Content-type', 'application/json');
+      xhttp.send(JSON.stringify(newBooking));
+
+    }
+  }
+  xhttpa.open('GET', '/usersession.json', true);
+  xhttpa.setRequestHeader('Content-type', 'application/json');
+  xhttpa.send();
 }
 
 function summarise_details(details) {
@@ -335,7 +344,6 @@ function get_bookings(booking, can_change) {
   //    }
 
   // Review Module
-
   let xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {

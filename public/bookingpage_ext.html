@@ -1,4 +1,4 @@
-<!-- EXTERNAL HTML FILE - This block is unnecessary but makes it pass validator --> 
+<!-- EXTERNAL HTML FILE - This block is unnecessary but makes it pass validator -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,23 +76,25 @@
   <div class="leftcontent bookingCard mdl-card mdl-shadow--2dp">
     <h2 style="margin: 40px 0px 0px 0px;" class="sectionheadings">1. Enter Details</h2>
     <hr />
-    <h3 class="boxheadings">First Name: *</h3>
-    <p class="boxparagraph">Please give the name of guest staying in the room as it is required for check-in.</p>
+    <div class="userHidden">
+      <h3 class="boxheadings">First Name: *</h3>
+      <p class="boxparagraph">Please give the name of guest staying in the room as it is required for check-in.</p>
 
-    <form action="/action_page.php"> <!-- Placeholder action page -->
-      <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
-        <input type="text" name="FirstName" class="inputbox mdl-textfield__input" onblur="compulsory(this)" />
-        <label class="mdl-textfield__label">e.g. John</label>
-      </div>
-    </form>
+      <form action="/action_page.php"> <!-- Placeholder action page -->
+        <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
+          <input type="text" name="FirstName" class="inputbox mdl-textfield__input" onblur="compulsory(this)" />
+          <label class="mdl-textfield__label">e.g. John</label>
+        </div>
+      </form>
 
-    <h3 class="boxheadings">Last Name: *</h3>
-    <form action="/action_page.php">
-      <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
-        <input type="text" name="LastName" class="inputbox mdl-textfield__input" onblur="compulsory(this)" />
-        <label class="mdl-textfield__label">e.g. Doe</label>
-      </div>
-    </form>
+      <h3 class="boxheadings">Last Name: *</h3>
+      <form action="/action_page.php">
+        <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
+          <input type="text" name="LastName" class="inputbox mdl-textfield__input" onblur="compulsory(this)" />
+          <label class="mdl-textfield__label">e.g. Doe</label>
+        </div>
+      </form>
+    </div>
 
     <h3 class="boxheadings">Mobile Number: *</h3>
     <form action="/action_page.php">
@@ -106,15 +108,16 @@
         <span class="mdl-checkbox__label">Receive emergency texts with this number</span>
       </label>
     </form>
-
-    <h3 class="boxheadings">Email: *</h3>
-    <form action="/action_page.php">
-      <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
-        <input type="text" id="emailInput" name="Email" class="inputbox mdl-textfield__input" onblur="compulsory(this)" />
-        <label class="mdl-textfield__label">e.g. name@domain.com</label>
-      </div>
-    </form>
-    <p class="boxparagraph">Confirmation email will be sent to this address</p>
+    <div class="userHidden">
+      <h3 class="boxheadings">Email: *</h3>
+      <form action="/action_page.php">
+        <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
+          <input type="text" id="emailInput" name="Email" class="inputbox mdl-textfield__input" onblur="compulsory(this)" />
+          <label class="mdl-textfield__label">e.g. name@domain.com</label>
+        </div>
+      </form>
+      <p class="boxparagraph">Confirmation email will be sent to this address</p>
+    </div>
 
     <h3 class="boxheadings">Smoking Requests:</h3>
     <form action="/action_page.php">
