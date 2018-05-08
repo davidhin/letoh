@@ -143,6 +143,8 @@ function submitted(hotelInput, roomInput, variable) {
   };
 
   let email = "";
+  //checking if there is a session, if there is, just get the email from the session
+  //otherwise, pull from the input field
   let xhttpa = new XMLHttpRequest();
   xhttpa.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -215,9 +217,17 @@ function accountData(){
   "use strict";
   //Account data
 
+  let password="";
+
+  for(var i=0;i<user.password.length;i++){
+    password+='&#8226;';
+  }
+
   $($(".accountModule p")[0]).text(user.firstName+" "+user.lastName);
   $($(".accountModule p")[1]).text(user.address);
   $($(".accountModule p")[2]).text(user.phoneNumber);
+  $($(".accountModule p")[3]).text(user.email);
+  $($(".accountModule p")[4]).html(password);
 
   requestBookings(function() {
     for (let i=0; i<bookings_current.length; i++) {
