@@ -34,15 +34,6 @@ fs.readFile('data/rooms.json', 'utf8', function(err, data) {
 fs.readFile('data/reviews.json', 'utf8', function(err, data) {
   allReviews = JSON.parse(data);
 });
-/*
- // Read all users
-fs.readFile('data/users.json', 'utf8', function(err, data) {
-  users = JSON.parse(data);
-});
-
-router.get('/getUsers.json', function(req, res) {
-  res.send(JSON.stringify(users));
-});*/
 
 // Read all bookings
 fs.readFile('data/bookings.json', 'utf8', function(err, data) {
