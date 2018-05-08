@@ -206,7 +206,6 @@ router.post('/changeRoomDetails.json', function(req, res) {
 
 router.post('/newBooking.json', function(req, res) {
   bookings.push(req.body);
-
   res.send(req.body);
 });
 
@@ -248,7 +247,7 @@ router.post('/signup', function(req, res, next) {
   if (req.body.hotelowner) manager = 1;
 
   users[req.body.email] = {
-    // 'id': userID,
+    'email': req.body.email,
     'firstName': req.body.firstname,
     'lastName': req.body.lastname,
     'password': req.body.password,
