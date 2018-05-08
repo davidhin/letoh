@@ -156,6 +156,11 @@
 
     // The ID token you need to pass to your backend:
     var id_token = googleUser.getAuthResponse().id_token;
+
+    // Prevent auto sign in
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.disconnect();
+
     console.log("ID Token: " + id_token);
     getUserInfo({'idtoken': id_token});
   };
@@ -165,13 +170,22 @@
 
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        response = JSON.parse(xhttp.responseText);
-        if (response.code == 0)
-          console.log("email registered!");
+          data = JSON.parse(xhttp.responseText);
+          if (data.login == 1) {
+            console.log("success! Logging in...");
+            $('#loginMessage').html('Success! Logging in...');
+            window.location.replace("http://localhost:3000/");
+          }
+          
+          if (data.login == 0) {
+            console.log("Incorrect Input");
+            $('#loginMessage').html('Wrong email or password!');
+          }
+ 
       }
     };
 
-    xhttp.open("POST", "/login", true);
+    xhttp.open("POST", "/googlelogin", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send(JSON.stringify(params));
   }
