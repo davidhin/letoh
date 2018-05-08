@@ -63,7 +63,7 @@
             </div>
             <!-- Last name -->
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" name="lastname" id="last-name"data-required/>
+              <input class="mdl-textfield__input" type="text" name="lastname" id="last-name" data-required/>
               <label class="mdl-textfield__label" for="first-name">Last name</label>
             </div>
             <!-- Email -->
@@ -135,7 +135,7 @@
             $('#loginMessage').html('Success! Logging in...');
             window.location.replace("http://localhost:3000/");
           }
-          
+
           if (data.login == 0) {
             console.log("Incorrect Input");
             $('#loginMessage').html('Wrong email or password!');
@@ -176,12 +176,12 @@
             $('#loginMessage').html('Success! Logging in...');
             window.location.replace("http://localhost:3000/");
           }
-          
+
           if (data.login == 0) {
             console.log("Incorrect Input");
             $('#loginMessage').html('Wrong email or password!');
           }
- 
+
       }
     };
 
