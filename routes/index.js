@@ -244,6 +244,9 @@ router.post('/signup', function(req, res, next) {
     return res.send({'code': 0, 'message': 'Email is already registered'});
   }
 
+  let manager = 0;
+  if (req.body.hotelowner) manager = 1;
+
   users[req.body.email] = {
     // 'id': userID,
     'firstName': req.body.firstname,
@@ -251,7 +254,7 @@ router.post('/signup', function(req, res, next) {
     'password': req.body.password,
     'phoneNumber': 0,
     'address': 'asd',
-    'manager-acc': req.body.hotelowner,
+    'manager-acc': manager,
   };
 
   console.log('Success!');
@@ -281,8 +284,9 @@ router.post('/login', function(req, res, next) {
   } else if (req.body.idtoken !== undefined) {
       console.log('Google token received');
       verify(req.body.idtoken, req).catch(console.error);
+      return res.send({'login': 1});
   } else { // If there is no input
-  return res.redirect('./logsign.html');
+      return res.send({'login': 0});
   }
 });
 
@@ -336,7 +340,7 @@ router.get('/logout', function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      return res.redirect('/');
+      res.send({'success': 1});
     }
   });
 });
