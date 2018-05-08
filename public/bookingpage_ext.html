@@ -80,24 +80,24 @@
       <h3 class="boxheadings">First Name: *</h3>
       <p class="boxparagraph">Please give the name of guest staying in the room as it is required for check-in.</p>
 
-      <form action="/action_page.php"> <!-- Placeholder action page -->
+      <form>
         <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
-          <input type="text" name="FirstName" class="inputbox mdl-textfield__input" onblur="compulsory(this)" />
+          <input type="text" name="FirstName" class="inputbox mdl-textfield__input" onblur="compulsory(this)" data-required />
           <label class="mdl-textfield__label">e.g. John</label>
         </div>
-      </form>
+
 
       <h3 class="boxheadings">Last Name: *</h3>
-      <form action="/action_page.php">
+
         <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
-          <input type="text" name="LastName" class="inputbox mdl-textfield__input" onblur="compulsory(this)" />
+          <input type="text" name="LastName" class="inputbox mdl-textfield__input" onblur="compulsory(this)" data-required />
           <label class="mdl-textfield__label">e.g. Doe</label>
         </div>
-      </form>
+
     </div>
 
     <h3 class="boxheadings">Mobile Number: *</h3>
-    <form action="/action_page.php">
+
       <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
         <input type="text" name="MobileNumber" class="inputbox mdl-textfield__input" onblur="compulsory(this)" />
         <label class="mdl-textfield__label">e.g. +61 111 111 111</label>
@@ -107,35 +107,35 @@
         <input type="checkbox" id="emerText" name="EmergencyText" class="mdl-checkbox__input" />
         <span class="mdl-checkbox__label">Receive emergency texts with this number</span>
       </label>
-    </form>
+
     <div class="userHidden">
       <h3 class="boxheadings">Email: *</h3>
-      <form action="/action_page.php">
+
         <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
           <input type="text" id="emailInput" name="Email" class="inputbox mdl-textfield__input" onblur="compulsory(this)" />
           <label class="mdl-textfield__label">e.g. name@domain.com</label>
         </div>
-      </form>
+
       <p class="boxparagraph">Confirmation email will be sent to this address</p>
     </div>
 
     <h3 class="boxheadings">Smoking Requests:</h3>
-    <form action="/action_page.php">
+
       <select name="SmokingRequests" class="select">
         <option>Smoking</option>
         <option>Non-Smoking</option>
       </select>
-    </form>
+
 
     <h3 class="boxheadings">Special Requests:</h3>
     <p class="boxparagraph">Please include detail of your accessibility options (e.g. accessible bathroom). After booking the hotel will be notified of your accessibility option to confirm availability. If confirmed by the hotel, you will receive a confirmation email. If you do not receive a confirmation email within 24 hours of the day that you made your booking, please contact the hotel directly to confirm or to help make alternative arrangements. Accessibility options are not guaranteed.</p>
     <br />
-    <form action="/action_page.php">
+
       <div class="mdl-textfield mdl-js-textfield biginputbox">
         <textarea id="extraComments" class="inputbox mdl-textfield__input biginputbox" rows="5"></textarea>
         <label class="mdl-textfield__label">e.g. Wheelchair accessibility</label>
       </div>
-    </form>
+
   </div>
 
   <!-- 2. Payment -->
@@ -143,29 +143,29 @@
     <h2 class="sectionheadings">2. Payment</h2>
     <hr />
     <h3 class="boxheadings">Cardholder Name: *</h3>
-    <form action="/action_page.php">
+
       <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
         <input type="text" name="CardholderName" class="inputbox mdl-textfield__input" onblur="compulsory(this)" />
         <label class="mdl-textfield__label">e.g. John Doe</label>
       </div>
-    </form>
+
     <h3 class="boxheadings">Card Type: *</h3>
-    <form action="/action_page.php">
+
       <select name="CardType" class="select">
         <option>Visa</option>
         <option>MasterCard</option>
       </select>
-    </form>
+
 
     <h3 class="boxheadings">Card Number: *</h3>
-    <form action="/action_page.php">
+
       <div class="mdl-textfield mdl-js-textfield" style="margin-top:-25px;">
         <input type="text" name="CardNumber" class="inputbox mdl-textfield__input" onblur="compulsory(this)" />
         <label class="mdl-textfield__label">e.g. 1234123412341234</label>
       </div>
-    </form>
+
     <h3 class="boxheadings">Expiration Date: *</h3>
-    <form action="/action_page.php">
+    <div>
       <div class="mdl-textfield mdl-js-textfield smallinputbox" style="width:20px!important;margin-top:-25px;">
         <input style="width:20px!important;" type="text" name="ExpirationDate" class="inputbox smallinputbox mdl-textfield__input" onblur="compulsory(this)" />
         <label style="width:20px!important;" class="mdl-textfield__label">2</label>
@@ -174,15 +174,15 @@
         <input style="width:20px!important;" type="text" name="ExpirationDate" class="inputbox smallinputbox mdl-textfield__input" onblur="compulsory(this)" />
         <label style="width:20px!important;" class="mdl-textfield__label">19</label>
       </div>
+    </div>
 
-    </form>
     <h3 class="boxheadings">Security Code: *</h3>
-    <form action="/action_page.php">
+
       <div class="mdl-textfield mdl-js-textfield smallinputbox" style="margin-top:-25px;">
         <input type="text" name="SecurityCode" class="inputbox mdl-textfield__input" onblur="compulsory(this)" />
         <label class="mdl-textfield__label">123</label>
       </div>
-    </form>
+
   </div>
 
   <!-- 3. Confirm -->
@@ -192,9 +192,9 @@
     <h3 class="boxheadings">Terms of booking &amp; cancellation policy</h3>
     <p class="boxparagraph">We will not be able to refund any payment for no-shows or early check-out.<br />Terms of booking: By clicking 'Book', you agree you have read and accept our Terms and Conditions and Privacy Policy</p>
     <br />
-    <button name="CompleteBooking" class="width100 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Complete Booking</button>
+    <button name="CompleteBooking" type="submit" class="width100 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Complete Booking</button>
   </div>
-
+  </form>
 </div>
 
 </div>
