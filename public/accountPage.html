@@ -55,19 +55,32 @@
             <div class="divstyle settingName">
               <h4 class="boxheadings" style="margin-top:0px;">Your Details</h4>
             </div>
+
             <div class="divstyle settingDescription">
               <h4 class="boxheadings" style="margin-top:0px;">Account Name</h4>
               <p class="boxparagraph">Account Name</p>
+              <div class="accountDetailsSection">
+                <button class="mdl-button mdl-js-button mdl-button--primary" onclick="accountChange(this)">edit</button>
+              </div>
+
               <input type="text" name="AccountName" class="inputbox accountInput">
               <h4 class="boxheadings">Address</h4>
               <p class="boxparagraph">Address</p>
-              <input type="text" name="Address" class="inputbox accountInput">
+              <div class="accountDetailsSection">
+                <button class="mdl-button mdl-js-button mdl-button--primary" onclick="accountChange(this)">edit</button>
+                <!--<input type="text" name="Address" class="inputbox accountInput">-->
+              </div>
+
               <h4 class="boxheadings">Phone Number</h4>
               <p class="boxparagraph">Phone Number</p>
-              <input type="text" name="PhoneNumber" class="inputbox accountInput">
-              <button onclick="accountChange(this)">Change</button>
-              <button class="confirm" onclick="accountConfirm(this)">Confirm</button>
-              <button class="cancel" onclick="accountCancel(this)">Cancel</button>
+              <div class="accountDetailsSection">
+                <button class="mdl-button mdl-js-button mdl-button--primary" onclick="accountChange(this)">edit</button>
+              <!--  <input type="text" name="PhoneNumber" class="inputbox accountInput">
+                <button onclick="accountChange(this)">Change</button>
+                <button class="confirm" onclick="accountConfirm(this)">Confirm</button>
+                <button class="cancel" onclick="accountCancel(this)">Cancel</button>-->
+              </div>
+
             </div>
           </div>
 
@@ -78,10 +91,9 @@
             <div class="divstyle settingDescription">
               <h4 class="boxheadings" style="margin-top:0px;">Email Address</h4>
               <p class="boxparagraph">Email Address</p>
-              <input type="text" name="EmailAddress" class="inputbox accountInput">
-              <button onclick="accountChange(this)">Change</button>
-              <button class="confirm" onclick="accountConfirm(this)">Confirm</button>
-              <button class="cancel" onclick="accountCancel(this)">Cancel</button>
+              <div class="accountDetailsSection">
+                <button class="mdl-button mdl-js-button mdl-button--primary" onclick="accountChange(this)">edit</button>
+              </div>
             </div>
           </div>
 
@@ -92,10 +104,9 @@
             <div class="divstyle settingDescription">
               <h4 class="boxheadings" style="margin-top:0px;">Password</h4>
               <p class="boxparagraph">Password</p>
-              <input type="password" name="Password" class="inputbox accountInput">
-              <button onclick="accountChange(this)">Change</button>
-              <button class="confirm" onclick="accountConfirm(this)">Confirm</button>
-              <button class="cancel" onclick="accountCancel(this)">Cancel</button>
+              <div class="accountDetailsSection">
+                <button class="mdl-button mdl-js-button mdl-button--primary" onclick="accountChange(this)">edit</button>
+              </div>
             </div>
           </div>
 

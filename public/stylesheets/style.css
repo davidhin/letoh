@@ -69,12 +69,12 @@ footer a {
   float: left;
 }
 
- .letohLogoAlt { 
-   padding-left: calc(50% - 30px); 
+ .letohLogoAlt {
+   padding-left: calc(50% - 30px);
    padding-top: 5px;
-   float: left; 
+   float: left;
  }
- 
+
  .letohLogo a,
  .letohLogoAlt a {
   font-size: 31px !important;
@@ -617,6 +617,10 @@ p.mdl-card__supporting-text{
   display: none;
 }
 
+.accountDetailsSection{
+  height: 15px;
+}
+
 /* =================== Buttons ==================== */
 .confirm{
   display: none;
@@ -840,7 +844,7 @@ p.mdl-card__supporting-text{
 
   .input-box-left h5, .input-box-right h5 {
     margin: 10px 0 15px 0;
-    font-weight: 100; 
+    font-weight: 100;
     font-size: 30px;
   }
 

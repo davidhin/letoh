@@ -557,49 +557,66 @@ function remove(index){
 //Edit account setting
 function accountChange(index){
   "use strict";
-  index.style.display="none";
-  $(index).closest('.settingDescription').children('input').css('display','block');
+  $(index).hide();
+  let section = $(index).parent();
+  $(section).css("height","50px");
+  let prev =  $(section).prev();
+  $(prev).hide();
 
-  var buttons = index.parentElement.getElementsByTagName("button");
-  buttons[1].style.display="block";
-  buttons[2].style.display="inline";
+  let field = 'text';
+  if($(index).parent().prev().prev().text()=="Password"){
+    field = 'password';
+  }
+
+  $('<input/>')
+    .addClass('mdl-textfield__input')
+    .attr({'type': field})
+    .val($(prev).text())
+    .appendTo(section);
+
+  $('<a/>').html('submit').addClass('confirm mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent')
+    .attr("onclick","accountConfirm(this)")
+    .appendTo(section);
+  $('<a/>').html('cancel').addClass('cancel mdl-button mdl-js-button')
+    .attr("onclick","accountCancel(this)")
+    .appendTo(section);
+
 }
 
 //Confirming an account setting edit
 function accountConfirm(index){
   "use strict";
-  var displaySettings = index.parentElement.getElementsByTagName("p");
-  var setting = index.parentElement.getElementsByTagName("input");
-  var buttons = index.parentElement.getElementsByTagName("button");
+  let value = $(index).prev().val();
+  let field = $(index).parent().prev().prev().text();
+  $(index).next().remove();
+  $(index).prev().remove();
+  $(index).prev().show();
 
-  if(index.parentElement.getElementsByTagName("h4")[0].innerText=="Password"){
-    if(setting[0].value){
-      displaySettings[0].innerText="";
-      for(var i=0;i<setting[0].value.length;i++){
-        displaySettings[0].innerHTML+='&#8226;';
-      }
+  if(field=="Password"){
+    let passwordDisplay="";
+    for(var i=0;i<value.length;i++){
+      passwordDisplay+='&#8226;';
     }
+    $(index).parent().prev().html(passwordDisplay);
   }else{
-    for(var ds=0;ds<displaySettings.length;ds++){
-      if(setting[ds].value){
-        displaySettings[ds].innerText=setting[ds].value;
-      }
-    }
+    $(index).parent().prev().text(value);
   }
 
-  $(index).closest('.settingDescription').children('input').hide();
-  buttons[0].style.display="block";
-  buttons[1].style.display="none";
-  buttons[2].style.display="none";
+  $(index).parent().prev().show();
+  $(index).parent().css("height","15px");
+  $(index).remove();
+
+
+
 }
 
 //Cancelling a account setting edit
 function accountCancel(index){
   "use strict";
-  $(index).closest('.settingDescription').children('input').hide();
-
-  var buttons = index.parentElement.getElementsByTagName("button");
-  buttons[0].style.display="block";
-  buttons[1].style.display="none";
-  buttons[2].style.display="none";
+  $(index).prev().remove();
+  $(index).prev().remove();
+  $(index).prev().show();
+  $(index).parent().prev().show();
+  $(index).parent().css("height","15px");
+  $(index).remove();
 }
