@@ -195,7 +195,7 @@ function bookingpage(hotelInput, roomInput, variable) {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       if (JSON.parse(xhttp.responseText).login !== 0) {
-        $('.userHidden').hide();
+        $('.userHidden').remove();
       }
     }
   }

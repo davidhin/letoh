@@ -5,6 +5,7 @@ $( document ).ready(function() {
   'use strict';
   sizes();
   header();
+  loginInputRed();
   document.querySelectorAll('input[data-required]').forEach(function (e) {
      e.required = true;
   });
@@ -27,7 +28,7 @@ function sessionCheck() {
         mdl_upgrade();
         return;
       }
-      
+
       // If logged in
       user = JSON.parse(xhttp.responseText);
       $('#menuItemLogin').hide();
@@ -47,7 +48,7 @@ function sessionCheck() {
 
 function logout() {
   let xhttp = new XMLHttpRequest();
-  
+
   xhttp.onreadystatechange = function() {
     if (this.readyState==4 && this.status == 200) {
       if (JSON.parse(xhttp.responseText).success == 1) {
@@ -99,6 +100,28 @@ function header(){
   xhttp.open('GET', 'usersession.json', true);
   xhttp.setRequestHeader('Content-type', 'application/json');
   xhttp.send();
+}
+
+//Copied from
+//https://github.com/google/material-design-lite/issues/1502
+function loginInputRed(){
+
+  let requiredComponents = document.querySelectorAll(".mdl-textfield__input");
+  requiredComponents.forEach(function(e){
+    e.removeAttribute('data-required');
+  })
+
+  $(".mdl-textfield__input").blur(function (){
+      if( !this.value ){
+          $(this).prop('data-required', true);
+          $(this).parent().addClass('is-invalid');
+      }
+  });
+  $(".mdl-button[type='submit']").click(function (event){
+      $(this).siblings(".mdl-textfield").addClass('is-invalid');
+      $(this).siblings(".mdl-textfield").children(".mdl-textfield__input").prop('required', true);
+  });
+
 }
 
 // =========== UPDATE MDL FOR DYNAMICALLY CREATED OBJECTS =========== //
