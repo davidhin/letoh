@@ -563,16 +563,8 @@ function accountChange(index){
   let prev =  $(section).prev();
   $(prev).hide();
 
-  let field = 'text';
-  if($(index).parent().prev().prev().text()=="Password"){
-    field = 'password';
-  }
-
-  $('<input/>')
-    .addClass('mdl-textfield__input')
-    .attr({'type': field})
-    .val($(prev).text())
-    .appendTo(section);
+  $(index).next().val($(prev).text());
+  $(index).next().show();
 
   $('<a/>').html('submit').addClass('confirm mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent')
     .attr("onclick","accountConfirm(this)")
@@ -586,11 +578,11 @@ function accountChange(index){
 //Confirming an account setting edit
 function accountConfirm(index){
   "use strict";
-  let value = $(index).prev().val();
+  let value = $(index).prev().prev().val();
   let field = $(index).parent().prev().prev().text();
   $(index).next().remove();
-  $(index).prev().remove();
-  $(index).prev().show();
+  $(index).prev().prev().hide();
+  $(index).prev().prev().prev().show();
 
   if(field=="Password"){
     let passwordDisplay="";
@@ -624,15 +616,15 @@ function accountConfirm(index){
   xhttp.open('POST', '/changeUserDetail', true);
   xhttp.setRequestHeader('Content-type', 'application/json');
   xhttp.send(JSON.stringify(object));
-  
+
 }
 
 //Cancelling a account setting edit
 function accountCancel(index){
   "use strict";
   $(index).prev().remove();
-  $(index).prev().remove();
-  $(index).prev().show();
+  $(index).prev().prev().hide();
+  $(index).prev().prev().prev().show();
   $(index).parent().prev().show();
   $(index).parent().css("height","15px");
   $(index).remove();
