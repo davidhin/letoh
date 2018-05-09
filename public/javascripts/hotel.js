@@ -606,8 +606,25 @@ function accountConfirm(index){
   $(index).parent().css("height","15px");
   $(index).remove();
 
+  let object = {};
+  if(field=="Account Name"){
+    let split = value.split(" ");
+    object = {"firstName":split[0],"lastName":split[1]};
+  }else if(field=="Address"){
+    object = {"address":value};
+  }else if(field=="Phone Number"){
+    object = {"phoneNumber":value};
+  }else if(field=="Email Address"){
+    object = {"email":value};
+  }else if(field=="Password"){
+    object = {"password":value};
+  }
 
-
+  let xhttp = new XMLHttpRequest();
+  xhttp.open('POST', '/changeUserDetail', true);
+  xhttp.setRequestHeader('Content-type', 'application/json');
+  xhttp.send(JSON.stringify(object));
+  
 }
 
 //Cancelling a account setting edit
