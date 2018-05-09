@@ -120,6 +120,15 @@ function compulsory(index){
  * The function that is called when user presses the complete booking button
  */
 function submitted(hotelInput, roomInput, variable) {
+
+jQuery.validator.setDefaults({
+  debug: true,
+  success: 'valid'
+});
+let form = $( '#bookingForm' );
+form.validate();
+if (form.valid()) {
+
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -178,6 +187,9 @@ function submitted(hotelInput, roomInput, variable) {
   xhttpa.open('GET', '/usersession.json', true);
   xhttpa.setRequestHeader('Content-type', 'application/json');
   xhttpa.send();
+} else {
+  $('.mdl-layout__content').animate({scrollTop: 0});
+}
 }
 
 function summarise_details(details) {
