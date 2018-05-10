@@ -47,7 +47,6 @@ function checkAuthorised(callback) {
        }
 
        user = JSON.parse(xhttp.responseText);
-       console.log(user);
        mdl_upgrade();
        callback();
      }

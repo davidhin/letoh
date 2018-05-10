@@ -215,14 +215,25 @@ function addHotel() {
 
 function hoteldetailsMarker(hotel) {
 
+  let allrooms = [];
   let rooms = [];
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      rooms = JSON.parse(xhttp.responseText);
+      allrooms = JSON.parse(xhttp.responseText);
+
+      for (let i = 0; i < allrooms.length; i++) {
+        if (allrooms[i].price <= $('#price').val()) {
+          if (allrooms[i].stars >= $('#stars').val()) {
+            rooms.push(allrooms[i]);
+          }
+        }
+      }
+
       $('#hotel_info_room').empty();
-      for(let i=0;i<rooms.length;i++){
-        let roomForBooking = $('#hotel_info_room').append('<h3>'+rooms[i].name+'</h3><p class="roomPrice">$'+rooms[i].price+'</p><p>'+rooms[i].desc+'</p>');
+      for (let i=0; i<rooms.length; i++) {
+        let stars = getStars(rooms[i].stars);
+        let roomForBooking = $('#hotel_info_room').append('<h3>'+rooms[i].name+'</h3><p class="roomPrice">$'+rooms[i].price+' per night / '+stars+'</p><p>'+rooms[i].desc+'</p>');
         $('<button/>')
           .addClass('mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent')
           .html('Book Now')

@@ -57,6 +57,7 @@ function hotelCards() {
   showHotels();
   $('#hotelcards').empty();
   mdl_upgrade();
+  $('#hoteldetails_overlay').fadeOut();
 
   filtered = [];
   for (let i = 0; i < hotels.length; i++) {
@@ -84,6 +85,7 @@ function hotelCards() {
         .click(link_moredetails.call(this, filtered[i]))
         .addClass('mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent').html('More details').appendTo(div_buttons);
   }
+
 }
 
 /**
@@ -93,11 +95,21 @@ function hotelCards() {
  */
 function hoteldetails(hotelInput) {
   // Request rooms from server
+  let allrooms = [];
   let rooms = [];
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      rooms = JSON.parse(xhttp.responseText);
+      allrooms = JSON.parse(xhttp.responseText);
+
+      for (let i = 0; i < allrooms.length; i++) {
+        if (allrooms[i].price <= $('#price').val()) {
+          if (allrooms[i].stars >= $('#stars').val()) {
+            rooms.push(allrooms[i]);
+          }
+        }
+      }
+
       $('#hotel_info_room').empty();
       for (let i=0; i<rooms.length; i++) {
         let stars = getStars(rooms[i].stars);
