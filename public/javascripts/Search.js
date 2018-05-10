@@ -63,7 +63,9 @@ function hotelCards() {
   for (let i = 0; i < hotels.length; i++) {
     if (hotels[i].price <= $('#price').val()) {
       if (hotels[i].rating >= $('#stars').val()) {
-        filtered.push(hotels[i]);
+        if(hotels[i].minOccupants >= $('#occupants').val()){
+          filtered.push(hotels[i]);
+        }
       }
     }
   }
@@ -105,7 +107,7 @@ function hoteldetails(hotelInput) {
       for (let i = 0; i < allrooms.length; i++) {
         if (allrooms[i].price <= $('#price').val()) {
           if (allrooms[i].stars >= $('#stars').val()) {
-            if(allrooms[i].occupants == $('#occupants').val()){
+            if(allrooms[i].occupants >= $('#occupants').val()){
               rooms.push(allrooms[i]);
             }
           }
