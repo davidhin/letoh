@@ -26,7 +26,7 @@ function userSession(callback) {
   xhttp.onreadystatechange = function() {
     if (this.readyState==4 && this.status == 200) {
       // If try to access without being logged in
-      if (JSON.parse(xhttp.responseText).login == 0) {
+      if (JSON.parse(xhttp.responseText).login === 0) {
         window.location.replace("http://localhost:3000/logsign.html");
         console.log('not logged in');
         return;
@@ -157,7 +157,7 @@ if (form.valid()) {
   xhttpa.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       let user = JSON.parse(xhttpa.responseText);
-      if (user.login == 0) {
+      if (user.login === 0) {
         email = $($('.mdl-textfield__label')[0]).val();
       }else{
         email = user.email;
@@ -183,7 +183,7 @@ if (form.valid()) {
       xhttp.send(JSON.stringify(newBooking));
 
     }
-  }
+  };
   xhttpa.open('GET', '/usersession.json', true);
   xhttpa.setRequestHeader('Content-type', 'application/json');
   xhttpa.send();
@@ -397,7 +397,7 @@ function get_bookings(booking, can_change) {
 
     }
 
-  }
+  };
   xhttp.open('POST', '/reviewstuff.json', true);
   xhttp.setRequestHeader('Content-type', 'application/json');
   xhttp.send(JSON.stringify({"refnum":booking.refnum}));
@@ -462,11 +462,11 @@ function reviewButton(index){
 }
 
 function postButton(index){
+  "use strict";
   //Getting booking refnum
   var gettingRefNum = $($($(index).parent().parent().children()[1]).children()[3]).text();
   var split = gettingRefNum.split(" ");
 
-  "use strict";
   var review = index.parentElement;
   var textbox = index.parentElement.getElementsByTagName("TEXTAREA");
   var postbutton=review.getElementsByClassName("postButton");

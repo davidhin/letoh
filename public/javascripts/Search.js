@@ -70,8 +70,8 @@ function hotelCards() {
 
   /*var NewTestMapCenter = map.getCenter();
   var latit = NewTestMapCenter.lat();
-  var longti = NewTestMapCenter.lng();  
-  
+  var longti = NewTestMapCenter.lng();
+
 
   var lat = latit;
   var lng = longti;
@@ -153,7 +153,7 @@ function hoteldetails(hotelInput) {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       allrooms = JSON.parse(xhttp.responseText);
-      
+
 
       for (let i = 0; i < allrooms.length; i++) {
         if (allrooms[i].price <= $('#price').val()) {
@@ -212,7 +212,6 @@ function hoteldetails(hotelInput) {
   var getimage = $(this).parents("div").siblings(".mdl-card__title").css("backgroundImage") + " center / cover";
   $('.imagescroller').css("background", getimage);
   $('#hd_backbutton').click(function() { $('#hoteldetails_overlay').fadeOut(); sizes(); });
-  'use strict';
 
   mdl_upgrade();
 }
@@ -224,7 +223,7 @@ function reviewFilling(id, booking,hotel){
     if (this.readyState == 4 && this.status == 200) {
       reviews = JSON.parse(xhttp.responseText);
 
-      if(reviews.length==0){
+      if(reviews.length===0){
         $('<h5/>')
         .html("There are no reviews for this room.<br><br>Be the first to review this room!")
         .appendTo('#' + id);
@@ -254,7 +253,7 @@ function reviewFilling(id, booking,hotel){
 
 function getStars(length){
   if(length==6){
-    return "No ratings"
+    return "No ratings";
   }
   var stars = "";
   for(var j=0;j<length;j++){
@@ -283,7 +282,7 @@ function bookingpage(hotelInput, roomInput, variable) {
             loginInputRed();
       }
     }
-  }
+  };
   xhttp.open('GET', '/usersession.json', true);
   xhttp.setRequestHeader('Content-type', 'application/json');
   xhttp.send();
