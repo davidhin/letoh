@@ -219,6 +219,20 @@ router.post('/changeRoomDetails.json', function(req, res) {
   allRooms[roomIndex].desc = req.body.desc;
   allRooms[roomIndex].price = req.body.roomprice;
 
+  let min = req.body.roomprice;
+  for (let i = 0; i < allRooms.length; i++) {
+    if (allRooms[i].id == req.body.hotelid && allRooms[i].roomid == req.body.roomid && allRooms[i].price<=min) {
+      min = allRooms[i].price;
+    }
+  }
+
+  let hotel = searchHotel(req.body.hotelid);
+
+  hotels[hotel].price = min;
+
+  console.log("hotel");
+  console.log(hotels);
+
   res.send('');
 });
 
