@@ -38,6 +38,7 @@ function initMap() {
       return;
     }
 
+
     // If the place has a geometry, then present it on a map.
     if (place.geometry.viewport) {
       map.fitBounds(place.geometry.viewport);
