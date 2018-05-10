@@ -400,9 +400,11 @@ router.get('/usersession.json', function(req, res, next) {
 });
 
 router.get('/managersession.json', function(req, res, next) {
-  if (users[sessions[req.session.id]].manageracc != 1) {
+  if(sessions[req.session.id] == null){
     return res.send({'login': 0});
-  } else {
+  }else if(users[sessions[req.session.id]].manageracc != 1){
+    return res.send({'login': 0});
+  }else{
     res.send(users[sessions[req.session.id]]);
   }
 });

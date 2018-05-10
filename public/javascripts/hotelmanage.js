@@ -42,7 +42,7 @@ function checkAuthorised(callback) {
      if (this.readyState==4 && this.status == 200) {
        // If try to access without being logged in
        if (JSON.parse(xhttp.responseText).login == 0) {
-         window.location.replace('http://localhost:3000/');
+         window.location.replace('http://localhost:3000/logsign.html');
          return;
        }
 
