@@ -25,7 +25,7 @@ function requestHotels(callback) {
     }
   };
 
-  xhttp.open('GET', 'getHotels.json', true);
+  xhttp.open('GET', 'getHotelSubset.json', true);
   xhttp.setRequestHeader('Content-type', 'application/json');
   xhttp.send();
 }
