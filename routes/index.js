@@ -71,7 +71,7 @@ router.post('/reviewstuff.json', function(req, res, next) {
   let roomid = theBooking.roomid;
 
   for(let k=0;k<allReviews.length;k++){
-    if(allReviews[k].id===hotelid && allReviews[k].roomid===roomid && allReviews[k].email==sessions[req.session.id]){
+    if(allReviews[k].id===hotelid && allReviews[k].roomid===roomid && allReviews[k].email==sessions[req.session.id] && allReviews[k].refnum==req.body.refnum){
       res.send(JSON.stringify(allReviews[k]));
     }else if(k==allReviews.length-1){
       res.send(JSON.stringify({"id":-1}));
@@ -176,6 +176,7 @@ router.post('/addReview',function(req,res){
   let newReview ={
     "id":req.body.id,
     "roomid": req.body.roomid,
+    "refnum": req.body.refnum,
     "name":req.body.name,
     "email":req.body.email,
     "stars":req.body.stars,

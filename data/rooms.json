@@ -4,6 +4,7 @@
    "name":"Standard Guest Room",
    "price":160,
    "stars":3,
+   "occupants":1,
    "desc":"Enjoy your stay in this room with a view. Opening windows, comfortable Hilton Serenity bed, work station with WiFi (fees apply), mini bar, 24-hour room service and on-demand movies. Access to the 24-hour gym, swimming pool and full size tennis court with jogging track is included."
   },
 
@@ -12,6 +13,7 @@
    "name":"Deluxe Room",
    "price":220,
    "stars":1,
+   "occupants":2,
    "desc":"This bright and airy room features modern décor with all the 5-star amenities. Work is a pleasure at the work station with an ergonomic chair, WiFi (fees apply) and an opening window with views of city and hills. Enjoy an in-room movie on the lounge chair or unwind in the modern bathroom with separate walk-in shower, before retreating to the comfort of the Hilton Serenity bed."
   },
 
@@ -20,6 +22,7 @@
    "name":"Suite",
    "price":360,
    "stars":3,
+   "occupants":3,
    "desc":"Spacious, executive benefits, complimentary breakfast, work station. Treat yourself whether travelling for business or leisure in this comfortable, light, airy and spacious suite. The suite is complete with all the thoughtful amenities plus a spacious bathroom, walk in robe, large work station, WiFi (fee applies), lounge/dining area, 24-hour room service and a king size Hilton Serenity bed to ensure a restful night’s sleep. Enjoy access to the Executive Lounge, including complimentary continental breakfast, all day refreshments and evening drinks and canapes."
   },
 
@@ -28,6 +31,7 @@
    "name":"Standard Guest Room",
    "price":1200,
    "stars":4,
+   "occupants":4,
    "desc":"Enjoy your stay in this room with a view. Opening windows, comfortable Hilton Serenity bed, work station with WiFi (fees apply), mini bar, 24-hour room service and on-demand movies. Access to the 24-hour gym, swimming pool and full size tennis court with jogging track is included."
   },
 
@@ -36,6 +40,7 @@
    "name":"Deluxe Room",
    "price":2200,
    "stars":2,
+   "occupants":1,
    "desc":"This bright and airy room features modern décor with all the 5-star amenities. Work is a pleasure at the work station with an ergonomic chair, WiFi (fees apply) and an opening window with views of city and hills. Enjoy an in-room movie on the lounge chair or unwind in the modern bathroom with separate walk-in shower, before retreating to the comfort of the Hilton Serenity bed."
   },
 
@@ -44,6 +49,7 @@
    "name":"Suite",
    "price":420,
    "stars":4,
+   "occupants":2,
    "desc":"Spacious, executive benefits, complimentary breakfast, work station. Treat yourself whether travelling for business or leisure in this comfortable, light, airy and spacious suite. The suite is complete with all the thoughtful amenities plus a spacious bathroom, walk in robe, large work station, WiFi (fee applies), lounge/dining area, 24-hour room service and a king size Hilton Serenity bed to ensure a restful night’s sleep. Enjoy access to the Executive Lounge, including complimentary continental breakfast, all day refreshments and evening drinks and canapes."
  },
 
@@ -52,7 +58,17 @@
   "name":"Suite",
   "price":20,
   "stars":6,
+  "occupants":3,
   "desc":"Have you ever wanted to treat yourself to a holiday, free from all of life's stresses. No people, no bad food, no bad smells. Well, here at Paraidse Interchange Hotel, our suites will provide you with an unforgettable experience, that should rejuvinate your every day life."
+ },
+
+ {"id":4,
+  "roomid": 0,
+  "name":"Small Room",
+  "price":9,
+  "stars":1,
+  "occupants":1,
+  "desc":"While there may be some issues with this room, it's still presentable in our eyes. From the people that brought you the Letoh website, comes the latest venture in Letoh's business plan. Small Rooms. You've heard of Suites, or Deluxe Rooms, but have you ever heard of a Small Room? Didn't think so.  "
  }
 
 ]

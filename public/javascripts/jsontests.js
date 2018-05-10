@@ -187,7 +187,7 @@ function addMarkers() {
         '<div style="min-width:200px;min-height:100px;margin-top:5px">'+
         '<div style="float:left">'+
         '<img src="'+
-        'https://placeimg.com/640/480/any/' + i +
+        'images/'+filtered[i].id+'.jpg'+
         '" alt="hotel" title="Your Hotel" style="height:100px;width:100px;object-fit: cover;margin:auto;display:block"></div>'+
 
         '<div style="float:left;margin-left:10px;max-width:140px">'+
@@ -254,7 +254,9 @@ function hoteldetailsMarker(hotel) {
       for (let i = 0; i < allrooms.length; i++) {
         if (allrooms[i].price <= $('#price').val()) {
           if (allrooms[i].stars >= $('#stars').val()) {
-            rooms.push(allrooms[i]);
+            if(allrooms[i].occupants >= $('#occupants').val()){
+              rooms.push(allrooms[i]);
+            }
           }
         }
       }
@@ -262,7 +264,7 @@ function hoteldetailsMarker(hotel) {
       $('#hotel_info_room').empty();
       for (let i=0; i<rooms.length; i++) {
         let stars = getStars(rooms[i].stars);
-        let roomForBooking = $('#hotel_info_room').append('<h3>'+rooms[i].name+'</h3><p class="roomPrice">$'+rooms[i].price+' per night / '+stars+'</p><p>'+rooms[i].desc+'</p>');
+      let roomForBooking = $('#hotel_info_room').append('<h3>'+rooms[i].name+'</h3><p class="roomPrice">Room for '+rooms[i].occupants+', $'+rooms[i].price+' per night / '+stars+'</p><p>'+rooms[i].desc+'</p>');
         $('<button/>')
           .addClass('mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent')
           .html('Book Now')
@@ -304,7 +306,8 @@ function hoteldetailsMarker(hotel) {
   $('#hotel_info_p').html(hotel.desc);
   $('#hoteldetails_overlay').fadeIn();
   // DYNAMIC DATA: Get the image
-  var getimage = "url('https://placeimg.com/640/480/any/" + hotel.id + "') center / cover";
+  var getimage = "url('images/"+hotel.id+".jpg') center / cover";
+  //var getimage = "url('https://placeimg.com/640/480/any/" + hotel.id + "') center / cover";
   $('.imagescroller').css("background", getimage);
   $('#hd_backbutton').click(function() { $('#hoteldetails_overlay').fadeOut(); sizes(); });
 
