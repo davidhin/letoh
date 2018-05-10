@@ -102,12 +102,10 @@ function hotelCards() {
   for (let i = 0; i < hotels.length; i++) {
     if (hotels[i].price <= $('#price').val()) {
       if (hotels[i].rating >= $('#stars').val()) {
-<<<<<<< HEAD
-        if(distances[i] <= $('#dist').val()){
-=======
-        if(hotels[i].minOccupants >= $('#occupants').val()){
->>>>>>> e9b6471c4447c722bd4783b38f39205e97ca402a
-          filtered.push(hotels[i]);
+        if(distances[i] <= $('#dist').val()) {
+          if(hotels[i].minOccupants >= $('#occupants').val()) {
+            filtered.push(hotels[i]);
+          }
         }
       }
     }
@@ -120,7 +118,7 @@ function hotelCards() {
   }
 
   //$('#dist').max() = maxprices;
-  var testing = document.getElementById("dist").max = maxprices;
+  // var testing = document.getElementById("dist").max = maxprices;
 
   for (let i = 0; i < filtered.length; i++) {
     var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#hotelcards");
