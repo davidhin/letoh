@@ -20,7 +20,7 @@ function sessionCheck() {
   xhttp.onreadystatechange = function() {
     if (this.readyState==4 && this.status == 200) {
       // If not logged in
-      if (JSON.parse(xhttp.responseText).login == 0) {
+      if (JSON.parse(xhttp.responseText).login === 0) {
         $('#menuItemUser').hide();
         $('#menuItemManager').hide();
         $('#menuItemLogout').hide();
@@ -32,7 +32,7 @@ function sessionCheck() {
       // If logged in
       user = JSON.parse(xhttp.responseText);
       $('#menuItemLogin').hide();
-      if (user.manageracc == 0) {
+      if (user.manageracc === 0) {
         $('#menuItemManager').hide();
         mdl_upgrade();
       }
@@ -84,7 +84,7 @@ function header(){
   xhttp.onreadystatechange = function() {
     if (this.readyState==4 && this.status == 200) {
       let user = JSON.parse(xhttp.responseText);
-      if(user.login == 0){
+      if(user.login === 0){
         $("#managerSettings").hide();
         $("#userSettings").hide();
       }else{
@@ -108,7 +108,7 @@ function loginInputRed(){
   let requiredComponents = document.querySelectorAll(".mdl-textfield__input");
   requiredComponents.forEach(function(e){
     e.removeAttribute('data-required');
-  })
+  });
 
   $(".mdl-textfield__input").blur(function (){
       if( !this.value ){
