@@ -156,6 +156,7 @@ function reviewFilling(id, booking,hotel){
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       reviews = JSON.parse(xhttp.responseText);
+
       if(reviews.length==0){
         $('<h5/>')
         .html("There are no reviews for this room.<br><br>Be the first to review this room!")
