@@ -73,7 +73,7 @@ function hotelCards() {
   for (let i = 0; i < filtered.length; i++) {
     var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#hotelcards");
       // Change the background picture here
-      var insertBg = "url('https://placeimg.com/640/480/any/" + i + "') center / cover";
+      var insertBg = "url('images/"+filtered[i].id+".jpg') center / cover";
       var div_title = $('<div/>').addClass("mdl-card__title").appendTo(div_main).css("background", insertBg);
       // Change the hotel name here
       $('<h2/>').addClass("mdl-card__title-text").html(filtered[i].name).appendTo(div_title);
@@ -251,7 +251,8 @@ function bookingpage(hotelInput, roomInput, variable) {
   $('#hotelname_underbox').css('margin-bottom', 0).html(hotelInput.name);
 
   // Show main image
-  $('.boximage').html('This is the main image for ' + hotelInput.name);
+  //$('.boximage').html('This is the main image for ' + hotelInput.name);
+  $('.boximage').html("<img alt='Hotel' title='Your Hotel' class='boximage' src='images/"+hotelInput.id+".jpg'>");
 
   // Cancel and go back
   $('#bk_backbutton').click(function() {

@@ -158,7 +158,7 @@ function addMarkers() {
         '<div style="min-width:200px;min-height:100px;margin-top:5px">'+
         '<div style="float:left">'+
         '<img src="'+
-        'https://placeimg.com/640/480/any/' + i +
+        'images/'+filtered[i].id+'.jpg'+
         '" alt="hotel" title="Your Hotel" style="height:100px;width:100px;object-fit: cover;margin:auto;display:block"></div>'+
 
         '<div style="float:left;margin-left:10px;max-width:140px">'+
@@ -277,7 +277,8 @@ function hoteldetailsMarker(hotel) {
   $('#hotel_info_p').html(hotel.desc);
   $('#hoteldetails_overlay').fadeIn();
   // DYNAMIC DATA: Get the image
-  var getimage = "url('https://placeimg.com/640/480/any/" + hotel.id + "') center / cover";
+  var getimage = "url('images/"+hotel.id+".jpg') center / cover";
+  //var getimage = "url('https://placeimg.com/640/480/any/" + hotel.id + "') center / cover";
   $('.imagescroller').css("background", getimage);
   $('#hd_backbutton').click(function() { $('#hoteldetails_overlay').fadeOut(); sizes(); });
 
