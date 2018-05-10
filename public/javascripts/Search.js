@@ -100,7 +100,8 @@ function hoteldetails(hotelInput) {
       rooms = JSON.parse(xhttp.responseText);
       $('#hotel_info_room').empty();
       for (let i=0; i<rooms.length; i++) {
-        let roomForBooking = $('#hotel_info_room').append('<h3>'+rooms[i].name+'</h3><p class="roomPrice">$'+rooms[i].price+' per night</p><p>'+rooms[i].desc+'</p>');
+        let stars = getStars(rooms[i].stars);
+        let roomForBooking = $('#hotel_info_room').append('<h3>'+rooms[i].name+'</h3><p class="roomPrice">$'+rooms[i].price+' per night / '+stars+'</p><p>'+rooms[i].desc+'</p>');
         $('<button/>')
           .addClass('mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent')
           .html('Book Now')
@@ -167,13 +168,7 @@ function reviewFilling(id, booking,hotel){
       for (let i=0; i<reviews.length; i++) {
         if(reviews[i].roomid ==id){
 
-          var stars = "";
-          for(var j=0;j<reviews[i].stars;j++){
-            stars += "&#10029;";
-          }
-          for(var k=reviews[i].stars;k<5;k++){
-            stars += "&#10025;";
-          }
+          var stars = getStars(reviews[i].stars);
 
           $('<h5/>')
           .html(reviews[i].name)
@@ -189,6 +184,20 @@ function reviewFilling(id, booking,hotel){
   xhttp.open('POST', 'getReviews.json', true);
   xhttp.setRequestHeader('Content-type', 'application/json');
   xhttp.send(JSON.stringify(hotel));
+}
+
+function getStars(length){
+  if(length==6){
+    return "No ratings"
+  }
+  var stars = "";
+  for(var j=0;j<length;j++){
+    stars += "&#10029;";
+  }
+  for(var k=length;k<5;k++){
+    stars += "&#10025;";
+  }
+  return stars;
 }
 
 /**

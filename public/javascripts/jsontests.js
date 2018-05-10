@@ -143,11 +143,15 @@ function addMarkers() {
     google.maps.event.addListener(marker, 'click', function() {
       //Rating System
       var stars = "";
-      for(var j=0;j<filtered[i].rating;j++){
-        stars += "&#10029;";
-      }
-      for(var k=filtered[i].rating;k<5;k++){
-        stars += "&#10025;";
+      if(filtered[i].rating==6){
+        stars = "No ratings";
+      }else{
+        for(var j=0;j<filtered[i].rating;j++){
+          stars += "&#10029;";
+        }
+        for(var k=filtered[i].rating;k<5;k++){
+          stars += "&#10025;";
+        }
       }
 
       infowindow.setContent(

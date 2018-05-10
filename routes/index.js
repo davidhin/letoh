@@ -123,7 +123,7 @@ router.post('/addHotel.json', function(req, res) {
 
   let newId = hotels[hotels.length-1].id + 1;
   let name = 'New Hotel ID = ' + newId;
-  let newHotel = {'id': newId, 'owner': sessions[req.session.id], 'name': name, 'price': 0, 'rating': 1};
+  let newHotel = {'id': newId, 'owner': sessions[req.session.id], 'name': name, 'price': 0, 'rating': 6};
   hotels.push(newHotel);
 
   res.send(newHotel);
@@ -184,6 +184,32 @@ router.post('/addReview',function(req,res){
 
   allReviews.push(newReview);
 
+  //Room rating
+  let roomIndex = searchRoom(req.body.id,req.body.roomid);
+
+  let rating = 0;
+  let counter = 0;
+  for(let i=0;i<allReviews.length;i++){
+    if(allReviews[i].id==req.body.id && allReviews[i].roomid==req.body.roomid){
+      rating += parseInt(allReviews[i].stars);
+      counter++;
+    }
+  }
+  rating = rating/counter;
+  allRooms[roomIndex].stars = parseInt(rating);
+
+  let hRating = 0;
+  counter = 0;
+  for(let i=0;i<allRooms.length;i++){
+    if(allRooms[i].id==req.body.id){
+      hRating += parseInt(allRooms[i].stars);
+      counter++;
+    }
+  }
+  hRating = hRating/counter;
+  let hotel = searchHotel(req.body.id);
+  hotels[hotel].rating = parseInt(hRating);
+
   res.send("");
 });
 
@@ -208,7 +234,7 @@ router.post('/addRoom.json', function(req, res) {
 
   let calcroomid = hotels[targetHotel].roomtypes;
   hotels[targetHotel].roomtypes += 1;
-  allRooms.push( {'id': req.body.id, 'name': calcroomid, 'price': 100, 'roomid': calcroomid} );
+  allRooms.push( {'id': req.body.id, 'name': calcroomid, 'price': 100, 'roomid': calcroomid, 'stars': 6} );
 
   res.send('');
 });
