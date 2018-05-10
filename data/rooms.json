@@ -60,6 +60,15 @@
   "stars":6,
   "occupants":3,
   "desc":"Have you ever wanted to treat yourself to a holiday, free from all of life's stresses. No people, no bad food, no bad smells. Well, here at Paraidse Interchange Hotel, our suites will provide you with an unforgettable experience, that should rejuvinate your every day life."
+ },
+
+ {"id":4,
+  "roomid": 0,
+  "name":"Small Room",
+  "price":9,
+  "stars":1,
+  "occupants":1,
+  "desc":"While there may be some issues with this room, it's still presentable in our eyes. From the people that brought you the Letoh website, comes the latest venture in Letoh's business plan. Small Rooms. You've heard of Suites, or Deluxe Rooms, but have you ever heard of a Small Room? Didn't think so.  "
  }
 
 ]

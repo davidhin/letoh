@@ -521,7 +521,7 @@ function postButton(index){
         let xhttp = new XMLHttpRequest();
         xhttp.open('POST', '/addReview', true);
         xhttp.setRequestHeader('Content-type', 'application/json');
-        xhttp.send(JSON.stringify({"id":hotelid,"roomid": roomid,"name":user.firstName+" "+user.lastName,"email":user.email,"stars":starsVal,"review":textbox[0].value}));
+        xhttp.send(JSON.stringify({"id":hotelid,"roomid": roomid, "refnum":split[3],"name":user.firstName+" "+user.lastName,"email":user.email,"stars":starsVal,"review":textbox[0].value}));
       });
 
     }
