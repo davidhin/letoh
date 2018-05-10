@@ -2,6 +2,7 @@ var map = null;
 var hotels = [];
 var markers = [];
 var filtered = [];
+var distances = [];
 
 // Init map
 function initMap() {
@@ -42,10 +43,13 @@ function initMap() {
     // If the place has a geometry, then present it on a map.
     if (place.geometry.viewport) {
       map.fitBounds(place.geometry.viewport);
+      console.log(place.geometry.location.lat());
+      console.log(place.geometry.location.lng());
     } else {
       map.setCenter(place.geometry.location);
       map.setZoom(17);  // Why 17? Because it looks good.
     }
+
 
     var address = '';
     if (place.address_components) {
@@ -70,12 +74,36 @@ function showHotels() {
       // convert from string to JSON, populate hotels array
       hotels = JSON.parse(xhttp.responseText);
       filtered.length = 0;
+      distances.length = 0;
+
+      var lati = -34.9284989;
+      var long = 138.6007456;
+
+      for(let i = 0; i < hotels.length; i++){
+        var Radii = 6371000; // metres
+        var lat2 = hotels[i].lat;
+        var lng2 = hotels[i].lng;
+        var φ1 = toRadians(lati);
+        var φ2 = toRadians(lat2);
+        var Δφ = toRadians((lat2-lati));
+        var Δλ = toRadians((lng2-long));
+
+        var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ/2) * Math.sin(Δλ/2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+        var d = Radii * c;
+        d = d / 1000;
+
+        distances.push(d);
+      }
       var j = 0;
       for(let i = 0; i < hotels.length; i++){
         if(hotels[i].price <= $("#price").val()){
           if(hotels[i].rating >= $("#stars").val()){
-            filtered[j] = hotels[i];
-            j++;
+            if(distances[i] <= $("#dist").val()){
+              filtered[j] = hotels[i];
+              j++;
+            }
           }
         }
       }
@@ -144,18 +172,22 @@ function addMarkers() {
     google.maps.event.addListener(marker, 'click', function() {
       //Rating System
       var stars = "";
-      for(var j=0;j<filtered[i].rating;j++){
-        stars += "&#10029;";
-      }
-      for(var k=filtered[i].rating;k<5;k++){
-        stars += "&#10025;";
+      if(filtered[i].rating==6){
+        stars = "No ratings";
+      }else{
+        for(var j=0;j<filtered[i].rating;j++){
+          stars += "&#10029;";
+        }
+        for(var k=filtered[i].rating;k<5;k++){
+          stars += "&#10025;";
+        }
       }
 
       infowindow.setContent(
         '<div style="min-width:200px;min-height:100px;margin-top:5px">'+
         '<div style="float:left">'+
         '<img src="'+
-        'https://placeimg.com/640/480/any/' + i +
+        'images/'+filtered[i].id+'.jpg'+
         '" alt="hotel" title="Your Hotel" style="height:100px;width:100px;object-fit: cover;margin:auto;display:block"></div>'+
 
         '<div style="float:left;margin-left:10px;max-width:140px">'+
@@ -212,14 +244,27 @@ function addHotel() {
 
 function hoteldetailsMarker(hotel) {
 
+  let allrooms = [];
   let rooms = [];
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      rooms = JSON.parse(xhttp.responseText);
+      allrooms = JSON.parse(xhttp.responseText);
+
+      for (let i = 0; i < allrooms.length; i++) {
+        if (allrooms[i].price <= $('#price').val()) {
+          if (allrooms[i].stars >= $('#stars').val()) {
+            if(allrooms[i].occupants >= $('#occupants').val()){
+              rooms.push(allrooms[i]);
+            }
+          }
+        }
+      }
+
       $('#hotel_info_room').empty();
-      for(let i=0;i<rooms.length;i++){
-        let roomForBooking = $('#hotel_info_room').append('<h3>'+rooms[i].name+'</h3><p class="roomPrice">$'+rooms[i].price+'</p><p>'+rooms[i].desc+'</p>');
+      for (let i=0; i<rooms.length; i++) {
+        let stars = getStars(rooms[i].stars);
+      let roomForBooking = $('#hotel_info_room').append('<h3>'+rooms[i].name+'</h3><p class="roomPrice">Room for '+rooms[i].occupants+', $'+rooms[i].price+' per night / '+stars+'</p><p>'+rooms[i].desc+'</p>');
         $('<button/>')
           .addClass('mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent')
           .html('Book Now')
@@ -261,7 +306,8 @@ function hoteldetailsMarker(hotel) {
   $('#hotel_info_p').html(hotel.desc);
   $('#hoteldetails_overlay').fadeIn();
   // DYNAMIC DATA: Get the image
-  var getimage = "url('https://placeimg.com/640/480/any/" + hotel.id + "') center / cover";
+  var getimage = "url('images/"+hotel.id+".jpg') center / cover";
+  //var getimage = "url('https://placeimg.com/640/480/any/" + hotel.id + "') center / cover";
   $('.imagescroller').css("background", getimage);
   $('#hd_backbutton').click(function() { $('#hoteldetails_overlay').fadeOut(); sizes(); });
 

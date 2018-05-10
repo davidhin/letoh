@@ -71,7 +71,7 @@ router.post('/reviewstuff.json', function(req, res, next) {
   let roomid = theBooking.roomid;
 
   for(let k=0;k<allReviews.length;k++){
-    if(allReviews[k].id===hotelid && allReviews[k].roomid===roomid && allReviews[k].email==sessions[req.session.id]){
+    if(allReviews[k].id===hotelid && allReviews[k].roomid===roomid && allReviews[k].email==sessions[req.session.id] && allReviews[k].refnum==req.body.refnum){
       res.send(JSON.stringify(allReviews[k]));
     }else if(k==allReviews.length-1){
       res.send(JSON.stringify({"id":-1}));
@@ -123,7 +123,7 @@ router.post('/addHotel.json', function(req, res) {
 
   let newId = hotels[hotels.length-1].id + 1;
   let name = 'New Hotel ID = ' + newId;
-  let newHotel = {'id': newId, 'owner': sessions[req.session.id], 'name': name, 'price': 0, 'rating': 1};
+  let newHotel = {'id': newId, 'owner': sessions[req.session.id], 'name': name, 'price': 0, 'rating': 6};
   hotels.push(newHotel);
 
   res.send(newHotel);
@@ -176,6 +176,7 @@ router.post('/addReview',function(req,res){
   let newReview ={
     "id":req.body.id,
     "roomid": req.body.roomid,
+    "refnum": req.body.refnum,
     "name":req.body.name,
     "email":req.body.email,
     "stars":req.body.stars,
@@ -183,6 +184,32 @@ router.post('/addReview',function(req,res){
   };
 
   allReviews.push(newReview);
+
+  //Room rating
+  let roomIndex = searchRoom(req.body.id,req.body.roomid);
+
+  let rating = 0;
+  let counter = 0;
+  for(let i=0;i<allReviews.length;i++){
+    if(allReviews[i].id==req.body.id && allReviews[i].roomid==req.body.roomid){
+      rating += parseInt(allReviews[i].stars);
+      counter++;
+    }
+  }
+  rating = rating/counter;
+  allRooms[roomIndex].stars = parseInt(rating);
+
+  let hRating = 0;
+  counter = 0;
+  for(let i=0;i<allRooms.length;i++){
+    if(allRooms[i].id==req.body.id){
+      hRating += parseInt(allRooms[i].stars);
+      counter++;
+    }
+  }
+  hRating = hRating/counter;
+  let hotel = searchHotel(req.body.id);
+  hotels[hotel].rating = parseInt(hRating);
 
   res.send("");
 });
@@ -208,7 +235,7 @@ router.post('/addRoom.json', function(req, res) {
 
   let calcroomid = hotels[targetHotel].roomtypes;
   hotels[targetHotel].roomtypes += 1;
-  allRooms.push( {'id': req.body.id, 'name': calcroomid, 'price': 100, 'roomid': calcroomid} );
+  allRooms.push( {'id': req.body.id, 'name': calcroomid, 'price': 100, 'roomid': calcroomid, 'stars': 6} );
 
   res.send('');
 });
@@ -218,6 +245,18 @@ router.post('/changeRoomDetails.json', function(req, res) {
   allRooms[roomIndex].name = req.body.title;
   allRooms[roomIndex].desc = req.body.desc;
   allRooms[roomIndex].price = req.body.roomprice;
+
+  let hotel = searchHotel(req.body.hotelid);
+  let min = hotels[hotel].price;
+
+  for (let i = 0; i < allRooms.length; i++) {
+    if (allRooms[i].id == req.body.hotelid && allRooms[i].price<=min) {
+
+      min = allRooms[i].price;
+    }
+  }
+
+  hotels[hotel].price = min;
 
   res.send('');
 });
@@ -362,9 +401,11 @@ router.get('/usersession.json', function(req, res, next) {
 });
 
 router.get('/managersession.json', function(req, res, next) {
-  if (users[sessions[req.session.id]].manageracc != 1) {
+  if(sessions[req.session.id] == null){
     return res.send({'login': 0});
-  } else {
+  }else if(users[sessions[req.session.id]].manageracc != 1){
+    return res.send({'login': 0});
+  }else{
     res.send(users[sessions[req.session.id]]);
   }
 });

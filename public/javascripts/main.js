@@ -38,7 +38,6 @@ function sessionCheck() {
       }
       $('#menuIcon').html('account_circle');
       mdl_upgrade();
-      console.log(user);
     }
   };
   xhttp.open('GET', 'usersession.json', true);

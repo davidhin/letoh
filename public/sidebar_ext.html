@@ -27,6 +27,13 @@
 <!-- ========= FILTERS ======== -->
 <h2>Filters</h2>
 
+<!-- Occupants -->
+<div class="box">
+  <label>Min Number of occupants: <input class="textInput" id="numOccupants" type="text" pattern="[1-4]" /> </label>
+  <input id="occupants" class="mdl-slider mdl-js-slider" type="range"
+  min="1" max="4" value="1" tabindex="0" />
+</div>
+
 <!-- Maximum Price -->
 <div class="box">
 <label>Maximum price ($AUD): <input class="textInput" id="maxPrice" type="text" pattern="-?[0-9]*(\.[0-9]+)?" /> </label>

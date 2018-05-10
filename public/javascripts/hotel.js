@@ -301,13 +301,12 @@ function get_bookings(booking, can_change) {
     //Cancel Booking Button
     //.append('<button class="removeBookingButton" onclick="remove(this)">X</button>')
     .appendTo(booking_section);
-
   // Image Module
   // book image
   $("<div/>")
   .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone")
     .append($("<img alt='Hotel' title='Your Hotel' class='boximage'>")
-      .attr('src','images/letoh1.jpg')//CONTENT
+      .attr('src','images/'+booking.hotelid+'.jpg')//CONTENT
     )
     .appendTo(book_container);
 
@@ -521,7 +520,7 @@ function postButton(index){
         let xhttp = new XMLHttpRequest();
         xhttp.open('POST', '/addReview', true);
         xhttp.setRequestHeader('Content-type', 'application/json');
-        xhttp.send(JSON.stringify({"id":hotelid,"roomid": roomid,"name":user.firstName+" "+user.lastName,"email":user.email,"stars":starsVal,"review":textbox[0].value}));
+        xhttp.send(JSON.stringify({"id":hotelid,"roomid": roomid, "refnum":split[3],"name":user.firstName+" "+user.lastName,"email":user.email,"stars":starsVal,"review":textbox[0].value}));
       });
 
     }

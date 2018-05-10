@@ -1,5 +1,7 @@
 var hotels = [];
 var filtered = [];
+var distances = [];
+
 
 // ====================== MAIN FUNCTIONS ===================== //
 
@@ -50,6 +52,10 @@ function link_moredetails(index) {
   };
 }
 
+function toRadians(valu){
+  return valu * Math.PI / 180;
+}
+
 /**
  * Show hotel cards taking into account filters
  */
@@ -57,20 +63,67 @@ function hotelCards() {
   showHotels();
   $('#hotelcards').empty();
   mdl_upgrade();
+  $('#hoteldetails_overlay').fadeOut();
 
   filtered = [];
+  distances = [];
+
+  /*var NewTestMapCenter = map.getCenter();
+  var latit = NewTestMapCenter.lat();
+  var longti = NewTestMapCenter.lng();  
+  
+
+  var lat = latit;
+  var lng = longti;
+  console.log(NewTestMapCenter.lat());
+  console.log(NewTestMapCenter.lng());*/
+
+  var lat = -34.9284989;
+  var lng = 138.6007456;
+
+
+  for(let i = 0; i < hotels.length; i++){
+    var Radii = 6371000; // metres
+    var lat2 = hotels[i].lat;
+    var lng2 = hotels[i].lng;
+    var φ1 = toRadians(lat);
+    var φ2 = toRadians(lat2);
+    var Δφ = toRadians((lat2-lat));
+    var Δλ = toRadians((lng2-lng));
+
+    var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    var d = Radii * c;
+    d = d / 1000;
+    distances.push(d);
+  }
+
   for (let i = 0; i < hotels.length; i++) {
     if (hotels[i].price <= $('#price').val()) {
       if (hotels[i].rating >= $('#stars').val()) {
-        filtered.push(hotels[i]);
+        if(distances[i] <= $('#dist').val()) {
+          if(hotels[i].minOccupants >= $('#occupants').val()) {
+            filtered.push(hotels[i]);
+          }
+        }
       }
     }
   }
+  var maxprices = 0;
+  for(let i = 0; i < filtered.length;i++){
+    if(filtered[i].price > maxprices){
+      maxprices = filtered[i].price;
+    }
+  }
+
+  //$('#dist').max() = maxprices;
+  // var testing = document.getElementById("dist").max = maxprices;
 
   for (let i = 0; i < filtered.length; i++) {
     var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#hotelcards");
       // Change the background picture here
-      var insertBg = "url('https://placeimg.com/640/480/any/" + i + "') center / cover";
+      var insertBg = "url('images/"+filtered[i].id+".jpg') center / cover";
       var div_title = $('<div/>').addClass("mdl-card__title").appendTo(div_main).css("background", insertBg);
       // Change the hotel name here
       $('<h2/>').addClass("mdl-card__title-text").html(filtered[i].name).appendTo(div_title);
@@ -84,6 +137,7 @@ function hotelCards() {
         .click(link_moredetails.call(this, filtered[i]))
         .addClass('mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent').html('More details').appendTo(div_buttons);
   }
+
 }
 
 /**
@@ -93,14 +147,27 @@ function hotelCards() {
  */
 function hoteldetails(hotelInput) {
   // Request rooms from server
+  let allrooms = [];
   let rooms = [];
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      rooms = JSON.parse(xhttp.responseText);
+      allrooms = JSON.parse(xhttp.responseText);
+      
+
+      for (let i = 0; i < allrooms.length; i++) {
+        if (allrooms[i].price <= $('#price').val()) {
+          if (allrooms[i].stars >= $('#stars').val()) {
+            if(allrooms[i].occupants >= $('#occupants').val()){
+              rooms.push(allrooms[i]);
+            }
+          }
+        }
+      }
       $('#hotel_info_room').empty();
       for (let i=0; i<rooms.length; i++) {
-        let roomForBooking = $('#hotel_info_room').append('<h3>'+rooms[i].name+'</h3><p class="roomPrice">$'+rooms[i].price+' per night</p><p>'+rooms[i].desc+'</p>');
+        let stars = getStars(rooms[i].stars);
+        let roomForBooking = $('#hotel_info_room').append('<h3>'+rooms[i].name+'</h3><p class="roomPrice">Room for '+rooms[i].occupants+', $'+rooms[i].price+' per night / '+stars+'</p><p>'+rooms[i].desc+'</p>');
         $('<button/>')
           .addClass('mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent')
           .html('Book Now')
@@ -156,16 +223,18 @@ function reviewFilling(id, booking,hotel){
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       reviews = JSON.parse(xhttp.responseText);
+
+      if(reviews.length==0){
+        $('<h5/>')
+        .html("There are no reviews for this room.<br><br>Be the first to review this room!")
+        .appendTo('#' + id);
+        return;
+      }
+
       for (let i=0; i<reviews.length; i++) {
         if(reviews[i].roomid ==id){
 
-          var stars = "";
-          for(var j=0;j<reviews[i].stars;j++){
-            stars += "&#10029;";
-          }
-          for(var k=reviews[i].stars;k<5;k++){
-            stars += "&#10025;";
-          }
+          var stars = getStars(reviews[i].stars);
 
           $('<h5/>')
           .html(reviews[i].name)
@@ -181,6 +250,20 @@ function reviewFilling(id, booking,hotel){
   xhttp.open('POST', 'getReviews.json', true);
   xhttp.setRequestHeader('Content-type', 'application/json');
   xhttp.send(JSON.stringify(hotel));
+}
+
+function getStars(length){
+  if(length==6){
+    return "No ratings"
+  }
+  var stars = "";
+  for(var j=0;j<length;j++){
+    stars += "&#10029;";
+  }
+  for(var k=length;k<5;k++){
+    stars += "&#10025;";
+  }
+  return stars;
 }
 
 /**
@@ -218,7 +301,8 @@ function bookingpage(hotelInput, roomInput, variable) {
   $('#hotelname_underbox').css('margin-bottom', 0).html(hotelInput.name);
 
   // Show main image
-  $('.boximage').html('This is the main image for ' + hotelInput.name);
+  //$('.boximage').html('This is the main image for ' + hotelInput.name);
+  $('.boximage').html("<img alt='Hotel' title='Your Hotel' class='boximage' src='images/"+hotelInput.id+".jpg'>");
 
   // Cancel and go back
   $('#bk_backbutton').click(function() {
