@@ -2,6 +2,7 @@ var map = null;
 var hotels = [];
 var markers = [];
 var filtered = [];
+var distances = [];
 
 // Init map
 function initMap() {
@@ -38,13 +39,17 @@ function initMap() {
       return;
     }
 
+
     // If the place has a geometry, then present it on a map.
     if (place.geometry.viewport) {
       map.fitBounds(place.geometry.viewport);
+      console.log(place.geometry.location.lat());
+      console.log(place.geometry.location.lng());
     } else {
       map.setCenter(place.geometry.location);
       map.setZoom(17);  // Why 17? Because it looks good.
     }
+
 
     var address = '';
     if (place.address_components) {
@@ -69,12 +74,36 @@ function showHotels() {
       // convert from string to JSON, populate hotels array
       hotels = JSON.parse(xhttp.responseText);
       filtered.length = 0;
+      distances.length = 0;
+
+      var lati = -34.9284989;
+      var long = 138.6007456;
+
+      for(let i = 0; i < hotels.length; i++){
+        var Radii = 6371000; // metres
+        var lat2 = hotels[i].lat;
+        var lng2 = hotels[i].lng;
+        var φ1 = toRadians(lati);
+        var φ2 = toRadians(lat2);
+        var Δφ = toRadians((lat2-lati));
+        var Δλ = toRadians((lng2-long));
+
+        var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ/2) * Math.sin(Δλ/2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+        var d = Radii * c;
+        d = d / 1000;
+
+        distances.push(d);
+      }
       var j = 0;
       for(let i = 0; i < hotels.length; i++){
         if(hotels[i].price <= $("#price").val()){
           if(hotels[i].rating >= $("#stars").val()){
-            filtered[j] = hotels[i];
-            j++;
+            if(distances[i] <= $("#dist").val()){
+              filtered[j] = hotels[i];
+              j++;
+            }
           }
         }
       }

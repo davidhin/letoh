@@ -1,5 +1,7 @@
 var hotels = [];
 var filtered = [];
+var distances = [];
+
 
 // ====================== MAIN FUNCTIONS ===================== //
 
@@ -50,6 +52,10 @@ function link_moredetails(index) {
   };
 }
 
+function toRadians(valu){
+  return valu * Math.PI / 180;
+}
+
 /**
  * Show hotel cards taking into account filters
  */
@@ -60,13 +66,57 @@ function hotelCards() {
   $('#hoteldetails_overlay').fadeOut();
 
   filtered = [];
+  distances = [];
+
+  /*var NewTestMapCenter = map.getCenter();
+  var latit = NewTestMapCenter.lat();
+  var longti = NewTestMapCenter.lng();  
+  
+
+  var lat = latit;
+  var lng = longti;
+  console.log(NewTestMapCenter.lat());
+  console.log(NewTestMapCenter.lng());*/
+
+  var lat = -34.9284989;
+  var lng = 138.6007456;
+
+
+  for(let i = 0; i < hotels.length; i++){
+    var Radii = 6371000; // metres
+    var lat2 = hotels[i].lat;
+    var lng2 = hotels[i].lng;
+    var φ1 = toRadians(lat);
+    var φ2 = toRadians(lat2);
+    var Δφ = toRadians((lat2-lat));
+    var Δλ = toRadians((lng2-lng));
+
+    var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    var d = Radii * c;
+    d = d / 1000;
+    distances.push(d);
+  }
+
   for (let i = 0; i < hotels.length; i++) {
     if (hotels[i].price <= $('#price').val()) {
       if (hotels[i].rating >= $('#stars').val()) {
-        filtered.push(hotels[i]);
+        if(distances[i] <= $('#dist').val()){
+          filtered.push(hotels[i]);
+        }
       }
     }
   }
+  var maxprices = 0;
+  for(let i = 0; i < filtered.length;i++){
+    if(filtered[i].price > maxprices){
+      maxprices = filtered[i].price;
+    }
+  }
+
+  //$('#dist').max() = maxprices;
+  var testing = document.getElementById("dist").max = maxprices;
 
   for (let i = 0; i < filtered.length; i++) {
     var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#hotelcards");
@@ -101,6 +151,7 @@ function hoteldetails(hotelInput) {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       allrooms = JSON.parse(xhttp.responseText);
+      
 
       for (let i = 0; i < allrooms.length; i++) {
         if (allrooms[i].price <= $('#price').val()) {
@@ -109,7 +160,6 @@ function hoteldetails(hotelInput) {
           }
         }
       }
-
       $('#hotel_info_room').empty();
       for (let i=0; i<rooms.length; i++) {
         let stars = getStars(rooms[i].stars);
