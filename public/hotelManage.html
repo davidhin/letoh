@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hotel Manager Page</title>
   <link rel="stylesheet" href="stylesheets/style.css">
-  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-pink.min.css" />
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-pink.min.css"
+  />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -16,45 +18,47 @@
 </head>
 
 <body>
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
 
-  <!-- TOP MENU -->
-  <header data-w3-include-html="topmenualt_ext.html"></header>
+    <!-- TOP MENU -->
+    <header data-w3-include-html="topmenualt_ext.html"></header>
 
-  <!-- SIDEBAR -->
-  <div class="mdl-layout__drawer">
-    <nav id="myHotels" class="mdl-navigation">
-      <!-- DYNAMIC DATA - loadHotels() -->
-    </nav>
-  </div>
-
-  <main class="mdl-layout__content">
-    <!-- Content -->
-    <div id="content" class="managerContent">
-    <!-- DYNAMIC DATA (hotel information) GOES HERE -->
-      <div id="hotelOverview">
-        <!-- DYNAMIC DATA GOES HERE -->
-      </div>
-      <div id="generalInfo">
-        <!-- DYNAMIC DATA GOES HERE -->
-      </div>
-      <div id="roomTypes">
-        <!-- DYNAMIC DATA GOES HERE -->
-      </div>
+    <!-- SIDEBAR -->
+    <div class="mdl-layout__drawer">
+      <nav id="myHotels" class="mdl-navigation">
+        <!-- DYNAMIC DATA - loadHotels() -->
+      </nav>
     </div>
-    <!-- footer -->
-    <footer>
-      <p>Feedback</p>
-      <p><a href="privacy.html" target="_blank">Privacy Policy</a></p>
-      <p><a href="terms.html" target="_blank">Terms of Use</a></p>
-      <p>© 2018 Letoh, Inc. All rights reserved</p>
-    </footer>
-  </main>
 
-<script async defer
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvzIpwWPST-CXenOpSNOFOaVBiPle-zMs&libraries=places">
-</script>
-</div>
-<script> includeHTML(); </script>
+    <main class="mdl-layout__content">
+      <!-- Content -->
+      <div id="content" class="managerContent">
+        <!-- DYNAMIC DATA (hotel information) GOES HERE -->
+        <div id="hotelOverview">
+          <!-- DYNAMIC DATA GOES HERE -->
+        </div>
+        <div id="generalInfo">
+          <!-- DYNAMIC DATA GOES HERE -->
+        </div>
+        <div id="roomTypes">
+          <!-- DYNAMIC DATA GOES HERE -->
+        </div>
+      </div>
+      <!-- footer -->
+      <footer>
+        <p>Feedback</p>
+        <p><a href="privacy.html" target="_blank">Privacy Policy</a></p>
+        <p><a href="terms.html" target="_blank">Terms of Use</a></p>
+        <p>© 2018 Letoh, Inc. All rights reserved</p>
+      </footer>
+    </main>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvzIpwWPST-CXenOpSNOFOaVBiPle-zMs&libraries=places">
+    </script>
+  </div>
+  <script>
+    includeHTML();
+  </script>
 </body>
+
 </html>

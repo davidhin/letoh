@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Lobster');
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
-
 /* =================== BASICS ===================== */
+
 html,
-body{
+body {
   font-family: roboto, sans-serif;
   padding: 0px;
   margin: 0px;
@@ -11,11 +11,11 @@ body{
   height: 100%;
 }
 
-header{
+header {
   z-index: 4;
   width: 100%;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
-  background: rgb(0,188,212);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+  background: rgb(0, 188, 212);
   position: fixed;
   top: 0px;
   padding: 8px;
@@ -34,7 +34,7 @@ header{
 .bookingContent {
   position: relative;
   z-index: 6;
-  background: rgba(255,255,255,0.8);
+  background: rgba(255, 255, 255, 0.8);
   height: auto;
 }
 
@@ -45,7 +45,7 @@ footer {
   width: 100%;
   padding: 2px;
   font-size: 12px;
-  background: rgb(0,188,212);
+  background: rgb(0, 188, 212);
   z-index: 6;
 }
 
@@ -58,31 +58,32 @@ footer a {
 }
 
 #map {
- display:hidden;
- height: calc(100vh - 64px);
- width: 100%;
+  display: hidden;
+  height: calc(100vh - 64px);
+  width: 100%;
 }
+
 /* =================== TOP BAR ==================== */
+
 .letohLogo {
   padding: 4px 4px 4px 10px;
   width: 70px;
   float: left;
 }
 
- .letohLogoAlt {
-   padding-left: calc(50% - 30px);
-   padding-top: 5px;
-   float: left;
- }
+.letohLogoAlt {
+  padding-left: calc(50% - 30px);
+  padding-top: 5px;
+  float: left;
+}
 
- .letohLogo a,
- .letohLogoAlt a {
+.letohLogo a,
+.letohLogoAlt a {
   font-size: 31px !important;
   font-family: Lobster, sans-serif !important;
   color: white;
   font-weight: bold !important;
   text-decoration: none;
-
 }
 
 #mainSearch {
@@ -90,7 +91,7 @@ footer a {
   float: left;
   background: white;
   border: none;
-  border-radius:2px;
+  border-radius: 2px;
   color: grey;
   padding: 8px;
   margin-left: 10px;
@@ -105,9 +106,13 @@ footer a {
 }
 
 /* =========== SEARCH PAGE NAVIGATION ============= */
-h2 { font-size: 30px !important; }
+
+h2 {
+  font-size: 30px !important;
+}
+
 #submit {
-  background-color: rgb(0,188,212);
+  background-color: rgb(0, 188, 212);
   margin: 10px 0px 10px 0px;
   border: none;
   color: white;
@@ -128,7 +133,7 @@ h2 { font-size: 30px !important; }
 input.textInput {
   background: transparent;
   border: none;
-  color: rgb(0,188,212);
+  color: rgb(0, 188, 212);
   width: 50px;
   font-size: 20px !important;
 }
@@ -140,12 +145,14 @@ input.textInput:invalid {
 }
 
 /* =========== SEARCH PAGE HOTEL CARDS ============ */
+
 .hotel-card.mdl-card {
   float: left;
   margin: 0px 15px 15px 0px;
   width: calc(25% - 15px);
 }
-.hotel-card > .mdl-card__title {
+
+.hotel-card>.mdl-card__title {
   height: 240px;
   max-height: 240px;
 }
@@ -157,21 +164,21 @@ input.textInput:invalid {
   text-shadow: 1px 1px 2px black !important;
 }
 
-.mdl-card__supporting-text{
+.mdl-card__supporting-text {
   word-wrap: break-word !important;
   overflow: hidden !important;
-  height:40px !important;
+  height: 40px !important;
 }
 
-p.mdl-card__supporting-text{
+p.mdl-card__supporting-text {
   word-wrap: break-word !important;
   overflow: hidden !important;
-  height:20px !important;
-  margin-bottom:0px !important;
-  padding-bottom:0px !important;
+  height: 20px !important;
+  margin-bottom: 0px !important;
+  padding-bottom: 0px !important;
 }
 
-.hotel-card > .mdl-card__menu {
+.hotel-card>.mdl-card__menu {
   color: #fff;
 }
 
@@ -189,20 +196,20 @@ p.mdl-card__supporting-text{
 #hoteldetails_overlay {
   position: fixed;
   z-index: 6;
-  background: rgba(255,255,255,0.9);
+  background: rgba(255, 255, 255, 0.9);
   width: calc(100% - 331px);
   display: none;
   margin: 15px;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
 }
 
- #hotel_info_room {
-   padding: 15px;
- }
+#hotel_info_room {
+  padding: 15px;
+}
 
- .roomPrice {
-   font-weight: bold;
- }
+.roomPrice {
+  font-weight: bold;
+}
 
 #confirmation_overlay {
   display: none;
@@ -222,7 +229,7 @@ p.mdl-card__supporting-text{
 
 #hd_backbutton {
   position: fixed;
-  z-index:9999;
+  z-index: 9999;
   margin: 10px;
 }
 
@@ -237,6 +244,7 @@ p.mdl-card__supporting-text{
 }
 
 /* ========== HOTEL MANAGER PAGE CARDS ============ */
+
 .managerContent {
   text-align: center;
   padding-left: 0px !important;
@@ -271,14 +279,14 @@ p.mdl-card__supporting-text{
   overflow: auto;
 }
 
-  #mgrDesc h4 {
-    width: calc(100% - 66px);
-  }
+#mgrDesc h4 {
+  width: calc(100% - 66px);
+}
 
-  .mgrOverviewCard {
-    max-height: 300px;
-    overflow: auto !important;
-  }
+.mgrOverviewCard {
+  max-height: 300px;
+  overflow: auto !important;
+}
 
 #mgrAddress {
   min-height: 0;
@@ -287,14 +295,15 @@ p.mdl-card__supporting-text{
 }
 
 /* ============= BOOKING PAGE CARDS =============== */
+
 .bookingCard {
   width: 100% !important;
   padding: 20px;
 }
 
-
 /* ============ MISC MDL MODIFICATIONS ============ */
-.mdl-textfield__input ~ label {
+
+.mdl-textfield__input~label {
   margin-top: -20px;
 }
 
@@ -302,13 +311,14 @@ p.mdl-card__supporting-text{
   width: 100% !important;
 }
 
-.mdl-textfield__input:focus ~ label,
-.mdl-textfield__input:valid ~ label,
-.mdl-textfield__input:invalid ~ label {
+.mdl-textfield__input:focus~label,
+.mdl-textfield__input:valid~label,
+.mdl-textfield__input:invalid~label {
   margin-top: 0px;
 }
 
-.mdl-slider__background-flex, .mdl-slider {
+.mdl-slider__background-flex,
+.mdl-slider {
   margin: 0 !important;
   width: 100% !important;
 }
@@ -334,17 +344,20 @@ p.mdl-card__supporting-text{
   padding: 20px 0px 0px 0px !important;
 }
 
-  #myHotels h2 {
-    text-align:center;
-  }
-  #myHotels #overview {
-    text-align: left !important;
-    padding-left: 40px !important;
-    height: 70px !important;
-  }
+#myHotels h2 {
+  text-align: center;
+}
+
+#myHotels #overview {
+  text-align: left !important;
+  padding-left: 40px !important;
+  height: 70px !important;
+}
 
 /* ================== ACCORDIAN =================== */
- /* Style the buttons that are used to open and close the accordion panel */
+
+/* Style the buttons that are used to open and close the accordion panel */
+
 .accordion {
   text-align: left !important;
   height: 50px !important;
@@ -352,10 +365,11 @@ p.mdl-card__supporting-text{
 }
 
 /* Style the accordion panel. Note: hidden by default */
+
 .panel {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
 }
 
 .panel a {
@@ -377,11 +391,27 @@ p.mdl-card__supporting-text{
 }
 
 /* ================= MEDIA SCREEN ================= */
-@media screen and (max-width: 1300px) { .hotel-card.mdl-card { width: calc(33.33336% - 15px); }}
-@media screen and (max-width: 1000px) { .hotel-card.mdl-card { width: calc(50% - 15px);       }}
-@media screen and (max-width: 600px)  { .hotel-card.mdl-card { width: calc(100% - 15px);      }}
+
+@media screen and (max-width: 1300px) {
+  .hotel-card.mdl-card {
+    width: calc(33.33336% - 15px);
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .hotel-card.mdl-card {
+    width: calc(50% - 15px);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .hotel-card.mdl-card {
+    width: calc(100% - 15px);
+  }
+}
 
 /* ================== DESKTOP ===================== */
+
 @media screen and (min-width: 1024px) {
   .mdl-layout__drawer {
     width: 300px !important;
@@ -391,11 +421,23 @@ p.mdl-card__supporting-text{
   .mdl-layout__content {
     margin-left: 300px !important;
   }
-  header { height: 64px; n}
-  article { padding-top: 64px; }
-  .letohLogo { padding: 12px 10px 5px 20px; }
-  .letohLogoAlt { padding-top: 12px; }
-  #mainSearch { padding: 10px; margin-top: 5px; }
+  header {
+    height: 64px;
+    n
+  }
+  article {
+    padding-top: 64px;
+  }
+  .letohLogo {
+    padding: 12px 10px 5px 20px;
+  }
+  .letohLogoAlt {
+    padding-top: 12px;
+  }
+  #mainSearch {
+    padding: 10px;
+    margin-top: 5px;
+  }
   #hoteldetails_overlay {
     max-width: 100%;
     height: calc(100vh - 125px);
@@ -407,6 +449,7 @@ p.mdl-card__supporting-text{
 }
 
 /* =================== TABLET ===================== */
+
 @media screen and (max-width: 1023px) {
   .mdl-layout__drawer {
     width: 300px !important;
@@ -419,7 +462,7 @@ p.mdl-card__supporting-text{
     left: 0 !important;
   }
   #mainSearch {
-      width: calc(100% - 185px);
+    width: calc(100% - 185px);
   }
   .mainMenu {
     margin: 0;
@@ -433,15 +476,16 @@ p.mdl-card__supporting-text{
     overflow: auto;
   }
   #map {
-   height: calc(100vh - 48px);
+    height: calc(100vh - 48px);
   }
 }
 
 /* ================== MOBILE ====================== */
+
 @media screen and (max-width: 480px) {
   .mdl-layout__drawer {
     width: calc(100% - 48px) !important;
-    left: calc(-1 * (100% + 48px) / 2)  !important;
+    left: calc(-1 * (100% + 48px) / 2) !important;
   }
   .mdl-layout__drawer.is-visible {
     left: 0 !important;
@@ -466,17 +510,19 @@ p.mdl-card__supporting-text{
     width: 100%;
   }
   #map {
-   height: calc(100vh - 48px);
+    height: calc(100vh - 48px);
   }
 }
 
-
 /* ================================================ */
+
 /* =============== Justins styles ================= */
+
 /* ================================================ */
 
 /* =================== Basics ===================== */
-.divstyle{
+
+.divstyle {
   box-sizing: border-box;
   padding: 30px;
   border-radius: 25px;
@@ -484,87 +530,91 @@ p.mdl-card__supporting-text{
   border: 5px solid #efefef;
 }
 
-.sectionheadings{
+.sectionheadings {
   margin-top: 0px;
   font-size: 30px
 }
 
 .boxheadings,
-.hotelboxheadings{
+.hotelboxheadings {
   word-break: keep-all;
   margin-bottom: 5px;
   font-size: 20px;
 }
 
-.hotelboxheadings{
+.hotelboxheadings {
   margin-top: 0px;
 }
 
-.boxparagraph{
-}
+.boxparagraph {}
 
-.boximage{
+.boximage {
   width: 100%;
   height: 150px;
 }
 
 /* ============== Screen Resizing ================= */
-@media screen and (max-width: 1000px){
-  #hotelhistory,  #accountsettings, .rightaccount{
+
+@media screen and (max-width: 1000px) {
+  #hotelhistory,
+  #accountsettings,
+  .rightaccount {
     width: 100%;
   }
 }
 
 @media screen and (max-width: 800px) {
-  .modulecontainer{
+  .modulecontainer {
     display: block;
   }
-
-  .reviewmodule{
+  .reviewmodule {
     height: auto;
   }
-
-  .imagemodule{
+  .imagemodule {
     height: auto;
   }
 }
 
 /* ================ Booking Page ================== */
+
 /* =================== Modules ==================== */
+
 .rightcontent,
-.leftcontent{
+.leftcontent {
   margin-bottom: 20px;
   width: 100%;
 }
 
 /* ==================== Forms ===================== */
-.inputbox{
+
+.inputbox {
   border: 1px solid #474544;
   background: white;
 }
 
-.smallinputbox{
+.smallinputbox {
   width: 50px !important;
 }
 
-.biginputbox{
+.biginputbox {
   width: 100% !important;
   /*height: 100px;*/
-  resize:none;
+  resize: none;
 }
 
-.submitbutton{
+.submitbutton {
   width: 100%;
   height: 50px;
 }
 
 /* ================= Ac/Hi Page =================== */
-.rightaccount{
+
+.rightaccount {
   width: 100%;
   margin: 0px;
 }
 
-.centerdiv{
+.centerdiv {
   box-sizing: border-box;
   width: 100%;
   padding-right: 30px;
@@ -574,18 +624,20 @@ p.mdl-card__supporting-text{
   float: left;
 }
 
-#hotelhistory{
+#hotelhistory {
   float: left;
   width: calc(100% - 20px);
 }
 
-#accountsettings{
+#accountsettings {
   display: none;
 }
 
 /* ================ Account Page ================== */
+
 /* ================== Modules ===================== */
-.accountModule{
+
+.accountModule {
   display: block;
   width: 100%;
   overflow: auto;
@@ -594,150 +646,154 @@ p.mdl-card__supporting-text{
 }
 
 .settingName,
-.settingDescription{
+.settingDescription {
   border-radius: 0px;
   float: left;
   min-height: 105px;
   height: 100%;
 }
 
-.settingName{
+.settingName {
   padding-top: 30px;
   width: 280px;
   height: auto;
   flex: 1;
 }
 
-.settingDescription{
+.settingDescription {
   width: 400px;
   flex: 2;
 }
 
-.accountInput{
+.accountInput {
   display: none;
 }
 
-.accountDetailsSection{
+.accountDetailsSection {
   height: 15px;
 }
 
 /* =================== Buttons ==================== */
-.confirm{
+
+.confirm {
   display: none;
   float: left;
 }
 
-.cancel{
+.cancel {
   display: none;
   float: right;
 }
 
 /* ================= History Page ================= */
-#currentBookings{
-}
 
-#pastBookings{
-}
+#currentBookings {}
+
+#pastBookings {}
 
 /* =================== Modules ==================== */
-.modulecontainer{
+
+.modulecontainer {
   overflow: auto;
   min-height: 280px;
   display: flex;
 }
 
 .modulecontainer .mdl-cell {
-  padding:  15px;
+  padding: 15px;
 }
 
 .imagemodule,
 .descriptmodule,
-.reviewmodule{
+.reviewmodule {
   display: table-cell;
-  vertical-align:  top;
+  vertical-align: top;
   border-radius: 0px;
   float: left;
 }
 
-.imagemodule{
+.imagemodule {}
+
+.descriptmodule {}
+
+.reviewmodule {
+  white-space: nowrap
 }
 
-.descriptmodule{
-}
-
-.reviewmodule{
-  white-space:  nowrap
-}
 /* =================== Buttons ==================== */
+
 /* ================ Edit Booking ================== */
-.removeBookingButton{
+
+.removeBookingButton {
   background-color: red;
   border: none;
 }
 
-.removeBookingButton: hover{
+.removeBookingButton: hover {
   background-color: yellow;
 }
 
-.editBookingedit{
-}
+.editBookingedit {}
 
-.cancelBookingedit{
+.cancelBookingedit {
   display: none;
 }
 
-.confirmBookingedit{
+.confirmBookingedit {
   display: none
 }
 
 /* ================== Review ====================== */
-.reviewButton{
+
+.reviewButton {
   width: 100px;
   height: 100px;
 }
 
-.cancelButton{
+.cancelButton {
   display: none;
   float: right;
 }
 
-.postButton{
+.postButton {
   display: none;
   float: left;
 }
 
 /* =================== Buttons ==================== */
-.dateInput{
+
+.dateInput {
   display: none;
 }
 
-.tableFill{
-}
+.tableFill {}
 
-.filler{
+.filler {
   float: right;
   width: 85%;
   margin: 0px;
 }
 
-.boxtable{
+.boxtable {
   width: 100%;
 }
 
-.tablerightcol{
+.tablerightcol {
   text-align: right;
 }
 
-.tabletotal{
+.tabletotal {
   text-align: left;
 }
 
 /* =============== Screen Resizing ================ */
-@media screen and (max-width: 1000px){
-  #hotelhistory,  #accountsettings, .rightaccount{
+
+@media screen and (max-width: 1000px) {
+  #hotelhistory,
+  #accountsettings,
+  .rightaccount {
     width: calc(100% - 20px);
   }
-
 }
 
 @media screen and (max-width: 800px) {
@@ -748,185 +804,184 @@ p.mdl-card__supporting-text{
   .modulecontainer,
   .imagemodule,
   .descriptmodule,
-  .reviewmodule{
+  .reviewmodule {
     width: 100%;
   }
-
-  .modulecontainer{
+  .modulecontainer {
     display: block;
   }
-
-  .reviewmodule{
+  .reviewmodule {
     height: 280px;
   }
-
-  .imagemodule{
+  .imagemodule {
     height: auto;
   }
 }
 
-
 /* ================================================ */
+
 /* =============== Callums styles ================= */
+
 /* ================================================ */
 
-.imagescroller{
-  width:100%;
-  height:40vh;
+.imagescroller {
+  width: 100%;
+  height: 40vh;
 }
 
-.middlecontent{
-  margin-top:15px;
-  margin-bottom:30px;
-  width:700px;
+.middlecontent {
+  margin-top: 15px;
+  margin-bottom: 30px;
+  width: 700px;
   margin-left: auto;
   height: 400px;
   margin-right: auto;
 }
 
-.hotelmiddlecontent{
-  width:100%;
-  height:auto;
-  float:left;
+.hotelmiddlecontent {
+  width: 100%;
+  height: auto;
+  float: left;
 }
 
-.middledivstyle{
-  box-sizing:border-box;
-  padding:20px;
+.middledivstyle {
+  box-sizing: border-box;
+  padding: 20px;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   /* Box Colour */
 }
 
-.hotel_info{
+.hotel_info {
   width: calc(100% - 40px);
-  height:auto;
+  height: auto;
   padding: 20px;
 }
 
-.booknow{
-  width:100%;
-  height:100px;
+.booknow {
+  width: 100%;
+  height: 100px;
 }
 
-.image_details{
-  width:25%;
-  height:100px;
-  float:left;
-}
-
-.input_info{
-  width:75%;
-  height:100px;
-  float:left;
-}
-
-.inputer{
-  width:25%;
-  height:100%;
-  float:left;
-}
-
-.input-box-left{
-  background:white;
-  margin-right:15px;
-  padding: 20px;
-}
-
-.input-box-right{
-  background:white;
-  padding: 20px;
-}
-
-.input-box-right form{
-  font-family: roboto, sans-serif;
-}
-
-  .input-box-left h5, .input-box-right h5 {
-    margin: 10px 0 15px 0;
-    font-weight: 100;
-    font-size: 30px;
-  }
-
-.InputForms{
-/*  margin-left: auto;
-  margin-right: auto;*/
-}
-
-.inputfield{
-  width:95%;
-}
-
-.nameinputsection{
-  width:50%;
-  height:auto;
+.image_details {
+  width: 25%;
+  height: 100px;
   float: left;
 }
 
-.nameinput{
-  width:85%;
+.input_info {
+  width: 75%;
+  height: 100px;
+  float: left;
+}
+
+.inputer {
+  width: 25%;
+  height: 100%;
+  float: left;
+}
+
+.input-box-left {
+  background: white;
+  margin-right: 15px;
+  padding: 20px;
+}
+
+.input-box-right {
+  background: white;
+  padding: 20px;
+}
+
+.input-box-right form {
+  font-family: roboto, sans-serif;
+}
+
+.input-box-left h5,
+.input-box-right h5 {
+  margin: 10px 0 15px 0;
+  font-weight: 100;
+  font-size: 30px;
+}
+
+.InputForms {
+  /*  margin-left: auto;
+  margin-right: auto;*/
+}
+
+.inputfield {
+  width: 95%;
+}
+
+.nameinputsection {
+  width: 50%;
+  height: auto;
+  float: left;
+}
+
+.nameinput {
+  width: 85%;
   padding-right: 5%;
 }
 
-.middleborder{
-  width:50%;
-  box-sizing:border-box;
-  height:50px !important;
+.middleborder {
+  width: 50%;
+  box-sizing: border-box;
+  height: 50px !important;
   margin-left: auto;
   margin-right: auto;
   padding-left: 15px;
   line-height: 40px !important;
 }
 
-.socialimage{
-  width:40px;
-  height:40px;
+.socialimage {
+  width: 40px;
+  height: 40px;
   padding-right: 20px;
-  float:left;
+  float: left;
 }
 
-.bookbutton{
-  width:80%;
-  height:50%;
+.bookbutton {
+  width: 80%;
+  height: 50%;
   margin-top: 25%;
   margin-bottom: auto;
   background-color: #FFEE9F;
-  border-radius:10px;
-  border:2px solid #E8B53C;
-  padding-left:15%;
+  border-radius: 10px;
+  border: 2px solid #E8B53C;
+  padding-left: 15%;
 }
 
 .bookbutton:hover {
-  background-color:#FFD52E;
-  border:2px solid #E8AB1F;
+  background-color: #FFD52E;
+  border: 2px solid #E8AB1F;
 }
 
-.imgdeets{
-  width:100%;
-  height:100px;
+.imgdeets {
+  width: 100%;
+  height: 100px;
   font-size: 85%;
 }
 
 @media screen and (max-width:800px) {
-  .middlecontent{
-    width:400px;
-    height:auto;
+  .middlecontent {
+    width: 400px;
+    height: auto;
   }
-  .input-box-left{
-    float:none;
+  .input-box-left {
+    float: none;
     margin-right: auto !important;
     margin-left: auto;
-    width:87%;
-    margin-right:0px;
+    width: 87%;
+    margin-right: 0px;
   }
-  .input-box-right{
-    float:none;
+  .input-box-right {
+    float: none;
     margin-left: auto;
     margin-right: auto;
-    margin-top:15px;
-    width:87%;
+    margin-top: 15px;
+    width: 87%;
   }
-  .middleborder{
-    width:286px;
+  .middleborder {
+    width: 286px;
   }
 }

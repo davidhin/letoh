@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Account Page</title>
   <link rel="stylesheet" href="stylesheets/style.css">
-  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-pink.min.css" />
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-pink.min.css"/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -16,130 +17,139 @@
 </head>
 
 <body>
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
 
-  <!-- TOP MENU -->
-  <header data-w3-include-html="topmenualt_ext.html"></header>
+    <!-- TOP MENU -->
+    <header data-w3-include-html="topmenualt_ext.html"></header>
 
-  <div class="mdl-layout__drawer">
-    <nav class="mdl-navigation">
-    <!-- SIDEBAR CONTENT GOES HERE -->
-      <h3 class="sectionheadings" style="padding:20px;margin-bottom:0px;">Account<br>Information</h3>
-      <p class="boxparagraph mdl-navigation__link" onclick="hotels()">Booking History</p>
-      <p class="boxparagraph mdl-navigation__link" onclick="account()">Account Settings</p>
-    </nav>
-  </div>
+    <div class="mdl-layout__drawer">
+      <nav class="mdl-navigation">
+        <!-- SIDEBAR CONTENT GOES HERE -->
+        <h3 class="sectionheadings" style="padding:20px;margin-bottom:0px;">Account<br>Information</h3>
+        <p class="boxparagraph mdl-navigation__link" onclick="hotels()">Booking History</p>
+        <p class="boxparagraph mdl-navigation__link" onclick="account()">Account Settings</p>
+      </nav>
+    </div>
 
-  <main class="mdl-layout__content">
-  <!-- MAIN CONTENT -->
-    <section id="content">
+    <main class="mdl-layout__content">
+      <!-- MAIN CONTENT -->
+      <section id="content">
 
-      <!-- Hotel History -->
-      <div id="hotelhistory">
-        <div class="rightaccount">
-          <h1 class="sectionheadings" style="margin-bottom:0px;margin-top:10px;margin-left:15px;">Current Bookings</h1>
+        <!-- Hotel History -->
+        <div id="hotelhistory">
+          <div class="rightaccount">
+            <h1 class="sectionheadings" style="margin-bottom:0px;margin-top:10px;margin-left:15px;">Current Bookings</h1>
             <div id="currentBookings">
             </div>
-            <br><hr>
+            <br>
+            <hr>
             <h1 class="sectionheadings" style="margin-bottom:0px;margin-left:15px;">Past Bookings</h1>
             <div id="pastBookings">
             </div>
+          </div>
         </div>
-      </div>
 
-      <!-- Account Settings -->
-      <div id="accountsettings">
-        <div class="rightaccount">
+        <!-- Account Settings -->
+        <div id="accountsettings">
+          <div class="rightaccount">
 
-          <div class="accountModule">
-            <div class="divstyle settingName">
-              <h4 class="boxheadings" style="margin-top:0px;">Your Details</h4>
+            <div class="accountModule">
+              <div class="divstyle settingName">
+                <h4 class="boxheadings" style="margin-top:0px;">Your Details</h4>
+              </div>
+
+              <div class="divstyle settingDescription">
+                <h4 class="boxheadings" style="margin-top:0px;">Account Name</h4>
+                <p class="boxparagraph">Account Name</p>
+                <div class="accountDetailsSection">
+                  <button class="mdl-button mdl-js-button mdl-button--primary" onclick="accountChange(this)">edit</button>
+                  <input class="mdl-textfield__input" type="text" style="display:none;" data-required
+                  />
+                  <span class="mdl-textfield__error">Invalid name format</span>
+                </div>
+
+                <input type="text" name="AccountName" class="inputbox accountInput">
+                <h4 class="boxheadings">Address</h4>
+                <p class="boxparagraph">Address</p>
+                <div class="accountDetailsSection">
+                  <button class="mdl-button mdl-js-button mdl-button--primary" onclick="accountChange(this)">edit</button>
+                  <input class="mdl-textfield__input" type="text" style="display:none;" data-required
+                  />
+                  <span class="mdl-textfield__error">Invalid email format</span>
+                </div>
+
+                <h4 class="boxheadings">Phone Number</h4>
+                <p class="boxparagraph">Phone Number</p>
+                <div class="accountDetailsSection">
+                  <button class="mdl-button mdl-js-button mdl-button--primary" onclick="accountChange(this)">edit</button>
+                  <input class="mdl-textfield__input" type="text" style="display:none;" data-required
+                  />
+                  <span class="mdl-textfield__error">Invalid email format</span>
+                </div>
+
+              </div>
             </div>
 
-            <div class="divstyle settingDescription">
-              <h4 class="boxheadings" style="margin-top:0px;">Account Name</h4>
-              <p class="boxparagraph">Account Name</p>
-              <div class="accountDetailsSection">
-                <button class="mdl-button mdl-js-button mdl-button--primary" onclick="accountChange(this)">edit</button>
-                <input class="mdl-textfield__input" type="text" style="display:none;" data-required />
-                <span class="mdl-textfield__error">Invalid name format</span>
+            <div class="accountModule">
+              <div class="divstyle settingName">
+                <h4 class="boxheadings" style="margin-top:0px;">Email Address</h4>
               </div>
-
-              <input type="text" name="AccountName" class="inputbox accountInput">
-              <h4 class="boxheadings">Address</h4>
-              <p class="boxparagraph">Address</p>
-              <div class="accountDetailsSection">
-                <button class="mdl-button mdl-js-button mdl-button--primary" onclick="accountChange(this)">edit</button>
-                <input class="mdl-textfield__input" type="text" style="display:none;" data-required />
-                <span class="mdl-textfield__error">Invalid email format</span>
+              <div class="divstyle settingDescription">
+                <h4 class="boxheadings" style="margin-top:0px;">Email Address</h4>
+                <p class="boxparagraph">Email Address</p>
+                <div class="accountDetailsSection">
+                  <button class="mdl-button mdl-js-button mdl-button--primary" onclick="accountChange(this)">edit</button>
+                  <input class="mdl-textfield__input" type="text" style="display:none;" data-required
+                  />
+                  <span class="mdl-textfield__error">Invalid email format</span>
+                </div>
               </div>
-
-              <h4 class="boxheadings">Phone Number</h4>
-              <p class="boxparagraph">Phone Number</p>
-              <div class="accountDetailsSection">
-                <button class="mdl-button mdl-js-button mdl-button--primary" onclick="accountChange(this)">edit</button>
-                <input class="mdl-textfield__input" type="text" style="display:none;" data-required />
-                <span class="mdl-textfield__error">Invalid email format</span>
-              </div>
-
             </div>
+
+            <div class="accountModule">
+              <div class="divstyle settingName">
+                <h3 class="boxheadings" style="margin-top:0px;">Password</h3>
+              </div>
+              <div class="divstyle settingDescription">
+                <h4 class="boxheadings" style="margin-top:0px;">Password</h4>
+                <p class="boxparagraph">Password</p>
+                <div class="accountDetailsSection">
+                  <button class="mdl-button mdl-js-button mdl-button--primary" onclick="accountChange(this)">edit</button>
+                  <input class="mdl-textfield__input" type="password" style="display:none;" data-required
+                  />
+                  <span class="mdl-textfield__error">Invalid email format</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="accountModule">
+              <div class="divstyle settingName">
+                <h3 class="boxheadings" style="margin-top:0px;">Connected Accounts</h3>
+              </div>
+              <div class="divstyle settingDescription">
+                <p class="boxparagraph">None Connected</p>
+              </div>
+            </div>
+
           </div>
-
-          <div class="accountModule">
-            <div class="divstyle settingName">
-              <h4 class="boxheadings" style="margin-top:0px;">Email Address</h4>
-            </div>
-            <div class="divstyle settingDescription">
-              <h4 class="boxheadings" style="margin-top:0px;">Email Address</h4>
-              <p class="boxparagraph">Email Address</p>
-              <div class="accountDetailsSection">
-                <button class="mdl-button mdl-js-button mdl-button--primary" onclick="accountChange(this)">edit</button>
-                <input class="mdl-textfield__input" type="text" style="display:none;" data-required />
-                <span class="mdl-textfield__error">Invalid email format</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="accountModule">
-            <div class="divstyle settingName">
-              <h3 class="boxheadings" style="margin-top:0px;">Password</h3>
-            </div>
-            <div class="divstyle settingDescription">
-              <h4 class="boxheadings" style="margin-top:0px;">Password</h4>
-              <p class="boxparagraph">Password</p>
-              <div class="accountDetailsSection">
-                <button class="mdl-button mdl-js-button mdl-button--primary" onclick="accountChange(this)">edit</button>
-                <input class="mdl-textfield__input" type="password" style="display:none;" data-required />
-                <span class="mdl-textfield__error">Invalid email format</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="accountModule">
-            <div class="divstyle settingName">
-              <h3 class="boxheadings" style="margin-top:0px;">Connected Accounts</h3>
-            </div>
-            <div class="divstyle settingDescription">
-              <p class="boxparagraph">None Connected</p>
-            </div>
-          </div>
-
         </div>
-      </div>
 
-    </section>
+      </section>
 
-    <footer>
-      <p><a href="feedback.html" target="_blank">Feedback</a></p>
-      <p><a href="privacy.html" target="_blank">Privacy Policy</a></p>
-      <p><a href="terms.html" target="_blank">Terms of Use</a></p>
-      <p>© 2018 Letoh, Inc. All rights reserved</p>
-    </footer>
+      <footer>
+        <p><a href="feedback.html" target="_blank">Feedback</a></p>
+        <p><a href="privacy.html" target="_blank">Privacy Policy</a></p>
+        <p><a href="terms.html" target="_blank">Terms of Use</a></p>
+        <p>© 2018 Letoh, Inc. All rights reserved</p>
+      </footer>
 
-  </main>
+    </main>
 
-</div>
-<script> includeHTML(); </script>
-<script src="javascripts/hotel.js"></script>
+  </div>
+  <script>
+    includeHTML();
+  </script>
+  <script src="javascripts/hotel.js"></script>
 </body>
+
 </html>

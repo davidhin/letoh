@@ -3,7 +3,7 @@ var bookings_past = [];
 var user;
 
 /* ================== Functions for Both Pages ===================== */
-$( document ).ready(function() {
+$(document).ready(function() {
   'use strict';
   userSession(function() {
     accountData();
@@ -16,18 +16,18 @@ $( document ).ready(function() {
  * obtain success
  */
 function userSession(callback) {
-  //Check if the page loading is the account page or not
-  if(window.location.pathname!=='/accountPage.html'){
+  // Check if the page loading is the account page or not
+  if (window.location.pathname !== '/accountPage.html') {
     return;
   }
 
   let xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {
-    if (this.readyState==4 && this.status == 200) {
+    if (this.readyState == 4 && this.status == 200) {
       // If try to access without being logged in
       if (JSON.parse(xhttp.responseText).login === 0) {
-        window.location.replace("http://localhost:3000/logsign.html");
+        window.location.replace('http://localhost:3000/logsign.html');
         console.log('not logged in');
         return;
       }
@@ -44,28 +44,31 @@ function userSession(callback) {
   xhttp.send();
 }
 
-function checkIfBookings(){
-  "use strict";
-  if($("#currentBookings").children().length===0){
-    $("#currentBookings").append($("<p style='margin-left:15px'></p>")
-      .attr('class','')
-      .text("You have no current bookings")
+/**
+ * Check if there are bookings in the current logged in session
+ */
+function checkIfBookings() {
+  'use strict';
+  if ($('#currentBookings').children().length === 0) {
+    $('#currentBookings').append($('<p style="margin-left:15px"></p>')
+      .attr('class', '')
+      .text('You have no current bookings')
     );
   }
 
-  if($("#pastBookings").children().length===0){
-    $("#pastBookings").append($("<p style='margin-bottom:40px;margin-left:15px'></p>")
-      .attr('class','')
-      .text("You have no past bookings")
+  if ($('#pastBookings').children().length === 0) {
+    $('#pastBookings').append($('<p style="margin-bottom:40px;margin-left:15px"></p>')
+      .attr('class', '')
+      .text('You have no past bookings')
     );
   }
 }
 
 /* ================== Booking Page ===================== */
-//Booking Page Information Getting
+// Booking Page Information Getting
 function bookingData(hotelInput, roomInput) {
   'use strict';
-  //Top right box
+  // Top right box
   $($('.rightcontent p')[0]).text(hotelInput.address);
   $($('.rightcontent p')[1]).text(roomInput.name);
 
@@ -75,10 +78,19 @@ function bookingData(hotelInput, roomInput) {
   var diffDays = check_out.diff(check_in, 'days');
   var pastBooking = check_in.diff(moment(), 'days');
   var stay;
-  if (diffDays == 1) { stay = diffDays + ' night'; }
-  else if (diffDays > 1) { stay = diffDays + ' nights'; }
-  if (pastBooking < 0) { alert('Cant book in the past!'); date_initial(); }
-  if (diffDays <= 0) { alert('Invalid date(s)!'); date_initial(); }
+  if (diffDays == 1) {
+    stay = diffDays + ' night';
+  } else if (diffDays > 1) {
+    stay = diffDays + ' nights';
+  }
+  if (pastBooking < 0) {
+    alert('Cant book in the past!');
+    date_initial();
+  }
+  if (diffDays <= 0) {
+    alert('Invalid date(s)!');
+    date_initial();
+  }
   check_in = moment($('#check-in').val());
   check_out = moment($('#check-out').val());
   diffDays = check_out.diff(check_in, 'days');
@@ -93,25 +105,24 @@ function bookingData(hotelInput, roomInput) {
   $($('.rightcontent td.tablerightcol')[0]).html(check_in.format('Do MMM YYYY'));
   $($('.rightcontent td.tablerightcol')[1]).html(check_out.format('Do MMM YYYY'));
   $($('.rightcontent td.tablerightcol')[2]).html(stay);
-
   $($('.rightcontent td:not([class])')[3]).html(stay);
-  $($('.rightcontent td.tablerightcol')[3]).text('AU'+' $'+cost_1);
-  $($('.rightcontent td.tablerightcol')[4]).text('AU'+' $'+cost_2);
-  $($('.rightcontent th.tablerightcol')[0]).attr('id', 'totalCost').text('AU'+' $'+cost_total);
+  $($('.rightcontent td.tablerightcol')[3]).text('AU' + ' $' + cost_1);
+  $($('.rightcontent td.tablerightcol')[4]).text('AU' + ' $' + cost_2);
+  $($('.rightcontent th.tablerightcol')[0]).attr('id', 'totalCost').text('AU' + ' $' + cost_total);
 
   //Bottom right box
   $('.rightcontent ul.boxparagraph').empty();
-  var included=['1 Bathroom', 'Free Continental Breakfast', 'Free Wifi', 'Free Parking'];
-  for (let i=0; i<included.length; i++) {
-    $('.rightcontent ul.boxparagraph').append('<li>'+included[i]+'</li>');
+  var included = ['1 Bathroom', 'Free Continental Breakfast', 'Free Wifi', 'Free Parking'];
+  for (let i = 0; i < included.length; i++) {
+    $('.rightcontent ul.boxparagraph').append('<li>' + included[i] + '</li>');
   }
 }
 
-function compulsory(index){
+function compulsory(index) {
   "use strict";
-  if(index.value){
+  if (index.value) {
     index.style.borderColor = "white";
-  }else{
+  } else {
     index.style.borderColor = "red";
   }
 }
@@ -121,75 +132,79 @@ function compulsory(index){
  */
 function submitted(hotelInput, roomInput, variable) {
 
-jQuery.validator.setDefaults({
-  debug: true,
-  success: 'valid'
-});
-let form = $( '#bookingForm' );
-form.validate();
-if (form.valid()) {
+  jQuery.validator.setDefaults({
+    debug: true,
+    success: 'valid'
+  });
+  let form = $('#bookingForm');
+  form.validate();
+  if (form.valid()) {
 
-  let xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      $('footer').css('margin-top', '0px');
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        $('footer').css('margin-top', '0px');
 
-      if (variable == 1) {
-        $('#hotelcards').fadeIn();
-      } else {
-        $('#map').show();
-        $('#hotelcards').css('display', 'none');
-        $('#hotelcards').hide();
+        if (variable == 1) {
+          $('#hotelcards').fadeIn();
+        } else {
+          $('#map').show();
+          $('#hotelcards').css('display', 'none');
+          $('#hotelcards').hide();
+        }
+        $('.mdl-layout__content').animate({
+          scrollTop: 0
+        });
+        $('#bookingpage_overlay').fadeOut(function() {
+          sizes();
+        });
+        $('#confirmation_overlay').fadeIn();
+        summarise_details(JSON.parse(xhttp.responseText));
       }
-      $('.mdl-layout__content').animate({scrollTop: 0});
-      $('#bookingpage_overlay').fadeOut(function() {
-        sizes();
-      });
-      $('#confirmation_overlay').fadeIn();
-      summarise_details(JSON.parse(xhttp.responseText));
-    }
-  };
+    };
 
-  let email = "";
-  //checking if there is a session, if there is, just get the email from the session
-  //otherwise, pull from the input field
-  let xhttpa = new XMLHttpRequest();
-  xhttpa.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      let user = JSON.parse(xhttpa.responseText);
-      if (user.login === 0) {
-        email = $($('.mdl-textfield__label')[0]).val();
-      }else{
-        email = user.email;
+    let email = "";
+    //checking if there is a session, if there is, just get the email from the session
+    //otherwise, pull from the input field
+    let xhttpa = new XMLHttpRequest();
+    xhttpa.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        let user = JSON.parse(xhttpa.responseText);
+        if (user.login === 0) {
+          email = $($('.mdl-textfield__label')[0]).val();
+        } else {
+          email = user.email;
+        }
+
+        let newBooking = {
+          'refnum': Math.floor(Math.random() * 1000000),
+          'userid': email,
+          'hotelid': hotelInput.id,
+          'hotelname': hotelInput.name,
+          'hoteladdress': hotelInput.address,
+          'roomid': roomInput.roomid,
+          'roomname': roomInput.name,
+          'cost': $('#totalCost').html().substring(4),
+          'start': moment($('#check-in').val()).format('DD/MM/YYYY'),
+          'end': moment($('#check-out').val()).format('DD/MM/YYYY'),
+          'comments': $('#extraComments').val(),
+          'email': email
+        };
+
+        xhttp.open('POST', 'newBooking.json', true);
+        xhttp.setRequestHeader('Content-type', 'application/json');
+        xhttp.send(JSON.stringify(newBooking));
+
       }
-
-      let newBooking = {
-        'refnum': Math.floor(Math.random() * 1000000),
-        'userid': email,
-        'hotelid': hotelInput.id,
-        'hotelname': hotelInput.name,
-        'hoteladdress': hotelInput.address,
-        'roomid': roomInput.roomid,
-        'roomname': roomInput.name,
-        'cost': $('#totalCost').html().substring(4),
-        'start': moment($('#check-in').val()).format('DD/MM/YYYY'),
-        'end': moment($('#check-out').val()).format('DD/MM/YYYY'),
-        'comments': $('#extraComments').val(),
-        'email': email
-      };
-
-      xhttp.open('POST', 'newBooking.json', true);
-      xhttp.setRequestHeader('Content-type', 'application/json');
-      xhttp.send(JSON.stringify(newBooking));
-
-    }
-  };
-  xhttpa.open('GET', '/usersession.json', true);
-  xhttpa.setRequestHeader('Content-type', 'application/json');
-  xhttpa.send();
-} else {
-  $('.mdl-layout__content').animate({scrollTop: 0});
-}
+    };
+    xhttpa.open('GET', '/usersession.json', true);
+    xhttpa.setRequestHeader('Content-type', 'application/json');
+    xhttpa.send();
+  } else {
+    $('.mdl-layout__content').animate({
+      scrollTop: 0
+    });
+  }
 }
 
 function summarise_details(details) {
@@ -211,40 +226,40 @@ function summarise_details(details) {
 /* ================== Changing between Ac/Hi Page ===================== */
 function hotels() {
   "use strict";
-  $("#hotelhistory").css("display","inline");
-  $("#accountsettings").css("display","none");
+  $("#hotelhistory").css("display", "inline");
+  $("#accountsettings").css("display", "none");
   window.scrollTo(0, 0);
 }
 
-function account(){
+function account() {
   "use strict";
-  $("#hotelhistory").css("display","none");
-  $("#accountsettings").css("display","inline");
+  $("#hotelhistory").css("display", "none");
+  $("#accountsettings").css("display", "inline");
   window.scrollTo(0, 0);
 }
 /* ================== History Page ===================== */
 //Account page Information Getting
-function accountData(){
+function accountData() {
   "use strict";
   //Account data
 
-  let password="";
+  let password = "";
 
-  for(var i=0;i<user.password.length;i++){
-    password+='&#8226;';
+  for (var i = 0; i < user.password.length; i++) {
+    password += '&#8226;';
   }
 
-  $($(".accountModule p")[0]).text(user.firstName+" "+user.lastName);
+  $($(".accountModule p")[0]).text(user.firstName + " " + user.lastName);
   $($(".accountModule p")[1]).text(user.address);
   $($(".accountModule p")[2]).text(user.phoneNumber);
   $($(".accountModule p")[3]).text(user.email);
   $($(".accountModule p")[4]).html(password);
 
   requestBookings(function() {
-    for (let i=0; i<bookings_current.length; i++) {
-     get_bookings(bookings_current[i], true);
+    for (let i = 0; i < bookings_current.length; i++) {
+      get_bookings(bookings_current[i], true);
     }
-    for (let i=0; i<bookings_past.length; i++) {
+    for (let i = 0; i < bookings_past.length; i++) {
       get_bookings(bookings_past[i], false);
     }
     // Checking if you have bookings
@@ -264,12 +279,12 @@ function requestBookings(callback) {
       let bookings = JSON.parse(xhttp.responseText);
       console.log(bookings);
       for (let i = 0; i < bookings.length; i++) {
-          let checkout = moment(bookings[i].end, 'DD/MM/YYYY');
-          if ((checkout.diff(moment(), 'days')) < 0) {
-            bookings_past.push(bookings[i]);
-          } else {
-            bookings_current.push(bookings[i]);
-          }
+        let checkout = moment(bookings[i].end, 'DD/MM/YYYY');
+        if ((checkout.diff(moment(), 'days')) < 0) {
+          bookings_past.push(bookings[i]);
+        } else {
+          bookings_current.push(bookings[i]);
+        }
       }
       callback();
     }
@@ -290,29 +305,29 @@ function get_bookings(booking, can_change) {
   "use strict";
   var booking_section;
   if (can_change) {
-  booking_section = "#currentBookings";
+    booking_section = "#currentBookings";
   } else {
-  booking_section = "#pastBookings";
+    booking_section = "#pastBookings";
   }
 
   // Making Current Bookings modules
   var book_container = $('<div/>')
-    .attr('class','modulecontainer mdl-grid')
+    .attr('class', 'modulecontainer mdl-grid')
     //Cancel Booking Button
     //.append('<button class="removeBookingButton" onclick="remove(this)">X</button>')
     .appendTo(booking_section);
   // Image Module
   // book image
   $("<div/>")
-  .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone")
+    .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone")
     .append($("<img alt='Hotel' title='Your Hotel' class='boximage'>")
-      .attr('src','images/'+booking.hotelid+'.jpg')//CONTENT
+      .attr('src', 'images/' + booking.hotelid + '.jpg') //CONTENT
     )
     .appendTo(book_container);
 
   // Description Module
   var book_description = $('<div/>')
-    .attr('class','descriptmodule')
+    .attr('class', 'descriptmodule')
     .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--5-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone")
     .append($("<h3 class='hotelboxheadings'></h3>")
       .text(booking.hotelname)
@@ -327,34 +342,34 @@ function get_bookings(booking, can_change) {
     .append($('<p class="boxparagraph"></p>')
       .text('Type: ' + booking.roomname)
     )
-  .appendTo(book_container);
+    .appendTo(book_container);
 
   // Table
   var book_table = $('<table class="boxtable"></table>')
-      .append($('<tr></tr>')
-        .append('<td>Check-in:</td>')
-        .append($('<td class="tablerightcol tableFill"></td>')
-          .text(moment(booking.start, "DD/MM/YYYY").format('Do MMM YYYY')) // CONTENT
-        )
+    .append($('<tr></tr>')
+      .append('<td>Check-in:</td>')
+      .append($('<td class="tablerightcol tableFill"></td>')
+        .text(moment(booking.start, "DD/MM/YYYY").format('Do MMM YYYY')) // CONTENT
       )
-      .append($('<tr></tr>')
-        .append('<td>Check-out:</td>')
-        .append($('<td class="tablerightcol tableFill"></td>')
-          .text(moment(booking.end, "DD/MM/YYYY").format('Do MMM YYYY')) // CONTENT
-        )
+    )
+    .append($('<tr></tr>')
+      .append('<td>Check-out:</td>')
+      .append($('<td class="tablerightcol tableFill"></td>')
+        .text(moment(booking.end, "DD/MM/YYYY").format('Do MMM YYYY')) // CONTENT
       )
-      .append($('<tr></tr>')
-        .append('<td>Length of stay:</td>')
-        .append($('<td class="tablerightcol"></td>')
-          .text(moment(booking.end,"DD/MM/YYYY").diff(moment(booking.start,"DD/MM/YYYY"), 'days') + " " + "night(s)")//CONTENT
-        )
+    )
+    .append($('<tr></tr>')
+      .append('<td>Length of stay:</td>')
+      .append($('<td class="tablerightcol"></td>')
+        .text(moment(booking.end, "DD/MM/YYYY").diff(moment(booking.start, "DD/MM/YYYY"), 'days') + " " + "night(s)") //CONTENT
       )
-      .append($('<tr></tr>')
-        .append('<th class="tabletotal">Total cost</th>')
-        .append($('<th class="tablerightcol"></th>')
-          .text("AU $" + booking.cost)//CONTENT
-        )
+    )
+    .append($('<tr></tr>')
+      .append('<th class="tabletotal">Total cost</th>')
+      .append($('<th class="tablerightcol"></th>')
+        .text("AU $" + booking.cost) //CONTENT
       )
+    )
     .appendTo(book_description);
 
   //    if (can_change) {
@@ -367,31 +382,31 @@ function get_bookings(booking, can_change) {
   let xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {
-    if (this.readyState==4 && this.status == 200) {
+    if (this.readyState == 4 && this.status == 200) {
       let review = JSON.parse(xhttp.responseText);
-      if(review.id==-1){
+      if (review.id == -1) {
         $('<div/>')
-          .attr('class','reviewmodule')
+          .attr('class', 'reviewmodule')
           .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone")
           .append($('<h3 class="hotelboxheadings">Your review</h3>'))
           .append($('<button class="reviewButton" onclick="reviewButton(this)" style="margin:auto">+</button>'))
           .appendTo(book_container);
-      }else{
+      } else {
         var stars = "";
-        for(var j=0;j<review.stars;j++){
+        for (var j = 0; j < review.stars; j++) {
           stars += "&#10029;";
         }
-        for(var k=review.stars;k<5;k++){
+        for (var k = review.stars; k < 5; k++) {
           stars += "&#10025;";
         }
         let reviewText = $($.parseHTML(review.review));
         $('<div/>')
-          .attr('class','reviewmodule')
+          .attr('class', 'reviewmodule')
           .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone")
           .append($('<h3 class="hotelboxheadings">Your review</h3>'))
           .append($('<span>Stars: </span>'))
-          .append($('<p>'+stars+'</p>'))
-          .append($('<p class="boxparagraph" style="height: 185px; padding-bottom: 0px; white-space: pre; word-break: keep-all; overflow: auto;">'+$(reviewText[0]).text()+'</p>'))
+          .append($('<p>' + stars + '</p>'))
+          .append($('<p class="boxparagraph" style="height: 185px; padding-bottom: 0px; white-space: pre; word-break: keep-all; overflow: auto;">' + $(reviewText[0]).text() + '</p>'))
           .appendTo(book_container);
       }
 
@@ -400,11 +415,13 @@ function get_bookings(booking, can_change) {
   };
   xhttp.open('POST', '/reviewstuff.json', true);
   xhttp.setRequestHeader('Content-type', 'application/json');
-  xhttp.send(JSON.stringify({"refnum":booking.refnum}));
+  xhttp.send(JSON.stringify({
+    "refnum": booking.refnum
+  }));
 
 }
 
-function editBookingedit(index){
+function editBookingedit(index) {
   "use strict";
   index.style.display = "none";
   var spanZ = index.parentElement.getElementsByClassName("tableFill")[0];
@@ -412,48 +429,48 @@ function editBookingedit(index){
   var spanO = index.parentElement.getElementsByClassName("tableFill")[1];
   $("<form><input class='dateInput' type='date' style='display:inline'></input></form>").appendTo(spanO);
 
-  $(index).closest('.boxtable').children('.confirmBookingedit').css('display','block');
-  $(index).closest('.boxtable').children('.cancelBookingedit').css('display','block');
+  $(index).closest('.boxtable').children('.confirmBookingedit').css('display', 'block');
+  $(index).closest('.boxtable').children('.cancelBookingedit').css('display', 'block');
 }
 
-function confirmBookingedit(index){
+function confirmBookingedit(index) {
   "use strict";
   index.style.display = "none";
-  $(index).closest('.boxtable').children(".cancelBookingedit").css('display','none');
-  $(index).closest('.boxtable').children(".editBookingedit").css('display','block');
+  $(index).closest('.boxtable').children(".cancelBookingedit").css('display', 'none');
+  $(index).closest('.boxtable').children(".editBookingedit").css('display', 'block');
 
   var date = index.parentElement.getElementsByClassName("dateInput");
 
-  if(date[1].value){
+  if (date[1].value) {
     date[1].parentElement.parentElement.innerText = date[1].value;
-    if(date[0].value){
+    if (date[0].value) {
       date[0].parentElement.parentElement.innerText = date[0].value;
-    }else{
+    } else {
       date[0].parentElement.removeChild(date[0]);
     }
-  }else if(date[0].value){
+  } else if (date[0].value) {
     date[0].parentElement.parentElement.innerText = date[0].value;
     date[0].parentElement.removeChild(date[0]);
-  }else{
+  } else {
     date[1].parentElement.removeChild(date[1]);
     date[0].parentElement.removeChild(date[0]);
   }
 }
 
-function cancelBookingedit(index){
+function cancelBookingedit(index) {
   "use strict";
   index.style.display = "none";
-  $(index).closest('.boxtable').children(".confirmBookingedit").css('display','none');
-  $(index).closest('.boxtable').children(".editBookingedit").css('display','block');
+  $(index).closest('.boxtable').children(".confirmBookingedit").css('display', 'none');
+  $(index).closest('.boxtable').children(".editBookingedit").css('display', 'block');
 
   var date = index.parentElement.getElementsByClassName("dateInput");
   date[1].parentElement.removeChild(date[1]);
   date[0].parentElement.removeChild(date[0]);
 }
 
-function reviewButton(index){
+function reviewButton(index) {
   "use strict";
-  index.style.display="none";
+  index.style.display = "none";
   var review = index.parentElement;
   $('<span>Stars: </span><select name="reviewStars" class="select"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select><br>').appendTo(review);
   $('<textarea style="resize:none;width:100%;height:80%;display:block;"></textarea>').appendTo(review);
@@ -461,7 +478,7 @@ function reviewButton(index){
   $('<button class="cancelButton" onclick="cancelButton(this)" style="display:inline">Cancel</button>').appendTo(review);
 }
 
-function postButton(index){
+function postButton(index) {
   "use strict";
   //Getting booking refnum
   var gettingRefNum = $($($(index).parent().parent().children()[1]).children()[3]).text();
@@ -469,15 +486,15 @@ function postButton(index){
 
   var review = index.parentElement;
   var textbox = index.parentElement.getElementsByTagName("TEXTAREA");
-  var postbutton=review.getElementsByClassName("postButton");
+  var postbutton = review.getElementsByClassName("postButton");
 
   //Stars
   var starsVal = $(index).closest('.reviewmodule').children("select").val();
   var stars = "";
-  for(var j=0;j<starsVal;j++){
+  for (var j = 0; j < starsVal; j++) {
     stars += "&#10029;";
   }
-  for(var k=starsVal;k<5;k++){
+  for (var k = starsVal; k < 5; k++) {
     stars += "&#10025;";
   }
   var starReview = document.createElement("P");
@@ -488,8 +505,8 @@ function postButton(index){
   //Review
   //Will mess up the scroll if changed to jQuery
   var para = document.createElement("P");
-  para.className="boxparagraph";
-  para.style.height="185px";
+  para.className = "boxparagraph";
+  para.style.height = "185px";
   para.style.paddingBottom = "0px";
   para.style.marginBottom = "30px;";
   para.style.whiteSpace = "normal";
@@ -499,28 +516,36 @@ function postButton(index){
 
   review.insertBefore(para, postbutton[0]);
 
-  $(index).closest('.reviewmodule').children("textarea").css('display','none');
-  $(index).closest('.reviewmodule').children("select").css('display','none');
-  $(index).closest('.reviewmodule').children(".postButton").css('display','none');
-  $(index).closest('.reviewmodule').children(".cancelButton").css('display','none');
+  $(index).closest('.reviewmodule').children("textarea").css('display', 'none');
+  $(index).closest('.reviewmodule').children("select").css('display', 'none');
+  $(index).closest('.reviewmodule').children(".postButton").css('display', 'none');
+  $(index).closest('.reviewmodule').children(".cancelButton").css('display', 'none');
 
   //Sending review to server
   let xhttpa = new XMLHttpRequest();
   xhttpa.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       let bookings = JSON.parse(xhttpa.responseText);
-      for(let i=0;i<bookings.length;i++){
-        if(bookings[i].refnum==split[3]){
+      for (let i = 0; i < bookings.length; i++) {
+        if (bookings[i].refnum == split[3]) {
           var hotelid = bookings[i].hotelid;
           var roomid = bookings[i].roomid;
         }
       }
 
-      userSession(function(){
+      userSession(function() {
         let xhttp = new XMLHttpRequest();
         xhttp.open('POST', '/addReview', true);
         xhttp.setRequestHeader('Content-type', 'application/json');
-        xhttp.send(JSON.stringify({"id":hotelid,"roomid": roomid, "refnum":split[3],"name":user.firstName+" "+user.lastName,"email":user.email,"stars":starsVal,"review":textbox[0].value}));
+        xhttp.send(JSON.stringify({
+          "id": hotelid,
+          "roomid": roomid,
+          "refnum": split[3],
+          "name": user.firstName + " " + user.lastName,
+          "email": user.email,
+          "stars": starsVal,
+          "review": textbox[0].value
+        }));
       });
 
     }
@@ -532,9 +557,9 @@ function postButton(index){
 
 }
 
-function cancelButton(index){
+function cancelButton(index) {
   "use strict";
-  $(index).closest('.reviewmodule').children('.reviewButton').css('display','block');
+  $(index).closest('.reviewmodule').children('.reviewButton').css('display', 'block');
   $(index).closest('.reviewmodule').children("span").remove();
   $(index).closest('.reviewmodule').children("select").remove();
   $(index).closest('.reviewmodule').children('.postButton').remove();
@@ -542,40 +567,40 @@ function cancelButton(index){
   $(index).remove();
 }
 
-function remove(index){
+function remove(index) {
   "use strict";
   var response = confirm("Are you sure you want to cancel this booking?");
-    if(response === true){
-      $(index).parent().remove();
-    }
+  if (response === true) {
+    $(index).parent().remove();
+  }
 
-    checkIfBookings();
+  checkIfBookings();
 }
 
 /* ================== Account Page ===================== */
 //Edit account setting
-function accountChange(index){
+function accountChange(index) {
   "use strict";
   $(index).hide();
   let section = $(index).parent();
-  $(section).css("height","50px");
-  let prev =  $(section).prev();
+  $(section).css("height", "50px");
+  let prev = $(section).prev();
   $(prev).hide();
 
   $(index).next().val($(prev).text());
   $(index).next().show();
 
   $('<a/>').html('submit').addClass('confirm mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent')
-    .attr("onclick","accountConfirm(this)")
+    .attr("onclick", "accountConfirm(this)")
     .appendTo(section);
   $('<a/>').html('cancel').addClass('cancel mdl-button mdl-js-button')
-    .attr("onclick","accountCancel(this)")
+    .attr("onclick", "accountCancel(this)")
     .appendTo(section);
 
 }
 
 //Confirming an account setting edit
-function accountConfirm(index){
+function accountConfirm(index) {
   "use strict";
   let value = $(index).prev().prev().val();
   let field = $(index).parent().prev().prev().text();
@@ -583,32 +608,43 @@ function accountConfirm(index){
   $(index).prev().prev().hide();
   $(index).prev().prev().prev().show();
 
-  if(field=="Password"){
-    let passwordDisplay="";
-    for(var i=0;i<value.length;i++){
-      passwordDisplay+='&#8226;';
+  if (field == "Password") {
+    let passwordDisplay = "";
+    for (var i = 0; i < value.length; i++) {
+      passwordDisplay += '&#8226;';
     }
     $(index).parent().prev().html(passwordDisplay);
-  }else{
+  } else {
     $(index).parent().prev().text(value);
   }
 
   $(index).parent().prev().show();
-  $(index).parent().css("height","15px");
+  $(index).parent().css("height", "15px");
   $(index).remove();
 
   let object = {};
-  if(field=="Account Name"){
+  if (field == "Account Name") {
     let split = value.split(" ");
-    object = {"firstName":split[0],"lastName":split[1]};
-  }else if(field=="Address"){
-    object = {"address":value};
-  }else if(field=="Phone Number"){
-    object = {"phoneNumber":value};
-  }else if(field=="Email Address"){
-    object = {"email":value};
-  }else if(field=="Password"){
-    object = {"password":value};
+    object = {
+      "firstName": split[0],
+      "lastName": split[1]
+    };
+  } else if (field == "Address") {
+    object = {
+      "address": value
+    };
+  } else if (field == "Phone Number") {
+    object = {
+      "phoneNumber": value
+    };
+  } else if (field == "Email Address") {
+    object = {
+      "email": value
+    };
+  } else if (field == "Password") {
+    object = {
+      "password": value
+    };
   }
 
   let xhttp = new XMLHttpRequest();
@@ -619,12 +655,12 @@ function accountConfirm(index){
 }
 
 //Cancelling a account setting edit
-function accountCancel(index){
+function accountCancel(index) {
   "use strict";
   $(index).prev().remove();
   $(index).prev().prev().hide();
   $(index).prev().prev().prev().show();
   $(index).parent().prev().show();
-  $(index).parent().css("height","15px");
+  $(index).parent().css("height", "15px");
   $(index).remove();
 }

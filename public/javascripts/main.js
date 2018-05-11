@@ -1,13 +1,13 @@
 var user;
 
 // =========== MAIN FUNCTIONS ============== //
-$( document ).ready(function() {
+$(document).ready(function() {
   'use strict';
   sizes();
   header();
   loginInputRed();
-  document.querySelectorAll('input[data-required]').forEach(function (e) {
-     e.required = true;
+  document.querySelectorAll('input[data-required]').forEach(function(e) {
+    e.required = true;
   });
   sessionCheck();
 });
@@ -18,7 +18,7 @@ function sessionCheck() {
   let xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {
-    if (this.readyState==4 && this.status == 200) {
+    if (this.readyState == 4 && this.status == 200) {
       // If not logged in
       if (JSON.parse(xhttp.responseText).login === 0) {
         $('#menuItemUser').hide();
@@ -49,7 +49,7 @@ function logout() {
   let xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {
-    if (this.readyState==4 && this.status == 200) {
+    if (this.readyState == 4 && this.status == 200) {
       if (JSON.parse(xhttp.responseText).success == 1) {
         window.location.replace("http://localhost:3000/");
       }
@@ -68,8 +68,11 @@ function sizes() {
   var content = $("#content");
 
   // FOOTER POSITIONING
-  if (content.height() < parseInt(window.innerHeight,10) - headerHeight) { footer.css("position", "absolute"); }
-  else { footer.css("position", "relative"); }
+  if (content.height() < parseInt(window.innerHeight, 10) - headerHeight) {
+    footer.css("position", "absolute");
+  } else {
+    footer.css("position", "relative");
+  }
 }
 
 window.onresize = function(event) {
@@ -79,15 +82,15 @@ window.onresize = function(event) {
 };
 
 //Setting the header names and link appearance
-function header(){
+function header() {
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
-    if (this.readyState==4 && this.status == 200) {
+    if (this.readyState == 4 && this.status == 200) {
       let user = JSON.parse(xhttp.responseText);
-      if(user.login === 0){
+      if (user.login === 0) {
         $("#managerSettings").hide();
         $("#userSettings").hide();
-      }else{
+      } else {
         $("#managerSettings").show();
         $("#userSettings").show();
         $("#userSettings a").text(user.firstName);
@@ -103,22 +106,22 @@ function header(){
 
 //Copied from
 //https://github.com/google/material-design-lite/issues/1502
-function loginInputRed(){
+function loginInputRed() {
 
   let requiredComponents = document.querySelectorAll(".mdl-textfield__input");
-  requiredComponents.forEach(function(e){
+  requiredComponents.forEach(function(e) {
     e.removeAttribute('data-required');
   });
 
-  $(".mdl-textfield__input").blur(function (){
-      if( !this.value ){
-          $(this).prop('data-required', true);
-          $(this).parent().addClass('is-invalid');
-      }
+  $(".mdl-textfield__input").blur(function() {
+    if (!this.value) {
+      $(this).prop('data-required', true);
+      $(this).parent().addClass('is-invalid');
+    }
   });
-  $(".mdl-button[type='submit']").click(function (event){
-      // $(this).siblings(".mdl-textfield").addClass('is-invalid');
-      $(this).siblings(".mdl-textfield").children(".mdl-textfield__input").prop('required', true);
+  $(".mdl-button[type='submit']").click(function(event) {
+    // $(this).siblings(".mdl-textfield").addClass('is-invalid');
+    $(this).siblings(".mdl-textfield").children(".mdl-textfield__input").prop('required', true);
   });
 
 }
@@ -127,7 +130,7 @@ function loginInputRed(){
 // Dynamically created material objects must be manually 'upgraded'
 function mdl_upgrade() {
   "use strict";
-  if(typeof(componentHandler) != 'undefined'){
+  if (typeof(componentHandler) != 'undefined') {
     componentHandler.upgradeAllRegistered();
   }
 }
@@ -146,8 +149,12 @@ function includeHTML() {
       xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4) {
-          if (this.status == 200) {elmnt.innerHTML = this.responseText;}
-          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+          if (this.status == 200) {
+            elmnt.innerHTML = this.responseText;
+          }
+          if (this.status == 404) {
+            elmnt.innerHTML = "Page not found.";
+          }
           /*remove the attribute, and call this function once more:*/
           elmnt.removeAttribute("data-w3-include-html");
           includeHTML();

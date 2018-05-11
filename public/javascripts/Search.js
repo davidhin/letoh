@@ -5,16 +5,16 @@ var distances = [];
 
 // ====================== MAIN FUNCTIONS ===================== //
 
-$( document ).ready(function() {
+$(document).ready(function() {
   'use strict';
-  $( '#price' ).change(function() {
-    $( '#maxPrice' ).val($('#price').val());
+  $('#price').change(function() {
+    $('#maxPrice').val($('#price').val());
   });
-  $( '#dist' ).change(function() {
-    $( '#maxDist' ).val($('#dist').val());
+  $('#dist').change(function() {
+    $('#maxDist').val($('#dist').val());
   });
-  $( '#stars' ).change(function() {
-    $( '#minStars' ).val($('#stars').val());
+  $('#stars').change(function() {
+    $('#minStars').val($('#stars').val());
   });
 
   requestHotels(function() {
@@ -32,9 +32,10 @@ $( document ).ready(function() {
 function requestHotels(callback) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200)
+    if (this.readyState == 4 && this.status == 200) {
       hotels = JSON.parse(xhttp.responseText);
       callback();
+    }
   };
 
   xhttp.open("GET", "getHotels.json", true);
@@ -48,11 +49,11 @@ function requestHotels(callback) {
 function link_moredetails(index) {
   "use strict";
   return function() {
-    hoteldetails.call(this,index);
+    hoteldetails.call(this, index);
   };
 }
 
-function toRadians(valu){
+function toRadians(valu) {
   return valu * Math.PI / 180;
 }
 
@@ -82,17 +83,17 @@ function hotelCards() {
   var lng = 138.6007456;
 
 
-  for(let i = 0; i < hotels.length; i++){
+  for (let i = 0; i < hotels.length; i++) {
     var Radii = 6371000; // metres
     var lat2 = hotels[i].lat;
     var lng2 = hotels[i].lng;
     var φ1 = toRadians(lat);
     var φ2 = toRadians(lat2);
-    var Δφ = toRadians((lat2-lat));
-    var Δλ = toRadians((lng2-lng));
+    var Δφ = toRadians((lat2 - lat));
+    var Δλ = toRadians((lng2 - lng));
 
-    var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ/2) * Math.sin(Δλ/2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
     var d = Radii * c;
     d = d / 1000;
@@ -102,8 +103,8 @@ function hotelCards() {
   for (let i = 0; i < hotels.length; i++) {
     if (hotels[i].price <= $('#price').val()) {
       if (hotels[i].rating >= $('#stars').val()) {
-        if(distances[i] <= $('#dist').val()) {
-          if(hotels[i].minOccupants >= $('#occupants').val()) {
+        if (distances[i] <= $('#dist').val()) {
+          if (hotels[i].minOccupants >= $('#occupants').val()) {
             filtered.push(hotels[i]);
           }
         }
@@ -111,8 +112,8 @@ function hotelCards() {
     }
   }
   var maxprices = 0;
-  for(let i = 0; i < filtered.length;i++){
-    if(filtered[i].price > maxprices){
+  for (let i = 0; i < filtered.length; i++) {
+    if (filtered[i].price > maxprices) {
       maxprices = filtered[i].price;
     }
   }
@@ -122,20 +123,20 @@ function hotelCards() {
 
   for (let i = 0; i < filtered.length; i++) {
     var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#hotelcards");
-      // Change the background picture here
-      var insertBg = "url('images/"+filtered[i].id+".jpg') center / cover";
-      var div_title = $('<div/>').addClass("mdl-card__title").appendTo(div_main).css("background", insertBg);
-      // Change the hotel name here
-      $('<h2/>').addClass("mdl-card__title-text").html(filtered[i].name).appendTo(div_title);
-      // Change the hotel details here
-      $('<p/>').addClass("mdl-card__supporting-text").html("From "+"$"+filtered[i].price.toString()+" per night.").appendTo(div_main);
-      $('<div/>').addClass("mdl-card__supporting-text").html(filtered[i].desc).appendTo(div_main);
-      var div_buttons = $('<div/>').addClass("mdl-card__actions mdl-card--border").appendTo(div_main);
-        $('<a/>')
-        // CHANGE THIS EVENTUALLY
-        // .attr("href", "hoteldetails.html")
-        .click(link_moredetails.call(this, filtered[i]))
-        .addClass('mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent').html('More details').appendTo(div_buttons);
+    // Change the background picture here
+    var insertBg = "url('images/" + filtered[i].id + ".jpg') center / cover";
+    var div_title = $('<div/>').addClass("mdl-card__title").appendTo(div_main).css("background", insertBg);
+    // Change the hotel name here
+    $('<h2/>').addClass("mdl-card__title-text").html(filtered[i].name).appendTo(div_title);
+    // Change the hotel details here
+    $('<p/>').addClass("mdl-card__supporting-text").html("From " + "$" + filtered[i].price.toString() + " per night.").appendTo(div_main);
+    $('<div/>').addClass("mdl-card__supporting-text").html(filtered[i].desc).appendTo(div_main);
+    var div_buttons = $('<div/>').addClass("mdl-card__actions mdl-card--border").appendTo(div_main);
+    $('<a/>')
+      // CHANGE THIS EVENTUALLY
+      // .attr("href", "hoteldetails.html")
+      .click(link_moredetails.call(this, filtered[i]))
+      .addClass('mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent').html('More details').appendTo(div_buttons);
   }
 
 }
@@ -158,16 +159,16 @@ function hoteldetails(hotelInput) {
       for (let i = 0; i < allrooms.length; i++) {
         if (allrooms[i].price <= $('#price').val()) {
           if (allrooms[i].stars >= $('#stars').val()) {
-            if(allrooms[i].occupants >= $('#occupants').val()){
+            if (allrooms[i].occupants >= $('#occupants').val()) {
               rooms.push(allrooms[i]);
             }
           }
         }
       }
       $('#hotel_info_room').empty();
-      for (let i=0; i<rooms.length; i++) {
+      for (let i = 0; i < rooms.length; i++) {
         let stars = getStars(rooms[i].stars);
-        let roomForBooking = $('#hotel_info_room').append('<h3>'+rooms[i].name+'</h3><p class="roomPrice">Room for '+rooms[i].occupants+', $'+rooms[i].price+' per night / '+stars+'</p><p>'+rooms[i].desc+'</p>');
+        let roomForBooking = $('#hotel_info_room').append('<h3>' + rooms[i].name + '</h3><p class="roomPrice">Room for ' + rooms[i].occupants + ', $' + rooms[i].price + ' per night / ' + stars + '</p><p>' + rooms[i].desc + '</p>');
         $('<button/>')
           .addClass('mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent')
           .html('Book Now')
@@ -181,23 +182,22 @@ function hoteldetails(hotelInput) {
           .css('text-transform', 'none')
           .appendTo(roomForBooking);
         $('<div/>').attr('id', rooms[i].roomid).addClass('reviewPanel').appendTo(roomForBooking);
-        reviewFilling(rooms[i].roomid, roomForBooking,hotelInput);
+        reviewFilling(rooms[i].roomid, roomForBooking, hotelInput);
         $('<hr>').appendTo(roomForBooking);
       }
 
       let acc = document.getElementsByClassName('reviewAccordion');
-        for (let i = 0; i < acc.length; i++) {
-          acc[i].addEventListener('click', function() {
-            this.classList.toggle('active');
-            let panel = this.nextElementSibling;
-            if (panel.style.maxHeight) {
-              panel.style.maxHeight = null;
-            } else {
-              panel.style.maxHeight = panel.scrollHeight + 'px';
-            }
-          });
-        }
-
+      for (let i = 0; i < acc.length; i++) {
+        acc[i].addEventListener('click', function() {
+          this.classList.toggle('active');
+          let panel = this.nextElementSibling;
+          if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+          } else {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+          }
+        });
+      }
     }
   };
   xhttp.open('POST', 'getRooms.json', true);
@@ -211,36 +211,39 @@ function hoteldetails(hotelInput) {
   // DYNAMIC DATA: Get the image
   var getimage = $(this).parents("div").siblings(".mdl-card__title").css("backgroundImage") + " center / cover";
   $('.imagescroller').css("background", getimage);
-  $('#hd_backbutton').click(function() { $('#hoteldetails_overlay').fadeOut(); sizes(); });
+  $('#hd_backbutton').click(function() {
+    $('#hoteldetails_overlay').fadeOut();
+    sizes();
+  });
 
   mdl_upgrade();
 }
 
-function reviewFilling(id, booking,hotel){
+function reviewFilling(id, booking, hotel) {
   let reviews = [];
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       reviews = JSON.parse(xhttp.responseText);
 
-      if(reviews.length===0){
+      if (reviews.length === 0) {
         $('<h5/>')
-        .html("There are no reviews for this room.<br><br>Be the first to review this room!")
-        .appendTo('#' + id);
+          .html("There are no reviews for this room.<br><br>Be the first to review this room!")
+          .appendTo('#' + id);
         return;
       }
 
-      for (let i=0; i<reviews.length; i++) {
-        if(reviews[i].roomid ==id){
+      for (let i = 0; i < reviews.length; i++) {
+        if (reviews[i].roomid == id) {
 
           var stars = getStars(reviews[i].stars);
 
           $('<h5/>')
-          .html(reviews[i].name)
-          .appendTo('#' + id);
+            .html(reviews[i].name)
+            .appendTo('#' + id);
           $('<p/>')
-          .html(stars+'<br>'+reviews[i].review)
-          .appendTo('#' + id);
+            .html(stars + '<br>' + reviews[i].review)
+            .appendTo('#' + id);
         }
       }
     }
@@ -251,15 +254,15 @@ function reviewFilling(id, booking,hotel){
   xhttp.send(JSON.stringify(hotel));
 }
 
-function getStars(length){
-  if(length==6){
+function getStars(length) {
+  if (length == 6) {
     return "No ratings";
   }
   var stars = "";
-  for(var j=0;j<length;j++){
+  for (var j = 0; j < length; j++) {
     stars += "&#10029;";
   }
-  for(var k=length;k<5;k++){
+  for (var k = length; k < 5; k++) {
     stars += "&#10025;";
   }
   return stars;
@@ -279,7 +282,7 @@ function bookingpage(hotelInput, roomInput, variable) {
       if (JSON.parse(xhttp.responseText).login !== 0) {
         $('.userHidden').remove();
 
-            loginInputRed();
+        loginInputRed();
       }
     }
   };
@@ -288,7 +291,9 @@ function bookingpage(hotelInput, roomInput, variable) {
   xhttp.send();
 
   $('#map').hide();
-  $('.mdl-layout__content').animate({scrollTop: 0});
+  $('.mdl-layout__content').animate({
+    scrollTop: 0
+  });
   $('#bookingpage_overlay').show();
   $('#hoteldetails_overlay').fadeOut();
   $('#hotelcards').fadeOut();
@@ -301,7 +306,7 @@ function bookingpage(hotelInput, roomInput, variable) {
 
   // Show main image
   //$('.boximage').html('This is the main image for ' + hotelInput.name);
-  $('.boximage').html("<img alt='Hotel' title='Your Hotel' class='boximage' src='images/"+hotelInput.id+".jpg'>");
+  $('.boximage').html("<img alt='Hotel' title='Your Hotel' class='boximage' src='images/" + hotelInput.id + ".jpg'>");
 
   // Cancel and go back
   $('#bk_backbutton').click(function() {
@@ -321,7 +326,7 @@ function bookingpage(hotelInput, roomInput, variable) {
       $('#hotelcards').fadeIn();
     } else {
       $('#map').show();
-      $('#hotelcards').css('display','none');
+      $('#hotelcards').css('display', 'none');
       $('#hotelcards').hide();
     }
   });
@@ -337,9 +342,11 @@ function bookingpage(hotelInput, roomInput, variable) {
 Date.prototype.today = (function(tomorrow) {
   "use strict";
   var local = new Date(this);
-  if (tomorrow) { local.setDate(local.getDate() + 1); }
-    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-    return local.toJSON().slice(0, 10);
+  if (tomorrow) {
+    local.setDate(local.getDate() + 1);
+  }
+  local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+  return local.toJSON().slice(0, 10);
 });
 
 function date_initial() {
@@ -350,24 +357,26 @@ function date_initial() {
   $('#check-out').val(b.format('YYYY-MM-DD'));
 
   // Update on blur
-  $('#check-in, #check-out, #room-num, #adult-num, #child-num').blur(function() { bookingData(); });
+  $('#check-in, #check-out, #room-num, #adult-num, #child-num').blur(function() {
+    bookingData();
+  });
 }
 
 function check_inputs() {
   "use strict";
   var nodeList = document.querySelectorAll('.mdl-textfield');
-  Array.prototype.forEach.call(nodeList, function (elem) {
-      elem.MaterialTextfield.checkDirty();
+  Array.prototype.forEach.call(nodeList, function(elem) {
+    elem.MaterialTextfield.checkDirty();
   });
 }
 
 // ====================== Map FUNCTIONS  =================== //
 
-function mapGeneral(){
+function mapGeneral() {
   $('#hotelcards').toggle(function() {
     currentView = 1;
   });
-  $('#map').toggle( function() {
+  $('#map').toggle(function() {
     currentView = 0;
   });
   sizes();
