@@ -100,8 +100,10 @@ function hotelCards() {
   }
 
   for (let i = 0; i < hotels.length; i++) {
+    if (hotels[i].price == null) continue;
+    if (hotels[i].rating == null) hotels[i].rating = 1;
     if (hotels[i].price <= $('#price').val()) {
-      if (hotels[i].stars >= $('#stars').val()) {
+      if (hotels[i].rating >= $('#stars').val()) {
         if (distances[i] <= $('#dist').val()) {
           if (hotels[i].min_occupants >= $('#occupants').val()) {
             filtered.push(hotels[i]);
@@ -216,6 +218,7 @@ function hoteldetails(hotelInput) {
 
   mdl_upgrade();
 }
+
 //This gets called the same number of times as there are rooms for a hotel, seems wasteful
 function reviewFilling(id, booking, hotel) {
   let reviews = [];
@@ -368,7 +371,6 @@ function check_inputs() {
 }
 
 // ====================== Map FUNCTIONS  =================== //
-
 function mapGeneral() {
   $('#hotelcards').toggle(function() {
     currentView = 1;
