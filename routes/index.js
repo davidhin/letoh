@@ -21,6 +21,20 @@ var allReviews = [];
 // login functionality
 var users = {};
 var sessions = {};
+
+// Database Testing
+router.get('/dbtest.json', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) throw err;
+    var query = "SELECT * from users";
+    connection.query(query, function(err, results) {
+      /* Some actions to handle the query results */
+      res.json(results); // send response
+    });
+  });
+});
+
 users['test'] = {
     'email': 'test',
     'firstName': 'Test',
