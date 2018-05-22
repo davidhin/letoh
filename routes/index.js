@@ -260,7 +260,7 @@ router.post('/getReviews.json', function(req, res) {
         "inner join rooms on reviews.room_id = rooms.room_id "+
         "where rooms.hotel_id = "+req.body.id;
         connection.query(query, function(err, results){
-            console.log(results);
+        //    console.log(results);
 
             connection.release();
             res.send(JSON.stringify(results));

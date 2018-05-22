@@ -181,8 +181,8 @@ function hoteldetails(hotelInput) {
           .html('Reviews')
           .css('text-transform', 'none')
           .appendTo(roomForBooking);
-        $('<div/>').attr('id', rooms[i].roomid).addClass('reviewPanel').appendTo(roomForBooking);
-        reviewFilling(rooms[i].roomid, roomForBooking, hotelInput);
+        $('<div/>').attr('id', rooms[i].room_id).addClass('reviewPanel').appendTo(roomForBooking);
+        reviewFilling(rooms[i].room_id, roomForBooking, hotelInput);
         $('<hr>').appendTo(roomForBooking);
       }
 
@@ -218,14 +218,13 @@ function hoteldetails(hotelInput) {
 
   mdl_upgrade();
 }
-
+//This gets called the same number of times as there are rooms for a hotel, seems wasteful
 function reviewFilling(id, booking, hotel) {
   let reviews = [];
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       reviews = JSON.parse(xhttp.responseText);
-
       if (reviews.length === 0) {
         $('<h5/>')
           .html("There are no reviews for this room.<br><br>Be the first to review this room!")
@@ -234,12 +233,12 @@ function reviewFilling(id, booking, hotel) {
       }
 
       for (let i = 0; i < reviews.length; i++) {
-        if (reviews[i].roomid == id) {
+        if (reviews[i].room_id == id) {
 
           var stars = getStars(reviews[i].stars);
 
           $('<h5/>')
-            .html(reviews[i].name_first)
+            .html(reviews[i].name_first+" "+reviews[i].name_last)
             .appendTo('#' + id);
           $('<p/>')
             .html(stars + '<br>' + reviews[i].review)
