@@ -34,7 +34,6 @@ function requestHotels(callback) {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       hotels = JSON.parse(xhttp.responseText);
-      console.log(hotels);
       callback();
     }
   };
@@ -155,7 +154,6 @@ function hoteldetails(hotelInput) {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       allrooms = JSON.parse(xhttp.responseText);
-
 
       for (let i = 0; i < allrooms.length; i++) {
         if (allrooms[i].price <= $('#price').val()) {

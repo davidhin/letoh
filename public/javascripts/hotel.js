@@ -384,6 +384,7 @@ function get_bookings(booking, can_change) {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       let review = JSON.parse(xhttp.responseText);
+
       if (review.id == -1) {
         $('<div/>')
           .attr('class', 'reviewmodule')
