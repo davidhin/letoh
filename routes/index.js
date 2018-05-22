@@ -249,8 +249,25 @@ router.post('/deleteHotel.json', function(req, res) {
     res.send('');
 });
 
+//Gets all the reviews for a certain room
 let reviews = [];
 router.post('/getReviews.json', function(req, res) {
+
+    req.pool.getConnection(function(err,connection){
+        if(err){throw err;}
+        var query = "select users.user_id, reviews.room_id, reviews.ref_num, users.name_first, users.name_last, users.email, reviews.stars, reviews.review "+
+        "from reviews inner join users on reviews.user_id = users.user_id "+
+        "inner join rooms on reviews.room_id = rooms.room_id "+
+        "where rooms.hotel_id = "+req.body.id;
+        connection.query(query, function(err, results){
+            console.log(results);
+
+            connection.release();
+            res.send(JSON.stringify(results));
+        });
+    });
+
+/*
     reviews = [];
     let hotelID = req.body.id;
 
@@ -260,7 +277,7 @@ router.post('/getReviews.json', function(req, res) {
         }
     }
 
-    res.send(JSON.stringify(reviews));
+    res.send(JSON.stringify(reviews));*/
 });
 
 router.post('/addReview', function(req, res) {
@@ -308,6 +325,21 @@ router.post('/addReview', function(req, res) {
 let rooms = [];
 // Get the rooms of a hotel by id
 router.post('/getRooms.json', function(req, res) {
+
+    req.pool.getConnection(function(err,connection){
+        if(err){throw err;}
+        var query = "select rooms.*, (avg(reviews.stars)) as stars "+
+        "from rooms inner join reviews on rooms.room_id = reviews.room_id "+
+        "where rooms.hotel_id ="+req.body.id+
+        " group by rooms.room_id";
+
+        connection.query(query, function(err, results){
+            connection.release();
+            res.send(JSON.stringify(results));
+        });
+    });
+
+/*
     rooms = [];
     let hotelID = req.body.id;
 
@@ -316,8 +348,8 @@ router.post('/getRooms.json', function(req, res) {
             rooms.push(allRooms[i]);
         }
     }
-
-    res.send(JSON.stringify(rooms));
+    console.log(rooms);
+    res.send(JSON.stringify(rooms));*/
 });
 
 // Add room

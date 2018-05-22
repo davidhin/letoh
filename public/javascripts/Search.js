@@ -168,7 +168,7 @@ function hoteldetails(hotelInput) {
       $('#hotel_info_room').empty();
       for (let i = 0; i < rooms.length; i++) {
         let stars = getStars(rooms[i].stars);
-        let roomForBooking = $('#hotel_info_room').append('<h3>' + rooms[i].name + '</h3><p class="roomPrice">Room for ' + rooms[i].occupants + ', $' + rooms[i].price + ' per night / ' + stars + '</p><p>' + rooms[i].desc + '</p>');
+        let roomForBooking = $('#hotel_info_room').append('<h3>' + rooms[i].name + '</h3><p class="roomPrice">Room for ' + rooms[i].occupants + ', $' + rooms[i].price + ' per night / ' + stars + '</p><p>' + rooms[i].description + '</p>');
         $('<button/>')
           .addClass('mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent')
           .html('Book Now')
@@ -239,7 +239,7 @@ function reviewFilling(id, booking, hotel) {
           var stars = getStars(reviews[i].stars);
 
           $('<h5/>')
-            .html(reviews[i].name)
+            .html(reviews[i].name_first)
             .appendTo('#' + id);
           $('<p/>')
             .html(stars + '<br>' + reviews[i].review)
