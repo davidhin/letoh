@@ -2,7 +2,6 @@ var hotels = [];
 var filtered = [];
 var distances = [];
 
-
 // ====================== MAIN FUNCTIONS ===================== //
 
 $(document).ready(function() {
@@ -35,6 +34,7 @@ function requestHotels(callback) {
     if (this.readyState == 4 && this.status == 200) {
       hotels = JSON.parse(xhttp.responseText);
       callback();
+      console.log(hotels);
     }
   };
 
@@ -82,7 +82,6 @@ function hotelCards() {
   var lat = -34.9284989;
   var lng = 138.6007456;
 
-
   for (let i = 0; i < hotels.length; i++) {
     var Radii = 6371000; // metres
     var lat2 = hotels[i].lat;
@@ -102,21 +101,24 @@ function hotelCards() {
 
   for (let i = 0; i < hotels.length; i++) {
     if (hotels[i].price <= $('#price').val()) {
-      if (hotels[i].rating >= $('#stars').val()) {
+      if (hotels[i].stars >= $('#stars').val()) {
         if (distances[i] <= $('#dist').val()) {
-          if (hotels[i].minOccupants >= $('#occupants').val()) {
+          if (hotels[i].min_occupants >= $('#occupants').val()) {
             filtered.push(hotels[i]);
           }
         }
       }
     }
   }
+ 
   var maxprices = 0;
   for (let i = 0; i < filtered.length; i++) {
     if (filtered[i].price > maxprices) {
       maxprices = filtered[i].price;
     }
   }
+
+  console.log(filtered);
 
   //$('#dist').max() = maxprices;
   // var testing = document.getElementById("dist").max = maxprices;
@@ -133,12 +135,9 @@ function hotelCards() {
     $('<div/>').addClass("mdl-card__supporting-text").html(filtered[i].desc).appendTo(div_main);
     var div_buttons = $('<div/>').addClass("mdl-card__actions mdl-card--border").appendTo(div_main);
     $('<a/>')
-      // CHANGE THIS EVENTUALLY
-      // .attr("href", "hoteldetails.html")
       .click(link_moredetails.call(this, filtered[i]))
       .addClass('mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent').html('More details').appendTo(div_buttons);
   }
-
 }
 
 /**
