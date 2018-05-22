@@ -111,9 +111,6 @@ router.post('/reviewstuff.json', function(req, res, next) {
         "where reviews.ref_num = "+req.body.refnum
         ;
         connection.query(query, function(err, results){
-            console.log(results);
-            console.log(results.length)
-
             connection.release();
             if(results.length==0){
                 res.send(JSON.stringify({"id": -1}));
@@ -128,6 +125,22 @@ router.post('/reviewstuff.json', function(req, res, next) {
 
 // Send booking information to client
 router.get('/getBookings.json', function(req, res) {
+/*
+    req.pool.getConnection(function(err,connection){
+        if(err){throw err;}
+        var query = "select bookings.*, hotels.name, hotels.address, hotels.hotel_id, rooms.name as roomname from bookings "+
+        "inner join rooms on bookings.room_id = rooms.room_id "+
+        "inner join hotels on rooms.hotel_id = hotels.hotel_id "+
+        "where user_id = "+sessions[req.session.id];
+
+        connection.query(query, function(err, results){
+            connection.release();
+            res.send(JSON.stringify(results));
+
+        });
+    });*/
+
+
     let bookingSubset = [];
     for (let i = 0; i < bookings.length; i++) {
         if (bookings[i].userid == sessions[req.session.id]) {
@@ -304,17 +317,6 @@ router.post('/getRooms.json', function(req, res) {
         });
     });
 
-/*
-    rooms = [];
-    let hotelID = req.body.id;
-
-    for (let i = 0; i < allRooms.length; i++) {
-        if (allRooms[i].id == hotelID) {
-            rooms.push(allRooms[i]);
-        }
-    }
-    console.log(rooms);
-    res.send(JSON.stringify(rooms));*/
 });
 
 // Add room
@@ -420,6 +422,7 @@ router.post('/signup', function(req, res, next) {
 
 router.post('/login', function(req, res, next) {
     // If login details present, attempt login
+
     if (req.body.email !== undefined && req.body.password !== undefined) {
         // David's smart thing
         // If user does not exist, resend login page
