@@ -162,6 +162,19 @@ router.get('/getHotelSubset.json', function(req, res) {
 
 // Send information to client
 router.get('/getHotels.json', function(req, res) {
+
+    req.pool.getConnection(function(err,connection){
+        if(err){throw err;}
+        var query = "select * from bookings";
+        connection.query(query, function(err, results){
+            console.log(results);
+            //processing of data goes here
+
+            connection.release();
+            //regular AJAX response
+            //res.send(JSON.stringify(results));
+        });
+    });
     res.send(JSON.stringify(hotels));
 });
 
