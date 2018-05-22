@@ -81,8 +81,8 @@ function showHotels() {
 
       for(let i = 0; i < hotels.length; i++){
         var Radii = 6371000; // metres
-        var lat2 = hotels[i].lat;
-        var lng2 = hotels[i].lng;
+        var lat2 = hotels[i].pos_lat;
+        var lng2 = hotels[i].pos_lng;
         var φ1 = toRadians(lati);
         var φ2 = toRadians(lat2);
         var Δφ = toRadians((lat2-lati));
@@ -150,7 +150,7 @@ function addMarkers() {
     // Create new marker
 
     var marker = new google.maps.Marker({
-      position: {lat: filtered[i].lat, lng: filtered[i].lng},
+      position: {lat: filtered[i].pos_lat, lng: filtered[i].pos_lng},
       icon: icons,
       label: {
         text: "$"+filtered[i].price.toString(),
@@ -187,7 +187,7 @@ function addMarkers() {
         '<div style="min-width:200px;min-height:100px;margin-top:5px">'+
         '<div style="float:left">'+
         '<img src="'+
-        'images/'+filtered[i].id+'.jpg'+
+        'images/'+filtered[i].hotel_id+'.jpg'+
         '" alt="hotel" title="Your Hotel" style="height:100px;width:100px;object-fit: cover;margin:auto;display:block"></div>'+
 
         '<div style="float:left;margin-left:10px;max-width:140px">'+
@@ -264,7 +264,7 @@ function hoteldetailsMarker(hotel) {
       $('#hotel_info_room').empty();
       for (let i=0; i<rooms.length; i++) {
         let stars = getStars(rooms[i].stars);
-      let roomForBooking = $('#hotel_info_room').append('<h3>'+rooms[i].name+'</h3><p class="roomPrice">Room for '+rooms[i].occupants+', $'+rooms[i].price+' per night / '+stars+'</p><p>'+rooms[i].desc+'</p>');
+      let roomForBooking = $('#hotel_info_room').append('<h3>'+rooms[i].name+'</h3><p class="roomPrice">Room for '+rooms[i].occupants+', $'+rooms[i].price+' per night / '+stars+'</p><p>'+rooms[i].description+'</p>');
         $('<button/>')
           .addClass('mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent')
           .html('Book Now')
@@ -277,8 +277,8 @@ function hoteldetailsMarker(hotel) {
           .html('Reviews')
           .css('text-transform', 'none')
           .appendTo(roomForBooking);
-        $('<div/>').attr('id', rooms[i].roomid).addClass('reviewPanel').appendTo(roomForBooking);
-        reviewFilling(rooms[i].roomid, roomForBooking,hotel);
+        $('<div/>').attr('id', rooms[i].room_id).addClass('reviewPanel').appendTo(roomForBooking);
+        reviewFilling(rooms[i].room_id, roomForBooking,hotel);
         $('<hr>').appendTo(roomForBooking);
       }
 
@@ -299,14 +299,14 @@ function hoteldetailsMarker(hotel) {
   };
   xhttp.open('POST','getRooms.json', true);
   xhttp.setRequestHeader('Content-type', 'application/json');
-  xhttp.send(JSON.stringify({"id": hotel.id}));
+  xhttp.send(JSON.stringify(hotel));
 
   $('#confirmation_overlay').fadeOut();
   $('#hd_hotelname').html(hotel.name);
-  $('#hotel_info_p').html(hotel.desc);
+  $('#hotel_info_p').html(hotel.description);
   $('#hoteldetails_overlay').fadeIn();
   // DYNAMIC DATA: Get the image
-  var getimage = "url('images/"+hotel.id+".jpg') center / cover";
+  var getimage = "url('images/"+hotel.hotel_id+".jpg') center / cover";
   //var getimage = "url('https://placeimg.com/640/480/any/" + hotel.id + "') center / cover";
   $('.imagescroller').css("background", getimage);
   $('#hd_backbutton').click(function() { $('#hoteldetails_overlay').fadeOut(); sizes(); });
