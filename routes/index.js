@@ -124,28 +124,6 @@ router.post('/reviewstuff.json', function(req, res, next) {
         });
     });
 
-
-/*    let theBooking = {
-        "refnum": 0
-    };
-    for (let i = 0; i < bookings.length; i++) {
-        if (bookings[i].refnum == req.body.refnum) {
-            theBooking = bookings[i];
-        }
-    }
-    let hotelid = theBooking.hotelid;
-    let roomid = theBooking.roomid;
-
-    for (let k = 0; k < allReviews.length; k++) {
-        if (allReviews[k].id === hotelid && allReviews[k].roomid === roomid && allReviews[k].email == sessions[req.session.id] && allReviews[k].refnum == req.body.refnum) {
-            res.send(JSON.stringify(allReviews[k]));
-        } else if (k == allReviews.length - 1) {
-            res.send(JSON.stringify({
-                "id": -1
-            }));
-        }
-    }*/
-
 });
 
 // Send booking information to client
@@ -189,17 +167,18 @@ router.get('/getHotels.json', function(req, res) {
 
     req.pool.getConnection(function(err,connection){
         if(err){throw err;}
-        var query = "select * from bookings";
-        connection.query(query, function(err, results){
-            console.log(results);
-            //processing of data goes here
+        var query = "select hotels.*, (min(rooms.price)) as price, ceiling(avg(reviews.stars)) as rating from hotels "+
+        "inner join rooms on hotels.hotel_id = rooms.hotel_id "+
+        "inner join reviews on rooms.room_id = reviews.room_id "+
+        "group by hotels.hotel_id";
 
+        connection.query(query, function(err, results){
+        //    console.log(results);
             connection.release();
-            //regular AJAX response
-            //res.send(JSON.stringify(results));
+            res.send(JSON.stringify(results));
         });
     });
-    res.send(JSON.stringify(hotels));
+    //res.send(JSON.stringify(hotels));
 });
 
 // Add hotel
@@ -258,26 +237,12 @@ router.post('/getReviews.json', function(req, res) {
         var query = "select users.user_id, reviews.room_id, reviews.ref_num, users.name_first, users.name_last, users.email, reviews.stars, reviews.review "+
         "from reviews inner join users on reviews.user_id = users.user_id "+
         "inner join rooms on reviews.room_id = rooms.room_id "+
-        "where rooms.hotel_id = "+req.body.id;
+        "where rooms.hotel_id = "+req.body.hotel_id;
         connection.query(query, function(err, results){
-        //    console.log(results);
-
             connection.release();
             res.send(JSON.stringify(results));
         });
     });
-
-/*
-    reviews = [];
-    let hotelID = req.body.id;
-
-    for (let i = 0; i < allReviews.length; i++) {
-        if (allReviews[i].id == hotelID) {
-            reviews.push(allReviews[i]);
-        }
-    }
-
-    res.send(JSON.stringify(reviews));*/
 });
 
 router.post('/addReview', function(req, res) {
@@ -330,7 +295,7 @@ router.post('/getRooms.json', function(req, res) {
         if(err){throw err;}
         var query = "select rooms.*, (avg(reviews.stars)) as stars "+
         "from rooms inner join reviews on rooms.room_id = reviews.room_id "+
-        "where rooms.hotel_id ="+req.body.id+
+        "where rooms.hotel_id ="+req.body.hotel_id+
         " group by rooms.room_id";
 
         connection.query(query, function(err, results){

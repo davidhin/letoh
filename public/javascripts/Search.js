@@ -34,6 +34,7 @@ function requestHotels(callback) {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       hotels = JSON.parse(xhttp.responseText);
+      console.log(hotels);
       callback();
     }
   };
@@ -85,8 +86,8 @@ function hotelCards() {
 
   for (let i = 0; i < hotels.length; i++) {
     var Radii = 6371000; // metres
-    var lat2 = hotels[i].lat;
-    var lng2 = hotels[i].lng;
+    var lat2 = hotels[i].pos_lat;
+    var lng2 = hotels[i].pos_lng;
     var φ1 = toRadians(lat);
     var φ2 = toRadians(lat2);
     var Δφ = toRadians((lat2 - lat));
@@ -104,7 +105,7 @@ function hotelCards() {
     if (hotels[i].price <= $('#price').val()) {
       if (hotels[i].rating >= $('#stars').val()) {
         if (distances[i] <= $('#dist').val()) {
-          if (hotels[i].minOccupants >= $('#occupants').val()) {
+          if (hotels[i].min_occupants >= $('#occupants').val()) {
             filtered.push(hotels[i]);
           }
         }
@@ -124,13 +125,13 @@ function hotelCards() {
   for (let i = 0; i < filtered.length; i++) {
     var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#hotelcards");
     // Change the background picture here
-    var insertBg = "url('images/" + filtered[i].id + ".jpg') center / cover";
+    var insertBg = "url('images/" + filtered[i].hotel_id + ".jpg') center / cover";
     var div_title = $('<div/>').addClass("mdl-card__title").appendTo(div_main).css("background", insertBg);
     // Change the hotel name here
     $('<h2/>').addClass("mdl-card__title-text").html(filtered[i].name).appendTo(div_title);
     // Change the hotel details here
     $('<p/>').addClass("mdl-card__supporting-text").html("From " + "$" + filtered[i].price.toString() + " per night.").appendTo(div_main);
-    $('<div/>').addClass("mdl-card__supporting-text").html(filtered[i].desc).appendTo(div_main);
+    $('<div/>').addClass("mdl-card__supporting-text").html(filtered[i].description).appendTo(div_main);
     var div_buttons = $('<div/>').addClass("mdl-card__actions mdl-card--border").appendTo(div_main);
     $('<a/>')
       // CHANGE THIS EVENTUALLY
@@ -206,7 +207,7 @@ function hoteldetails(hotelInput) {
 
   $('#confirmation_overlay').fadeOut();
   $('#hd_hotelname').html(hotelInput.name);
-  $('#hotel_info_p').html(hotelInput.desc);
+  $('#hotel_info_p').html(hotelInput.description);
   $('#hoteldetails_overlay').fadeIn();
   // DYNAMIC DATA: Get the image
   var getimage = $(this).parents("div").siblings(".mdl-card__title").css("backgroundImage") + " center / cover";
