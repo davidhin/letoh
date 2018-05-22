@@ -84,8 +84,8 @@ function hotelCards() {
 
   for (let i = 0; i < hotels.length; i++) {
     var Radii = 6371000; // metres
-    var lat2 = hotels[i].lat;
-    var lng2 = hotels[i].lng;
+    var lat2 = hotels[i].pos_lat;
+    var lng2 = hotels[i].pos_lng;
     var φ1 = toRadians(lat);
     var φ2 = toRadians(lat2);
     var Δφ = toRadians((lat2 - lat));
@@ -126,13 +126,13 @@ function hotelCards() {
   for (let i = 0; i < filtered.length; i++) {
     var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#hotelcards");
     // Change the background picture here
-    var insertBg = "url('images/" + filtered[i].id + ".jpg') center / cover";
+    var insertBg = "url('images/" + filtered[i].hotel_id + ".jpg') center / cover";
     var div_title = $('<div/>').addClass("mdl-card__title").appendTo(div_main).css("background", insertBg);
     // Change the hotel name here
     $('<h2/>').addClass("mdl-card__title-text").html(filtered[i].name).appendTo(div_title);
     // Change the hotel details here
     $('<p/>').addClass("mdl-card__supporting-text").html("From " + "$" + filtered[i].price.toString() + " per night.").appendTo(div_main);
-    $('<div/>').addClass("mdl-card__supporting-text").html(filtered[i].desc).appendTo(div_main);
+    $('<div/>').addClass("mdl-card__supporting-text").html(filtered[i].description).appendTo(div_main);
     var div_buttons = $('<div/>').addClass("mdl-card__actions mdl-card--border").appendTo(div_main);
     $('<a/>')
       .click(link_moredetails.call(this, filtered[i]))
@@ -153,7 +153,6 @@ function hoteldetails(hotelInput) {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       allrooms = JSON.parse(xhttp.responseText);
-
 
       for (let i = 0; i < allrooms.length; i++) {
         if (allrooms[i].price <= $('#price').val()) {
@@ -180,8 +179,8 @@ function hoteldetails(hotelInput) {
           .html('Reviews')
           .css('text-transform', 'none')
           .appendTo(roomForBooking);
-        $('<div/>').attr('id', rooms[i].roomid).addClass('reviewPanel').appendTo(roomForBooking);
-        reviewFilling(rooms[i].roomid, roomForBooking, hotelInput);
+        $('<div/>').attr('id', rooms[i].room_id).addClass('reviewPanel').appendTo(roomForBooking);
+        reviewFilling(rooms[i].room_id, roomForBooking, hotelInput);
         $('<hr>').appendTo(roomForBooking);
       }
 
@@ -205,7 +204,7 @@ function hoteldetails(hotelInput) {
 
   $('#confirmation_overlay').fadeOut();
   $('#hd_hotelname').html(hotelInput.name);
-  $('#hotel_info_p').html(hotelInput.desc);
+  $('#hotel_info_p').html(hotelInput.description);
   $('#hoteldetails_overlay').fadeIn();
   // DYNAMIC DATA: Get the image
   var getimage = $(this).parents("div").siblings(".mdl-card__title").css("backgroundImage") + " center / cover";
@@ -217,14 +216,13 @@ function hoteldetails(hotelInput) {
 
   mdl_upgrade();
 }
-
+//This gets called the same number of times as there are rooms for a hotel, seems wasteful
 function reviewFilling(id, booking, hotel) {
   let reviews = [];
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       reviews = JSON.parse(xhttp.responseText);
-
       if (reviews.length === 0) {
         $('<h5/>')
           .html("There are no reviews for this room.<br><br>Be the first to review this room!")
@@ -233,12 +231,12 @@ function reviewFilling(id, booking, hotel) {
       }
 
       for (let i = 0; i < reviews.length; i++) {
-        if (reviews[i].roomid == id) {
+        if (reviews[i].room_id == id) {
 
           var stars = getStars(reviews[i].stars);
 
           $('<h5/>')
-            .html(reviews[i].name_first)
+            .html(reviews[i].name_first+" "+reviews[i].name_last)
             .appendTo('#' + id);
           $('<p/>')
             .html(stars + '<br>' + reviews[i].review)

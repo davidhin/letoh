@@ -321,7 +321,7 @@ function get_bookings(booking, can_change) {
   $("<div/>")
     .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone")
     .append($("<img alt='Hotel' title='Your Hotel' class='boximage'>")
-      .attr('src', 'images/' + booking.hotelid + '.jpg') //CONTENT
+      .attr('src', 'images/' + booking.hotel_id + '.jpg') //CONTENT
     )
     .appendTo(book_container);
 
@@ -330,14 +330,14 @@ function get_bookings(booking, can_change) {
     .attr('class', 'descriptmodule')
     .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--5-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone")
     .append($("<h3 class='hotelboxheadings'></h3>")
-      .text(booking.hotelname)
+      .text(booking.name)
     )
     .append('<h3 class="boxheadings" style="margin-top:0px">Location:</h3>')
     .append($('<p class="boxparagraph"></p>')
-      .text(booking.hoteladdress)
+      .text(booking.address)
     )
     .append($('<p class="boxparagraph"></p>')
-      .text('Booking reference number: ' + booking.refnum)
+      .text('Booking reference number: ' + booking.ref_num)
     )
     .append($('<p class="boxparagraph"></p>')
       .text('Type: ' + booking.roomname)
@@ -349,19 +349,19 @@ function get_bookings(booking, can_change) {
     .append($('<tr></tr>')
       .append('<td>Check-in:</td>')
       .append($('<td class="tablerightcol tableFill"></td>')
-        .text(moment(booking.start, "DD/MM/YYYY").format('Do MMM YYYY')) // CONTENT
+        .text(moment(booking.check_in, "DD/MM/YYYY").format('Do MMM YYYY')) // CONTENT
       )
     )
     .append($('<tr></tr>')
       .append('<td>Check-out:</td>')
       .append($('<td class="tablerightcol tableFill"></td>')
-        .text(moment(booking.end, "DD/MM/YYYY").format('Do MMM YYYY')) // CONTENT
+        .text(moment(booking.check_out, "DD/MM/YYYY").format('Do MMM YYYY')) // CONTENT
       )
     )
     .append($('<tr></tr>')
       .append('<td>Length of stay:</td>')
       .append($('<td class="tablerightcol"></td>')
-        .text(moment(booking.end, "DD/MM/YYYY").diff(moment(booking.start, "DD/MM/YYYY"), 'days') + " " + "night(s)") //CONTENT
+        .text(moment(booking.check_out, "DD/MM/YYYY").diff(moment(booking.check_in, "DD/MM/YYYY"), 'days') + " " + "night(s)") //CONTENT
       )
     )
     .append($('<tr></tr>')
