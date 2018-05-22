@@ -68,7 +68,6 @@ fs.readFile('data/hotels.json', 'utf8', function(err, data) {
 });
 
 // Read all rooms
-
 fs.readFile('data/reviews.json', 'utf8', function(err, data) {
   allReviews = JSON.parse(data);
 });
@@ -153,29 +152,32 @@ router.get('/getBookings.json', function(req, res) {
 router.get('/hotelManage.html', function(req, res) {
   if (sessions[req.session.id] == null) {
     return res.send({
-      'login': 0
+      'login': 0,
     });
-  } else if (sessions[req.session.id].manageracc == 0) {
+  } else if (sessions[req.session.id].account_type == 'U') {
     return res.send({
-      'login': 0
+      'login': 0,
     });
   } else {
-    res.send(users[sessions[req.session.id]]);
+    res.send(sessions[req.session.id]);
   }
 });
 
 router.get('/getHotelSubset.json', function(req, res) {
-  let hotelSubset = [];
-
   // TODO Finish off this query stuff
-  var query = "select * from hotels where user_id = " + req.sesion.id + ";";
-  
-  for (let i = 0; i < hotels.length; i++) {
-    if (sessions[req.session.id] == hotels[i].owner) {
-      hotelSubset.push(hotels[i]);
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      throw err;
     }
-  }
-  res.send(JSON.stringify(hotelSubset));
+    if (sessions[req.session.id] == null) {
+      return res.send();
+    }
+    let query = 'select * from hotels where user_id = ' + sessions[req.session.id] + ';';
+    connection.query(query, function(err, results) {
+      connection.release();
+      res.send(JSON.stringify(results));
+    });
+  });
 });
 
 // Send information to client
@@ -366,6 +368,7 @@ router.post('/changeRoomDetails.json', function(req, res) {
 });
 
 router.post('/newBooking.json', function(req, res) {
+  // TODO - Push the booking request appropriately
   bookings.push(req.body);
   res.send(req.body);
 });
@@ -436,22 +439,25 @@ router.post('/login', function(req, res, next) {
       throw err;
     }
 
-    var query = "select * from users where email='"+
-                req.body.email+"' and user_password='"
-                +req.body.password+"';";
+    var query = "select * from users where email='"+req.body.email+"' and user_password='"+req.body.password+"';";
    
     connection.query(query, function(err, results) {
       // TODO
       console.log(results);
       connection.release();
 
-      if (results.length == 0)
-      {
+      if (results.length == 0) {
+        console.log('Unsuccessful login');
         return res.send({
-          'login': 0
+          'login': 0,
+        });
+      } else {
+        sessions[req.session.id] = results[0];
+        console.log(sessions[req.session.id]);
+        return res.send({
+          'login': 1,
         });
       }
-
     });
   });
 
@@ -463,16 +469,9 @@ router.post('/login', function(req, res, next) {
     } else if (users[req.body.email].password === req.body.password) {
       // Record user current session
       // TODO Get the user id using the email and store user id in session id object
-      sessions[req.session.id] = req.body.email;
-      return res.send({
-        'login': 1
-      });
       // All inputs incorrect, I think you can get rid of this field, cos if the user doesn't exist, that bit will run
     } else {
       console.log('incorrect input');
-      return res.send({
-        'login': 0
-      });
     }
   }
 });
@@ -541,7 +540,7 @@ router.get('/usersession.json', function(req, res, next) {
       'login': 0
     });
   } else {
-    res.send(users[sessions[req.session.id]]);
+    res.send(sessions[req.session.id]);
   }
 });
 

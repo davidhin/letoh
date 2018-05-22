@@ -4,7 +4,6 @@ var user;
 $(document).ready(function() {
   'use strict';
   sizes();
-  header();
   loginInputRed();
   document.querySelectorAll('input[data-required]').forEach(function(e) {
     e.required = true;
@@ -32,7 +31,7 @@ function sessionCheck() {
       // If logged in
       user = JSON.parse(xhttp.responseText);
       $('#menuItemLogin').hide();
-      if (user.manageracc === 0) {
+      if (user.account_type == 'U') {
         $('#menuItemManager').hide();
         mdl_upgrade();
       }
@@ -80,29 +79,6 @@ window.onresize = function(event) {
   sizes();
   //bookingData();
 };
-
-//Setting the header names and link appearance
-function header() {
-  let xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      let user = JSON.parse(xhttp.responseText);
-      if (user.login === 0) {
-        $("#managerSettings").hide();
-        $("#userSettings").hide();
-      } else {
-        $("#managerSettings").show();
-        $("#userSettings").show();
-        $("#userSettings a").text(user.firstName);
-        $("#registerLogin").hide();
-      }
-    }
-  };
-
-  xhttp.open('GET', 'usersession.json', true);
-  xhttp.setRequestHeader('Content-type', 'application/json');
-  xhttp.send();
-}
 
 //Copied from
 //https://github.com/google/material-design-lite/issues/1502

@@ -171,7 +171,7 @@ function submitted(hotelInput, roomInput, variable) {
       if (this.readyState == 4 && this.status == 200) {
         let user = JSON.parse(xhttpa.responseText);
         if (user.login === 0) {
-          email = $($('.mdl-textfield__label')[0]).val();
+          email = $('#emailInput').val();
         } else {
           email = user.email;
         }
@@ -249,9 +249,9 @@ function accountData() {
     password += '&#8226;';
   }
 
-  $($(".accountModule p")[0]).text(user.firstName + " " + user.lastName);
+  $($(".accountModule p")[0]).text(user.name_first + " " + user.name_last);
   $($(".accountModule p")[1]).text(user.address);
-  $($(".accountModule p")[2]).text(user.phoneNumber);
+  $($(".accountModule p")[2]).text(user.phone_number);
   $($(".accountModule p")[3]).text(user.email);
   $($(".accountModule p")[4]).html(password);
 
@@ -541,7 +541,7 @@ function postButton(index) {
           "id": hotelid,
           "roomid": roomid,
           "refnum": split[3],
-          "name": user.firstName + " " + user.lastName,
+          "name": user.name_first+ " " + user.name_last,
           "email": user.email,
           "stars": starsVal,
           "review": textbox[0].value
