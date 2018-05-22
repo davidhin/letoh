@@ -100,8 +100,32 @@ router.post('/changeUserDetail', function(req, res) {
     res.send();
 });
 
+//Getting a review for a user's booking - Used in the account page
 router.post('/reviewstuff.json', function(req, res, next) {
-    let theBooking = {
+
+    req.pool.getConnection(function(err,connection){
+        if(err){throw err;}
+        var query = "select reviews.ref_num, reviews.review, reviews.room_id, reviews.stars "+
+        "from reviews inner join users "+
+        "on reviews.user_id = users.user_id "+
+        "where reviews.ref_num = "+req.body.refnum
+        ;
+        connection.query(query, function(err, results){
+            console.log(results);
+            console.log(results.length)
+
+            connection.release();
+            if(results.length==0){
+                res.send(JSON.stringify({"id": -1}));
+            }else{
+                res.send(JSON.stringify(results[0]));
+            }
+
+        });
+    });
+
+
+/*    let theBooking = {
         "refnum": 0
     };
     for (let i = 0; i < bookings.length; i++) {
@@ -120,7 +144,7 @@ router.post('/reviewstuff.json', function(req, res, next) {
                 "id": -1
             }));
         }
-    }
+    }*/
 
 });
 
