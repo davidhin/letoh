@@ -244,8 +244,7 @@ function accountData() {
   //Account data
 
   let password = "";
-
-  for (var i = 0; i < user.password.length; i++) {
+  for (var i = 0; i < user.user_password.length; i++) {
     password += '&#8226;';
   }
 
@@ -277,9 +276,10 @@ function requestBookings(callback) {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       let bookings = JSON.parse(xhttp.responseText);
-      console.log(bookings);
       for (let i = 0; i < bookings.length; i++) {
-        let checkout = moment(bookings[i].end, 'DD/MM/YYYY');
+        let checkout = moment(bookings[i].check_out.substring(0,10), 'DD/MM/YYYY');
+        console.log("BOOKING CHECKOUT");
+        console.log(checkout);
         if ((checkout.diff(moment(), 'days')) < 0) {
           bookings_past.push(bookings[i]);
         } else {
@@ -349,19 +349,19 @@ function get_bookings(booking, can_change) {
     .append($('<tr></tr>')
       .append('<td>Check-in:</td>')
       .append($('<td class="tablerightcol tableFill"></td>')
-        .text(moment(booking.check_in, "DD/MM/YYYY").format('Do MMM YYYY')) // CONTENT
+        .text(moment(booking.check_in.substring(0,10), "DD/MM/YYYY").format('Do MMM YYYY')) // CONTENT
       )
     )
     .append($('<tr></tr>')
       .append('<td>Check-out:</td>')
       .append($('<td class="tablerightcol tableFill"></td>')
-        .text(moment(booking.check_out, "DD/MM/YYYY").format('Do MMM YYYY')) // CONTENT
+        .text(moment(booking.check_out.substring(0,10), "DD/MM/YYYY").format('Do MMM YYYY')) // CONTENT
       )
     )
     .append($('<tr></tr>')
       .append('<td>Length of stay:</td>')
       .append($('<td class="tablerightcol"></td>')
-        .text(moment(booking.check_out, "DD/MM/YYYY").diff(moment(booking.check_in, "DD/MM/YYYY"), 'days') + " " + "night(s)") //CONTENT
+        .text(moment(booking.check_out.substring(0,10), "DD/MM/YYYY").diff(moment(booking.check_in.substring(0,10), "DD/MM/YYYY"), 'days') + " " + "night(s)") //CONTENT
       )
     )
     .append($('<tr></tr>')
@@ -535,6 +535,7 @@ function postButton(index) {
 
       userSession(function() {
         let xhttp = new XMLHttpRequest();
+        console.log("user "+user);
         xhttp.open('POST', '/addReview', true);
         xhttp.setRequestHeader('Content-type', 'application/json');
         xhttp.send(JSON.stringify({

@@ -105,7 +105,7 @@ router.post('/reviewstuff.json', function(req, res, next) {
       "where reviews.ref_num = " + req.body.refnum;
     connection.query(query, function(err, results) {
       connection.release();
-      if (results.length == 0) {
+      if (results == undefined) {
         res.send(JSON.stringify({
           "id": -1,
         }));
@@ -120,29 +120,20 @@ router.post('/reviewstuff.json', function(req, res, next) {
 
 // Send booking information to client
 router.get('/getBookings.json', function(req, res) {
-  /*
+
   req.pool.getConnection(function(err,connection){
       if(err){throw err;}
-      var query = "select bookings.*, hotels.name, hotels.address, hotels.hotel_id, rooms.name as roomname from bookings "+
+      var query = "select bookings.*, hotels.name, hotels.address, hotels.hotel_id, rooms.name as roomname, datediff(bookings.check_out,bookings.check_in)*rooms.price as cost from bookings "+
       "inner join rooms on bookings.room_id = rooms.room_id "+
       "inner join hotels on rooms.hotel_id = hotels.hotel_id "+
-      "where user_id = "+sessions[req.session.id];
-
+      "where bookings.user_id = "+sessions[req.session.id].user_id+";";
       connection.query(query, function(err, results){
           connection.release();
           res.send(JSON.stringify(results));
 
       });
-  });*/
+  });
 
-
-  let bookingSubset = [];
-  for (let i = 0; i < bookings.length; i++) {
-    if (bookings[i].userid == sessions[req.session.id]) {
-      bookingSubset.push(bookings[i]);
-    }
-  }
-  res.send(bookingSubset);
 });
 
 router.get('/getHotelSubset.json', function(req, res) {
@@ -265,8 +256,9 @@ router.post('/addReview', function(req, res) {
 
   allReviews.push(newReview);
 
+//The following code may not be necessary
   //Room rating
-  let roomIndex = searchRoom(req.body.id, req.body.roomid);
+  /*let roomIndex = searchRoom(req.body.id, req.body.roomid);
 
   let rating = 0;
   let counter = 0;
@@ -291,13 +283,13 @@ router.post('/addReview', function(req, res) {
   let hotel = searchHotel(req.body.id);
   hotels[hotel].rating = parseInt(hRating);
 
-  res.send("");
+  res.send("");*/
 });
 
 let rooms = [];
 // Get the rooms of a hotel by id
 router.post('/getRooms.json', function(req, res) {
-//don't know how this copes with null stars
+
   req.pool.getConnection(function(err, connection) {
     if (err) {
       throw err;
