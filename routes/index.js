@@ -476,29 +476,39 @@ async function verify(token, req) {
     idToken: token,
     audience: CLIENT_ID, // Specify the CLIENT_ID of the app that accesses the backend
   });
+  
+  // Get google user info
   const payload = ticket.getPayload();
-  const userid = payload['sub'];
   const email = payload['email'];
   const passwordgen = generatePassword();
-
-  // TODO Insert user into database 
-
-  if (users[email] == null) {
-    users[email] = {
-      'firstName': payload['given_name'],
-      'lastName': payload['family_name'],
-      'email': email,
-      'google': userid,
-      'manageracc': 0,
-      'phoneNumber': 0,
-      'address': 'asd',
-      'password': passwordgen,
-    };
-  }
-
-  sessions[req.session.id] = email;
-  console.log(req.session.id);
-  console.log(sessions[req.session.id]);
+  // NOTE: This isnt stored...
+  //  const userid = payload['sub'];
+  
+  // Update database (if appropriate) and login
+  req.pool.getConnection(function(err, connection) {
+    if (err) throw err;
+    let query = `select * from users where email='${email}';`;
+    connection.query(query, function(err, results) {
+      // If user exists, login
+      if (results.length != 0) {
+        connection.release();
+        sessions[req.session.id] = results[0];
+      // Else, create user in database and login
+      } else {
+        // Insert user into database
+        let insertquery = `INSERT INTO users VALUES (DEFAULT,'${email}', '${payload['given_name']}', '${payload['family_name']}', 'undefined', 'U', 'undefined', '${passwordgen}');`;
+        connection.query(insertquery, function(err, results) {
+          if (err) throw err;
+          // Login
+          connection.query(query, function(err, results) {
+            if (err) throw err;
+            connection.release();
+            sessions[req.session.id] = results[0];
+          });
+        });
+      }
+    });
+  });
 }
 
 function generatePassword() {
