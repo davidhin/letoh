@@ -101,23 +101,6 @@ router.post('/changeUserDetail', function(req, res) {
     });
   });
 
-
-
-/*
-  if (req.body.firstName != undefined) {
-    users[sessions[req.session.id]].firstName = req.body.firstName;
-    users[sessions[req.session.id]].lastName = req.body.lastName;
-  } else if (req.body.address != undefined) {
-    users[sessions[req.session.id]].address = req.body.address;
-  } else if (req.body.phoneNumber != undefined) {
-    users[sessions[req.session.id]].phoneNumber = req.body.phoneNumber;
-  } else if (req.body.email != undefined) {
-    users[sessions[req.session.id]].email = req.body.email;
-  } else if (req.body.password != undefined) {
-    users[sessions[req.session.id]].password = req.body.password;
-  }
-
-  res.send();*/
 });
 
 // Getting a review for a user's booking - Used in the account page

@@ -404,7 +404,7 @@ function get_bookings(booking, can_change) {
           .append($('<h3 class="hotelboxheadings">Your review</h3>'))
           .append($('<span>Stars: </span>'))
           .append($('<p>' + stars + '</p>'))
-          .append($('<p class="boxparagraph" style="height: 185px; padding-bottom: 0px; white-space: pre; word-break: keep-all; overflow: auto;">' + $(reviewText[0]).text() + '</p>'))
+          .append($('<p class="boxparagraph" style="height: 185px; padding-bottom: 0px; white-space: normal; word-break: keep-all; overflow: auto;">' + $(reviewText[0]).text() + '</p>'))
           .appendTo(book_container);
       }
 
