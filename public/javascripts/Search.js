@@ -112,7 +112,7 @@ function hotelCards() {
       }
     }
   }
- 
+
   var maxprices = 0;
   for (let i = 0; i < filtered.length; i++) {
     if (filtered[i].price > maxprices) {
@@ -306,7 +306,7 @@ function bookingpage(hotelInput, roomInput, variable) {
 
   // Show main image
   //$('.boximage').html('This is the main image for ' + hotelInput.name);
-  $('.boximage').html("<img alt='Hotel' title='Your Hotel' class='boximage' src='images/" + hotelInput.id + ".jpg'>");
+  $('.boximage').html("<img alt='Hotel' title='Your Hotel' class='boximage' src='images/" + hotelInput.hotel_id + ".jpg'>");
 
   // Cancel and go back
   $('#bk_backbutton').click(function() {

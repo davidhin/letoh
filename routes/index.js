@@ -76,77 +76,7 @@ fs.readFile('data/bookings.json', 'utf8', function(err, data) {
   bookings = JSON.parse(data);
 });
 
-router.post('/changeUserDetail', function(req, res) {
-  req.pool.getConnection(function(err, connection) {
-    if (err) {throw err;}
-
-    if (req.body.firstName != undefined) {
-      var query = "update users set name_first = '"+req.body.firstName+"' where user_id = '"+sessions[req.session.id].user_id+
-      "' update users set name_last = '"+req.body.lastName+"' where user_id = '"+sessions[req.session.id].user_id+"';";
-    }else if (req.body.address != undefined) {
-      var query = "update users set address = '"+req.body.address+"' where user_id = '"+sessions[req.session.id].user_id+"';";
-    }else if (req.body.phoneNumber != undefined) {
-      var query = "update users set phone_number = '"+req.body.phonenumber+"' where user_id = '"+sessions[req.session.id].user_id+"';";
-    }else if (req.body.email != undefined) {
-      var query = "update users set email = '"+req.body.email+"' where user_id = '"+sessions[req.session.id].user_id+"';";
-    }else if (req.body.password != undefined) {
-      var query = "update users set user_password = '"+req.body.password+"' where user_id = '"+sessions[req.session.id].user_id+"';";
-    }
-
-    connection.query(query, function(err, results) {
-      console.log(results);
-      connection.release();
-      res.send('');
-
-    });
-  });
-
-});
-
-// Getting a review for a user's booking - Used in the account page
-router.post('/reviewstuff.json', function(req, res, next) {
-  req.pool.getConnection(function(err, connection) {
-    if (err) {
-      throw err;
-    }
-
-    var query = "select reviews.ref_num, reviews.review, reviews.room_id, reviews.stars " +
-      "from reviews inner join users " +
-      "on reviews.user_id = users.user_id " +
-      "where reviews.ref_num = " +req.body.refnum;
-    connection.query(query, function(err, results) {
-      console.log(results);
-      connection.release();
-      if (results.length == 0) {
-        res.send(JSON.stringify({
-          "id": -1,
-        }));
-      } else {
-        res.send(JSON.stringify(results[0]));
-      }
-
-    });
-  });
-
-});
-
-// Send booking information to client
-router.get('/getBookings.json', function(req, res) {
-
-  req.pool.getConnection(function(err,connection){
-      if(err){throw err;}
-      var query = "select bookings.*, hotels.name, hotels.address, hotels.hotel_id, rooms.name as roomname, datediff(bookings.check_out,bookings.check_in)*rooms.price as cost from bookings "+
-      "inner join rooms on bookings.room_id = rooms.room_id "+
-      "inner join hotels on rooms.hotel_id = hotels.hotel_id "+
-      "where bookings.user_id = "+sessions[req.session.id].user_id+";";
-      connection.query(query, function(err, results){
-          connection.release();
-          res.send(JSON.stringify(results));
-
-      });
-  });
-
-});
+/* =================== HOTELS REQUESTS ===================== */
 
 router.get('/getHotelSubset.json', function(req, res) {
   req.pool.getConnection(function(err, connection) {
@@ -236,40 +166,7 @@ router.post('/deleteHotel.json', function(req, res) {
   res.send('');
 });
 
-//Gets all the reviews for a certain room
-let reviews = [];
-router.post('/getReviews.json', function(req, res) {
-
-  req.pool.getConnection(function(err, connection) {
-    if (err) {
-      throw err;
-    }
-    var query = "select users.user_id, reviews.room_id, reviews.ref_num, users.name_first, users.name_last, users.email, reviews.stars, reviews.review " +
-      "from reviews inner join users on reviews.user_id = users.user_id " +
-      "inner join rooms on reviews.room_id = rooms.room_id " +
-      "where rooms.hotel_id = " + req.body.hotel_id;
-    connection.query(query, function(err, results) {
-      connection.release();
-      res.send(JSON.stringify(results));
-    });
-  });
-});
-
-router.post('/addReview', function(req, res) {
-
-  req.pool.getConnection(function(err, connection) {
-    if (err) {
-      throw err;
-    }
-    var query = "insert into reviews values(?,?,?,?,?);";
-
-    connection.query(query, [req.body.roomid, req.body.refnum,req.body.user_id,req.body.stars,req.body.review], function(err, results) {
-      connection.release();
-      res.send('');
-    });
-  });
-
-});
+/* =================== ROOMS THINGS ===================== */
 
 let rooms = [];
 // Get the rooms of a hotel by id
@@ -333,10 +230,96 @@ router.post('/changeRoomDetails.json', function(req, res) {
   res.send('');
 });
 
+/* =================== BOOKING THINGS ===================== */
+
+// Send booking information to client
+router.get('/getBookings.json', function(req, res) {
+
+  req.pool.getConnection(function(err,connection){
+      if(err){throw err;}
+      var query = "select bookings.*, hotels.name, hotels.address, hotels.hotel_id, rooms.name as roomname, datediff(bookings.check_out,bookings.check_in)*rooms.price as cost from bookings "+
+      "inner join rooms on bookings.room_id = rooms.room_id "+
+      "inner join hotels on rooms.hotel_id = hotels.hotel_id "+
+      "where bookings.user_id = "+sessions[req.session.id].user_id+";";
+      connection.query(query, function(err, results){
+          connection.release();
+          res.send(JSON.stringify(results));
+
+      });
+  });
+
+});
+
 router.post('/newBooking.json', function(req, res) {
   // TODO - Push the booking request appropriately
+  console.log("body");
+  console.log(req.body);
   bookings.push(req.body);
   res.send(req.body);
+});
+
+/* =================== REVIEw STUFF ===================== */
+
+// Getting a review for a user's booking - Used in the account page
+router.post('/reviewstuff.json', function(req, res, next) {
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      throw err;
+    }
+
+    var query = "select reviews.ref_num, reviews.review, reviews.room_id, reviews.stars " +
+      "from reviews inner join users " +
+      "on reviews.user_id = users.user_id " +
+      "where reviews.ref_num = " +req.body.refnum;
+    connection.query(query, function(err, results) {
+      console.log(results);
+      connection.release();
+      if (results.length == 0) {
+        res.send(JSON.stringify({
+          "id": -1,
+        }));
+      } else {
+        res.send(JSON.stringify(results[0]));
+      }
+
+    });
+  });
+
+});
+
+//Gets all the reviews for a certain room
+let reviews = [];
+router.post('/getReviews.json', function(req, res) {
+
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      throw err;
+    }
+    var query = "select users.user_id, reviews.room_id, reviews.ref_num, users.name_first, users.name_last, users.email, reviews.stars, reviews.review " +
+      "from reviews inner join users on reviews.user_id = users.user_id " +
+      "inner join rooms on reviews.room_id = rooms.room_id " +
+      "where rooms.hotel_id = " + req.body.hotel_id;
+    connection.query(query, function(err, results) {
+      connection.release();
+      res.send(JSON.stringify(results));
+    });
+  });
+});
+
+router.post('/addReview', function(req, res) {
+
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      throw err;
+    }
+    var query = "insert into reviews values(?,?,?,?,?);";
+
+    connection.query(query, [req.body.roomid, req.body.refnum,req.body.user_id,req.body.stars,req.body.review], function(err, results) {
+      connection.release();
+      res.send('');
+    });
+  });
+
 });
 
 /**
@@ -365,6 +348,35 @@ function searchRoom(hotelID, roomID) {
     }
   }
 }
+
+/* =================== USER STUFF ===================== */
+
+router.post('/changeUserDetail', function(req, res) {
+  req.pool.getConnection(function(err, connection) {
+    if (err) {throw err;}
+
+    if (req.body.firstName != undefined) {
+      var query = "update users set name_first = '"+req.body.firstName+"' where user_id = '"+sessions[req.session.id].user_id+
+      "' update users set name_last = '"+req.body.lastName+"' where user_id = '"+sessions[req.session.id].user_id+"';";
+    }else if (req.body.address != undefined) {
+      var query = "update users set address = '"+req.body.address+"' where user_id = '"+sessions[req.session.id].user_id+"';";
+    }else if (req.body.phoneNumber != undefined) {
+      var query = "update users set phone_number = '"+req.body.phonenumber+"' where user_id = '"+sessions[req.session.id].user_id+"';";
+    }else if (req.body.email != undefined) {
+      var query = "update users set email = '"+req.body.email+"' where user_id = '"+sessions[req.session.id].user_id+"';";
+    }else if (req.body.password != undefined) {
+      var query = "update users set user_password = '"+req.body.password+"' where user_id = '"+sessions[req.session.id].user_id+"';";
+    }
+
+    connection.query(query, function(err, results) {
+      console.log(results);
+      connection.release();
+      res.send('');
+
+    });
+  });
+
+});
 
 router.post('/signup', function(req, res, next) {
   req.pool.getConnection(function(err, connection) {
