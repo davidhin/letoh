@@ -148,31 +148,16 @@ router.get('/getBookings.json', function(req, res) {
   res.send(bookingSubset);
 });
 
-// Send information to client
-router.get('/hotelManage.html', function(req, res) {
-  if (sessions[req.session.id] == null) {
-    return res.send({
-      'login': 0,
-    });
-  } else if (sessions[req.session.id].account_type == 'U') {
-    return res.send({
-      'login': 0,
-    });
-  } else {
-    res.send(sessions[req.session.id]);
-  }
-});
-
 router.get('/getHotelSubset.json', function(req, res) {
-  // TODO Finish off this query stuff
   req.pool.getConnection(function(err, connection) {
     if (err) {
       throw err;
     }
     if (sessions[req.session.id] == null) {
-      return res.send();
+      return res.status(403).send();
     }
-    let query = 'select * from hotels where user_id = ' + sessions[req.session.id] + ';';
+
+    let query = 'select * from hotels where user_id = ' + sessions[req.session.id].user_id + ';';
     connection.query(query, function(err, results) {
       connection.release();
       res.send(JSON.stringify(results));
@@ -231,6 +216,10 @@ router.post('/changeHotelDetails.json', function(req, res) {
 // Update the hotel address
 // Takes a JSON object of form {hotel address lat lng}
 router.post('/updateHotelAddress.json', function(req, res) {
+
+  // TODO Database it
+  // let query = 'UPDATE hotels set user_id = 2 where name="Special hotel";';
+
   let hotel = JSON.parse(req.body.hotel);
   let targetHotel = searchHotel(hotel.id);
   hotels[targetHotel]['address'] = req.body.address;
@@ -331,6 +320,8 @@ router.post('/getRooms.json', function(req, res) {
 
 // Add room
 router.post('/addRoom.json', function(req, res) {
+  // TODO: Database it
+  
   let targetHotel = searchHotel(req.body.id);
 
   let calcroomid = hotels[targetHotel].roomtypes;
@@ -401,6 +392,7 @@ function searchRoom(hotelID, roomID) {
 }
 
 router.post('/signup', function(req, res, next) {
+  // TODO Signup
   // address and phone number not in sign up page
   if (users[req.body.email] != null) {
     console.log('Email already registered!');
@@ -438,16 +430,14 @@ router.post('/login', function(req, res, next) {
     if (err) {
       throw err;
     }
-
-    var query = "select * from users where email='"+req.body.email+"' and user_password='"+req.body.password+"';";
-   
+    let query = "select * from users where email='"+req.body.email+"' and user_password='"+req.body.password+"';";
     connection.query(query, function(err, results) {
-      // TODO
       console.log(results);
       connection.release();
 
+      // If user exists and password matches
+      // Record user current session
       if (results.length == 0) {
-        console.log('Unsuccessful login');
         return res.send({
           'login': 0,
         });
@@ -460,20 +450,6 @@ router.post('/login', function(req, res, next) {
       }
     });
   });
-
-  if (req.body.email !== undefined && req.body.password !== undefined) {
-    // David's smart thing
-    // If user does not exist, resend login page
-    if (users[req.body.email] === undefined) {
-      // If user exists and password matches
-    } else if (users[req.body.email].password === req.body.password) {
-      // Record user current session
-      // TODO Get the user id using the email and store user id in session id object
-      // All inputs incorrect, I think you can get rid of this field, cos if the user doesn't exist, that bit will run
-    } else {
-      console.log('incorrect input');
-    }
-  }
 });
 
 // If logged in using google
@@ -506,6 +482,8 @@ async function verify(token, req) {
   const email = payload['email'];
   const passwordgen = generatePassword();
 
+  // TODO Insert user into database 
+
   if (users[email] == null) {
     users[email] = {
       'firstName': payload['given_name'],
@@ -518,6 +496,7 @@ async function verify(token, req) {
       'password': passwordgen,
     };
   }
+
   sessions[req.session.id] = email;
   console.log(req.session.id);
   console.log(sessions[req.session.id]);

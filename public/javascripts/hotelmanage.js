@@ -23,6 +23,9 @@ function requestHotels(callback) {
       hotels = JSON.parse(xhttp.responseText);
       callback();
     }
+    if (this.status == 403) {
+      window.location.replace('http://localhost:3000/');
+    }
   };
 
   xhttp.open('GET', 'getHotelSubset.json', true);
@@ -314,11 +317,11 @@ function mgrOverview() {
           'color': 'rgb(180,180,180)',
           'margin': '0'
         })
-        .html(hotels[i].lat + ' ' + hotels[i].lng)
+        .html(hotels[i].pos_lat + ' ' + hotels[i].pos_lng)
         .appendTo(mgrOverviewCard);
       $('<p/>')
         .css('margin', 0)
-        .html(hotels[i].desc)
+        .html(hotels[i].description)
         .appendTo(mgrOverviewCard);
     }
 
