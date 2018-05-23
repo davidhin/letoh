@@ -182,7 +182,7 @@ function hoteldetails(hotelInput) {
           .css('text-transform', 'none')
           .appendTo(roomForBooking);
         $('<div/>').attr('id', rooms[i].room_id).addClass('reviewPanel').appendTo(roomForBooking);
-        reviewFilling(rooms[i].room_id, roomForBooking, hotelInput);
+        reviewFilling(rooms[i], roomForBooking, hotelInput);
         $('<hr>').appendTo(roomForBooking);
       }
 
@@ -219,39 +219,38 @@ function hoteldetails(hotelInput) {
   mdl_upgrade();
 }
 
-//This gets called the same number of times as there are rooms for a hotel, seems wasteful
 function reviewFilling(id, booking, hotel) {
   let reviews = [];
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       reviews = JSON.parse(xhttp.responseText);
+      console.log("reviewsss");
+      console.log(reviews);
+      console.log(reviews.length);
       if (reviews.length === 0) {
         $('<h5/>')
           .html("There are no reviews for this room.<br><br>Be the first to review this room!")
-          .appendTo('#' + id);
+          .appendTo('#' + id.room_id);
         return;
       }
 
       for (let i = 0; i < reviews.length; i++) {
-        if (reviews[i].room_id == id) {
-
           var stars = getStars(reviews[i].stars);
 
           $('<h5/>')
             .html(reviews[i].name_first+" "+reviews[i].name_last)
-            .appendTo('#' + id);
+            .appendTo('#' + id.room_id);
           $('<p/>')
             .html(stars + '<br>' + reviews[i].review)
-            .appendTo('#' + id);
-        }
+            .appendTo('#' + id.room_id);
       }
     }
   };
 
   xhttp.open('POST', 'getReviews.json', true);
   xhttp.setRequestHeader('Content-type', 'application/json');
-  xhttp.send(JSON.stringify(hotel));
+  xhttp.send(JSON.stringify(id));
 }
 
 function getStars(length) {

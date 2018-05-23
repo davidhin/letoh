@@ -177,7 +177,7 @@ router.post('/getRooms.json', function(req, res) {
       throw err;
     }
     var query = "select rooms.*, ifnull((avg(reviews.stars)),6) as stars " +
-      "from rooms inner join reviews on rooms.room_id = reviews.room_id " +
+      "from rooms left join reviews on rooms.room_id = reviews.room_id " +
       "where rooms.hotel_id =" + req.body.hotel_id +
       " group by rooms.room_id";
 
@@ -303,7 +303,7 @@ router.post('/getReviews.json', function(req, res) {
     var query = "select users.user_id, reviews.room_id, reviews.ref_num, users.name_first, users.name_last, users.email, reviews.stars, reviews.review " +
       "from reviews inner join users on reviews.user_id = users.user_id " +
       "inner join rooms on reviews.room_id = rooms.room_id " +
-      "where rooms.hotel_id = " + req.body.hotel_id;
+      "where rooms.room_id = " + req.body.room_id;
     connection.query(query, function(err, results) {
       connection.release();
       res.send(JSON.stringify(results));
