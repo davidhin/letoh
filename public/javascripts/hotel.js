@@ -414,7 +414,7 @@ function get_bookings(booking, can_change) {
   xhttp.open('POST', '/reviewstuff.json', true);
   xhttp.setRequestHeader('Content-type', 'application/json');
   xhttp.send(JSON.stringify({
-    "refnum": booking.refnum
+    "refnum": booking.ref_num
   }));
 
 }
@@ -525,19 +525,20 @@ function postButton(index) {
     if (this.readyState == 4 && this.status == 200) {
       let bookings = JSON.parse(xhttpa.responseText);
       for (let i = 0; i < bookings.length; i++) {
-        if (bookings[i].refnum == split[3]) {
-          var hotelid = bookings[i].hotelid;
-          var roomid = bookings[i].roomid;
+        if (bookings[i].ref_num == split[3]) {
+          var hotelid = bookings[i].hotel_id;
+          var roomid = bookings[i].room_id;
         }
       }
 
       userSession(function() {
         let xhttp = new XMLHttpRequest();
-        console.log("user "+user);
+        //console.log(user);
         xhttp.open('POST', '/addReview', true);
         xhttp.setRequestHeader('Content-type', 'application/json');
         xhttp.send(JSON.stringify({
-          "id": hotelid,
+          "user_id":user.user_id,
+          "hotel_id": hotelid,
           "roomid": roomid,
           "refnum": split[3],
           "name": user.name_first+ " " + user.name_last,

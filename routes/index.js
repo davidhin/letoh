@@ -99,13 +99,15 @@ router.post('/reviewstuff.json', function(req, res, next) {
     if (err) {
       throw err;
     }
+
     var query = "select reviews.ref_num, reviews.review, reviews.room_id, reviews.stars " +
       "from reviews inner join users " +
       "on reviews.user_id = users.user_id " +
-      "where reviews.ref_num = " + req.body.refnum;
+      "where reviews.ref_num = " +req.body.refnum;
     connection.query(query, function(err, results) {
+      console.log(results);
       connection.release();
-      if (results == undefined) {
+      if (results.length == 0) {
         res.send(JSON.stringify({
           "id": -1,
         }));
@@ -244,8 +246,21 @@ router.post('/getReviews.json', function(req, res) {
 });
 
 router.post('/addReview', function(req, res) {
-  let newReview = {
-    "id": req.body.id,
+
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      throw err;
+    }
+    var query = "insert into reviews values(?,?,?,?,?);";
+
+    connection.query(query, [req.body.roomid, req.body.refnum,req.body.user_id,req.body.stars,req.body.review], function(err, results) {
+      connection.release();
+      res.send('');
+    });
+  });
+
+/*  let newReview = {
+    "id": req.body.hotel_id,
     "roomid": req.body.roomid,
     "refnum": req.body.refnum,
     "name": req.body.name,
@@ -254,7 +269,7 @@ router.post('/addReview', function(req, res) {
     "review": req.body.review
   };
 
-  allReviews.push(newReview);
+  allReviews.push(newReview);*/
 
 //The following code may not be necessary
   //Room rating
@@ -470,14 +485,14 @@ async function verify(token, req) {
     idToken: token,
     audience: CLIENT_ID, // Specify the CLIENT_ID of the app that accesses the backend
   });
-  
+
   // Get google user info
   const payload = ticket.getPayload();
   const email = payload['email'];
   const passwordgen = generatePassword();
   // NOTE: This isnt stored...
   //  const userid = payload['sub'];
-  
+
   // Update database (if appropriate) and login
   req.pool.getConnection(function(err, connection) {
     if (err) throw err;
