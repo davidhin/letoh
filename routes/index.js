@@ -251,11 +251,16 @@ router.get('/getBookings.json', function(req, res) {
 });
 
 router.post('/newBooking.json', function(req, res) {
-  // TODO - Push the booking request appropriately
-  console.log("body");
-  console.log(req.body);
-  bookings.push(req.body);
-  res.send(req.body);
+  req.pool.getConnection(function(err,connection){
+      if(err){throw err;}
+      var query = "insert into bookings values(default,?,?,?,?,?)"
+
+      connection.query(query, [req.body.roomid, req.body.userid, req.body.start, req.body.end, req.body.comments], function(err, results){
+          connection.release();
+          res.send(req.body);
+      });
+  });
+
 });
 
 /* =================== REVIEw STUFF ===================== */

@@ -177,16 +177,15 @@ function submitted(hotelInput, roomInput, variable) {
         }
 
         let newBooking = {
-          'refnum': Math.floor(Math.random() * 1000000),
-          'userid': email,
-          'hotelid': hotelInput.id,
+          'userid': user.user_id,
+          'hotelid': hotelInput.hotel_id,
           'hotelname': hotelInput.name,
           'hoteladdress': hotelInput.address,
-          'roomid': roomInput.roomid,
+          'roomid': roomInput.room_id,
           'roomname': roomInput.name,
           'cost': $('#totalCost').html().substring(4),
-          'start': moment($('#check-in').val()).format('DD/MM/YYYY'),
-          'end': moment($('#check-out').val()).format('DD/MM/YYYY'),
+          'start': moment($('#check-in').val()).format('YYYY-MM-DD'),
+          'end': moment($('#check-out').val()).format('YYYY-MM-DD'),
           'comments': $('#extraComments').val(),
           'email': email
         };
