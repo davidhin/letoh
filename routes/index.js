@@ -259,46 +259,6 @@ router.post('/addReview', function(req, res) {
     });
   });
 
-/*  let newReview = {
-    "id": req.body.hotel_id,
-    "roomid": req.body.roomid,
-    "refnum": req.body.refnum,
-    "name": req.body.name,
-    "email": req.body.email,
-    "stars": req.body.stars,
-    "review": req.body.review
-  };
-
-  allReviews.push(newReview);*/
-
-//The following code may not be necessary
-  //Room rating
-  /*let roomIndex = searchRoom(req.body.id, req.body.roomid);
-
-  let rating = 0;
-  let counter = 0;
-  for (let i = 0; i < allReviews.length; i++) {
-    if (allReviews[i].id == req.body.id && allReviews[i].roomid == req.body.roomid) {
-      rating += parseInt(allReviews[i].stars);
-      counter++;
-    }
-  }
-  rating = rating / counter;
-  allRooms[roomIndex].stars = parseInt(rating);
-
-  let hRating = 0;
-  counter = 0;
-  for (let i = 0; i < allRooms.length; i++) {
-    if (allRooms[i].id == req.body.id) {
-      hRating += parseInt(allRooms[i].stars);
-      counter++;
-    }
-  }
-  hRating = hRating / counter;
-  let hotel = searchHotel(req.body.id);
-  hotels[hotel].rating = parseInt(hRating);
-
-  res.send("");*/
 });
 
 let rooms = [];
@@ -315,6 +275,7 @@ router.post('/getRooms.json', function(req, res) {
       " group by rooms.room_id";
 
     connection.query(query, function(err, results) {
+      console.log(results);
       connection.release();
       res.send(JSON.stringify(results));
     });
