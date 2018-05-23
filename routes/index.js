@@ -77,6 +77,33 @@ fs.readFile('data/bookings.json', 'utf8', function(err, data) {
 });
 
 router.post('/changeUserDetail', function(req, res) {
+  req.pool.getConnection(function(err, connection) {
+    if (err) {throw err;}
+
+    if (req.body.firstName != undefined) {
+      var query = "update users set name_first = '"+req.body.firstName+"' where user_id = '"+sessions[req.session.id].user_id+
+      "' update users set name_last = '"+req.body.lastName+"' where user_id = '"+sessions[req.session.id].user_id+"';";
+    }else if (req.body.address != undefined) {
+      var query = "update users set address = '"+req.body.address+"' where user_id = '"+sessions[req.session.id].user_id+"';";
+    }else if (req.body.phoneNumber != undefined) {
+      var query = "update users set phone_number = '"+req.body.phonenumber+"' where user_id = '"+sessions[req.session.id].user_id+"';";
+    }else if (req.body.email != undefined) {
+      var query = "update users set email = '"+req.body.email+"' where user_id = '"+sessions[req.session.id].user_id+"';";
+    }else if (req.body.password != undefined) {
+      var query = "update users set user_password = '"+req.body.password+"' where user_id = '"+sessions[req.session.id].user_id+"';";
+    }
+
+    connection.query(query, function(err, results) {
+      console.log(results);
+      connection.release();
+      res.send('');
+
+    });
+  });
+
+
+
+/*
   if (req.body.firstName != undefined) {
     users[sessions[req.session.id]].firstName = req.body.firstName;
     users[sessions[req.session.id]].lastName = req.body.lastName;
@@ -90,7 +117,7 @@ router.post('/changeUserDetail', function(req, res) {
     users[sessions[req.session.id]].password = req.body.password;
   }
 
-  res.send();
+  res.send();*/
 });
 
 // Getting a review for a user's booking - Used in the account page
