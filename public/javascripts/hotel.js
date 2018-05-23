@@ -277,9 +277,7 @@ function requestBookings(callback) {
     if (this.readyState == 4 && this.status == 200) {
       let bookings = JSON.parse(xhttp.responseText);
       for (let i = 0; i < bookings.length; i++) {
-        let checkout = moment(bookings[i].check_out.substring(0,10), 'DD/MM/YYYY');
-        console.log("BOOKING CHECKOUT");
-        console.log(checkout);
+        let checkout = moment(bookings[i].check_out.substring(0,10), 'YYYY-MM-DD');
         if ((checkout.diff(moment(), 'days')) < 0) {
           bookings_past.push(bookings[i]);
         } else {
@@ -349,19 +347,19 @@ function get_bookings(booking, can_change) {
     .append($('<tr></tr>')
       .append('<td>Check-in:</td>')
       .append($('<td class="tablerightcol tableFill"></td>')
-        .text(moment(booking.check_in.substring(0,10), "DD/MM/YYYY").format('Do MMM YYYY')) // CONTENT
+        .text(moment(booking.check_in.substring(0,10), "YYYY-MM-DD").format('Do MMM YYYY')) // CONTENT
       )
     )
     .append($('<tr></tr>')
       .append('<td>Check-out:</td>')
       .append($('<td class="tablerightcol tableFill"></td>')
-        .text(moment(booking.check_out.substring(0,10), "DD/MM/YYYY").format('Do MMM YYYY')) // CONTENT
+        .text(moment(booking.check_out.substring(0,10), "YYYY-MM-DD").format('Do MMM YYYY')) // CONTENT
       )
     )
     .append($('<tr></tr>')
       .append('<td>Length of stay:</td>')
       .append($('<td class="tablerightcol"></td>')
-        .text(moment(booking.check_out.substring(0,10), "DD/MM/YYYY").diff(moment(booking.check_in.substring(0,10), "DD/MM/YYYY"), 'days') + " " + "night(s)") //CONTENT
+        .text(moment(booking.check_out.substring(0,10), "YYYY-MM-DD").diff(moment(booking.check_in.substring(0,10), "YYYY-MM-DD"), 'days') + " " + "night(s)") //CONTENT
       )
     )
     .append($('<tr></tr>')
