@@ -9,7 +9,6 @@ var client = new OAuth2Client(CLIENT_ID);
 var gticket;
 
 var fs = require('fs');
-
 // have ids
 var hotels = [];
 
@@ -78,7 +77,6 @@ fs.readFile('data/bookings.json', 'utf8', function(err, data) {
 });
 
 router.post('/changeUserDetail', function(req, res) {
-
   if (req.body.firstName != undefined) {
     users[sessions[req.session.id]].firstName = req.body.firstName;
     users[sessions[req.session.id]].lastName = req.body.lastName;
@@ -95,9 +93,8 @@ router.post('/changeUserDetail', function(req, res) {
   res.send();
 });
 
-//Getting a review for a user's booking - Used in the account page
+// Getting a review for a user's booking - Used in the account page
 router.post('/reviewstuff.json', function(req, res, next) {
-
   req.pool.getConnection(function(err, connection) {
     if (err) {
       throw err;
@@ -110,7 +107,7 @@ router.post('/reviewstuff.json', function(req, res, next) {
       connection.release();
       if (results.length == 0) {
         res.send(JSON.stringify({
-          "id": -1
+          "id": -1,
         }));
       } else {
         res.send(JSON.stringify(results[0]));
@@ -392,34 +389,36 @@ function searchRoom(hotelID, roomID) {
 }
 
 router.post('/signup', function(req, res, next) {
-  // TODO Signup
-  // address and phone number not in sign up page
-  if (users[req.body.email] != null) {
-    console.log('Email already registered!');
-    return res.send({
-      'code': 0,
-      'message': 'Email is already registered'
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      throw err;
+    }
+    let query = `select * from users where email='${req.body.email}';`;
+    connection.query(query, function(err, results) {
+      // If user exists return error
+      // Else add user to database
+      if (results.length != 0) {
+        connection.release();
+        return res.send({
+          'code': 0,
+          'message': 'Email is already registered',
+        });
+      } else {
+        // Create query
+        let manager = 'U';
+        if (req.body.hotelowner) manager = 'M';
+        let insertquery = `INSERT INTO users VALUES (DEFAULT,'${req.body.email}', '${req.body.firstname}', '${req.body.lastname}', 'undefined', '${manager}', 'undefined', '${req.body.password}');`;
+        // Insert user into database
+        connection.query(insertquery, function(err2, results2) {
+          if (err2) throw err2;
+          connection.release();
+          return res.send({
+            'code': 1,
+            'message': 'User registered!',
+          });
+        });
+      }
     });
-  }
-
-  let manager = 0;
-  if (req.body.hotelowner) manager = 1;
-
-  users[req.body.email] = {
-    'email': req.body.email,
-    'firstName': req.body.firstname,
-    'lastName': req.body.lastname,
-    'password': req.body.password,
-    'phoneNumber': 0,
-    'address': 'asd',
-    'manageracc': manager,
-  };
-
-  console.log('Success!');
-  console.log(users);
-  return res.send({
-    'code': 1,
-    'message': 'User registered!'
   });
 });
 
