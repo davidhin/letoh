@@ -173,7 +173,7 @@ router.get('/getHotels.json', function(req, res) {
       "left join rooms on hotels.hotel_id = rooms.hotel_id " +
       "left join reviews on rooms.room_id = reviews.room_id " +
       "group by hotels.hotel_id";
-   
+
     connection.query(query, function(err, results) {
       connection.release();
       res.send(JSON.stringify(results));
@@ -297,12 +297,12 @@ router.post('/addReview', function(req, res) {
 let rooms = [];
 // Get the rooms of a hotel by id
 router.post('/getRooms.json', function(req, res) {
-
+//don't know how this copes with null stars
   req.pool.getConnection(function(err, connection) {
     if (err) {
       throw err;
     }
-    var query = "select rooms.*, (avg(reviews.stars)) as stars " +
+    var query = "select rooms.*, ifnull((avg(reviews.stars)),6) as stars " +
       "from rooms inner join reviews on rooms.room_id = reviews.room_id " +
       "where rooms.hotel_id =" + req.body.hotel_id +
       " group by rooms.room_id";
@@ -317,21 +317,21 @@ router.post('/getRooms.json', function(req, res) {
 
 // Add room
 router.post('/addRoom.json', function(req, res) {
-  // TODO: Database it
-  
-  let targetHotel = searchHotel(req.body.id);
 
-  let calcroomid = hotels[targetHotel].roomtypes;
-  hotels[targetHotel].roomtypes += 1;
-  allRooms.push({
-    'id': req.body.id,
-    'name': calcroomid,
-    'price': 100,
-    'roomid': calcroomid,
-    'stars': 6
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      throw err;
+    }
+    var query = "insert into rooms values(default,?,'Name',100,1,default);"+
+    "update hotels set room_types = room_types + 1 "+
+    "where hotel_id = ?;";
+
+    connection.query(query, [hotel_id, hotel_id], function(err, results) {
+      connection.release();
+      res.send('');
+    });
   });
 
-  res.send('');
 });
 
 router.post('/changeRoomDetails.json', function(req, res) {
@@ -424,13 +424,15 @@ router.post('/signup', function(req, res, next) {
 
 router.post('/login', function(req, res, next) {
   // If login details present, attempt login
-  
+
   req.pool.getConnection(function(err, connection) {
     if (err) {
       throw err;
     }
-    let query = "select * from users where email='"+req.body.email+"' and user_password='"+req.body.password+"';";
-    connection.query(query, function(err, results) {
+    let email = req.body.email;
+    let password = req.body.password;
+    let query = "select * from users where email= ? and user_password= ?;";
+    connection.query(query, [email, password], function(err, results) {
       console.log(results);
       connection.release();
 
