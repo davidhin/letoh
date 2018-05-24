@@ -152,12 +152,22 @@ function hotelCards() {
     }
   }
 
-  var maxprices = 0;
+  //Setting the price slide to have the min and max price of all hotels on the screen
+/*  var maxprices = 0;
   for (let i = 0; i < filtered.length; i++) {
-    if (filtered[i].price > maxprices) {
-      maxprices = filtered[i].price;
+    if (filtered[i].maxprice > maxprices) {
+      maxprices = filtered[i].maxprice;
     }
   }
+
+  var minprices = maxprices;
+  for (let i = 0; i < filtered.length; i++) {
+    if (filtered[i].price < minprices) {
+      minprices = filtered[i].price;
+    }
+  }
+  $('#price').attr('min',minprices);
+  $('#price').attr('max',maxprices);*/
 
   //console.log(filtered);
 

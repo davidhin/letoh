@@ -102,7 +102,7 @@ router.get('/getHotels.json', function(req, res) {
     if (err) {
       throw err;
     }
-    var query = "select hotels.*, (min(rooms.price)) as price, ceiling(avg(reviews.stars)) as rating from hotels " +
+    var query = "select hotels.*, (min(rooms.price)) as price, (max(rooms.price)) as maxprice, ceiling(avg(reviews.stars)) as rating from hotels " +
       "left join rooms on hotels.hotel_id = rooms.hotel_id " +
       "left join reviews on rooms.room_id = reviews.room_id " +
       "group by hotels.hotel_id";
