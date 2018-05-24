@@ -105,9 +105,10 @@ function hotelCards() {
     if (hotels[i].price <= $('#price').val()) {
       if (hotels[i].rating >= $('#stars').val()) {
         if (distances[i] <= $('#dist').val()) {
-          if (hotels[i].min_occupants >= $('#occupants').val()) {
+          // TODO: Uncomment this once getHotels query is fixed
+          // if (hotels[i].min_occupants >= $('#occupants').val()) {
             filtered.push(hotels[i]);
-          }
+          // }
         }
       }
     }
@@ -128,7 +129,7 @@ function hotelCards() {
   for (let i = 0; i < filtered.length; i++) {
     var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#hotelcards");
     // Change the background picture here
-    var insertBg = "url('images/" + filtered[i].hotel_id + ".jpg') center / cover";
+    var insertBg = `url('images/${filtered[i].main_image}') center / cover`;
     var div_title = $('<div/>').addClass("mdl-card__title").appendTo(div_main).css("background", insertBg);
     // Change the hotel name here
     $('<h2/>').addClass("mdl-card__title-text").html(filtered[i].name).appendTo(div_title);
@@ -306,7 +307,7 @@ function bookingpage(hotelInput, roomInput, variable) {
 
   // Show main image
   //$('.boximage').html('This is the main image for ' + hotelInput.name);
-  $('.boximage').html("<img alt='Hotel' title='Your Hotel' class='boximage' src='images/" + hotelInput.hotel_id + ".jpg'>");
+  $('.boximage').html(`<img alt='Hotel' title='Your Hotel' class='boximage' src='images/${hotelInput.main_image}' />`);
 
   // Cancel and go back
   $('#bk_backbutton').click(function() {

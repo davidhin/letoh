@@ -71,6 +71,9 @@ function bookingData(hotelInput, roomInput) {
   // Top right box
   $($('.rightcontent p')[0]).text(hotelInput.address);
   $($('.rightcontent p')[1]).text(roomInput.name);
+  $($('.rightcontent p')[1]).text(roomInput.name);
+
+
 
   // Date validation
   var check_in = moment($('#check-in').val());

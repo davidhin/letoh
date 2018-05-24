@@ -412,7 +412,7 @@ p.mdl-card__supporting-text {
 
 /* ================== DESKTOP ===================== */
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1025px) {
   .mdl-layout__drawer {
     width: 300px !important;
     padding-top: 64px !important;
@@ -450,7 +450,7 @@ p.mdl-card__supporting-text {
 
 /* =================== TABLET ===================== */
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1024px) {
   .mdl-layout__drawer {
     width: 300px !important;
     left: -150px !important;

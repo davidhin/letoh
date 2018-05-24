@@ -86,7 +86,6 @@ router.get('/getHotelSubset.json', function(req, res) {
     if (sessions[req.session.id] == null) {
       return res.status(403).send();
     }
-
     let query = 'select * from hotels where user_id = ' + sessions[req.session.id].user_id + ';';
     connection.query(query, function(err, results) {
       connection.release();
@@ -112,13 +111,12 @@ router.get('/getHotels.json', function(req, res) {
       res.send(JSON.stringify(results));
     });
   });
-  //res.send(JSON.stringify(hotels));
+  // res.send(JSON.stringify(hotels));
 });
 
 // Add hotel
 router.post('/addHotel.json', function(req, res) {
-  // Do individually so that people can't arbitrarily send data to server
-
+  // Placeholder hotel card
   let newId = hotels[hotels.length - 1].id + 1;
   let name = 'New Hotel ID = ' + newId;
   let newHotel = {
@@ -126,44 +124,78 @@ router.post('/addHotel.json', function(req, res) {
     'owner': sessions[req.session.id],
     'name': name,
     'price': 0,
-    'rating': 6
+    'rating': 6,
   };
-  hotels.push(newHotel);
 
-  res.send(newHotel);
+  // Input data to database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      throw err;
+    }
+    let query = 'INSERT INTO hotels values (default,?,"Untitled Hotel","Hotel Address Goes Here",0,0,"Your Description Here", NULL);';
+    connection.query(query, sessions[req.session.id].user_id, function(err, results) {
+      connection.release();
+      res.send(newHotel);
+    });
+  });
 });
 
 // Updates hotel detail information
 router.post('/changeHotelDetails.json', function(req, res) {
   let hotel = JSON.parse(req.body.hotel);
 
-  let targetHotel = searchHotel(hotel.id);
-  hotels[targetHotel][req.body.changed_detail] = hotel[req.body.changed_detail];
-
-  res.send('');
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      throw err;
+    }
+    // TODO How do you make this secure because SET doesn't use ' '
+    let query = `UPDATE hotels SET ${req.body.changed_detail} = ? WHERE hotel_id = ?`;
+    connection.query(query, [
+      hotel[req.body.changed_detail],
+      hotel.hotel_id,
+    ], function(err, results) {
+      connection.release();
+      res.send('');
+    });
+  });
 });
 
 // Update the hotel address
 // Takes a JSON object of form {hotel address lat lng}
 router.post('/updateHotelAddress.json', function(req, res) {
-
-  // TODO Database it
-  // let query = 'UPDATE hotels set user_id = 2 where name="Special hotel";';
-
   let hotel = JSON.parse(req.body.hotel);
-  let targetHotel = searchHotel(hotel.id);
-  hotels[targetHotel]['address'] = req.body.address;
-  hotels[targetHotel]['lat'] = req.body.lat;
-  hotels[targetHotel]['lng'] = req.body.lng;
-  res.send('');
+  
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      throw err;
+    }
+    let query = 'UPDATE hotels SET address = ?, pos_lat = ?, pos_lng = ? WHERE hotel_id = ?';
+    connection.query(query, [
+      req.body.address,
+      req.body.lat,
+      req.body.lng,
+      hotel.hotel_id,
+    ], function(err, results) {
+      connection.release();
+      res.send('');
+    });
+  });
 });
 
 // Delete a hotel from the database
 router.post('/deleteHotel.json', function(req, res) {
-  let targetHotel = searchHotel(req.body.id);
-  hotels.splice(targetHotel, 1);
-
-  res.send('');
+  let targetHotel = JSON.parse(req.body.hotel_id);
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      throw err;
+    }
+    let query = 'delete from hotels where hotel_id = ?;';
+    connection.query(query, targetHotel, function(err, results) {
+      connection.release();
+      console.log(results);
+      res.send('');
+    });
+  });
 });
 
 /* =================== ROOMS THINGS ===================== */
@@ -197,11 +229,9 @@ router.post('/addRoom.json', function(req, res) {
     if (err) {
       throw err;
     }
-    var query = "insert into rooms values(default,?,'Name',100,1,default);"+
-    "update hotels set room_types = room_types + 1 "+
-    "where hotel_id = ?;";
+    let query = 'insert into rooms values(default,?,"Name",100,1,default);';
 
-    connection.query(query, [hotel_id, hotel_id], function(err, results) {
+    connection.query(query, hotel_id, function(err, results) {
       connection.release();
       res.send('');
     });
@@ -210,6 +240,7 @@ router.post('/addRoom.json', function(req, res) {
 });
 
 router.post('/changeRoomDetails.json', function(req, res) {
+  // TODO Finish the room databasing
   let roomIndex = searchRoom(req.body.hotelid, req.body.roomid);
   allRooms[roomIndex].name = req.body.title;
   allRooms[roomIndex].desc = req.body.desc;
@@ -518,7 +549,7 @@ function generatePassword() {
   return retVal;
 }
 
-// Return user id (email) for the current session
+// Return user for the current session
 router.get('/usersession.json', function(req, res, next) {
   if (sessions[req.session.id] == null) {
     return res.send({
@@ -552,6 +583,66 @@ router.get('/logout', function(req, res) {
         'success': 1
       });
     }
+  });
+});
+
+function isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
+
+// IMAGES
+router.post('/upload', function(req, res) {
+  // If empty
+  if (isEmpty(req.files)) {
+    return res.status(400).send('No files were uploaded.');
+  }
+
+  // Get file from form
+  let inputfile = req.files.inputfile;
+
+  // Check filetype
+  if (!(inputfile.mimetype == 'image/jpeg' || inputfile.mimetype == 'image/png')) {
+    return res.status(400).send('Please only upload .jpeg or .png files');
+  }
+
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) throw err;
+
+    // Put image identifier in database
+    let query = 'INSERT INTO images VALUES(default, ?, NULL);';
+    connection.query(query, [req.body.hotel_id], function(err, results) {
+      let query2 = 'SELECT * FROM images where image_id = last_insert_id();';
+      connection.query(query2, function(err, results3) {
+        var imageIn = results3[0];
+        let query3 = 'UPDATE hotels SET main_image = ? WHERE hotel_id = ?;';
+        connection.query(query3, [imageIn.image_id, imageIn.hotel_id], function(err, results) {
+          connection.release();
+          console.log(imageIn);
+          // Use the mv() method to place the file somewhere on your server
+          inputfile.mv(`./public/images/${imageIn.image_id}`, function(err) {
+          if (err) return res.status(500).send(err);
+            res.send('File uploaded!');
+          });
+        });
+      });
+    });
+  });
+});
+
+router.post('/deleteHotelImage', function(req, res) {
+  req.pool.getConnection(function(err, connection) {
+    if (err) throw err;
+
+    let query = 'UPDATE hotels SET main_image = NULL WHERE hotel_id = ?;';
+    connection.query(query, req.body.id, function(err, results) {
+      connection.release();
+      res.send('');
+    });
   });
 });
 

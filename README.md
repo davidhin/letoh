@@ -3,7 +3,16 @@
 1. Pull repository
 2. run `sudo npm install`
 3. run `sudo npm install fs`
-4. npm start (localhost:3000)
+5. npm start (localhost:3000)
+
+# Images
+run `npm install --save express-fileupload`
+
+Put this in app.js
+```js
+const fileUpload = require('express-fileupload');
+app.use(fileUpload());
+```
 
 # Setting up the database
 

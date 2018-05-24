@@ -86,14 +86,14 @@ function mgrInfo(hotelInput) {
   $('<div/>')
     .attr('id', 'mgr_mainImage')
     .addClass('mdl-cell mdl-card mdl-shadow--2dp mdl-cell--3-col-desktop mdl-cell--3-col-tablet mdl-cell--4-phone')
-    .html('Main Image').appendTo(infoContainer);
+    .appendTo(infoContainer);
   $('<div/>')
     .attr('id', 'mgrDesc')
     .addClass('mdl-cell mdl-card mdl-shadow--2dp mdl-cell--9-col-desktop mdl-cell--5-col-tablet mdl-cell--4-phone').appendTo(infoContainer);
   let deleteHotel = $('<div/>').attr('id', 'mgr_delete').addClass('mdl-cell mdl-card mdl-shadow--2dp mdl-cell--12-col').appendTo(infoContainer);
   deleteHotel.css({
     'background': 'rgba(101,101,101)',
-    'min-height': '0'
+    'min-height': '0',
   });
   $('<button/>')
     .addClass('mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--secondary mdl-button--raised')
@@ -107,6 +107,54 @@ function mgrInfo(hotelInput) {
     })
     .appendTo(deleteHotel);
 
+    if (!hotelInput.main_image) {
+    $('#mgr_mainImage')
+          .html(`<form ref='uploadForm'
+                   id='uploadForm'
+                   action='http://localhost:3000/upload'
+                   method='post'
+                   encType="multipart/form-data"
+                   target="upload_target">
+                   <input type="hidden" name="hotel_id" value="${hotelInput.hotel_id}" />
+                   <input type="hidden" name="room_id" value="NULL" />
+                   <input class="mdl-button mdl-js-button mdl-button--primary" type="file" onchange="this.form.submit()" name="inputfile" />
+                 </form>
+                 <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>                 
+        `);
+    } else {
+      let insertBg = `url('images/${hotelInput.main_image}') center / cover`;
+      $('#mgr_mainImage').css('background', insertBg);
+    
+      $('<button/>')
+        .addClass('editButton mdl-button mdl-js-button mdl-button--icon')
+        .html('<i class="material-icons">close</i>')
+        .appendTo('#mgr_mainImage')
+        .click(function() {
+          let xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              
+            $('#mgr_mainImage').html(`<form ref='uploadForm'
+                id='uploadForm'
+                action='http://localhost:3000/upload'
+                method='post'
+                encType="multipart/form-data"
+                target="upload_target">
+                <input type="hidden" name="hotel_id" value="${hotelInput.hotel_id}" />
+                <input type="hidden" name="room_id" value="NULL" />
+                <input class="mdl-button mdl-js-button mdl-button--primary" type="file" onchange="this.form.submit()" name="inputfile" />
+                </form>
+                <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>                 
+                `);
+              $('#mgr_mainImage').css('background', insertBg);
+            }
+          };
+          xhttp.open('POST', 'deleteHotelImage', true);
+          xhttp.setRequestHeader('Content-type', 'application/json');
+          xhttp.send(JSON.stringify({'id': hotelInput.hotel_id}));
+        });
+    }
+
   // Edit address button
   $('<button/>')
     .addClass('editButton mdl-button mdl-js-button mdl-button--primary')
@@ -117,13 +165,13 @@ function mgrInfo(hotelInput) {
 
   // mgr desc header
   $('<h4/>').html('Description').appendTo('#mgrDesc');
-  let mgrDescContent = $('<p/>').html(hotelInput.desc).appendTo('#mgrDesc');
+  let mgrDescContent = $('<p/>').html(hotelInput.description).appendTo('#mgrDesc');
   // mgr desc button
   $('<button/>')
     .addClass('editButton mdl-button mdl-js-button mdl-button--primary')
     .html('edit').appendTo('#mgrDesc')
     .click(function() {
-      btnEditText('#mgrDesc', this, mgrDescContent, hotelInput, 'desc', 6, false, function() {});
+      btnEditText('#mgrDesc', this, mgrDescContent, hotelInput, 'description', 6, false, function() {});
     });
 
   // Show current card
@@ -243,7 +291,7 @@ function mgrRoom(hotelInput) {
         $('<p/>').css('display', 'inline-block').html('$').appendTo(priceDiv);
         let roomPrice = $('<p/>').css('display', 'inline-block').html(rooms[i].price).appendTo(priceDiv);
         // roomDesc_content
-        let roomDescP = $('<p/>').html(rooms[i].desc).appendTo(roomDesc);
+        let roomDescP = $('<p/>').html(rooms[i].description).appendTo(roomDesc);
         // roomDesc_editBtn
         $('<button/>')
           .addClass('editButton mdl-button mdl-js-button mdl-button--primary')
