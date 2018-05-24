@@ -361,33 +361,33 @@ router.post('/changeUserDetail', function(req, res) {
     if (err) {throw err;}
 
     if (req.body.firstName != undefined) {
-      var query = "update users set name_first = ? where user_id = '"+sessions[req.session.id].user_id+
-      "' update users set name_last = ? where user_id = '"+sessions[req.session.id].user_id+"';";
-      connection.query(query, [req.body.firstName,req.body.lastName],function(err, results) {
+      var query = "update users set name_first = ? where user_id = ?"+
+      "' update users set name_last = ? where user_id = ? ;";
+      connection.query(query, [req.body.firstName,sessions[req.session.id].user_id, req.body.lastName, sessions[req.session.id].user_id],function(err, results) {
         connection.release();
         res.send('');
       });
     }else if (req.body.address != undefined) {
-      var query = "update users set address = ? where user_id = '"+sessions[req.session.id].user_id+"';";
-      connection.query(query, [req.body.address], function(err, results) {
+      var query = "update users set address = ? where user_id = ? ;";
+      connection.query(query, [req.body.address, sessions[req.session.id].user_id], function(err, results) {
         connection.release();
         res.send('');
       });
     }else if (req.body.phoneNumber != undefined) {
-      var query = "update users set phone_number = ? where user_id = '"+sessions[req.session.id].user_id+"';";
-      connection.query(query, [req.body.phonenumber], function(err, results) {
+      var query = "update users set phone_number = ? where user_id = ? ;";
+      connection.query(query, [req.body.phonenumber, sessions[req.session.id].user_id], function(err, results) {
         connection.release();
         res.send('');
       });
     }else if (req.body.email != undefined) {
-      var query = "update users set email = ? where user_id = '"+sessions[req.session.id].user_id+"';";
-      connection.query(query, [req.body.email], function(err, results) {
+      var query = "update users set email = ? where user_id = ? ;";
+      connection.query(query, [req.body.email,sessions[req.session.id].user_id], function(err, results) {
         connection.release();
         res.send('');
       });
     }else if (req.body.password != undefined) {
-      var query = "update users set user_password = ? where user_id = '"+sessions[req.session.id].user_id+"';";
-      connection.query(query, [req.body.password], function(err, results) {
+      var query = "update users set user_password = ? where user_id = ? ;";
+      connection.query(query, [req.body.password, sessions[req.session.id].user_id], function(err, results) {
         connection.release();
         res.send('');
       });
