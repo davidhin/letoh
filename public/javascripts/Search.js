@@ -6,16 +6,6 @@ var distances = [];
 
 $(document).ready(function() {
   'use strict';
-  $('#price').change(function() {
-    $('#maxPrice').val($('#price').val());
-  });
-  $('#dist').change(function() {
-    $('#maxDist').val($('#dist').val());
-  });
-  $('#stars').change(function() {
-    $('#minStars').val($('#stars').val());
-  });
-
   requestHotels(function() {
     hotelCards();
     sizes();
@@ -26,6 +16,55 @@ $(document).ready(function() {
   });
 });
 
+// ====================== SLIDER UPDATING ===================== //
+function occupantsslide(index){
+  $('#occupants').change(function() {
+    $('#numOccupants').val(index);
+  });
+}
+
+function occupantschange(index){
+  $('#numOccupants').change(function() {
+    $('#occupants').val(index);
+  });
+}
+
+function priceslide(index){
+  $('#price').change(function() {
+    $('#maxPrice').val(index);
+  });
+}
+
+function pricechange(index){
+  $('#maxPrice').change(function() {
+    $('#price').val(index);
+  });
+}
+
+function distanceslide(index){
+  $('#dist').change(function() {
+    $('#maxDist').val(index);
+  });
+}
+
+function distancechange(index){
+  $('#maxDist').change(function() {
+    $('#dist').val(index);
+  });
+}
+
+function starsslide(index){
+  $('#stars').change(function() {
+    $('#minStars').val(index);
+  });
+}
+
+function starschange(index){
+  $('#minStars').change(function() {
+    $('#stars').val(index);
+  });
+}
+
 // THERE HAS TO BE A WAY TO REUSE THIS FUNCTION FROM HOTELMANAGE.JS SINCE IT'S LITERALLY THE SAME
 // MAYBE YOU CAN JUST CALL IT THE SAME, I'LL LEAVE IT HERE FOR NOW THOUGH
 function requestHotels(callback) {
@@ -34,7 +73,7 @@ function requestHotels(callback) {
     if (this.readyState == 4 && this.status == 200) {
       hotels = JSON.parse(xhttp.responseText);
       callback();
-      console.log(hotels);
+      //console.log(hotels);
     }
   };
 
@@ -120,7 +159,7 @@ function hotelCards() {
     }
   }
 
-  console.log(filtered);
+  //console.log(filtered);
 
   //$('#dist').max() = maxprices;
   // var testing = document.getElementById("dist").max = maxprices;
@@ -225,9 +264,6 @@ function reviewFilling(id, booking, hotel) {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       reviews = JSON.parse(xhttp.responseText);
-      console.log("reviewsss");
-      console.log(reviews);
-      console.log(reviews.length);
       if (reviews.length === 0) {
         $('<h5/>')
           .html("There are no reviews for this room.<br><br>Be the first to review this room!")

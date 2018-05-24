@@ -374,7 +374,6 @@ router.post('/changeUserDetail', function(req, res) {
     }
 
     connection.query(query, function(err, results) {
-      console.log(results);
       connection.release();
       res.send('');
 
