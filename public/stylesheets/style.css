@@ -626,10 +626,13 @@ p.mdl-card__supporting-text {
 
 #hotelhistory {
   float: left;
-  width: calc(100% - 20px);
+  width:100%;
+  /*width: calc(100% - 20px);*/
 }
 
 #accountsettings {
+  width:100%;
+  /*float:left;*/
   display: none;
 }
 
@@ -639,7 +642,6 @@ p.mdl-card__supporting-text {
 
 .accountModule {
   display: block;
-  width: 100%;
   overflow: auto;
   display: flex;
   flex-direction: row;
@@ -649,13 +651,12 @@ p.mdl-card__supporting-text {
 .settingDescription {
   border-radius: 0px;
   float: left;
-  min-height: 105px;
   height: 100%;
 }
 
 .settingName {
-  padding-top: 30px;
   width: 280px;
+  min-height:200px;
   height: auto;
   flex: 1;
 }

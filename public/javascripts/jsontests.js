@@ -278,7 +278,7 @@ function hoteldetailsMarker(hotel) {
           .css('text-transform', 'none')
           .appendTo(roomForBooking);
         $('<div/>').attr('id', rooms[i].room_id).addClass('reviewPanel').appendTo(roomForBooking);
-        reviewFilling(rooms[i].room_id, roomForBooking,hotel);
+        reviewFilling(rooms[i], roomForBooking,hotel);
         $('<hr>').appendTo(roomForBooking);
       }
 

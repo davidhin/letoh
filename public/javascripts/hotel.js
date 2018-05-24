@@ -209,6 +209,7 @@ function submitted(hotelInput, roomInput, variable) {
   }
 }
 
+//Booking confirmation overlay
 function summarise_details(details) {
   $('#rc_backbutton').click(function() {
     $('#confirmation_overlay').fadeOut(function() {

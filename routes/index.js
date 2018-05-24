@@ -101,12 +101,13 @@ router.get('/getHotels.json', function(req, res) {
     if (err) {
       throw err;
     }
-    var query = "select hotels.*, (min(rooms.price)) as price, ceiling(avg(reviews.stars)) as rating from hotels " +
+    var query = "select hotels.*, (min(rooms.price)) as price, (max(rooms.price)) as maxprice, ceiling(avg(reviews.stars)) as rating, (max(rooms.occupants)) as min_occupants from hotels " +
       "left join rooms on hotels.hotel_id = rooms.hotel_id " +
       "left join reviews on rooms.room_id = reviews.room_id " +
       "group by hotels.hotel_id";
 
     connection.query(query, function(err, results) {
+      console.log(results);
       connection.release();
       res.send(JSON.stringify(results));
     });
@@ -209,7 +210,7 @@ router.post('/getRooms.json', function(req, res) {
       throw err;
     }
     var query = "select rooms.*, ifnull((avg(reviews.stars)),6) as stars " +
-      "from rooms inner join reviews on rooms.room_id = reviews.room_id " +
+      "from rooms left join reviews on rooms.room_id = reviews.room_id " +
       "where rooms.hotel_id =" + req.body.hotel_id +
       " group by rooms.room_id";
 
@@ -334,7 +335,7 @@ router.post('/getReviews.json', function(req, res) {
     var query = "select users.user_id, reviews.room_id, reviews.ref_num, users.name_first, users.name_last, users.email, reviews.stars, reviews.review " +
       "from reviews inner join users on reviews.user_id = users.user_id " +
       "inner join rooms on reviews.room_id = rooms.room_id " +
-      "where rooms.hotel_id = " + req.body.hotel_id;
+      "where rooms.room_id = " + req.body.room_id;
     connection.query(query, function(err, results) {
       connection.release();
       res.send(JSON.stringify(results));
@@ -392,24 +393,38 @@ router.post('/changeUserDetail', function(req, res) {
     if (err) {throw err;}
 
     if (req.body.firstName != undefined) {
-      var query = "update users set name_first = '"+req.body.firstName+"' where user_id = '"+sessions[req.session.id].user_id+
-      "' update users set name_last = '"+req.body.lastName+"' where user_id = '"+sessions[req.session.id].user_id+"';";
+      var query = "update users set name_first = ? where user_id = ?"+
+      "' update users set name_last = ? where user_id = ? ;";
+      connection.query(query, [req.body.firstName,sessions[req.session.id].user_id, req.body.lastName, sessions[req.session.id].user_id],function(err, results) {
+        connection.release();
+        res.send('');
+      });
     }else if (req.body.address != undefined) {
-      var query = "update users set address = '"+req.body.address+"' where user_id = '"+sessions[req.session.id].user_id+"';";
+      var query = "update users set address = ? where user_id = ? ;";
+      connection.query(query, [req.body.address, sessions[req.session.id].user_id], function(err, results) {
+        connection.release();
+        res.send('');
+      });
     }else if (req.body.phoneNumber != undefined) {
-      var query = "update users set phone_number = '"+req.body.phonenumber+"' where user_id = '"+sessions[req.session.id].user_id+"';";
+      var query = "update users set phone_number = ? where user_id = ? ;";
+      connection.query(query, [req.body.phonenumber, sessions[req.session.id].user_id], function(err, results) {
+        connection.release();
+        res.send('');
+      });
     }else if (req.body.email != undefined) {
-      var query = "update users set email = '"+req.body.email+"' where user_id = '"+sessions[req.session.id].user_id+"';";
+      var query = "update users set email = ? where user_id = ? ;";
+      connection.query(query, [req.body.email,sessions[req.session.id].user_id], function(err, results) {
+        connection.release();
+        res.send('');
+      });
     }else if (req.body.password != undefined) {
-      var query = "update users set user_password = '"+req.body.password+"' where user_id = '"+sessions[req.session.id].user_id+"';";
+      var query = "update users set user_password = ? where user_id = ? ;";
+      connection.query(query, [req.body.password, sessions[req.session.id].user_id], function(err, results) {
+        connection.release();
+        res.send('');
+      });
     }
 
-    connection.query(query, function(err, results) {
-      console.log(results);
-      connection.release();
-      res.send('');
-
-    });
   });
 
 });

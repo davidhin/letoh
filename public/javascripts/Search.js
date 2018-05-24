@@ -6,16 +6,6 @@ var distances = [];
 
 $(document).ready(function() {
   'use strict';
-  $('#price').change(function() {
-    $('#maxPrice').val($('#price').val());
-  });
-  $('#dist').change(function() {
-    $('#maxDist').val($('#dist').val());
-  });
-  $('#stars').change(function() {
-    $('#minStars').val($('#stars').val());
-  });
-
   requestHotels(function() {
     hotelCards();
     sizes();
@@ -26,15 +16,61 @@ $(document).ready(function() {
   });
 });
 
-// THERE HAS TO BE A WAY TO REUSE THIS FUNCTION FROM HOTELMANAGE.JS SINCE IT'S LITERALLY THE SAME
-// MAYBE YOU CAN JUST CALL IT THE SAME, I'LL LEAVE IT HERE FOR NOW THOUGH
+// ====================== SLIDER UPDATING ===================== //
+function occupantsslide(index){
+  $('#occupants').change(function() {
+    $('#numOccupants').val(index);
+  });
+}
+
+function occupantschange(index){
+  $('#numOccupants').change(function() {
+    $('#occupants').val(index);
+  });
+}
+
+function priceslide(index){
+  $('#price').change(function() {
+    $('#maxPrice').val(index);
+  });
+}
+
+function pricechange(index){
+  $('#maxPrice').change(function() {
+    $('#price').val(index);
+  });
+}
+
+function distanceslide(index){
+  $('#dist').change(function() {
+    $('#maxDist').val(index);
+  });
+}
+
+function distancechange(index){
+  $('#maxDist').change(function() {
+    $('#dist').val(index);
+  });
+}
+
+function starsslide(index){
+  $('#stars').change(function() {
+    $('#minStars').val(index);
+  });
+}
+
+function starschange(index){
+  $('#minStars').change(function() {
+    $('#stars').val(index);
+  });
+}
+
 function requestHotels(callback) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       hotels = JSON.parse(xhttp.responseText);
       callback();
-      console.log(hotels);
     }
   };
 
@@ -114,14 +150,24 @@ function hotelCards() {
     }
   }
 
-  var maxprices = 0;
+  //Setting the price slide to have the min and max price of all hotels on the screen
+/*  var maxprices = 0;
   for (let i = 0; i < filtered.length; i++) {
-    if (filtered[i].price > maxprices) {
-      maxprices = filtered[i].price;
+    if (filtered[i].maxprice > maxprices) {
+      maxprices = filtered[i].maxprice;
     }
   }
 
-  console.log(filtered);
+  var minprices = maxprices;
+  for (let i = 0; i < filtered.length; i++) {
+    if (filtered[i].price < minprices) {
+      minprices = filtered[i].price;
+    }
+  }
+  $('#price').attr('min',minprices);
+  $('#price').attr('max',maxprices);*/
+
+  //console.log(filtered);
 
   //$('#dist').max() = maxprices;
   // var testing = document.getElementById("dist").max = maxprices;
@@ -183,7 +229,7 @@ function hoteldetails(hotelInput) {
           .css('text-transform', 'none')
           .appendTo(roomForBooking);
         $('<div/>').attr('id', rooms[i].room_id).addClass('reviewPanel').appendTo(roomForBooking);
-        reviewFilling(rooms[i].room_id, roomForBooking, hotelInput);
+        reviewFilling(rooms[i], roomForBooking, hotelInput);
         $('<hr>').appendTo(roomForBooking);
       }
 
@@ -220,7 +266,6 @@ function hoteldetails(hotelInput) {
   mdl_upgrade();
 }
 
-//This gets called the same number of times as there are rooms for a hotel, seems wasteful
 function reviewFilling(id, booking, hotel) {
   let reviews = [];
   let xhttp = new XMLHttpRequest();
@@ -230,29 +275,26 @@ function reviewFilling(id, booking, hotel) {
       if (reviews.length === 0) {
         $('<h5/>')
           .html("There are no reviews for this room.<br><br>Be the first to review this room!")
-          .appendTo('#' + id);
+          .appendTo('#' + id.room_id);
         return;
       }
 
       for (let i = 0; i < reviews.length; i++) {
-        if (reviews[i].room_id == id) {
-
           var stars = getStars(reviews[i].stars);
 
           $('<h5/>')
             .html(reviews[i].name_first+" "+reviews[i].name_last)
-            .appendTo('#' + id);
+            .appendTo('#' + id.room_id);
           $('<p/>')
             .html(stars + '<br>' + reviews[i].review)
-            .appendTo('#' + id);
-        }
+            .appendTo('#' + id.room_id);
       }
     }
   };
 
   xhttp.open('POST', 'getReviews.json', true);
   xhttp.setRequestHeader('Content-type', 'application/json');
-  xhttp.send(JSON.stringify(hotel));
+  xhttp.send(JSON.stringify(id));
 }
 
 function getStars(length) {
@@ -306,30 +348,23 @@ function bookingpage(hotelInput, roomInput, variable) {
   $('#hotelname_underbox').css('margin-bottom', 0).html(hotelInput.name);
 
   // Show main image
-  //$('.boximage').html('This is the main image for ' + hotelInput.name);
   $('.boximage').html(`<img alt='Hotel' title='Your Hotel' class='boximage' src='images/${hotelInput.main_image}' />`);
-
-  // Cancel and go back
-  $('#bk_backbutton').click(function() {
-    $('footer').css('margin-top', '0px');
-    $('#hotelcards').fadeIn();
-    $('#hoteldetails_overlay').fadeIn();
-    $('.bookingContent').fadeOut(function() {
-      $('#bookingpage_overlay').hide();
-    });
-  });
-
-  // Not sure what is going on here, Justin, during merge
+  
+  // Cancel and go back, variable determines whether you're on the map or the hotel cards
   $('#bk_backbutton').click(function() {
     $('footer').css("margin-top", "0px");
 
     if (variable == 1) {
       $('#hotelcards').fadeIn();
+      $('#hoteldetails_overlay').fadeIn();
     } else {
       $('#map').show();
       $('#hotelcards').css('display', 'none');
       $('#hotelcards').hide();
     }
+    $('.bookingContent').fadeOut(function() {
+      $('#bookingpage_overlay').hide();
+    });
   });
 
   // Confirm and book
