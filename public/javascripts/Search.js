@@ -65,15 +65,12 @@ function starschange(index){
   });
 }
 
-// THERE HAS TO BE A WAY TO REUSE THIS FUNCTION FROM HOTELMANAGE.JS SINCE IT'S LITERALLY THE SAME
-// MAYBE YOU CAN JUST CALL IT THE SAME, I'LL LEAVE IT HERE FOR NOW THOUGH
 function requestHotels(callback) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       hotels = JSON.parse(xhttp.responseText);
       callback();
-      //console.log(hotels);
     }
   };
 
@@ -350,30 +347,23 @@ function bookingpage(hotelInput, roomInput, variable) {
   $('#hotelname_underbox').css('margin-bottom', 0).html(hotelInput.name);
 
   // Show main image
-  //$('.boximage').html('This is the main image for ' + hotelInput.name);
   $('.boximage').html("<img alt='Hotel' title='Your Hotel' class='boximage' src='images/" + hotelInput.hotel_id + ".jpg'>");
 
-  // Cancel and go back
-  $('#bk_backbutton').click(function() {
-    $('footer').css('margin-top', '0px');
-    $('#hotelcards').fadeIn();
-    $('#hoteldetails_overlay').fadeIn();
-    $('.bookingContent').fadeOut(function() {
-      $('#bookingpage_overlay').hide();
-    });
-  });
-
-  // Not sure what is going on here, Justin, during merge
+  // Cancel and go back, variable determines whether you're on the map or the hotel cards
   $('#bk_backbutton').click(function() {
     $('footer').css("margin-top", "0px");
 
     if (variable == 1) {
       $('#hotelcards').fadeIn();
+      $('#hoteldetails_overlay').fadeIn();
     } else {
       $('#map').show();
       $('#hotelcards').css('display', 'none');
       $('#hotelcards').hide();
     }
+    $('.bookingContent').fadeOut(function() {
+      $('#bookingpage_overlay').hide();
+    });
   });
 
   // Confirm and book

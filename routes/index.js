@@ -113,7 +113,6 @@ router.get('/getHotels.json', function(req, res) {
       res.send(JSON.stringify(results));
     });
   });
-  //res.send(JSON.stringify(hotels));
 });
 
 // Add hotel
@@ -362,23 +361,38 @@ router.post('/changeUserDetail', function(req, res) {
     if (err) {throw err;}
 
     if (req.body.firstName != undefined) {
-      var query = "update users set name_first = '"+req.body.firstName+"' where user_id = '"+sessions[req.session.id].user_id+
-      "' update users set name_last = '"+req.body.lastName+"' where user_id = '"+sessions[req.session.id].user_id+"';";
+      var query = "update users set name_first = ? where user_id = '"+sessions[req.session.id].user_id+
+      "' update users set name_last = ? where user_id = '"+sessions[req.session.id].user_id+"';";
+      connection.query(query, [req.body.firstName,req.body.lastName],function(err, results) {
+        connection.release();
+        res.send('');
+      });
     }else if (req.body.address != undefined) {
-      var query = "update users set address = '"+req.body.address+"' where user_id = '"+sessions[req.session.id].user_id+"';";
+      var query = "update users set address = ? where user_id = '"+sessions[req.session.id].user_id+"';";
+      connection.query(query, [req.body.address], function(err, results) {
+        connection.release();
+        res.send('');
+      });
     }else if (req.body.phoneNumber != undefined) {
-      var query = "update users set phone_number = '"+req.body.phonenumber+"' where user_id = '"+sessions[req.session.id].user_id+"';";
+      var query = "update users set phone_number = ? where user_id = '"+sessions[req.session.id].user_id+"';";
+      connection.query(query, [req.body.phonenumber], function(err, results) {
+        connection.release();
+        res.send('');
+      });
     }else if (req.body.email != undefined) {
-      var query = "update users set email = '"+req.body.email+"' where user_id = '"+sessions[req.session.id].user_id+"';";
+      var query = "update users set email = ? where user_id = '"+sessions[req.session.id].user_id+"';";
+      connection.query(query, [req.body.email], function(err, results) {
+        connection.release();
+        res.send('');
+      });
     }else if (req.body.password != undefined) {
-      var query = "update users set user_password = '"+req.body.password+"' where user_id = '"+sessions[req.session.id].user_id+"';";
+      var query = "update users set user_password = ? where user_id = '"+sessions[req.session.id].user_id+"';";
+      connection.query(query, [req.body.password], function(err, results) {
+        connection.release();
+        res.send('');
+      });
     }
 
-    connection.query(query, function(err, results) {
-      connection.release();
-      res.send('');
-
-    });
   });
 
 });

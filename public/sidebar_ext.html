@@ -29,7 +29,7 @@
 
 <!-- Occupants -->
 <div class="box">
-  <label>Min Number of occupants: <input class="textInput" id="numOccupants" type="text" pattern="[1-4]" onkeyup="occupantschange(this.value)"/> </label>
+  <label>Minimum occupants: <input class="textInput" id="numOccupants" type="text" pattern="[1-4]" onkeyup="occupantschange(this.value)"/> </label>
   <input id="occupants" class="mdl-slider mdl-js-slider" type="range"
   min="1" max="4" value="1" tabindex="0" oninput="occupantsslide(this.value)"/>
 </div>
@@ -37,7 +37,7 @@
 <!-- Maximum Price -->
 <div class="box">
 <label>Maximum price ($AUD): <input class="textInput" id="maxPrice" type="text" pattern="-?[0-9]*(\.[0-9]+)?" onkeyup="pricechange(this.value)"/> </label>
-  <input id="price" class="mdl-slider mdl-js-slider" type="range" min="0" max="10000" value="10000" tabindex="0" oninput="priceslide(this.value)"/>
+  <input id="price" class="mdl-slider mdl-js-slider" type="range" min="0" max="5000" value="5000" tabindex="0" oninput="priceslide(this.value)"/>
 </div>
 
 <!-- Maximum Distance -->
