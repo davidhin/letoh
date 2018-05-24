@@ -102,12 +102,13 @@ router.get('/getHotels.json', function(req, res) {
     if (err) {
       throw err;
     }
-    var query = "select hotels.*, (min(rooms.price)) as price, (max(rooms.price)) as maxprice, ceiling(avg(reviews.stars)) as rating from hotels " +
+    var query = "select hotels.*, (min(rooms.price)) as price, (max(rooms.price)) as maxprice, ceiling(avg(reviews.stars)) as rating, (max(rooms.occupants)) as min_occupants from hotels " +
       "left join rooms on hotels.hotel_id = rooms.hotel_id " +
       "left join reviews on rooms.room_id = reviews.room_id " +
       "group by hotels.hotel_id";
 
     connection.query(query, function(err, results) {
+      console.log(results);
       connection.release();
       res.send(JSON.stringify(results));
     });
