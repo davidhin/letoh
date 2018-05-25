@@ -8,7 +8,6 @@ $(document).ready(function() {
   requestHotels(function() {
     loadHotelSidebar();
     mgrOverview();
-    sizes();
   });
 });
 
@@ -119,12 +118,12 @@ function mgrInfo(hotelInput) {
                    <input type="hidden" name="room_id" value="NULL" />
                    <input class="mdl-button mdl-js-button mdl-button--primary" type="file" onchange="this.form.submit()" name="inputfile" />
                  </form>
-                 <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>                 
+                 <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
         `);
     } else {
       let insertBg = `url('images/${hotelInput.main_image}') center / cover`;
       $('#mgr_mainImage').css('background', insertBg);
-    
+
       $('<button/>')
         .addClass('editButton mdl-button mdl-js-button mdl-button--icon')
         .html('<i class="material-icons">close</i>')
@@ -133,7 +132,7 @@ function mgrInfo(hotelInput) {
           let xhttp = new XMLHttpRequest();
           xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-              
+
             $('#mgr_mainImage').html(`<form ref='uploadForm'
                 id='uploadForm'
                 action='http://localhost:3000/upload'
@@ -144,7 +143,7 @@ function mgrInfo(hotelInput) {
                 <input type="hidden" name="room_id" value="NULL" />
                 <input class="mdl-button mdl-js-button mdl-button--primary" type="file" onchange="this.form.submit()" name="inputfile" />
                 </form>
-                <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>                 
+                <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
                 `);
               $('#mgr_mainImage').css('background', insertBg);
             }
@@ -177,7 +176,6 @@ function mgrInfo(hotelInput) {
   // Show current card
   hideContent();
   $('#generalInfo').show();
-  sizes();
 }
 
 /**
@@ -312,7 +310,6 @@ function mgrRoom(hotelInput) {
       // Show current card
       hideContent();
       $('#roomTypes').show();
-      sizes();
     }
   };
   xhttp.open('POST', 'getRooms.json', true);
@@ -387,7 +384,6 @@ function mgrOverview() {
     hideContent();
     $('#hotelOverview').show();
 
-    sizes();
   });
 }
 
@@ -736,7 +732,6 @@ function loadHotelSidebar() {
       .attr('id', 'overview')
       .click(function() {
         mgrOverview();
-        sizes();
       })
       .addClass('mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary')
       .html('Dashboard')

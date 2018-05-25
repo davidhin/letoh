@@ -38,25 +38,6 @@ header {
   height: auto;
 }
 
-footer {
-  bottom: 0;
-  left: 0;
-  float: left;
-  width: 100%;
-  padding: 2px;
-  font-size: 12px;
-  background: rgb(0, 188, 212);
-  z-index: 6;
-}
-
-footer p,
-footer a {
-  margin: 0px;
-  padding-left: 10px;
-  color: #FFFFFF;
-  float: left;
-}
-
 #map {
   display: hidden;
   height: calc(100vh - 64px);

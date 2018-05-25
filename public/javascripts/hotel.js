@@ -146,7 +146,6 @@ function submitted(hotelInput, roomInput, variable) {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        $('footer').css('margin-top', '0px');
 
         if (variable == 1) {
           $('#hotelcards').fadeIn();
@@ -159,7 +158,7 @@ function submitted(hotelInput, roomInput, variable) {
           scrollTop: 0
         });
         $('#bookingpage_overlay').fadeOut(function() {
-          sizes();
+          //sizes();
         });
         $('#confirmation_overlay').fadeIn();
         summarise_details(JSON.parse(xhttp.responseText));
@@ -213,7 +212,7 @@ function submitted(hotelInput, roomInput, variable) {
 function summarise_details(details) {
   $('#rc_backbutton').click(function() {
     $('#confirmation_overlay').fadeOut(function() {
-      sizes();
+      //sizes();
     });
   });
   $('#cd_hotelname').css("font-weight", 700).html(details.hotelname);
@@ -266,7 +265,6 @@ function accountData() {
     }
     // Checking if you have bookings
     checkIfBookings();
-    sizes();
   });
 }
 

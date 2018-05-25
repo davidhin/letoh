@@ -8,7 +8,6 @@ $(document).ready(function() {
   'use strict';
   requestHotels(function() {
     hotelCards();
-    sizes();
     date_initial();
     check_inputs();
     initMap();
@@ -261,7 +260,6 @@ function hoteldetails(hotelInput) {
   $('.imagescroller').css("background", getimage);
   $('#hd_backbutton').click(function() {
     $('#hoteldetails_overlay').fadeOut();
-    sizes();
   });
 
   mdl_upgrade();
@@ -343,7 +341,7 @@ function bookingpage(hotelInput, roomInput, variable) {
   $('#hotelcards').fadeOut();
 
   $('.bookingContent').fadeIn(function() {
-    sizes();
+  //  sizes();
   });
   bookingData(hotelInput, roomInput);
   $('#hotelname_underbox').css('margin-bottom', 0).html(hotelInput.name);
@@ -353,7 +351,6 @@ function bookingpage(hotelInput, roomInput, variable) {
 
   // Cancel and go back, variable determines whether you're on the map or the hotel cards
   $('#bk_backbutton').click(function() {
-    $('footer').css("margin-top", "0px");
 
     if (variable == 1) {
       $('#hotelcards').fadeIn();
@@ -416,5 +413,4 @@ function mapGeneral() {
   $('#map').toggle(function() {
     currentView = 0;
   });
-  sizes();
 }

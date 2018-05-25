@@ -96,18 +96,8 @@ function showHotels() {
 
         distances.push(d);
       }
-      /*var j = 0;
-      for(let i = 0; i < hotels.length; i++){
-        if(hotels[i].price <= $("#price").val()){
-          if(hotels[i].rating >= $("#stars").val()){
-            if(distances[i] <= $("#dist").val()){
-              filtered[j] = hotels[i];
-              j++;
-            }
-          }
-        }
-      }*/
-var j = 0;
+
+      var j = 0;
       for (let i = 0; i < hotels.length; i++) {
         if (hotels[i].price == null) continue;
         if (hotels[i].rating == null) hotels[i].rating = 1;
@@ -329,7 +319,7 @@ function hoteldetailsMarker(hotel) {
   var getimage = "url('images/"+hotel.main_image+"') center / cover";
   //var getimage = "url('https://placeimg.com/640/480/any/" + hotel.id + "') center / cover";
   $('.imagescroller').css("background", getimage);
-  $('#hd_backbutton').click(function() { $('#hoteldetails_overlay').fadeOut(); sizes(); });
+  $('#hd_backbutton').click(function() { $('#hoteldetails_overlay').fadeOut();});
 
   mdl_upgrade();
 }

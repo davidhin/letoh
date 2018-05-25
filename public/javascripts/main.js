@@ -3,7 +3,6 @@ var user;
 // =========== MAIN FUNCTIONS ============== //
 $(document).ready(function() {
   'use strict';
-  sizes();
   loginInputRed();
   document.querySelectorAll('input[data-required]').forEach(function(e) {
     e.required = true;
@@ -60,23 +59,8 @@ function logout() {
   xhttp.send();
 }
 
-function sizes() {
-  "use strict";
-  var headerHeight = $("header").height();
-  var footer = $("footer");
-  var content = $("#content");
-
-  // FOOTER POSITIONING
-  if (content.height() < parseInt(window.innerHeight, 10) - headerHeight) {
-    footer.css("position", "absolute");
-  } else {
-    footer.css("position", "relative");
-  }
-}
-
 window.onresize = function(event) {
   "use strict";
-  sizes();
   //bookingData();
 };
 
