@@ -591,9 +591,9 @@ function editRoomDesc(container, editBtn, titleIn, priceIn, contentIn, hotel, ho
         xhttp.open('POST', 'changeRoomDetails.json', true);
         xhttp.setRequestHeader('Content-type', 'application/json');
         xhttp.send(JSON.stringify({
-          'hotelid': hotel.id,
+          'hotelid': hotel.hotel_id,
           'roomprice': inputPricearea.val(),
-          'roomid': hotelRooms.roomid,
+          'roomid': hotelRooms.room_id,
           'desc': inputTextarea.val(),
           'title': inputTitlearea.val()
         }));

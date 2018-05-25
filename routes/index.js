@@ -107,12 +107,10 @@ router.get('/getHotels.json', function(req, res) {
       "group by hotels.hotel_id";
 
     connection.query(query, function(err, results) {
-      console.log(results);
       connection.release();
       res.send(JSON.stringify(results));
     });
   });
-  // res.send(JSON.stringify(hotels));
 });
 
 // Add hotel
@@ -242,24 +240,19 @@ router.post('/addRoom.json', function(req, res) {
 
 router.post('/changeRoomDetails.json', function(req, res) {
   // TODO Finish the room databasing
-  let roomIndex = searchRoom(req.body.hotelid, req.body.roomid);
-  allRooms[roomIndex].name = req.body.title;
-  allRooms[roomIndex].desc = req.body.desc;
-  allRooms[roomIndex].price = req.body.roomprice;
 
-  let hotel = searchHotel(req.body.hotelid);
-  let min = hotels[hotel].price;
-
-  for (let i = 0; i < allRooms.length; i++) {
-    if (allRooms[i].id == req.body.hotelid && allRooms[i].price <= min) {
-
-      min = allRooms[i].price;
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      throw err;
     }
-  }
+    let query = 'update rooms set name = ?, price = ?, description = ? where room_id = ?';
 
-  hotels[hotel].price = min;
+    connection.query(query, [req.body.title, req.body.roomprice,req.body.desc,req.body.roomid], function(err, results) {
+      connection.release();
+      res.send('');
+    });
+  });
 
-  res.send('');
 });
 
 /* =================== BOOKING THINGS ===================== */
