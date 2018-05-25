@@ -141,10 +141,9 @@ function hotelCards() {
       if (hotels[i].rating >= $('#stars').val()) {
         //if (distances[i] <= $('#dist').val()) {
           // TODO: Uncomment this once getHotels query is fixed
-          // if (hotels[i].min_occupants >= $('#occupants').val()) {
-          console.log(hotels[i]);
+           if (hotels[i].min_occupants >= $('#occupants').val()) {
             filtered.push(hotels[i]);
-          // }
+           }
         }
     //  }
     }
@@ -171,6 +170,12 @@ function hotelCards() {
 
   //$('#dist').max() = maxprices;
   // var testing = document.getElementById("dist").max = maxprices;
+
+  if(filtered.length == 0){
+    let div = $('<div/>').appendTo("#hotelcards");
+    $('<h2/>').text("We couldn't find anything that suits your needs :(").css("margin-top","0px").appendTo(div);
+    $('<p/>').html("Unfortunately, we haven't been able to find any hotels that match your requirements.<br> Try refining your with the sliders on the left to find some available hotels!").appendTo(div);
+  }
 
   for (let i = 0; i < filtered.length; i++) {
     var div_main = $('<div/>').addClass("hotel-card mdl-card mdl-shadow--2dp").appendTo("#hotelcards");

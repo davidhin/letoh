@@ -105,13 +105,10 @@ function showHotels() {
           if (hotels[i].rating >= $('#stars').val()) {
             //if (distances[i] <= $('#dist').val()) {
               // TODO: Uncomment this once getHotels query is fixed
-              // if (hotels[i].min_occupants >= $('#occupants').val()) {
-            //  console.log(hotels[i]);
-              //  filtered.push(hotels[i]);
-            //  filtered[j] = hotels[i];
-            filtered.push(hotels[i]);
-              j++;
-              // }
+               if (hotels[i].min_occupants >= $('#occupants').val()) {
+                 filtered.push(hotels[i]);
+                 j++;
+               }
             }
         //  }
         }

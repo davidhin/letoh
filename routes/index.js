@@ -230,7 +230,7 @@ router.post('/addRoom.json', function(req, res) {
     if (err) {
       throw err;
     }
-    let query = 'insert into rooms values(default,?,"Name",100,1,default);';
+    let query = 'insert into rooms values(default,?,"Room Name",100,1,"No Description");';
 
     connection.query(query, [req.body.hotel_id], function(err, results) {
       connection.release();
