@@ -285,6 +285,7 @@ function mgrRoom(hotelInput) {
         /* --- DYNAMIC --- */
         // room desc header
         let roomName = $('<h4/>').html(rooms[i].name).appendTo(roomDesc);
+        let roomOccupants = $('<p/>').html(rooms[i].occupants).appendTo(roomDesc);
         let priceDiv = $('<div/>').appendTo(roomDesc);
         $('<p/>').css('display', 'inline-block').html('$').appendTo(priceDiv);
         let roomPrice = $('<p/>').css('display', 'inline-block').html(rooms[i].price).appendTo(priceDiv);
@@ -295,7 +296,7 @@ function mgrRoom(hotelInput) {
           .addClass('editButton mdl-button mdl-js-button mdl-button--primary')
           .html('edit').appendTo(roomDesc)
           .click(function() {
-            editRoomDesc(roomDesc, this, roomName, roomPrice, roomDescP, hotelInput, rooms[i]);
+            editRoomDesc(roomDesc, this, roomName, roomOccupants, roomPrice, roomDescP, hotelInput, rooms[i]);
           });
       }
 
@@ -497,10 +498,11 @@ function editAddress(container, editBtn, contentIn, hotel) {
  * @param {hotelobject} hotel The relevant hotel
  * @param {array} hotelRooms The relevant rooms for the hotel
  */
-function editRoomDesc(container, editBtn, titleIn, priceIn, contentIn, hotel, hotelRooms) {
+function editRoomDesc(container, editBtn, titleIn, occupantIn, priceIn, contentIn, hotel, hotelRooms) {
   'use strict';
   $(editBtn).addClass('orig').hide();
   $(titleIn).addClass('orig').hide();
+  $(occupantIn).addClass('orig').hide();
   $(priceIn).addClass('orig').hide();
   $(priceIn).siblings().addClass('orig').hide();
   $(contentIn).addClass('orig').hide();
@@ -526,6 +528,25 @@ function editRoomDesc(container, editBtn, titleIn, priceIn, contentIn, hotel, ho
   $('<label/>')
     .addClass('mdl-textfield__label')
     .appendTo(divTitlearea);
+
+    // Edit room price
+    let divOccupantarea = $('<div/>')
+      .css('width', '100%')
+      .addClass('temp mdl-textfield mdl-js-textfield')
+      .appendTo(container);
+    let inputOccupantarea = $('<input/>')
+      .addClass('temp mdl-textfield__input')
+      .attr({
+        'type': 'number',
+        'id': 'occupant_desc'
+      })
+      /* --- DYNAMIC --- */
+      .val($(occupantIn).html())
+      .appendTo(divOccupantarea);
+    // label_line
+    $('<label/>')
+      .addClass('mdl-textfield__label')
+      .appendTo(divOccupantarea);
 
   // Edit room price
   let divPricearea = $('<div/>')
@@ -582,6 +603,7 @@ function editRoomDesc(container, editBtn, titleIn, priceIn, contentIn, hotel, ho
         /* --- DYNAMIC --- */
         $(contentIn).html(inputTextarea.val());
         $(titleIn).html(inputTitlearea.val());
+        $(occupantIn).html(inputOccupantarea.val());
         $(priceIn).html(inputPricearea.val());
         $('.orig').show();
         $('.temp').remove();
@@ -593,6 +615,7 @@ function editRoomDesc(container, editBtn, titleIn, priceIn, contentIn, hotel, ho
         xhttp.send(JSON.stringify({
           'hotelid': hotel.hotel_id,
           'roomprice': inputPricearea.val(),
+          'occupants': inputOccupantarea.val(),
           'roomid': hotelRooms.room_id,
           'desc': inputTextarea.val(),
           'title': inputTitlearea.val()

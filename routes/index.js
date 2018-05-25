@@ -245,9 +245,9 @@ router.post('/changeRoomDetails.json', function(req, res) {
     if (err) {
       throw err;
     }
-    let query = 'update rooms set name = ?, price = ?, description = ? where room_id = ?';
+    let query = 'update rooms set name = ?, price = ?, description = ?, occupants = ? where room_id = ?';
 
-    connection.query(query, [req.body.title, req.body.roomprice,req.body.desc,req.body.roomid], function(err, results) {
+    connection.query(query, [req.body.title, req.body.roomprice,req.body.desc, req.body.occupants, req.body.roomid], function(err, results) {
       connection.release();
       res.send('');
     });
