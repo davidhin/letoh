@@ -96,7 +96,7 @@ function showHotels() {
 
         distances.push(d);
       }
-      var j = 0;
+      /*var j = 0;
       for(let i = 0; i < hotels.length; i++){
         if(hotels[i].price <= $("#price").val()){
           if(hotels[i].rating >= $("#stars").val()){
@@ -106,7 +106,27 @@ function showHotels() {
             }
           }
         }
+      }*/
+var j = 0;
+      for (let i = 0; i < hotels.length; i++) {
+        if (hotels[i].price == null) continue;
+        if (hotels[i].rating == null) hotels[i].rating = 1;
+        if (hotels[i].price <= $('#price').val()) {
+          if (hotels[i].rating >= $('#stars').val()) {
+            //if (distances[i] <= $('#dist').val()) {
+              // TODO: Uncomment this once getHotels query is fixed
+              // if (hotels[i].min_occupants >= $('#occupants').val()) {
+            //  console.log(hotels[i]);
+              //  filtered.push(hotels[i]);
+            //  filtered[j] = hotels[i];
+            filtered.push(hotels[i]);
+              j++;
+              // }
+            }
+        //  }
+        }
       }
+
 
       // Clear map
       clearMarkers();
@@ -187,7 +207,7 @@ function addMarkers() {
         '<div style="min-width:200px;min-height:100px;margin-top:5px">'+
         '<div style="float:left">'+
         '<img src="'+
-        'images/'+filtered[i].hotel_id+'.jpg'+
+        'images/'+filtered[i].main_image+
         '" alt="hotel" title="Your Hotel" style="height:100px;width:100px;object-fit: cover;margin:auto;display:block"></div>'+
 
         '<div style="float:left;margin-left:10px;max-width:140px">'+
@@ -306,7 +326,7 @@ function hoteldetailsMarker(hotel) {
   $('#hotel_info_p').html(hotel.description);
   $('#hoteldetails_overlay').fadeIn();
   // DYNAMIC DATA: Get the image
-  var getimage = "url('images/"+hotel.hotel_id+".jpg') center / cover";
+  var getimage = "url('images/"+hotel.main_image+"') center / cover";
   //var getimage = "url('https://placeimg.com/640/480/any/" + hotel.id + "') center / cover";
   $('.imagescroller').css("background", getimage);
   $('#hd_backbutton').click(function() { $('#hoteldetails_overlay').fadeOut(); sizes(); });

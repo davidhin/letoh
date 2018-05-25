@@ -165,7 +165,7 @@ router.post('/changeHotelDetails.json', function(req, res) {
 // Takes a JSON object of form {hotel address lat lng}
 router.post('/updateHotelAddress.json', function(req, res) {
   let hotel = JSON.parse(req.body.hotel);
-  
+
   req.pool.getConnection(function(err, connection) {
     if (err) {
       throw err;
@@ -232,7 +232,7 @@ router.post('/addRoom.json', function(req, res) {
     }
     let query = 'insert into rooms values(default,?,"Name",100,1,default);';
 
-    connection.query(query, hotel_id, function(err, results) {
+    connection.query(query, [req.body.hotel_id], function(err, results) {
       connection.release();
       res.send('');
     });

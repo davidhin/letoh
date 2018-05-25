@@ -140,13 +140,14 @@ function hotelCards() {
     if (hotels[i].rating == null) hotels[i].rating = 1;
     if (hotels[i].price <= $('#price').val()) {
       if (hotels[i].rating >= $('#stars').val()) {
-        if (distances[i] <= $('#dist').val()) {
+        //if (distances[i] <= $('#dist').val()) {
           // TODO: Uncomment this once getHotels query is fixed
           // if (hotels[i].min_occupants >= $('#occupants').val()) {
+          console.log(hotels[i]);
             filtered.push(hotels[i]);
           // }
         }
-      }
+    //  }
     }
   }
 
@@ -349,7 +350,7 @@ function bookingpage(hotelInput, roomInput, variable) {
 
   // Show main image
   $('.boximage').html(`<img alt='Hotel' title='Your Hotel' class='boximage' src='images/${hotelInput.main_image}' />`);
-  
+
   // Cancel and go back, variable determines whether you're on the map or the hotel cards
   $('#bk_backbutton').click(function() {
     $('footer').css("margin-top", "0px");
@@ -361,6 +362,7 @@ function bookingpage(hotelInput, roomInput, variable) {
       $('#map').show();
       $('#hotelcards').css('display', 'none');
       $('#hotelcards').hide();
+      $('#hoteldetails_overlay').fadeIn();
     }
     $('.bookingContent').fadeOut(function() {
       $('#bookingpage_overlay').hide();

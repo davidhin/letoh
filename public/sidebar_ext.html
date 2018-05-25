@@ -8,7 +8,7 @@
 
 <div>
 <br>
-<button class="width100 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary" onclick="mapGeneral()">Map</button>
+<button class="width100 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="mapGeneral()">Map</button>
 
 <!-- ========= Details ======== -->
 <h2>Details</h2>
@@ -29,27 +29,27 @@
 
 <!-- Occupants -->
 <div class="box">
-  <label>Minimum occupants: <input class="textInput" id="numOccupants" type="text" pattern="[1-4]" onkeyup="occupantschange(this.value)"/> </label>
+  <label>Minimum occupants: <input class="textInput" id="numOccupants" type="text" pattern="[1-4]" onkeyup="occupantschange(this.value)" value="1"/> </label>
   <input id="occupants" class="mdl-slider mdl-js-slider" type="range"
   min="1" max="4" value="1" tabindex="0" oninput="occupantsslide(this.value)"/>
 </div>
 
 <!-- Maximum Price -->
 <div class="box">
-<label>Maximum price ($AUD): <input class="textInput" id="maxPrice" type="text" pattern="-?[0-9]*(\.[0-9]+)?" onkeyup="pricechange(this.value)"/> </label>
-  <input id="price" class="mdl-slider mdl-js-slider" type="range" min="0" max="5000" value="5000" tabindex="0" oninput="priceslide(this.value)"/>
+<label>Maximum price ($AUD): <input class="textInput" id="maxPrice" type="text" pattern="-?[0-9]*(\.[0-9]+)?" onkeyup="pricechange(this.value)" value="3000"/> </label>
+  <input id="price" class="mdl-slider mdl-js-slider" type="range" min="0" max="3000" value="3000" tabindex="0" oninput="priceslide(this.value)"/>
 </div>
 
 <!-- Maximum Distance -->
 <div class="box">
-  <label>Maximum distance (km): <input class="textInput" id="maxDist" type="text" pattern="-?[0-9]*(\.[0-9]+)?" onkeyup="distancechange(this.value)"/> </label>
+  <label>Maximum distance (km): <input class="textInput" id="maxDist" type="text" pattern="-?[0-9]*(\.[0-9]+)?" onkeyup="distancechange(this.value)" value="100"/> </label>
   <input id="dist" class="mdl-slider mdl-js-slider" type="range"
   min="0" max="100" value="100" tabindex="0" oninput="distanceslide(this.value)"/>
 </div>
 
 <!-- Minimum Stars -->
 <div class="box">
-<label>Minimum stars: <input class="textInput" id="minStars" type="text" pattern="-?[1-5]?" onkeyup="starschange(this.value)"/> </label>
+<label>Minimum stars: <input class="textInput" id="minStars" type="text" pattern="-?[1-5]?" onkeyup="starschange(this.value)" value="1"/> </label>
   <input class="mdl-slider mdl-js-slider" type="range" id="stars" min="1" max="5" value="1" step="1" oninput="starsslide(this.value)"/>
 </div>
 
