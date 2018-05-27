@@ -99,7 +99,7 @@ function bookingData(hotelInput, roomInput) {
   // Cost calculation
   // DYNAMIC DATA
   var cost_1 = diffDays * roomInput.price;
-  var cost_2 = 0.1 * cost_1;
+  var cost_2 = Math.round(0.1 * cost_1);
   var cost_total = cost_1 + cost_2;
 
   // Date summary
