@@ -594,7 +594,6 @@ input[type="file"] {
 
 .biginputbox {
   width: 100% !important;
-  /*height: 100px;*/
   resize: none;
 }
 
@@ -623,12 +622,10 @@ input[type="file"] {
 #hotelhistory {
   float: left;
   width:100%;
-  /*width: calc(100% - 20px);*/
 }
 
 #accountsettings {
   width:100%;
-  /*float:left;*/
   display: none;
 }
 
@@ -901,8 +898,6 @@ input[type="file"] {
 }
 
 .InputForms {
-  /*  margin-left: auto;
-  margin-right: auto;*/
 }
 
 .inputfield {

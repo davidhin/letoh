@@ -104,7 +104,6 @@ function showHotels() {
         if (hotels[i].price <= $('#price').val()) {
           if (hotels[i].rating >= $('#stars').val()) {
             //if (distances[i] <= $('#dist').val()) {
-              // TODO: Uncomment this once getHotels query is fixed
                if (hotels[i].min_occupants >= $('#occupants').val()) {
                  filtered.push(hotels[i]);
                  j++;
@@ -170,7 +169,6 @@ function addMarkers() {
     });
 
     //Infowindow made here
-    //infowindow = new google.maps.InfoWindow();
 
     infowindow = new google.maps.InfoWindow({
       minWidth: 200
@@ -314,32 +312,8 @@ function hoteldetailsMarker(hotel) {
   $('#hoteldetails_overlay').fadeIn();
   // DYNAMIC DATA: Get the image
   var getimage = "url('images/"+hotel.main_image+"') center / cover";
-  //var getimage = "url('https://placeimg.com/640/480/any/" + hotel.id + "') center / cover";
   $('.imagescroller').css("background", getimage);
   $('#hd_backbutton').click(function() { $('#hoteldetails_overlay').fadeOut();});
 
   mdl_upgrade();
 }
-
-// =============================== UNUSED ============================== //
-// Send data to json file
-// function sendData_old() {
-//   var new_hotel = {name:"hotel4",lat:23,lng:25};
-//   // Create new AJAX request
-//   var xhttp = new XMLHttpRequest();
-//
-//   // Define behaviour for a response
-//   xhttp.onreadystatechange = function() {
-//     if (this.readyState == 4 && this.status == 200) {
-//     }
-//   };
-//
-//   // Initiate connection
-//   xhttp.open("POST", "addData", true);
-//
-//   // Header information
-//   xhttp.setRequestHeader("Content-type", "application/json");
-//
-//   // Send request
-//   xhttp.send(JSON.stringify(new_hotel));
-// }

@@ -71,8 +71,6 @@ function mgrInfo(hotelInput) {
     })
     .css('font-weight', '100').html(hotelInput.name).appendTo(titleContainer);
 
-  // <div id="mgr_tags" class="mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--1-phone">Tags</div>
-
   // mdl-grid container
   let infoContainer = $('<div/>').addClass('mdl-grid').appendTo('#generalInfo');
   $('<div/>')
@@ -266,9 +264,6 @@ function mgrRoom(hotelInput) {
       for (let i = 0; i < roomTypes; i++) {
         let roomRow = $('<div/>').addClass('mdl-grid').appendTo('#roomTypes');
         // room info
-        //        $('<div/>')
-        //          .addClass('mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--1-col-phone')
-        //          .appendTo(roomRow);
         let roomDesc = $('<div/>')
           .addClass('mdl-cell mdl-card mdl-shadow--2dp mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone')
           .appendTo(roomRow);
@@ -777,8 +772,6 @@ function loadHotelSidebar() {
         .html('Room Types')
         .addClass('mdl-navigation__link')
         .appendTo('#' + currId);
-      //  $('<a/>').click(function() { alert('foo2'); }).html('Reviews').addClass('mdl-navigation__link').appendTo('#' + currId);
-      //  $('<a/>').click(function() { alert('bar2'); }).html('Special Offer').addClass('mdl-navigation__link').appendTo('#' + currId);
     }
 
     // ------------- ACCORDIAN ------------ //

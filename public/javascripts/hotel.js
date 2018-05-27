@@ -207,7 +207,6 @@ function summarise_details(details) {
     $('#confirmation_overlay').fadeOut();
   });
   $('#cd_hotelname').css("font-weight", 700).html(details.hotelname);
-  //$('#cd_bookingnumber').html("Booking number: " + details.refnum);
   $('#cd_email').html("Confirmation email sent to: " + details.email);
   $('#cd_reservation').html("Your reservation: " + details.roomname);
   $('#cd_checkin').html("Check in: " + details.start);
@@ -303,12 +302,9 @@ function get_bookings(booking, can_change) {
   // Making Current Bookings modules
   var book_container = $('<div/>')
     .attr('class', 'modulecontainer mdl-grid')
-    //Cancel Booking Button
-    //.append('<button class="removeBookingButton" onclick="remove(this)">X</button>')
     .appendTo(booking_section);
   // Image Module
   // book image
-
   var insertBg = `url('images/${booking.main_image}') center / cover`;
   $("<div/>")
     .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone")
@@ -361,12 +357,6 @@ function get_bookings(booking, can_change) {
       )
     )
     .appendTo(book_description);
-
-  //    if (can_change) {
-  //        $('<button class="editBookingedit" onclick="editBookingedit(this)">Change</button>').appendTo(book_table);
-  //        $('<button class="confirmBookingedit" onclick="confirmBookingedit(this)">Confirm</button>').appendTo(book_table);
-  //        $('<button class="cancelBookingedit" onclick="cancelBookingedit(this)">Cancel</button>').appendTo(book_table);
-  //    }
 
   // Review Module
   let xhttp = new XMLHttpRequest();

@@ -104,16 +104,6 @@ function hotelCards() {
   filtered = [];
   distances = [];
 
-  /*var NewTestMapCenter = map.getCenter();
-  var latit = NewTestMapCenter.lat();
-  var longti = NewTestMapCenter.lng();
-
-
-  var lat = latit;
-  var lng = longti;
-  console.log(NewTestMapCenter.lat());
-  console.log(NewTestMapCenter.lng());*/
-
   var lat = -34.9284989;
   var lng = 138.6007456;
 
@@ -140,7 +130,6 @@ function hotelCards() {
     if (hotels[i].price <= $('#price').val()) {
       if (hotels[i].rating >= $('#stars').val()) {
         //if (distances[i] <= $('#dist').val()) {
-          // TODO: Uncomment this once getHotels query is fixed
            if (hotels[i].min_occupants >= $('#occupants').val()) {
             filtered.push(hotels[i]);
            }
@@ -148,28 +137,6 @@ function hotelCards() {
     //  }
     }
   }
-
-  //Setting the price slide to have the min and max price of all hotels on the screen
-/*  var maxprices = 0;
-  for (let i = 0; i < filtered.length; i++) {
-    if (filtered[i].maxprice > maxprices) {
-      maxprices = filtered[i].maxprice;
-    }
-  }
-
-  var minprices = maxprices;
-  for (let i = 0; i < filtered.length; i++) {
-    if (filtered[i].price < minprices) {
-      minprices = filtered[i].price;
-    }
-  }
-  $('#price').attr('min',minprices);
-  $('#price').attr('max',maxprices);*/
-
-  //console.log(filtered);
-
-  //$('#dist').max() = maxprices;
-  // var testing = document.getElementById("dist").max = maxprices;
 
   if(filtered.length == 0){
     let div = $('<div/>').appendTo("#hotelcards");

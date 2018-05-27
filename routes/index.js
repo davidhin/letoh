@@ -104,7 +104,7 @@ router.post('/changeHotelDetails.json', function(req, res) {
     if (err) {
       throw err;
     }
-    // TODO How do you make this secure because SET doesn't use ' '
+
     let query = `UPDATE hotels SET ${req.body.changed_detail} = ? WHERE hotel_id = ?`;
     connection.query(query, [
       hotel[req.body.changed_detail],
@@ -292,33 +292,6 @@ router.post('/addReview', function(req, res) {
   });
 
 });
-
-/**
- * Search for the hotel using a loop
- * @param {num} hotelID Search for hotel using its ID
- * @return {num} i Function returns the hotel's index in hotels[]
- */
-function searchHotel(hotelID) {
-  for (let i = 0; i < hotels.length; i++) {
-    if (hotels[i].id == hotelID) {
-      return i;
-    }
-  }
-}
-
-/**
- * Search for the hotel using a loop
- * @param {num} hotelID Search for hotel using its ID
- * @param {num} roomID Search for room using its roomID
- * @return {num} i Function returns the hotel's index in hotels[]
- */
-function searchRoom(hotelID, roomID) {
-  for (let i = 0; i < allRooms.length; i++) {
-    if (allRooms[i].id == hotelID && allRooms[i].roomid == roomID) {
-      return i;
-    }
-  }
-}
 
 /* =================== USER STUFF ===================== */
 
