@@ -113,12 +113,6 @@ function bookingData(hotelInput, roomInput) {
   $($('.rightcontent td.tablerightcol')[4]).text('AU' + ' $' + cost_2);
   $($('.rightcontent th.tablerightcol')[0]).attr('id', 'totalCost').text('AU' + ' $' + cost_total);
 
-  //Bottom right box
-  $('.rightcontent ul.boxparagraph').empty();
-  var included = ['1 Bathroom', 'Free Continental Breakfast', 'Free Wifi', 'Free Parking'];
-  for (let i = 0; i < included.length; i++) {
-    $('.rightcontent ul.boxparagraph').append('<li>' + included[i] + '</li>');
-  }
 }
 
 function compulsory(index) {

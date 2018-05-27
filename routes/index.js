@@ -229,7 +229,6 @@ router.post('/addRoom.json', function(req, res) {
       throw err;
     }
     let query = 'insert into rooms values(default,?,"Room Name",100,1,"No Description");';
-
     connection.query(query, [req.body.hotel_id], function(err, results) {
       connection.release();
       res.send('');
@@ -239,14 +238,11 @@ router.post('/addRoom.json', function(req, res) {
 });
 
 router.post('/changeRoomDetails.json', function(req, res) {
-  // TODO Finish the room databasing
-
   req.pool.getConnection(function(err, connection) {
     if (err) {
       throw err;
     }
     let query = 'update rooms set name = ?, price = ?, description = ?, occupants = ? where room_id = ?';
-
     connection.query(query, [req.body.title, req.body.roomprice,req.body.desc, req.body.occupants, req.body.roomid], function(err, results) {
       connection.release();
       res.send('');
@@ -269,7 +265,6 @@ router.get('/getBookings.json', function(req, res) {
       connection.query(query, function(err, results){
           connection.release();
           res.send(JSON.stringify(results));
-
       });
   });
 
@@ -279,7 +274,6 @@ router.post('/newBooking.json', function(req, res) {
   req.pool.getConnection(function(err,connection){
       if(err){throw err;}
       var query = "insert into bookings values(default,?,?,?,?,?)"
-
       connection.query(query, [req.body.roomid, req.body.userid, req.body.start, req.body.end, req.body.comments], function(err, results){
           connection.release();
           res.send(req.body);
