@@ -99,8 +99,8 @@ function showHotels() {
 
       var j = 0;
       for (let i = 0; i < hotels.length; i++) {
-        if (hotels[i].price == null) continue;
-        if (hotels[i].rating == null) hotels[i].rating = 1;
+        if (hotels[i].price === null) continue;
+        if (hotels[i].rating === null) hotels[i].rating = 1;
         if (hotels[i].price <= $('#price').val()) {
           if (hotels[i].rating >= $('#stars').val()) {
             //if (distances[i] <= $('#dist').val()) {
