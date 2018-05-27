@@ -255,6 +255,10 @@ p.mdl-card__supporting-text {
   width: 70px;
 }
 
+#mgr_mainImage {
+  text-align: center;
+}
+
 #mgrDesc {
   max-height: 300px;
   overflow: auto;
@@ -283,6 +287,17 @@ p.mdl-card__supporting-text {
 }
 
 /* ============ MISC MDL MODIFICATIONS ============ */
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
 
 .mdl-textfield__input~label {
   margin-top: -20px;

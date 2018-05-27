@@ -73,15 +73,13 @@ function bookingData(hotelInput, roomInput) {
   $($('.rightcontent p')[1]).text(roomInput.name);
   $($('.rightcontent p')[1]).text(roomInput.name);
 
-
-
   // Date validation
   var check_in = moment($('#check-in').val());
   var check_out = moment($('#check-out').val());
   var diffDays = check_out.diff(check_in, 'days');
   var pastBooking = check_in.diff(moment(), 'days');
   var stay;
-  if (diffDays == 1) {
+    if (diffDays == 1) {
     stay = diffDays + ' night';
   } else if (diffDays > 1) {
     stay = diffDays + ' nights';
@@ -317,11 +315,11 @@ function get_bookings(booking, can_change) {
     .appendTo(booking_section);
   // Image Module
   // book image
+  
+  var insertBg = `url('images/${booking.main_image}') center / cover`;
   $("<div/>")
     .addClass("mdl-cell mdl-card mdl-shadow--2dp mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone")
-    .append($("<img alt='Hotel' title='Your Hotel' class='boximage'>")
-      .attr('src', 'images/' + booking.hotel_id + '.jpg') //CONTENT
-    )
+    .css('background', insertBg)
     .appendTo(book_container);
 
   // Description Module
