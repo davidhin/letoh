@@ -204,9 +204,9 @@ function addMarkers() {
         'From $'+filtered[i].price+' per night.'+
         '</div>'+
 
-        '<p style="margin:0px;margin-top:10px;padding:0px;">'+
+        '<div style="margin:0px;margin-top:10px;padding:0px;">'+
         stars+
-        '</p>'+
+        '</div>'+
 
         '</div>'+
         '</div>'+
