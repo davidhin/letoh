@@ -12,10 +12,6 @@ var fs = require('fs');
 // have ids
 var hotels = [];
 
-// linked to ids
-var bookings = [];
-var allReviews = [];
-
 // login functionality
 var users = {};
 var sessions = {};
@@ -32,34 +28,6 @@ router.get('/dbtest.json', function(req, res, next) {
     });
   });
 });
-
-users['test'] = {
-  'email': 'test',
-  'firstName': 'Test',
-  'lastName': 'tesT',
-  'address': '9 st',
-  'phoneNumber': '900',
-  'password': 'password',
-  'manageracc': 0
-};
-users['admin'] = {
-  'email': 'admin',
-  'firstName': 'Admin',
-  'lastName': 'Manager',
-  'address': '9 st',
-  'phoneNumber': '900',
-  'password': 'admin',
-  'manageracc': 1
-};
-users['manager'] = {
-  'email': 'manager',
-  'firstName': 'Admin',
-  'lastName': 'Manager',
-  'address': '9 st',
-  'phoneNumber': '900',
-  'password': 'manager',
-  'manageracc': 1
-};
 
 // Read hotel details into variable hotels
 fs.readFile('data/hotels.json', 'utf8', function(err, data) {
@@ -115,17 +83,6 @@ router.get('/getHotels.json', function(req, res) {
 
 // Add hotel
 router.post('/addHotel.json', function(req, res) {
-  // Placeholder hotel card
-  let newId = hotels[hotels.length - 1].id + 1;
-  let name = 'New Hotel ID = ' + newId;
-  let newHotel = {
-    'id': newId,
-    'owner': sessions[req.session.id],
-    'name': name,
-    'price': 0,
-    'rating': 6,
-  };
-
   // Input data to database
   req.pool.getConnection(function(err, connection) {
     if (err) {
@@ -134,7 +91,7 @@ router.post('/addHotel.json', function(req, res) {
     let query = 'INSERT INTO hotels values (default,?,"Untitled Hotel","Hotel Address Goes Here",0,0,"Your Description Here", NULL);';
     connection.query(query, sessions[req.session.id].user_id, function(err, results) {
       connection.release();
-      res.send(newHotel);
+      res.send('');
     });
   });
 });
@@ -199,7 +156,6 @@ router.post('/deleteHotel.json', function(req, res) {
 
 /* =================== ROOMS THINGS ===================== */
 
-let rooms = [];
 // Get the rooms of a hotel by id
 router.post('/getRooms.json', function(req, res) {
 
@@ -218,12 +174,10 @@ router.post('/getRooms.json', function(req, res) {
       res.send(JSON.stringify(results));
     });
   });
-
 });
 
 // Add room
 router.post('/addRoom.json', function(req, res) {
-
   req.pool.getConnection(function(err, connection) {
     if (err) {
       throw err;
@@ -234,40 +188,34 @@ router.post('/addRoom.json', function(req, res) {
       res.send('');
     });
   });
-
 });
 
 router.post('/changeRoomDetails.json', function(req, res) {
   req.pool.getConnection(function(err, connection) {
-    if (err) {
-      throw err;
-    }
+    if (err) throw err;
     let query = 'update rooms set name = ?, price = ?, description = ?, occupants = ? where room_id = ?';
-    connection.query(query, [req.body.title, req.body.roomprice,req.body.desc, req.body.occupants, req.body.roomid], function(err, results) {
+    connection.query(query, [req.body.title, req.body.roomprice, req.body.desc, req.body.occupants, req.body.room_id], function(err, results) {
       connection.release();
       res.send('');
     });
   });
-
 });
 
 /* =================== BOOKING THINGS ===================== */
 
 // Send booking information to client
 router.get('/getBookings.json', function(req, res) {
-
-  req.pool.getConnection(function(err,connection){
-      if(err){throw err;}
-      var query = "select bookings.*, hotels.name, hotels.address, hotels.hotel_id, rooms.name as roomname, datediff(bookings.check_out,bookings.check_in)*rooms.price as cost from bookings "+
-      "inner join rooms on bookings.room_id = rooms.room_id "+
-      "inner join hotels on rooms.hotel_id = hotels.hotel_id "+
-      "where bookings.user_id = "+sessions[req.session.id].user_id+";";
-      connection.query(query, function(err, results){
-          connection.release();
-          res.send(JSON.stringify(results));
-      });
+  req.pool.getConnection(function(err, connection) {
+    if (err) throw err;
+    let query = 'select bookings.*, hotels.name, hotels.main_image, hotels.address, hotels.hotel_id, rooms.name as roomname, datediff(bookings.check_out,bookings.check_in)*rooms.price as cost from bookings '+
+    'inner join rooms on bookings.room_id = rooms.room_id '+
+    'inner join hotels on rooms.hotel_id = hotels.hotel_id '+
+    'where bookings.user_id = ?;';
+    connection.query(query, sessions[req.session.id].user_id, function(err, results) {
+        connection.release();
+        res.send(JSON.stringify(results));
+    });
   });
-
 });
 
 router.post('/newBooking.json', function(req, res) {
@@ -311,8 +259,7 @@ router.post('/reviewstuff.json', function(req, res, next) {
 
 });
 
-//Gets all the reviews for a certain room
-let reviews = [];
+// Gets all the reviews for a certain room
 router.post('/getReviews.json', function(req, res) {
 
   req.pool.getConnection(function(err, connection) {

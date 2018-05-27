@@ -2,7 +2,6 @@ var hotels = [];
 
 // =========== MAIN FUNCTIONS ============== //
 
-
 $(document).ready(function() {
   'use strict';
   requestHotels(function() {
@@ -58,7 +57,7 @@ function mgrInfo(hotelInput) {
   let titleContainer = $('<div/>')
     .css({
       'margin': '0 auto',
-      'width': 'auto'
+      'width': 'auto',
     })
     .appendTo('#generalInfo');
   $('<h1/>')
@@ -98,7 +97,7 @@ function mgrInfo(hotelInput) {
     .addClass('mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--secondary mdl-button--raised')
     .css({
       'width': '140px',
-      'margin': '0 auto'
+      'margin': '0 auto',
     })
     .html('DELETE HOTEL').appendTo('#mgrAddress')
     .click(function() {
@@ -106,24 +105,27 @@ function mgrInfo(hotelInput) {
     })
     .appendTo(deleteHotel);
 
+    let imageContent = `<form ref='uploadForm'
+        id='uploadForm'
+        action='http://localhost:3000/upload'
+        method='post'
+        encType="multipart/form-data"
+        target="upload_target">
+        <input type="hidden" name="hotel_id" value="${hotelInput.hotel_id}" />
+        <input type="hidden" name="room_id" value="NULL" />
+        <label for="file-upload" class="file-upload mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+          Upload Image
+        </label>
+        <input id="file-upload" type="file" onchange="this.form.submit()" name="inputfile" />
+        </form>
+        <iframe id="upload_target" name="upload_target" srcdoc="<script>alert("something")</script>" style="width:0;height:0;border:0px solid #fff;"></iframe>
+      `;
+
     if (!hotelInput.main_image) {
-    $('#mgr_mainImage')
-          .html(`<form ref='uploadForm'
-                   id='uploadForm'
-                   action='http://localhost:3000/upload'
-                   method='post'
-                   encType="multipart/form-data"
-                   target="upload_target">
-                   <input type="hidden" name="hotel_id" value="${hotelInput.hotel_id}" />
-                   <input type="hidden" name="room_id" value="NULL" />
-                   <input class="mdl-button mdl-js-button mdl-button--primary" type="file" onchange="this.form.submit()" name="inputfile" />
-                 </form>
-                 <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
-        `);
+      $('#mgr_mainImage').html(imageContent);
     } else {
       let insertBg = `url('images/${hotelInput.main_image}') center / cover`;
       $('#mgr_mainImage').css('background', insertBg);
-
       $('<button/>')
         .addClass('editButton mdl-button mdl-js-button mdl-button--icon')
         .html('<i class="material-icons">close</i>')
@@ -132,20 +134,8 @@ function mgrInfo(hotelInput) {
           let xhttp = new XMLHttpRequest();
           xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-
-            $('#mgr_mainImage').html(`<form ref='uploadForm'
-                id='uploadForm'
-                action='http://localhost:3000/upload'
-                method='post'
-                encType="multipart/form-data"
-                target="upload_target">
-                <input type="hidden" name="hotel_id" value="${hotelInput.hotel_id}" />
-                <input type="hidden" name="room_id" value="NULL" />
-                <input class="mdl-button mdl-js-button mdl-button--primary" type="file" onchange="this.form.submit()" name="inputfile" />
-                </form>
-                <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
-                `);
-              $('#mgr_mainImage').css('background', insertBg);
+              $('#mgr_mainImage').html(imageContent);
+              $('#mgr_mainImage').css('background', 'white');
             }
           };
           xhttp.open('POST', 'deleteHotelImage', true);
@@ -180,7 +170,7 @@ function mgrInfo(hotelInput) {
 
 /**
  * confirms whether the user wants to delete the hotel
- * @param {domelement} div The container div for delete button
+   * @param {domelement} div The container div for delete button
  * @param {button} input The button that initiates the confirmation
  * @param {object} hotel The actual hotel to be deleted
  */
@@ -276,16 +266,18 @@ function mgrRoom(hotelInput) {
       for (let i = 0; i < roomTypes; i++) {
         let roomRow = $('<div/>').addClass('mdl-grid').appendTo('#roomTypes');
         // room info
-        $('<div/>')
-          .addClass('mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--1-col-phone')
-          .appendTo(roomRow);
+        //        $('<div/>')
+        //          .addClass('mdl-cell mdl-card mdl-shadow--2dp mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--1-col-phone')
+        //          .appendTo(roomRow);
         let roomDesc = $('<div/>')
-          .addClass('mdl-cell mdl-card mdl-shadow--2dp mdl-cell--8-col mdl-cell--5-col-tablet mdl-cell--1-col-phone')
+          .addClass('mdl-cell mdl-card mdl-shadow--2dp mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone')
           .appendTo(roomRow);
         /* --- DYNAMIC --- */
         // room desc header
         let roomName = $('<h4/>').html(rooms[i].name).appendTo(roomDesc);
-        let roomOccupants = $('<p/>').html(rooms[i].occupants).appendTo(roomDesc);
+        let occDiv = $('<div/>').appendTo(roomDesc);
+        $('<p/>').css('display', 'inline-block').html('Occupants: ').appendTo(occDiv);
+        let roomOccupants = $('<p/>').css('display', 'inline-block').html(rooms[i].occupants).appendTo(occDiv);
         let priceDiv = $('<div/>').appendTo(roomDesc);
         $('<p/>').css('display', 'inline-block').html('$').appendTo(priceDiv);
         let roomPrice = $('<p/>').css('display', 'inline-block').html(rooms[i].price).appendTo(priceDiv);
@@ -396,8 +388,8 @@ function addHotelButton() {
 
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      mgrOverview();
-      loadHotelSidebar();
+        mgrOverview();
+        loadHotelSidebar();
     }
   };
 
@@ -503,6 +495,7 @@ function editRoomDesc(container, editBtn, titleIn, occupantIn, priceIn, contentI
   $(editBtn).addClass('orig').hide();
   $(titleIn).addClass('orig').hide();
   $(occupantIn).addClass('orig').hide();
+  $(occupantIn).siblings().addClass('orig').hide();
   $(priceIn).addClass('orig').hide();
   $(priceIn).siblings().addClass('orig').hide();
   $(contentIn).addClass('orig').hide();
@@ -613,10 +606,10 @@ function editRoomDesc(container, editBtn, titleIn, occupantIn, priceIn, contentI
         xhttp.open('POST', 'changeRoomDetails.json', true);
         xhttp.setRequestHeader('Content-type', 'application/json');
         xhttp.send(JSON.stringify({
-          'hotelid': hotel.hotel_id,
+          'hotel_id': hotel.hotel_id,
           'roomprice': inputPricearea.val(),
           'occupants': inputOccupantarea.val(),
-          'roomid': hotelRooms.room_id,
+          'room_id': hotelRooms.room_id,
           'desc': inputTextarea.val(),
           'title': inputTitlearea.val()
         }));
