@@ -298,23 +298,21 @@ router.post('/addReview', function(req, res) {
 router.post('/changeUserDetail', function(req, res) {
   req.pool.getConnection(function(err, connection) {
     if (err) {throw err;}
-
-    if (req.body.firstName != undefined) {
-      var query = "update users set name_first = ? where user_id = ?"+
-      "' update users set name_last = ? where user_id = ? ;";
-      connection.query(query, [req.body.firstName,sessions[req.session.id].user_id, req.body.lastName, sessions[req.session.id].user_id],function(err, results) {
+    if (req.body.firstName != undefined || req.body.lastName != undefined) {
+      var query = "update users set name_first = ? , name_last = ? where user_id = ? ;";
+      connection.query(query, [req.body.firstName, req.body.lastName,sessions[req.session.id].user_id],function(err, results) {
         connection.release();
         res.send('');
       });
     }else if (req.body.address != undefined) {
       var query = "update users set address = ? where user_id = ? ;";
-      connection.query(query, [req.body.address, sessions[req.session.id].user_id], function(err, results) {
+      connection.query(query, [req.body.address,sessions[req.session.id].user_id], function(err, results) {
         connection.release();
         res.send('');
       });
     }else if (req.body.phoneNumber != undefined) {
       var query = "update users set phone_number = ? where user_id = ? ;";
-      connection.query(query, [req.body.phonenumber, sessions[req.session.id].user_id], function(err, results) {
+      connection.query(query, [req.body.phoneNumber,sessions[req.session.id].user_id], function(err, results) {
         connection.release();
         res.send('');
       });
@@ -478,7 +476,16 @@ router.get('/usersession.json', function(req, res, next) {
       'login': 0
     });
   } else {
-    res.send(sessions[req.session.id]);
+
+    req.pool.getConnection(function(err, connection) {
+      if (err) throw err;
+      let query = 'select * from users where user_id = ?';
+      connection.query(query, sessions[req.session.id].user_id, function(err, results) {
+        connection.release();
+        res.send(results[0]);
+      });
+    });
+
   }
 });
 
